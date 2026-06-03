@@ -425,11 +425,7 @@ const Index = () => {
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
-                className="rounded-2xl overflow-hidden"
-                style={{
-                  backgroundColor: '#1a1a1a',
-                  border: '1px solid rgba(255, 215, 0, 0.08)',
-                }}
+                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]"
               >
                 <div
                   className="relative w-full h-[160px] flex items-center justify-center p-4"
