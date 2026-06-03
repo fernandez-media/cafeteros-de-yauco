@@ -70,11 +70,11 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hidden pb-2">
+        <div className="flex gap-4 overflow-x-auto scrollbar-hidden pb-2 items-stretch">
           {previewGames.map((game, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex-shrink-0 w-[260px] rounded-2xl p-5 border"
+                className="flex flex-col w-[260px] h-[230px] rounded-2xl p-5 border"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: 'rgba(255, 215, 0, 0.08)',
@@ -85,7 +85,7 @@ const Index = () => {
                     {game.date} &middot; {game.time}
                   </span>
                   <span
-                    className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                    className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{
                       backgroundColor: game.isHome
                         ? 'rgba(255, 215, 0, 0.15)'
@@ -99,7 +99,7 @@ const Index = () => {
                 <div className="flex items-center gap-3 mb-3">
                   <img
                     src="/assets/CafeterosLogo.png"
-                    alt="Cafeteros"
+                    alt="Cafeteros de Yauco"
                     className="w-9 h-9 object-contain"
                   />
                   <span className="text-white/30 text-xs font-bold">VS</span>
@@ -120,10 +120,10 @@ const Index = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-white font-display font-bold text-base uppercase m-0">
-                  Cafeteros vs {game.opponent}
+                <p className="text-white font-display font-bold text-sm uppercase m-0 line-clamp-2">
+                  Cafeteros de Yauco vs {game.opponent}
                 </p>
-                <p className="text-white/40 text-xs mt-1 m-0 flex items-center gap-1">
+                <div className="mt-auto pt-2 text-white/40 text-xs flex items-start gap-1">
                   <svg
                     width="12"
                     height="12"
@@ -133,12 +133,13 @@ const Index = () => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className="flex-shrink-0 mt-0.5"
                   >
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  {game.location}
-                </p>
+                  <span className="line-clamp-2">{game.location}</span>
+                </div>
               </div>
             </ScrollReveal>
           ))}
