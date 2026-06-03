@@ -105,7 +105,7 @@ const ImageSlider = () => {
   return (
     <div
       ref={containerRef}
-      className="slider-container w-full overflow-x-auto cursor-grab select-none"
+      className="slider-container scrollbar-hidden w-full overflow-x-auto cursor-grab select-none"
       style={{
         display: 'flex',
         gap: `${ITEM_GAP}px`,
