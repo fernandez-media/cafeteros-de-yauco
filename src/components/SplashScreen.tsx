@@ -27,29 +27,11 @@ const SplashScreen = () => {
         }}
       />
 
-      <div className="splash-loader flex items-center justify-center gap-2">
+      <div className="loader">
         {[0, 1, 2, 3, 4].map((i) => (
-          <div key={i} className="relative flex items-center justify-center">
-            <div
-              className="circle"
-              style={{ animationDelay: `${i * 0.2}s` }}
-            >
-              <div
-                className="dot absolute inset-0 rounded-full"
-                style={{
-                  backgroundColor: '#FFD700',
-                  animation: 'dot-keys 0.8s ease-in-out infinite alternate',
-                  animationDelay: `${i * 0.2}s`,
-                }}
-              />
-              <div
-                className="outline absolute inset-0 rounded-full"
-                style={{
-                  animation: 'outline-keys 0.8s ease-in-out infinite alternate',
-                  animationDelay: `${i * 0.2}s`,
-                }}
-              />
-            </div>
+          <div key={i} className="circle">
+            <div className="dot" />
+            <div className="outline" />
           </div>
         ))}
       </div>
