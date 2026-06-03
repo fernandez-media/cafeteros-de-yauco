@@ -1,25 +1,17 @@
-# Rediseño del card del calendario (preview en home)
+## Aumentar textos en tarjetas de calendario (preview)
 
-## Cambios en `src/pages/Index.tsx` (cards del calendario)
+### Problema
+Los textos en las tarjetas del calendario preview quedaron muy pequeños (`text-sm` para nombres de equipos, `text-xs` para "vs" y fecha) y hay mucho espacio vacío dentro de la tarjeta de `h-[280px]`.
 
-**Logos más grandes y centralizados**
-- Reemplazar la fila actual `flex items-center gap-3` por un bloque centrado: `flex items-center justify-center gap-4`.
-- Aumentar el logo de Cafeteros de `w-9 h-9` a `w-16 h-16`.
-- Aumentar el contenedor del rival (placeholder circular con el ícono de globo) de `w-9 h-9` a `w-16 h-16`, y agrandar el SVG interior de 18 a 32.
-- Aumentar el "VS" central: de `text-xs` a `text-base font-display font-bold text-gold`.
+### Cambios propuestos
+1. **Nombres de equipos**: `text-sm` → `text-lg` (18px), mantener `font-bold uppercase`
+2. **"vs" central**: `text-xs` → `text-sm` (14px), mantener `text-white/40`
+3. **Fecha y hora**: `text-xs` → `text-sm` (14px)
+4. **Badge Local/Visitante**: `text-[10px]` → `text-xs` (12px)
+5. **Texto de ubicación**: `text-xs` → `text-sm` (14px)
+6. **Altura de tarjeta**: Reducir de `h-[280px]` a `h-[260px]` para que el contenido más grande llene mejor el espacio sin dejar exceso vacío
 
-**Nombres en tres líneas centradas**
-- Reemplazar el `<p>` actual `Cafeteros de Yauco vs {game.opponent}` por un bloque de 3 líneas centradas:
-  - Línea 1: `Cafeteros de Yauco`
-  - Línea 2: `vs` (en minúsculas, color tenue, tipografía display)
-  - Línea 3: `{game.opponent}`
-- Usar `text-center`, mantener `font-display font-bold uppercase text-sm` para las líneas 1 y 3; la línea "vs" en `text-white/40 text-xs normal-case`.
-- Quitar el `line-clamp-2`.
+### Archivo a modificar
+- `src/pages/Index.tsx` (líneas ~76-160 aprox, sección del preview de calendario)
 
-**Ajustes de altura**
-- Subir la altura del card de `h-[230px]` a `h-[280px]` para acomodar logos más grandes y las 3 líneas sin recortes.
-
-## Fuera de alcance
-- No cambia `Calendario.tsx` (página completa), solo el preview del home.
-- No cambia `src/data/calendar.ts`.
-- Logo del rival sigue siendo el ícono genérico (solo más grande), según lo confirmado.
+No se afecta la lógica ni los datos — solo estilos visuales.
