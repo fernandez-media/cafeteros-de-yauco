@@ -70,7 +70,7 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hidden pb-2 items-stretch">
+        <div className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
           {previewGames.map((game, i) => (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
