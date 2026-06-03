@@ -74,18 +74,18 @@ const Index = () => {
           {previewGames.map((game, i) => (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex flex-col w-[260px] h-[280px] rounded-2xl p-5 border"
+                className="flex flex-col w-[260px] h-[260px] rounded-2xl p-5 border"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: 'rgba(255, 215, 0, 0.08)',
                 }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white/50 text-xs font-semibold uppercase tracking-wide">
+                  <span className="text-white/50 text-sm font-semibold uppercase tracking-wide">
                     {game.date} &middot; {game.time}
                   </span>
                   <span
-                    className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
+                    className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{
                       backgroundColor: game.isHome
                         ? 'rgba(255, 215, 0, 0.15)'
@@ -121,12 +121,12 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="text-center font-display m-0">
-                  <p className="text-white font-bold text-sm uppercase m-0">Cafeteros de Yauco</p>
-                  <p className="text-white/40 text-xs m-0 my-0.5">vs</p>
-                  <p className="text-white font-bold text-sm uppercase m-0">{game.opponent}</p>
+                  <p className="text-white font-bold text-lg uppercase m-0 leading-tight">Cafeteros de Yauco</p>
+                  <p className="text-white/40 text-sm m-0 my-0.5">vs</p>
+                  <p className="text-white font-bold text-lg uppercase m-0 leading-tight">{game.opponent}</p>
                 </div>
 
-                <div className="mt-auto pt-2 text-white/40 text-xs flex items-start gap-1">
+                <div className="mt-auto pt-2 text-white/40 text-sm flex items-start gap-1">
                   <svg
                     width="12"
                     height="12"
