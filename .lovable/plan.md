@@ -1,30 +1,25 @@
-# Arreglar el splash screen inicial
+# Rediseño del card del calendario (preview en home)
 
-## Contexto
+## Cambios en `src/pages/Index.tsx` (cards del calendario)
 
-El splash screen (logo de Cafeteros de Yauco + animación de carga) aparece al entrar a la página principal durante 2.2s. Actualmente el logo se muestra, pero la animación de puntos/círculos dorados abajo no se ve correctamente.
+**Logos más grandes y centralizados**
+- Reemplazar la fila actual `flex items-center gap-3` por un bloque centrado: `flex items-center justify-center gap-4`.
+- Aumentar el logo de Cafeteros de `w-9 h-9` a `w-16 h-16`.
+- Aumentar el contenedor del rival (placeholder circular con el ícono de globo) de `w-9 h-9` a `w-16 h-16`, y agrandar el SVG interior de 18 a 32.
+- Aumentar el "VS" central: de `text-xs` a `text-base font-display font-bold text-gold`.
 
-## Causa raíz
+**Nombres en tres líneas centradas**
+- Reemplazar el `<p>` actual `Cafeteros de Yauco vs {game.opponent}` por un bloque de 3 líneas centradas:
+  - Línea 1: `Cafeteros de Yauco`
+  - Línea 2: `vs` (en minúsculas, color tenue, tipografía display)
+  - Línea 3: `{game.opponent}`
+- Usar `text-center`, mantener `font-display font-bold uppercase text-sm` para las líneas 1 y 3; la línea "vs" en `text-white/40 text-xs normal-case`.
+- Quitar el `line-clamp-2`.
 
-En `src/components/SplashScreen.tsx`, el contenedor de la animación usa la clase `splash-loader`, pero todo el CSS en `src/index.css` (líneas 53–106) está definido bajo el selector `.loader …`. Como las clases no calzan:
+**Ajustes de altura**
+- Subir la altura del card de `h-[230px]` a `h-[280px]` para acomodar logos más grandes y las 3 líneas sin recortes.
 
-- Los `.circle` no reciben ancho (20px), alto, borde dorado, ni la variable `--color`.
-- Los `.dot` y `.outline` no reciben tamaño ni posicionamiento.
-- La variable `--color` (que mapea a `--gold`) queda indefinida, así que el outline animado no tiene color.
-
-Además, los `delay` repetidos vía inline `style` chocan con los `:nth-child` del CSS, duplicando la cadencia.
-
-## Cambios propuestos
-
-**`src/data/calendar.ts`** — ya verificado, no contiene Iguanas ni Changos. No requiere cambios.
-
-**`src/components/SplashScreen.tsx`**
-
-1. Renombrar el contenedor de `splash-loader` a `loader` para que el CSS existente aplique.
-2. Eliminar los estilos inline redundantes (`animation`, `animationDelay`, `backgroundColor`, `inset-0`) en `.dot` y `.outline`, ya que el CSS global ya los define correctamente (color, tamaño, posición, delays por `:nth-child`).
-3. Mantener solo la estructura JSX: `<div class="loader">` con cinco `<div class="circle">`, cada uno conteniendo `<div class="dot">` y `<div class="outline">`.
-4. Conservar el logo y su animación `splashPulse` (esa sí funciona porque usa keyframe global).
-
-## Resultado esperado
-
-Al entrar a `/`, se ve el logo pulsando y debajo los cinco círculos dorados con la animación correcta de dot/outline en cascada, por 2.2s, antes de desvanecerse.
+## Fuera de alcance
+- No cambia `Calendario.tsx` (página completa), solo el preview del home.
+- No cambia `src/data/calendar.ts`.
+- Logo del rival sigue siendo el ícono genérico (solo más grande), según lo confirmado.

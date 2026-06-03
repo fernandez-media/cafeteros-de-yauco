@@ -74,7 +74,7 @@ const Index = () => {
           {previewGames.map((game, i) => (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex flex-col w-[260px] h-[230px] rounded-2xl p-5 border"
+                className="flex flex-col w-[260px] h-[280px] rounded-2xl p-5 border"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: 'rgba(255, 215, 0, 0.08)',
@@ -96,17 +96,17 @@ const Index = () => {
                     {game.isHome ? 'Local' : 'Visitante'}
                   </span>
                 </div>
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center justify-center gap-4 mb-3">
                   <img
                     src="/assets/CafeterosLogo.png"
                     alt="Cafeteros de Yauco"
-                    className="w-9 h-9 object-contain"
+                    className="w-16 h-16 object-contain"
                   />
-                  <span className="text-white/30 text-xs font-bold">VS</span>
-                  <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
+                  <span className="font-display font-bold text-base text-gold">VS</span>
+                  <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
                     <svg
-                      width="18"
-                      height="18"
+                      width="32"
+                      height="32"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="rgba(255,255,255,0.4)"
@@ -120,9 +120,12 @@ const Index = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-white font-display font-bold text-sm uppercase m-0 line-clamp-2">
-                  Cafeteros de Yauco vs {game.opponent}
-                </p>
+                <div className="text-center font-display m-0">
+                  <p className="text-white font-bold text-sm uppercase m-0">Cafeteros de Yauco</p>
+                  <p className="text-white/40 text-xs m-0 my-0.5">vs</p>
+                  <p className="text-white font-bold text-sm uppercase m-0">{game.opponent}</p>
+                </div>
+
                 <div className="mt-auto pt-2 text-white/40 text-xs flex items-start gap-1">
                   <svg
                     width="12"
