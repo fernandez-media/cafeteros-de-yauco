@@ -120,10 +120,14 @@ const Index = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-center font-display m-0">
-                  <p className="text-white font-bold text-lg uppercase m-0 leading-tight">Cafeteros de Yauco</p>
-                  <p className="text-white/40 text-sm m-0 my-0.5">vs</p>
-                  <p className="text-white font-bold text-lg uppercase m-0 leading-tight">{game.opponent}</p>
+                <div className="text-center font-display m-0 px-1">
+                  <p className="text-white font-bold text-base uppercase m-0 leading-tight [text-wrap:balance] break-words hyphens-auto">
+                    Cafeteros de Yauco
+                  </p>
+                  <p className="text-white/40 text-xs m-0 my-1">vs</p>
+                  <p className="text-white font-bold text-base uppercase m-0 leading-tight [text-wrap:balance] break-words hyphens-auto">
+                    {game.opponent}
+                  </p>
                 </div>
 
                 <div className="mt-auto pt-2 text-white/40 text-sm flex items-start gap-1">
