@@ -102,41 +102,54 @@ const Index = () => {
                   </span>
                 </div>
                 <div className="flex items-start justify-center gap-3 mb-3">
-                  <div className="flex flex-col items-center flex-1 min-w-0">
-                    <img
-                      src="/assets/CafeterosLogo.png"
-                      alt="Cafeteros de Yauco"
-                      className="w-16 h-16 object-contain"
-                    />
-                    <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                      Cafeteros de Yauco
-                    </p>
-                  </div>
-                  <span className="font-display font-bold text-base text-gold pt-6">VS</span>
-                  <div className="flex flex-col items-center flex-1 min-w-0">
-                    {game.opponent.toLowerCase().includes('caribes') ? (
-                      <img src={caribesLogo.url} alt="Caribes de San Sebastián" className="w-16 h-16 object-contain" />
-                    ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                      <img src={gigantesLogo.url} alt="Gigantes de Carolina" className="w-16 h-16 object-contain" />
-                    ) : game.opponent.toLowerCase().includes('mets') ? (
-                      <img src={metsLogo.url} alt="Guaynabo Mets" className="w-16 h-16 object-contain" />
-                    ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                      <img src={patriotasLogo.url} alt="Patriotas de Lares" className="w-16 h-16 object-contain" />
-                    ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                      <img src={plataneroslogo.url} alt="Plataneros de Corozal" className="w-16 h-16 object-contain" />
-                    ) : (
-                      <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10" />
-                          <line x1="2" y1="12" x2="22" y2="12" />
-                          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                        </svg>
+                  {(() => {
+                    const cafeterosBlock = (
+                      <div key="cafeteros" className="flex flex-col items-center flex-1 min-w-0">
+                        <img
+                          src="/assets/CafeterosLogo.png"
+                          alt="Cafeteros de Yauco"
+                          className="w-16 h-16 object-contain"
+                        />
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                          Cafeteros de Yauco
+                        </p>
                       </div>
-                    )}
-                    <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                      {game.opponent}
-                    </p>
-                  </div>
+                    );
+                    const opponentBlock = (
+                      <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
+                        {game.opponent.toLowerCase().includes('caribes') ? (
+                          <img src={caribesLogo.url} alt="Caribes de San Sebastián" className="w-16 h-16 object-contain" />
+                        ) : game.opponent.toLowerCase().includes('gigantes') ? (
+                          <img src={gigantesLogo.url} alt="Gigantes de Carolina" className="w-16 h-16 object-contain" />
+                        ) : game.opponent.toLowerCase().includes('mets') ? (
+                          <img src={metsLogo.url} alt="Guaynabo Mets" className="w-16 h-16 object-contain" />
+                        ) : game.opponent.toLowerCase().includes('patriotas') ? (
+                          <img src={patriotasLogo.url} alt="Patriotas de Lares" className="w-16 h-16 object-contain" />
+                        ) : game.opponent.toLowerCase().includes('plataneros') ? (
+                          <img src={plataneroslogo.url} alt="Plataneros de Corozal" className="w-16 h-16 object-contain" />
+                        ) : (
+                          <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="12" cy="12" r="10" />
+                              <line x1="2" y1="12" x2="22" y2="12" />
+                              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                          </div>
+                        )}
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                          {game.opponent}
+                        </p>
+                      </div>
+                    );
+                    const blocks = game.isHome ? [opponentBlock, cafeterosBlock] : [cafeterosBlock, opponentBlock];
+                    return (
+                      <>
+                        {blocks[0]}
+                        <span className="font-display font-bold text-base text-gold pt-6">VS</span>
+                        {blocks[1]}
+                      </>
+                    );
+                  })()}
                 </div>
 
                 {(() => {
