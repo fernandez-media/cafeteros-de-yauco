@@ -12,6 +12,10 @@ const SplashScreen = () => {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-label="Cargando Cafeteros de Yauco"
+      aria-hidden={hidden}
       className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black transition-all duration-500"
       style={{
         opacity: hidden ? 0 : 1,

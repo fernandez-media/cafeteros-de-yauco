@@ -49,6 +49,7 @@ const Partidos = () => {
                     src={embedUrl}
                     title={video.title}
                     loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="absolute inset-0 w-full h-full border-0"

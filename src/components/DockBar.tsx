@@ -91,12 +91,14 @@ const DockBar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className="flex flex-col items-center gap-[3px] px-2.5 py-1.5 rounded-[14px] no-underline transition-colors duration-200"
+              aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
+              className="flex flex-col items-center gap-[3px] px-2.5 py-1.5 rounded-[14px] no-underline transition-colors duration-200 min-w-11 min-h-11 justify-center"
               style={{
                 backgroundColor: isActive ? 'rgba(255, 215, 0, 0.10)' : 'transparent',
               }}
             >
-              <span className="text-white/50">
+              <span className="text-white/50" aria-hidden="true">
                 {item.icon(isActive)}
               </span>
               <span
