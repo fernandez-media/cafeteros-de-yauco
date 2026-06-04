@@ -3,6 +3,7 @@ import yadielNadal from '../assets/players/yadiel-nadal.png.asset.json';
 import axelMelendezWatts from '../assets/players/axel-melendez-watts.png.asset.json';
 import danielRivera from '../assets/players/daniel-rivera.png.asset.json';
 import diegoRosich from '../assets/players/diego-rosich.png.asset.json';
+import diegoNegron from '../assets/players/diego-negron.png.asset.json';
 
 export interface Player {
   number: string;
@@ -24,7 +25,7 @@ export const roster: Player[] = [
   { number: '-', name: 'Axel Melendez Watts', position: 'Esquina', photo: axelMelendezWatts.url },
   { number: '-', name: 'Daniel Rivera', position: 'Esquina', photo: danielRivera.url },
   { number: '-', name: 'Diego Rosich', position: 'Esquina', photo: diegoRosich.url },
-  { number: '-', name: 'Diego Negron', position: 'Esquina' },
+  { number: '-', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
   { number: '-', name: 'Ivan Fernandez', position: 'Bloqueador Central' },
   { number: '-', name: 'Jessie Colon', position: 'Bloqueador Central' },
   { number: '-', name: 'George Acevedo', position: 'Libero' },
