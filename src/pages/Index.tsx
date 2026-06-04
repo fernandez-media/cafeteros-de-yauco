@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageSlider from '../components/ImageSlider';
 import ResponsiveImage from '../components/ResponsiveImage';
+import PlayerAvatar from '../components/PlayerAvatar';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
@@ -459,21 +460,7 @@ const Index = () => {
                 <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
                   {player.number}
                 </span>
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.4)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
+                <PlayerAvatar photo={player.photo} name={player.name} size={40} />
                 <div className="flex-1 min-w-0">
                   <p className="font-display font-bold text-sm text-white uppercase m-0">
                     {player.name}
