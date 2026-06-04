@@ -15,6 +15,7 @@ export interface Player {
   name: string;
   position: string;
   photo?: string;
+  captain?: boolean;
 }
 
 export const staff = [
@@ -27,7 +28,7 @@ export const staff = [
 export const roster: Player[] = [
   { number: '55', name: 'Kevin Rodriguez', position: 'Colocador', photo: kevinRodriguez.url },
   { number: '24', name: 'Arnel Cabrera', position: 'Libero', photo: arnelCabrera.url },
-  { number: '11', name: 'Jessie Colón', position: 'Bloqueador Central', photo: jessieColon.url },
+  { number: '11', name: 'Jessie Colón', position: 'Bloqueador Central', photo: jessieColon.url, captain: true },
   { number: '10', name: 'Iván Fernández', position: 'Bloqueador Central', photo: ivanFernandez.url },
   { number: '6', name: 'Diego Negrón', position: 'Esquina', photo: diegoNegron.url },
   { number: '7', name: 'Axel Melendez Watts', position: 'Esquina', photo: axelMelendezWatts.url },

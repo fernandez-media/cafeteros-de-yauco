@@ -462,8 +462,13 @@ const Index = () => {
                 </span>
                 <PlayerAvatar photo={player.photo} name={player.name} size={40} />
                 <div className="flex-1 min-w-0">
-                  <p className="font-display font-bold text-sm text-white uppercase m-0">
+                  <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
                     {player.name}
+                    {player.captain && (
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-yellow-400 text-black font-display font-bold text-[10px] leading-none">
+                        C
+                      </span>
+                    )}
                   </p>
                   <p className="text-white/40 text-xs mt-0.5 m-0">
                     {player.position}
