@@ -6,16 +6,18 @@ import DockBar from "./DockBar";
 import Footer from "./Footer";
 import SplashScreen from "./SplashScreen";
 
+let splashShown = false;
+
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showSplash, setShowSplash] = useState(false);
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
+  const [showSplash, setShowSplash] = useState(isHomePage && !splashShown);
 
   useEffect(() => {
-    if (isHomePage) {
-      setShowSplash(true);
+    if (isHomePage && !splashShown) {
+      splashShown = true;
       document.body.style.overflow = "hidden";
       const timer = setTimeout(() => {
         setShowSplash(false);
@@ -25,10 +27,9 @@ const Layout = () => {
         clearTimeout(timer);
         document.body.style.overflow = "";
       };
-    } else {
-      setShowSplash(false);
     }
   }, [isHomePage]);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
