@@ -106,7 +106,7 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
+        <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hidden py-4 -my-2 items-stretch">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
