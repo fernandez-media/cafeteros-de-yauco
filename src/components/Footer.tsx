@@ -12,7 +12,7 @@ const Footer = () => {
         <img
           src="/assets/CafeterosLogo.png"
           alt="Cafeteros de Yauco"
-          className="h-14 mb-3 object-contain"
+          className="h-12 sm:h-14 mb-2 sm:mb-3 object-contain"
         />
 
         {/* Description */}
