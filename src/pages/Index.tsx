@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageSlider from '../components/ImageSlider';
+import ResponsiveImage from '../components/ResponsiveImage';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
@@ -56,13 +57,15 @@ const Index = () => {
           className="absolute inset-0 w-full h-full"
           style={{ animation: 'heroZoom 20s ease-in-out infinite alternate' }}
         >
-          <img
-            src="/assets/HeroSection.JPG"
+          <ResponsiveImage
+            name="hero"
             alt="Cafeteros de Yauco"
-            width="1920"
-            height="1080"
+            width={1920}
+            height={1080}
+            sizes="100vw"
+            loading="eager"
             fetchPriority="high"
-            decoding="async"
+            pictureClassName="block w-full h-full"
             className="w-full h-full object-cover"
           />
         </div>
@@ -144,13 +147,14 @@ const Index = () => {
                   {(() => {
                     const cafeterosBlock = (
                       <div key="cafeteros" className="flex flex-col items-center flex-1 min-w-0">
-                        <img
-                          src="/assets/CafeterosLogo.png"
+                        <ResponsiveImage
+                          name="cafeteros-logo"
                           alt="Cafeteros de Yauco"
-                          width="64"
-                          height="64"
+                          width={64}
+                          height={64}
+                          sizes="64px"
                           loading="eager"
-                          decoding="async"
+                          pictureClassName="w-16 h-16 inline-flex"
                           className="w-16 h-16 object-contain"
                         />
                         <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
@@ -233,15 +237,15 @@ const Index = () => {
       <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
           <div className="relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)] focus-within:border-gold/80 focus-within:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
-            <img
-              src="/assets/HeroSection.JPG"
+            <ResponsiveImage
+              name="hero"
               alt=""
-              width="1920"
-              height="1080"
-              loading="lazy"
-              decoding="async"
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover"
+              width={1920}
+              height={1080}
+              sizes="100vw"
+              ariaHidden
+              pictureClassName="absolute inset-0 w-full h-full"
+              className="w-full h-full object-cover"
               style={{ opacity: 0.35 }}
             />
             <div
@@ -522,13 +526,12 @@ const Index = () => {
                   className="relative w-full h-[160px] flex items-center justify-center p-4"
                   style={{ backgroundColor: item.bgColor }}
                 >
-                  <img
-                    src={item.image}
+                  <ResponsiveImage
+                    name={item.imageName}
                     alt={item.name}
-                    width="400"
-                    height="400"
-                    loading="lazy"
-                    decoding="async"
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 640px) 45vw, 320px"
                     className="max-w-full max-h-full object-contain"
                   />
                   <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
@@ -584,21 +587,16 @@ const Index = () => {
         </ScrollReveal>
 
         <div className="grid grid-cols-2 gap-3">
-          {[
-            '/assets/DSC01912.png',
-            '/assets/DSC04629.png',
-            '/assets/DSC04710.png',
-            '/assets/DSC04989.png',
-          ].map((src, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+          {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
+            <ScrollReveal key={name} delay={i * 0.05}>
               <div className="rounded-2xl overflow-hidden aspect-square">
-                <img
-                  src={src}
+                <ResponsiveImage
+                  name={name}
                   alt={`Cafeteros gallery ${i + 1}`}
-                  width="600"
-                  height="600"
-                  loading="lazy"
-                  decoding="async"
+                  width={600}
+                  height={600}
+                  sizes="(max-width: 640px) 45vw, 320px"
+                  pictureClassName="block w-full h-full"
                   className="w-full h-full object-cover"
                 />
               </div>
