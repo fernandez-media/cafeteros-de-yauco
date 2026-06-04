@@ -6,6 +6,7 @@ import diegoRosich from '../assets/players/diego-rosich.png.asset.json';
 import diegoNegron from '../assets/players/diego-negron.png.asset.json';
 import ivanFernandez from '../assets/players/ivan-fernandez.png.asset.json';
 import jessieColon from '../assets/players/jessie-colon.png.asset.json';
+import georgeAcevedo from '../assets/players/george-acevedo.png.asset.json';
 
 export interface Player {
   number: string;
@@ -30,7 +31,7 @@ export const roster: Player[] = [
   { number: '-', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
   { number: '-', name: 'Ivan Fernandez', position: 'Bloqueador Central', photo: ivanFernandez.url },
   { number: '-', name: 'Jessie Colon', position: 'Bloqueador Central', photo: jessieColon.url },
-  { number: '-', name: 'George Acevedo', position: 'Libero' },
+  { number: '-', name: 'George Acevedo', position: 'Libero', photo: georgeAcevedo.url },
   { number: '-', name: 'Willy Varela Diaz', position: 'Bloqueador Central' },
   { number: '24', name: 'Arnel Cabrera Rivera', position: 'Libero' },
 ];
