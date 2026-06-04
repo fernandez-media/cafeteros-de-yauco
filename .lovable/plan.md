@@ -1,23 +1,22 @@
-# Plan: Gold glow on active match card while scrolling Calendario
+# Plan: Forzar nueva pestaña en todas las tarjetas de noticias
 
-Replicate the home page calendar preview's "active card" highlight on the full Calendario page, but tracking vertical scroll (the page scrolls vertically, not horizontally like the home preview).
+Las tres ubicaciones de tarjetas de noticias ya usan `target="_blank"` + `rel="noopener noreferrer"`, pero algunos contextos (PWA standalone en iOS, webviews dentro de apps, ciertos navegadores móviles) ignoran `target="_blank"` y abren el enlace en la misma vista. Vamos a reforzarlo con un handler explícito.
 
-## Changes
+## Cambios
 
-**File:** `src/pages/Calendario.tsx`
+**Archivos:** `src/pages/Index.tsx` y `src/pages/Noticias.tsx`
 
-1. Add `useRef`, `useState`, `useEffect` imports.
-2. Track an `activeIndex` state and a `cardRefs` array of refs to each card.
-3. On window `scroll` (and on mount/resize), compute which card's vertical center is closest to the viewport center. Set that as `activeIndex`. Use `{ passive: true }` and clean up on unmount.
-4. Apply the same highlight styling used on the home page to the active card:
-   - Border color: `rgba(255, 215, 0, 0.8)` when active, current `rgba(255, 215, 0, 0.08)` otherwise.
-   - Box shadow: `0 0 24px rgba(255, 215, 0, 0.45)` when active, `none` otherwise.
-   - Add `transition-[border-color,box-shadow] duration-300` to smooth the change.
-5. Attach `ref={(el) => { cardRefs.current[i] = el; }}` to each card's root `div`.
+Para cada uno de los 3 enlaces de noticia (featured + 2 side en Index, lista completa en Noticias):
 
-No other styling, layout, content, badges, logos, venue text, or navigation changes.
+1. Mantener `href`, `target="_blank"`, `rel="noopener noreferrer"` (para accesibilidad, SEO y middle-click).
+2. Añadir un `onClick` que:
+   - Llama a `e.preventDefault()`.
+   - Ejecuta `window.open(article.url, '_blank', 'noopener,noreferrer')`.
+   - Esto se ejecuta dentro del gesto de clic del usuario, lo que evita el bloqueo de popups y fuerza una pestaña/ventana nueva en navegadores que ignoran `target="_blank"` en `<a>`.
 
-## Notes
+No se toca ningún estilo, layout, dato, imagen, ni la navegación interna (las `<Link>` de react-router como "Ver todo" siguen igual). Los videos no se modifican.
 
-- Uses vertical-center proximity (instead of the home page's horizontal-center proximity) because the Calendario list scrolls vertically.
-- No new dependencies.
+## Notas técnicas
+
+- Se usa el mismo patrón en los 3 sitios: handler inline pequeño `onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}` (y `featuredArticle.url` para el destacado).
+- Sin dependencias nuevas.
