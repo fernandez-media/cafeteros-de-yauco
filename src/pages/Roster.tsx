@@ -60,8 +60,8 @@ const Roster = () => {
                   <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
                     {player.name}
                     {player.captain && (
-                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-yellow-400 text-black font-display font-bold text-[10px] leading-none">
-                        C
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-yellow-400/20 text-yellow-400 font-display font-bold text-[9px] leading-none uppercase tracking-wider">
+                        capitán
                       </span>
                     )}
                   </p>
