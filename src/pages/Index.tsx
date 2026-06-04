@@ -16,7 +16,7 @@ import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
-  const previewRoster = roster.slice(0, 5);
+  const previewRoster = roster.slice(0, 7);
   const featuredArticle = news[0];
   const sideArticles = news.slice(1, 3);
 
