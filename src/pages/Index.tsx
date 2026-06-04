@@ -79,7 +79,7 @@ const Index = () => {
           {previewGames.map((game, i) => (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex flex-col w-[260px] h-[260px] rounded-2xl p-5 border"
+                className="flex flex-col w-[260px] rounded-2xl p-5 border"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: 'rgba(255, 215, 0, 0.08)',
