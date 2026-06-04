@@ -1,17 +1,42 @@
-## Aumentar textos en tarjetas de calendario (preview)
+## Restructure calendar preview cards in `src/pages/Index.tsx`
 
-### Problema
-Los textos en las tarjetas del calendario preview quedaron muy pequeños (`text-sm` para nombres de equipos, `text-xs` para "vs" y fecha) y hay mucho espacio vacío dentro de la tarjeta de `h-[280px]`.
+Only layout changes inside the calendar preview card (lines ~83–168). No changes to data, colors, date/time, VISITANTE badge, logos, or team-name text content.
 
-### Cambios propuestos
-1. **Nombres de equipos**: `text-sm` → `text-lg` (18px), mantener `font-bold uppercase`
-2. **"vs" central**: `text-xs` → `text-sm` (14px), mantener `text-white/40`
-3. **Fecha y hora**: `text-xs` → `text-sm` (14px)
-4. **Badge Local/Visitante**: `text-[10px]` → `text-xs` (12px)
-5. **Texto de ubicación**: `text-xs` → `text-sm` (14px)
-6. **Altura de tarjeta**: Reducir de `h-[280px]` a `h-[260px]` para que el contenido más grande llene mejor el espacio sin dejar exceso vacío
+### 1. Replace the logos row + separate names block with two vertical team columns
 
-### Archivo a modificar
-- `src/pages/Index.tsx` (líneas ~76-160 aprox, sección del preview de calendario)
+Current structure (simplified):
+```
+[ logo Cafeteros ] [ VS ] [ logo opponent ]
+[ "Cafeteros de Yauco" ]
+[ vs ]
+[ opponent name ]
+```
 
-No se afecta la lógica ni los datos — solo estilos visuales.
+New structure:
+```
+[ logo Cafeteros        VS        logo opponent ]
+[ "Cafeteros de Yauco"            opponent name ]
+```
+
+Implementation:
+- Wrap each logo + its team name in a `flex flex-col items-center` column (no gap between logo and name).
+- Keep the central `VS` between the two columns, vertically centered with the logos (align row at logo height using `items-start` on the row and matching logo height, or center `VS` against the logo with a small top offset so it lines up with the logo, not the name).
+- Team name styling: `text-center uppercase font-bold text-white text-[12px] leading-tight mt-1` (12–13px, tight line-height, directly under logo, no extra spacing).
+- Remove the entire existing block that renders `Cafeteros de Yauco` / `vs` / `{game.opponent}` underneath.
+
+### 2. Venue/location row — single line, icon centered with text
+
+Current: `flex items-start gap-1`, icon has `mt-0.5`, text uses `line-clamp-2` (allows wrapping to 2 lines).
+
+Change to:
+- Container: `flex items-center gap-1.5` (vertical centering, never stacks).
+- Icon: remove `mt-0.5`, keep `flex-shrink-0`.
+- Text: replace `line-clamp-2` with `truncate` (single line, ellipsis if overflow). Add `min-w-0` on the text or container as needed for truncate to work inside flex.
+
+### 3. Card height
+
+Card stays at `h-[260px]`. With the names now inline under the logos and the venue row collapsed to one line, vertical spacing should still fit; `mt-auto` on the venue row keeps it pinned to the bottom.
+
+### Out of scope
+- No edits to `src/data/calendar.ts`, `src/pages/Calendario.tsx`, or any other file.
+- No color, font-family, badge, date/time, or logo changes.

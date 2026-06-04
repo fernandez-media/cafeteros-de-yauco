@@ -101,73 +101,45 @@ const Index = () => {
                     {game.isHome ? 'Local' : 'Visitante'}
                   </span>
                 </div>
-                <div className="flex items-center justify-center gap-4 mb-3">
-                  <img
-                    src="/assets/CafeterosLogo.png"
-                    alt="Cafeteros de Yauco"
-                    className="w-16 h-16 object-contain"
-                  />
-                  <span className="font-display font-bold text-base text-gold">VS</span>
-                  {game.opponent.toLowerCase().includes('caribes') ? (
+                <div className="flex items-start justify-center gap-3 mb-3">
+                  <div className="flex flex-col items-center flex-1 min-w-0">
                     <img
-                      src={caribesLogo.url}
-                      alt="Caribes de San Sebastián"
+                      src="/assets/CafeterosLogo.png"
+                      alt="Cafeteros de Yauco"
                       className="w-16 h-16 object-contain"
                     />
-                  ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                    <img
-                      src={gigantesLogo.url}
-                      alt="Gigantes de Carolina"
-                      className="w-16 h-16 object-contain"
-                    />
-                  ) : game.opponent.toLowerCase().includes('mets') ? (
-                    <img
-                      src={metsLogo.url}
-                      alt="Guaynabo Mets"
-                      className="w-16 h-16 object-contain"
-                    />
-                  ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                    <img
-                      src={patriotasLogo.url}
-                      alt="Patriotas de Lares"
-                      className="w-16 h-16 object-contain"
-                    />
-                  ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                    <img
-                      src={plataneroslogo.url}
-                      alt="Plataneros de Corozal"
-                      className="w-16 h-16 object-contain"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                      <svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="rgba(255,255,255,0.4)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="2" y1="12" x2="22" y2="12" />
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div className="text-center font-display m-0 px-1">
-                  <p className="text-white font-bold text-base uppercase m-0 leading-tight [text-wrap:balance] break-words hyphens-auto">
-                    Cafeteros de Yauco
-                  </p>
-                  <p className="text-white/40 text-xs m-0 my-1">vs</p>
-                  <p className="text-white font-bold text-base uppercase m-0 leading-tight [text-wrap:balance] break-words hyphens-auto">
-                    {game.opponent}
-                  </p>
+                    <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                      Cafeteros de Yauco
+                    </p>
+                  </div>
+                  <span className="font-display font-bold text-base text-gold pt-6">VS</span>
+                  <div className="flex flex-col items-center flex-1 min-w-0">
+                    {game.opponent.toLowerCase().includes('caribes') ? (
+                      <img src={caribesLogo.url} alt="Caribes de San Sebastián" className="w-16 h-16 object-contain" />
+                    ) : game.opponent.toLowerCase().includes('gigantes') ? (
+                      <img src={gigantesLogo.url} alt="Gigantes de Carolina" className="w-16 h-16 object-contain" />
+                    ) : game.opponent.toLowerCase().includes('mets') ? (
+                      <img src={metsLogo.url} alt="Guaynabo Mets" className="w-16 h-16 object-contain" />
+                    ) : game.opponent.toLowerCase().includes('patriotas') ? (
+                      <img src={patriotasLogo.url} alt="Patriotas de Lares" className="w-16 h-16 object-contain" />
+                    ) : game.opponent.toLowerCase().includes('plataneros') ? (
+                      <img src={plataneroslogo.url} alt="Plataneros de Corozal" className="w-16 h-16 object-contain" />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="2" y1="12" x2="22" y2="12" />
+                          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        </svg>
+                      </div>
+                    )}
+                    <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                      {game.opponent}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="mt-auto pt-2 text-white/40 text-sm flex items-start gap-1">
+                <div className="mt-auto pt-2 text-white/40 text-sm flex items-center gap-1.5 min-w-0">
                   <svg
                     width="12"
                     height="12"
@@ -177,12 +149,12 @@ const Index = () => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="flex-shrink-0 mt-0.5"
+                    className="flex-shrink-0"
                   >
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span className="line-clamp-2">{game.location}</span>
+                  <span className="truncate min-w-0">{game.location}</span>
                 </div>
               </div>
             </ScrollReveal>
