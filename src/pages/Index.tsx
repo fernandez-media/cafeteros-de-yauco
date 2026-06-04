@@ -156,7 +156,7 @@ const Index = () => {
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
-          <div className="relative rounded-2xl overflow-hidden border-2 border-gold">
+          <div className="relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)] focus-within:border-gold/80 focus-within:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
             <img
               src="/assets/HeroSection.JPG"
               alt=""
