@@ -9,7 +9,6 @@ const Roster = () => {
       <PageHero
         title="Roster"
         goldWord="Roster"
-        subtitle={`Temporada 2025 · ${roster.length} Jugadores`}
       />
 
       <div className="px-5 pt-4 pb-4">
