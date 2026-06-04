@@ -1,3 +1,5 @@
+import ResponsiveImage from './ResponsiveImage';
+
 interface PageHeroProps {
   title: string;
   subtitle?: string;
@@ -25,14 +27,15 @@ const PageHero = ({ title, subtitle, goldWord }: PageHeroProps) => {
   return (
     <div className="relative w-full h-[200px] overflow-hidden">
       {/* Background Image */}
-      <img
-        src="/assets/HeroSection.JPG"
+      <ResponsiveImage
+        name="hero"
         alt=""
-        width="1920"
-        height="600"
-        aria-hidden="true"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover opacity-30"
+        width={1920}
+        height={600}
+        sizes="100vw"
+        ariaHidden
+        pictureClassName="absolute inset-0 w-full h-full"
+        className="w-full h-full object-cover opacity-30"
       />
 
       {/* Gradient Overlay */}

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
+import ResponsiveImage from '../components/ResponsiveImage';
 import { calendar } from '../data/calendar';
 
 const Calendario = () => {
@@ -56,13 +57,14 @@ const Calendario = () => {
                 </span>
               </div>
               <div className="flex items-center gap-3 mb-3">
-                <img
-                  src="/assets/CafeterosLogo.png"
+                <ResponsiveImage
+                  name="cafeteros-logo"
                   alt="Cafeteros"
-                  width="36"
-                  height="36"
+                  width={36}
+                  height={36}
+                  sizes="36px"
                   loading="eager"
-                  decoding="async"
+                  pictureClassName="w-9 h-9 inline-flex"
                   className="w-9 h-9 object-contain"
                 />
                 <span className="text-white/30 text-xs font-bold">VS</span>

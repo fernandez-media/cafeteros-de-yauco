@@ -1,15 +1,16 @@
 import { useRef, useEffect, useCallback } from 'react';
+import ResponsiveImage, { type ImageName } from './ResponsiveImage';
 
-const images = [
-  '/assets/DSC01912.png',
-  '/assets/DSC04629.png',
-  '/assets/DSC04710.png',
-  '/assets/DSC04989.png',
-  '/assets/HeroSection.JPG',
+const images: ImageName[] = [
+  'dsc01912',
+  'dsc04629',
+  'dsc04710',
+  'dsc04989',
+  'hero',
 ];
 
 // Triple the images for seamless infinite loop
-const allImages = [...images, ...images, ...images];
+const allImages: ImageName[] = [...images, ...images, ...images];
 
 const ITEM_WIDTH = 220;
 const ITEM_GAP = 12;
@@ -120,7 +121,7 @@ const ImageSlider = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {allImages.map((src, index) => (
+      {allImages.map((name, index) => (
         <div
           key={index}
           className="flex-shrink-0 rounded-[10px] overflow-hidden"
@@ -129,15 +130,16 @@ const ImageSlider = () => {
             height: '160px',
           }}
         >
-          <img
-            src={src}
+          <ResponsiveImage
+            name={name}
             alt={`Cafeteros gallery ${(index % images.length) + 1}`}
-            width="220"
-            height="160"
+            width={220}
+            height={160}
+            sizes="220px"
             loading={index < images.length ? 'eager' : 'lazy'}
-            decoding="async"
-            className="w-full h-full object-cover pointer-events-none"
             draggable={false}
+            pictureClassName="block w-full h-full pointer-events-none"
+            className="w-full h-full object-cover pointer-events-none"
           />
         </div>
       ))}

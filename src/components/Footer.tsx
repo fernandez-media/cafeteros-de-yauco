@@ -1,3 +1,5 @@
+import ResponsiveImage from './ResponsiveImage';
+
 const Footer = () => {
   return (
     <footer
@@ -9,14 +11,14 @@ const Footer = () => {
       {/* Main Section */}
       <div className="pt-6 pb-4 sm:pt-8 sm:pb-6 flex flex-col items-center px-4 sm:px-6">
         {/* Logo */}
-        <img
-          src="/assets/CafeterosLogo.png"
+        <ResponsiveImage
+          name="cafeteros-logo"
           alt="Cafeteros de Yauco"
-          width="56"
-          height="56"
-          loading="lazy"
-          decoding="async"
-          className="h-12 sm:h-14 mb-2 sm:mb-3 object-contain"
+          width={56}
+          height={56}
+          sizes="56px"
+          pictureClassName="h-12 sm:h-14 mb-2 sm:mb-3 inline-flex"
+          className="h-12 sm:h-14 w-auto object-contain"
         />
 
         {/* Description */}

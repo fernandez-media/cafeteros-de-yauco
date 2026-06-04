@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
+import ResponsiveImage from '../components/ResponsiveImage';
 
 const Nosotros = () => {
   return (
@@ -66,21 +67,16 @@ const Nosotros = () => {
 
         {/* Photo Gallery 2x2 */}
         <div className="grid grid-cols-2 gap-3">
-          {[
-            '/assets/DSC01912.png',
-            '/assets/DSC04629.png',
-            '/assets/DSC04710.png',
-            '/assets/DSC04989.png',
-          ].map((src, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+          {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
+            <ScrollReveal key={name} delay={i * 0.05}>
               <div className="rounded-2xl overflow-hidden aspect-square">
-                <img
-                  src={src}
+                <ResponsiveImage
+                  name={name}
                   alt={`Cafeteros de Yauco ${i + 1}`}
-                  width="600"
-                  height="600"
-                  loading="lazy"
-                  decoding="async"
+                  width={600}
+                  height={600}
+                  sizes="(max-width: 640px) 45vw, 320px"
+                  pictureClassName="block w-full h-full"
                   className="w-full h-full object-cover"
                 />
               </div>

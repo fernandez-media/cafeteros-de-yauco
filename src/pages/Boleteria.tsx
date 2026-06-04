@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
+import ResponsiveImage from '../components/ResponsiveImage';
 
 const Boleteria = () => {
   return (
@@ -38,15 +39,16 @@ const Boleteria = () => {
               border: '1px solid rgba(255, 215, 0, 0.08)',
             }}
           >
-            <img
-              src="/assets/HeroSection.JPG"
+            <ResponsiveImage
+              name="hero"
               alt=""
-              width="1920"
-              height="800"
+              width={1920}
+              height={800}
+              sizes="100vw"
               loading="eager"
-              decoding="async"
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover"
+              ariaHidden
+              pictureClassName="absolute inset-0 w-full h-full"
+              className="w-full h-full object-cover"
               style={{ opacity: 0.2 }}
             />
             <div

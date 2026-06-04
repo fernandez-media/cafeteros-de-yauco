@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ResponsiveImage from './ResponsiveImage';
 
 const SplashScreen = () => {
   const [hidden, setHidden] = useState(false);
@@ -22,17 +23,17 @@ const SplashScreen = () => {
         visibility: hidden ? 'hidden' : 'visible',
       }}
     >
-      <img
-        src="/assets/CafeterosLogo.png"
+      <ResponsiveImage
+        name="cafeteros-logo"
         alt="Cafeteros de Yauco"
-        width="180"
-        height="180"
+        width={180}
+        height={180}
+        sizes="180px"
+        loading="eager"
         fetchPriority="high"
-        decoding="async"
-        className="splash-logo w-[180px] mb-10"
-        style={{
-          animation: 'splashPulse 1.6s ease-in-out infinite',
-        }}
+        pictureClassName="splash-logo w-[180px] mb-10 inline-flex"
+        className="w-[180px] h-auto"
+        style={{ animation: 'splashPulse 1.6s ease-in-out infinite' }}
       />
 
       <div className="loader">
