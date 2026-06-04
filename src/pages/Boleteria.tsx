@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
+import ResponsiveImage from '../components/ResponsiveImage';
 
 const Boleteria = () => {
   return (
