@@ -98,10 +98,22 @@ const navLinks = [
 ];
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
   return (
     <>
       {/* Overlay */}
-      <div
+      <button
+        type="button"
+        aria-label="Cerrar menú"
+        tabIndex={isOpen ? 0 : -1}
         className="fixed inset-0 z-[900] bg-black/70 transition-opacity duration-300"
         style={{
           opacity: isOpen ? 1 : 0,
@@ -112,6 +124,11 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
       {/* Sidebar Panel */}
       <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú principal"
+        aria-hidden={!isOpen}
+        {...(!isOpen ? { inert: '' as unknown as boolean } : {})}
         className="fixed left-0 top-0 w-[280px] h-full z-[950] pt-20 px-6 pb-10 flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{
           backgroundColor: '#1a1a1a',
@@ -120,7 +137,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         }}
       >
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto" aria-label="Navegación principal">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -128,7 +145,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               onClick={onClose}
               className="flex items-center gap-3.5 py-4 font-display text-lg font-semibold uppercase tracking-wider text-white/70 transition-all duration-200 hover:text-gold hover:translate-x-[4px] no-underline"
             >
-              <span className="flex-shrink-0 text-gold/60">{link.icon}</span>
+              <span className="flex-shrink-0 text-gold/60" aria-hidden="true">{link.icon}</span>
               {link.label}
             </Link>
           ))}
