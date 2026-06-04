@@ -346,6 +346,7 @@ const Index = () => {
             href={featuredArticle.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => { e.preventDefault(); window.open(featuredArticle.url, '_blank', 'noopener,noreferrer'); }}
             className="block rounded-2xl overflow-hidden mb-4 no-underline"
             style={{
               backgroundColor: '#1a1a1a',
@@ -391,6 +392,7 @@ const Index = () => {
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
                 className="flex gap-3 rounded-2xl p-3 no-underline"
                 style={{
                   backgroundColor: '#1a1a1a',

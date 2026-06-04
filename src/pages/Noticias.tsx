@@ -36,6 +36,7 @@ const Noticias = () => {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
               className="block rounded-2xl overflow-hidden no-underline"
               style={{
                 backgroundColor: '#1a1a1a',
