@@ -83,7 +83,6 @@ const Roster = () => {
           ))}
         </div>
       </div>
-      </div>
 
       {/* Cuerpo Técnico */}
       <div className="px-5 pb-10">
