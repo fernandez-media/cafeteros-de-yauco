@@ -3,6 +3,11 @@ import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
 import ResponsiveImage from '../components/ResponsiveImage';
 import { calendar } from '../data/calendar';
+import caribesLogo from '../assets/caribes-logo.png.asset.json';
+import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
+import metsLogo from '../assets/mets-logo.png.asset.json';
+import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
+import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
 
 const Calendario = () => {
   return (
