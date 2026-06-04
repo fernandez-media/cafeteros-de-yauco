@@ -1,7 +1,10 @@
+import kevinRodriguez from '../assets/players/kevin-rodriguez.png.asset.json';
+
 export interface Player {
   number: string;
   name: string;
   position: string;
+  photo?: string;
 }
 
 export const staff = [
@@ -12,7 +15,7 @@ export const staff = [
 ];
 
 export const roster: Player[] = [
-  { number: '-', name: 'Kevin Rodriguez', position: 'Colocador' },
+  { number: '-', name: 'Kevin Rodriguez', position: 'Colocador', photo: kevinRodriguez.url },
   { number: '-', name: 'Yadiel Nadal', position: 'Colocador' },
   { number: '-', name: 'Axel Melendez Watts', position: 'Esquina' },
   { number: '-', name: 'Daniel Rivera', position: 'Esquina' },
