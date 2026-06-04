@@ -353,7 +353,7 @@ const Index = () => {
                 alt={featuredArticle.title}
                 width="800"
                 height="400"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="w-full h-full object-cover"
               />
