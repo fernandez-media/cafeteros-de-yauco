@@ -1,23 +1,31 @@
 ## Problema
 
-En la sección "Merch" del Index, la imagen de la "Taza de Cafeteros" se ve recortada/desbordada del contenedor blanco de 160px de alto. La causa es que `ResponsiveImage` envuelve el `<img>` en un `<picture>` sin estilos. El `className="max-w-full max-h-full object-contain"` se aplica al `<img>`, pero su padre directo es el `<picture>` (inline, sin altura definida), por lo que `max-h-full` no limita realmente la altura al contenedor de 160px. La imagen termina renderizándose a su tamaño intrínseco (~1:1, 400×400), desbordando el área blanca.
+En la sección Merch del Index, la "Taza de Cafeteros" y la t-shirt "El Código del Café" se ven pegadas al borde del área blanca (la taza toca el fondo, la tee llega al borde inferior), mientras que "La Cuna" y "Windbreaker" tienen whitespace alrededor del producto.
+
+La causa no es desbordamiento real del contenedor (ya está `overflow-hidden` + `object-contain`), sino que esas dos imágenes fuente **no traen margen interno**: ocupan todo su lienzo. Al renderizarse a 160px de alto con `p-4`, llegan al borde y parecen "sobresalir" visualmente comparadas con las otras dos, que sí traen aire propio.
 
 ## Solución
 
-Propagar la restricción de tamaño al elemento `<picture>` usando la prop `pictureClassName` que ya existe en `ResponsiveImage`, en la grilla de merch de `src/pages/Index.tsx`.
+Aumentar el padding del contenedor de imagen de `p-4` a `p-6` en la grilla de merch para dar más aire a las imágenes apretadas, sin afectar las que ya tenían whitespace (siguen viéndose bien, solo un poco más pequeñas y centradas).
 
 ### Cambio
 
-En `src/pages/Index.tsx` (línea ~521), añadir a `<ResponsiveImage>`:
+En `src/pages/Index.tsx` (línea ~518), cambiar:
 
 ```tsx
-pictureClassName="max-w-full max-h-full flex items-center justify-center"
+className="relative w-full h-[160px] flex items-center justify-center p-4"
 ```
 
-Esto hace que el `<picture>` respete el alto/ancho del contenedor (`h-[160px]` con padding) y, combinado con `object-contain` en el `<img>`, la taza se ajustará completamente dentro del área blanca sin desbordar.
+por:
+
+```tsx
+className="relative w-full h-[160px] flex items-center justify-center p-6"
+```
+
+Aplicar el mismo cambio en `src/pages/Merch.tsx` (línea ~46, `h-[180px] ... p-4` → `p-6`) para mantener consistencia en la página completa de Merch.
 
 ### Alcance
 
 - Solo edición visual/presentacional.
-- Un solo archivo: `src/pages/Index.tsx`.
-- No se modifican datos, lógica ni otras secciones.
+- Dos archivos: `src/pages/Index.tsx` y `src/pages/Merch.tsx`.
+- No se modifican datos, lógica ni assets.
