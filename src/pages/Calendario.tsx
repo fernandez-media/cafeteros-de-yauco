@@ -62,15 +62,20 @@ const Calendario = () => {
       </div>
 
       <div className="px-5 pb-10 flex flex-col gap-4">
-        {calendar.map((game, i) => (
+        {calendar.map((game, i) => {
+          const isActive = i === activeIndex;
+          return (
           <ScrollReveal key={i} delay={i * 0.03}>
             <div
-              className="rounded-2xl p-5 border"
+              ref={(el) => { cardRefs.current[i] = el; }}
+              className="rounded-2xl p-5 border transition-[border-color,box-shadow] duration-300"
               style={{
                 backgroundColor: '#1a1a1a',
-                borderColor: 'rgba(255, 215, 0, 0.08)',
+                borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
+                boxShadow: isActive ? '0 0 24px rgba(255, 215, 0, 0.45)' : 'none',
               }}
             >
+
               <div className="flex items-center justify-between mb-3">
                 <span className="text-white/50 text-xs font-semibold uppercase tracking-wide">
                   {game.date} &middot; {game.time}
