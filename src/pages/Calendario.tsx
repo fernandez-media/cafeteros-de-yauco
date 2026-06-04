@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
@@ -10,6 +11,31 @@ import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
 
 const Calendario = () => {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const compute = () => {
+      const center = window.innerHeight / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActiveIndex(best);
+    };
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen -mt-14">
       <PageHero title="Calendario" goldWord="Calendario" subtitle="Proximos Juegos" />
@@ -36,15 +62,20 @@ const Calendario = () => {
       </div>
 
       <div className="px-5 pb-10 flex flex-col gap-4">
-        {calendar.map((game, i) => (
+        {calendar.map((game, i) => {
+          const isActive = i === activeIndex;
+          return (
           <ScrollReveal key={i} delay={i * 0.03}>
             <div
-              className="rounded-2xl p-5 border"
+              ref={(el) => { cardRefs.current[i] = el; }}
+              className="rounded-2xl p-5 border transition-[border-color,box-shadow] duration-300"
               style={{
                 backgroundColor: '#1a1a1a',
-                borderColor: 'rgba(255, 215, 0, 0.08)',
+                borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
+                boxShadow: isActive ? '0 0 24px rgba(255, 215, 0, 0.45)' : 'none',
               }}
             >
+
               <div className="flex items-center justify-between mb-3">
                 <span className="text-white/50 text-xs font-semibold uppercase tracking-wide">
                   {game.date} &middot; {game.time}
@@ -136,7 +167,9 @@ const Calendario = () => {
               </p>
             </div>
           </ScrollReveal>
-        ))}
+          );
+        })}
+
       </div>
     </div>
   );
