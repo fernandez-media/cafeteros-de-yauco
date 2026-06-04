@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
+import ResponsiveImage from '../components/ResponsiveImage';
 import { merch } from '../data/merch';
 
 const Merch = () => {
@@ -44,13 +45,14 @@ const Merch = () => {
                   className="relative w-full h-[180px] flex items-center justify-center p-4"
                   style={{ backgroundColor: item.bgColor }}
                 >
-                  <img
-                    src={item.image}
+                  <ResponsiveImage
+                    name={item.imageName}
                     alt={item.name}
-                    width="400"
-                    height="400"
-                    loading="eager"
-                    decoding="async"
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 640px) 45vw, 320px"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={i === 0 ? 'high' : undefined}
                     className="max-w-full max-h-full object-contain"
                   />
                   <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
