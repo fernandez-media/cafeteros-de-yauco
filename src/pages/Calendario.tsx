@@ -3,6 +3,11 @@ import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
 import ResponsiveImage from '../components/ResponsiveImage';
 import { calendar } from '../data/calendar';
+import caribesLogo from '../assets/caribes-logo.png.asset.json';
+import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
+import metsLogo from '../assets/mets-logo.png.asset.json';
+import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
+import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
 
 const Calendario = () => {
   return (
@@ -56,34 +61,61 @@ const Calendario = () => {
                   {game.isHome ? 'Local' : 'Visitante'}
                 </span>
               </div>
-              <div className="flex items-center gap-3 mb-3">
-                <ResponsiveImage
-                  name="cafeteros-logo"
-                  alt="Cafeteros"
-                  width={36}
-                  height={36}
-                  sizes="36px"
-                  loading="eager"
-                  pictureClassName="w-9 h-9 inline-flex"
-                  className="w-9 h-9 object-contain"
-                />
-                <span className="text-white/30 text-xs font-bold">VS</span>
-                <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.4)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                </div>
+              <div className="flex items-start justify-center gap-3 mb-3">
+                {(() => {
+                  const cafeterosBlock = (
+                    <div key="cafeteros" className="flex flex-col items-center flex-1 min-w-0">
+                      <ResponsiveImage
+                        name="cafeteros-logo"
+                        alt="Cafeteros de Yauco"
+                        width={56}
+                        height={56}
+                        sizes="56px"
+                        loading="eager"
+                        pictureClassName="w-14 h-14 inline-flex"
+                        className="w-14 h-14 object-contain"
+                      />
+                      <p className="text-white font-bold text-[11px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                        Cafeteros de Yauco
+                      </p>
+                    </div>
+                  );
+                  const opp = game.opponent.toLowerCase();
+                  const opponentBlock = (
+                    <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
+                      {opp.includes('caribes') ? (
+                        <img src={caribesLogo.url} alt="Caribes de San Sebastián" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                      ) : opp.includes('gigantes') ? (
+                        <img src={gigantesLogo.url} alt="Gigantes de Carolina" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                      ) : opp.includes('mets') ? (
+                        <img src={metsLogo.url} alt="Guaynabo Mets" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                      ) : opp.includes('patriotas') ? (
+                        <img src={patriotasLogo.url} alt="Patriotas de Lares" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                      ) : opp.includes('plataneros') ? (
+                        <img src={plataneroslogo.url} alt="Plataneros de Corozal" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                      ) : (
+                        <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                          </svg>
+                        </div>
+                      )}
+                      <p className="text-white font-bold text-[11px] uppercase leading-tight text-center mt-1 m-0 break-words">
+                        {game.opponent}
+                      </p>
+                    </div>
+                  );
+                  const blocks = game.isHome ? [opponentBlock, cafeterosBlock] : [cafeterosBlock, opponentBlock];
+                  return (
+                    <>
+                      {blocks[0]}
+                      <span className="font-display font-bold text-base text-gold pt-5">VS</span>
+                      {blocks[1]}
+                    </>
+                  );
+                })()}
               </div>
               <p className="text-white font-display font-bold text-base uppercase m-0">
                 Cafeteros de Yauco vs {game.opponent}
