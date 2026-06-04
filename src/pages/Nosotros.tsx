@@ -56,7 +56,7 @@ const Nosotros = () => {
             </p>
             <p className="text-white/70 text-sm leading-relaxed m-0">
               En enero de 2026, los Cafeteros hicieron historia al ganar su
-              primer campeonato de la LVSM en 55 anos, derrotando a los Caribes
+              primer campeonato de la LVSM en 55 años, derrotando a los Caribes
               de San Sebastian en una emocionante serie final a cinco juegos. Un
               logro que quedo grabado en el corazon de todo Yauco y de Puerto
               Rico.
