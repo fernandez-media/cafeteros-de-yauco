@@ -139,23 +139,33 @@ const Index = () => {
                   </div>
                 </div>
 
-                <div className="mt-auto pt-2 text-white/40 text-sm flex items-center gap-1.5 min-w-0">
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="flex-shrink-0"
-                  >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span className="truncate min-w-0">{game.location}</span>
-                </div>
+                {(() => {
+                  const parts = game.location.split(',').map((s) => s.trim());
+                  const venue = parts[0];
+                  const city = parts.slice(1).join(', ');
+                  return (
+                    <div className="mt-auto pt-2 text-white/40 text-sm flex items-start gap-1.5 min-w-0">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 mt-1"
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <div className="flex flex-col text-left leading-tight min-w-0">
+                        <span>{venue}</span>
+                        {city && <span>{city}</span>}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </ScrollReveal>
           ))}
