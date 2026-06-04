@@ -167,7 +167,9 @@ const Calendario = () => {
               </p>
             </div>
           </ScrollReveal>
-        ))}
+          );
+        })}
+
       </div>
     </div>
   );
