@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageSlider from '../components/ImageSlider';
@@ -16,6 +17,36 @@ const Index = () => {
   const previewRoster = roster.slice(0, 5);
   const featuredArticle = news[0];
   const sideArticles = news.slice(1, 3);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const computeActive = () => {
+      const cRect = container.getBoundingClientRect();
+      const center = cRect.left + cRect.width / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActiveIndex(best);
+    };
+    computeActive();
+    container.addEventListener('scroll', computeActive, { passive: true });
+    window.addEventListener('resize', computeActive);
+    return () => {
+      container.removeEventListener('scroll', computeActive);
+      window.removeEventListener('resize', computeActive);
+    };
+  }, [previewGames.length]);
+
 
   return (
     <div className="min-h-screen">
@@ -75,14 +106,18 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
-          {previewGames.map((game, i) => (
+        <div ref={scrollRef} className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
+          {previewGames.map((game, i) => {
+            const isActive = i === activeIndex;
+            return (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex flex-col w-[260px] rounded-2xl p-5 border"
+                ref={(el) => { cardRefs.current[i] = el; }}
+                className="flex flex-col w-[260px] rounded-2xl p-5 border transition-all duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
-                  borderColor: 'rgba(255, 215, 0, 0.08)',
+                  borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
+                  boxShadow: isActive ? '0 0 24px rgba(255, 215, 0, 0.45)' : 'none',
                 }}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -181,7 +216,8 @@ const Index = () => {
                 })()}
               </div>
             </ScrollReveal>
-          ))}
+            );
+          })}
         </div>
       </section>
 
