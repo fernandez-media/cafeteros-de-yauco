@@ -14,8 +14,6 @@ export const staff = [
 export const roster: Player[] = [
   { number: '-', name: 'Kevin Rodriguez', position: 'Colocador' },
   { number: '-', name: 'Yadiel Nadal', position: 'Colocador' },
-  { number: '-', name: 'Brandon Rattray', position: 'Opuesto' },
-  { number: '20', name: 'Juan Felipe Castaneda', position: 'Esquina' },
   { number: '-', name: 'Axel Melendez Watts', position: 'Esquina' },
   { number: '-', name: 'Daniel Rivera', position: 'Esquina' },
   { number: '-', name: 'Diego Rosich', position: 'Esquina' },
