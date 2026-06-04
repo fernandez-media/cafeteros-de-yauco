@@ -43,6 +43,21 @@ img { display: block; max-width: 100%; }
 a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
 
+/* ========== KEYBOARD FOCUS ========== */
+:focus { outline: none; }
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+iframe:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* ========== SPLASH SCREEN ========== */
 @keyframes splashPulse {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }

@@ -310,6 +310,7 @@ const Index = () => {
               src="https://www.youtube.com/embed/UDEYHpwK2LE"
               title="Serie Final LVSM Juego #3: Caribes vs. Cafeteros"
               loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 w-full h-full border-0 rounded-2xl"
