@@ -49,7 +49,7 @@ const Merch = () => {
                     alt={item.name}
                     width="400"
                     height="400"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     className="max-w-full max-h-full object-contain"
                   />
