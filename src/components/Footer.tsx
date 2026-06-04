@@ -7,23 +7,23 @@ const Footer = () => {
       }}
     >
       {/* Main Section */}
-      <div className="pt-8 pb-6 flex flex-col items-center px-6">
+      <div className="pt-6 pb-4 sm:pt-8 sm:pb-6 flex flex-col items-center px-4 sm:px-6">
         {/* Logo */}
         <img
           src="/assets/CafeterosLogo.png"
           alt="Cafeteros de Yauco"
-          className="h-14 mb-3 object-contain"
+          className="h-12 sm:h-14 mb-2 sm:mb-3 object-contain"
         />
 
         {/* Description */}
-        <p className="text-sm text-white/45 max-w-xs text-center leading-relaxed mb-5">
+        <p className="text-xs sm:text-sm text-white/45 max-w-xs text-center leading-relaxed mb-3 sm:mb-5">
           Equipo de voleibol profesional compitiendo en la Liga de Voleibol
           Superior Masculina de Puerto Rico. Representando a la Ciudad del Cafe
           con orgullo.
         </p>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           {/* Facebook */}
           <a
             href="https://www.facebook.com/CafeterosVoli/?locale=es_LA"
@@ -69,7 +69,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/[0.06] pt-3 pb-[100px] text-center">
+      <div className="border-t border-white/[0.06] mt-2 sm:mt-3 pt-2 sm:pt-3 pb-[100px] text-center">
         <p className="text-xs text-white/25 m-0">
           &copy; 2025 Cafeteros de Yauco. Todos los derechos reservados.
         </p>
