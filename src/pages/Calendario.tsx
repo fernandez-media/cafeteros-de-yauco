@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
@@ -10,6 +11,31 @@ import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
 
 const Calendario = () => {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const compute = () => {
+      const center = window.innerHeight / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActiveIndex(best);
+    };
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen -mt-14">
       <PageHero title="Calendario" goldWord="Calendario" subtitle="Proximos Juegos" />

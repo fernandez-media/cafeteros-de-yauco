@@ -1,31 +1,23 @@
-## Problema
+# Plan: Gold glow on active match card while scrolling Calendario
 
-En la sección Merch del Index, la "Taza de Cafeteros" y la t-shirt "El Código del Café" se ven pegadas al borde del área blanca (la taza toca el fondo, la tee llega al borde inferior), mientras que "La Cuna" y "Windbreaker" tienen whitespace alrededor del producto.
+Replicate the home page calendar preview's "active card" highlight on the full Calendario page, but tracking vertical scroll (the page scrolls vertically, not horizontally like the home preview).
 
-La causa no es desbordamiento real del contenedor (ya está `overflow-hidden` + `object-contain`), sino que esas dos imágenes fuente **no traen margen interno**: ocupan todo su lienzo. Al renderizarse a 160px de alto con `p-4`, llegan al borde y parecen "sobresalir" visualmente comparadas con las otras dos, que sí traen aire propio.
+## Changes
 
-## Solución
+**File:** `src/pages/Calendario.tsx`
 
-Aumentar el padding del contenedor de imagen de `p-4` a `p-6` en la grilla de merch para dar más aire a las imágenes apretadas, sin afectar las que ya tenían whitespace (siguen viéndose bien, solo un poco más pequeñas y centradas).
+1. Add `useRef`, `useState`, `useEffect` imports.
+2. Track an `activeIndex` state and a `cardRefs` array of refs to each card.
+3. On window `scroll` (and on mount/resize), compute which card's vertical center is closest to the viewport center. Set that as `activeIndex`. Use `{ passive: true }` and clean up on unmount.
+4. Apply the same highlight styling used on the home page to the active card:
+   - Border color: `rgba(255, 215, 0, 0.8)` when active, current `rgba(255, 215, 0, 0.08)` otherwise.
+   - Box shadow: `0 0 24px rgba(255, 215, 0, 0.45)` when active, `none` otherwise.
+   - Add `transition-[border-color,box-shadow] duration-300` to smooth the change.
+5. Attach `ref={(el) => { cardRefs.current[i] = el; }}` to each card's root `div`.
 
-### Cambio
+No other styling, layout, content, badges, logos, venue text, or navigation changes.
 
-En `src/pages/Index.tsx` (línea ~518), cambiar:
+## Notes
 
-```tsx
-className="relative w-full h-[160px] flex items-center justify-center p-4"
-```
-
-por:
-
-```tsx
-className="relative w-full h-[160px] flex items-center justify-center p-6"
-```
-
-Aplicar el mismo cambio en `src/pages/Merch.tsx` (línea ~46, `h-[180px] ... p-4` → `p-6`) para mantener consistencia en la página completa de Merch.
-
-### Alcance
-
-- Solo edición visual/presentacional.
-- Dos archivos: `src/pages/Index.tsx` y `src/pages/Merch.tsx`.
-- No se modifican datos, lógica ni assets.
+- Uses vertical-center proximity (instead of the home page's horizontal-center proximity) because the Calendario list scrolls vertically.
+- No new dependencies.
