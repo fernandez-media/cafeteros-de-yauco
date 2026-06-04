@@ -25,15 +25,15 @@ export const staff = [
 ];
 
 export const roster: Player[] = [
-  { number: '-', name: 'Kevin Rodriguez', position: 'Colocador', photo: kevinRodriguez.url },
-  { number: '-', name: 'Yadiel Nadal', position: 'Colocador', photo: yadielNadal.url },
-  { number: '-', name: 'Axel Melendez Watts', position: 'Esquina', photo: axelMelendezWatts.url },
-  { number: '-', name: 'Daniel Rivera', position: 'Esquina', photo: danielRivera.url },
+  { number: '55', name: 'Kevin Rodriguez', position: 'Colocador', photo: kevinRodriguez.url },
+  { number: '26', name: 'Yadiel Nadal', position: 'Colocador', photo: yadielNadal.url },
+  { number: '7', name: 'Axel Melendez Watts', position: 'Esquina', photo: axelMelendezWatts.url },
+  { number: '3', name: 'Daniel Rivera', position: 'Esquina', photo: danielRivera.url },
   { number: '-', name: 'Diego Rosich', position: 'Esquina', photo: diegoRosich.url },
   { number: '-', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
-  { number: '-', name: 'Ivan Fernandez', position: 'Bloqueador Central', photo: ivanFernandez.url },
+  { number: '10', name: 'Ivan Fernandez', position: 'Bloqueador Central', photo: ivanFernandez.url },
   { number: '-', name: 'Jessie Colon', position: 'Bloqueador Central', photo: jessieColon.url },
-  { number: '-', name: 'George Acevedo', position: 'Libero', photo: georgeAcevedo.url },
-  { number: '-', name: 'Willy Varela Diaz', position: 'Bloqueador Central', photo: willyVarela.url },
+  { number: '2', name: 'George Acevedo', position: 'Libero', photo: georgeAcevedo.url },
+  { number: '5', name: 'Willy Varela Diaz', position: 'Bloqueador Central', photo: willyVarela.url },
   { number: '24', name: 'Arnel Cabrera Rivera', position: 'Libero', photo: arnelCabrera.url },
 ];
