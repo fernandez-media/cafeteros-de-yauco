@@ -154,7 +154,7 @@ const Index = () => {
       </section>
 
       {/* ===== BOLETERIA PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
           <div className="relative rounded-2xl overflow-hidden">
             <img
