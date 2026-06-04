@@ -37,7 +37,7 @@ type Props = {
 };
 
 const buildSrcSet = (name: string, widths: readonly number[], ext: 'avif' | 'webp') =>
-  widths.map((w) => `/assets/opt/${name}-${w}.${ext} ${w}w`).join(', ');
+  widths.map((w) => `${import.meta.env.BASE_URL}assets/opt/${name}-${w}.${ext} ${w}w`).join(', ');
 
 const ResponsiveImage: React.FC<Props> = ({
   name,
