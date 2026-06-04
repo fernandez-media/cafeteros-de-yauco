@@ -92,9 +92,9 @@ const Index = () => {
       </section>
 
       {/* ===== CALENDARIO PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="py-10 overflow-visible">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 px-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Calendario
             </h2>
@@ -106,17 +106,17 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hidden py-4 -my-2 items-stretch">
+        <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hidden py-8 px-5 items-stretch">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col w-[260px] rounded-2xl p-5 border transition-all duration-300"
+                className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
-                  borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
+                  borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 255, 255, 0.06)',
                   boxShadow: isActive ? '0 0 24px rgba(255, 215, 0, 0.45)' : 'none',
                 }}
               >
