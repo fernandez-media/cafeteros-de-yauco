@@ -42,7 +42,7 @@ const Merch = () => {
                 }}
               >
                 <div
-                  className="relative w-full h-[180px] flex items-center justify-center p-4"
+                  className="relative w-full h-[180px] flex items-center justify-center p-6"
                   style={{ backgroundColor: item.bgColor }}
                 >
                   <ResponsiveImage
