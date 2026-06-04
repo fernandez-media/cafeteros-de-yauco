@@ -59,6 +59,10 @@ const Calendario = () => {
                 <img
                   src="/assets/CafeterosLogo.png"
                   alt="Cafeteros"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                  decoding="async"
                   className="w-9 h-9 object-contain"
                 />
                 <span className="text-white/30 text-xs font-bold">VS</span>
