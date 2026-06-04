@@ -479,11 +479,11 @@ const Index = () => {
             }}
           >
             <p className="text-white/70 text-sm leading-relaxed m-0">
-              Los Cafeteros de Yauco son un equipo de voleibol profesional que
+               Los Cafeteros de Yauco son un equipo de voleibol profesional que
               compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
               Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
               tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
-              hicieron historia al ganar su primer campeonato en 55 anos.
+              hicieron historia al ganar su primer campeonato en 55 años.
             </p>
           </div>
         </ScrollReveal>

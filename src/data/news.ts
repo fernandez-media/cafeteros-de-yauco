@@ -10,7 +10,7 @@ export interface NewsArticle {
 export const news: NewsArticle[] = [
   {
     source: 'El Nuevo Dia',
-    title: 'Cafeteros ganan el titulo del Voleibol Superior por primera vez en 55 anos',
+    title: 'Cafeteros ganan el titulo del Voleibol Superior por primera vez en 55 años',
     excerpt: 'Yauco derroto a los Caribes de San Sebastian en el quinto juego de la serie final para coronarse campeones de la LVSM.',
     date: '24 de enero, 2026',
     url: 'https://www.elnuevodia.com/deportes/voleibol/notas/historico-yauco-cafeteros-ganan-el-titulo-del-voleibol-superior-por-primera-vez-en-55-anos/',
@@ -18,8 +18,8 @@ export const news: NewsArticle[] = [
   },
   {
     source: 'NotiCel',
-    title: 'Luego de 55 anos, los Cafeteros de Yauco se coronan campeones de la LVSM',
-    excerpt: 'Los Cafeteros ganaron su primer campeonato en 55 anos al vencer a los Caribes de San Sebastian en cinco sets.',
+    title: 'Luego de 55 años, los Cafeteros de Yauco se coronan campeones de la LVSM',
+    excerpt: 'Los Cafeteros ganaron su primer campeonato en 55 años al vencer a los Caribes de San Sebastian en cinco sets.',
     date: '24 de enero, 2026',
     url: 'https://noticel.com/deportes/20260124/luego-de-55-anos-los-cafeteros-de-yauco-se-coronan-campeones-de-la-lvsm/',
     image: 'https://cdn.noticel.com/2026/01/24104122/DSC05006.jpeg',
