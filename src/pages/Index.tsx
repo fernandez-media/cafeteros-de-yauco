@@ -18,6 +18,36 @@ const Index = () => {
   const featuredArticle = news[0];
   const sideArticles = news.slice(1, 3);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const computeActive = () => {
+      const cRect = container.getBoundingClientRect();
+      const center = cRect.left + cRect.width / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActiveIndex(best);
+    };
+    computeActive();
+    container.addEventListener('scroll', computeActive, { passive: true });
+    window.addEventListener('resize', computeActive);
+    return () => {
+      container.removeEventListener('scroll', computeActive);
+      window.removeEventListener('resize', computeActive);
+    };
+  }, [previewGames.length]);
+
+
   return (
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
