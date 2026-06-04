@@ -23,7 +23,7 @@ const Footer = () => {
         </p>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           {/* Facebook */}
           <a
             href="https://www.facebook.com/CafeterosVoli/?locale=es_LA"
