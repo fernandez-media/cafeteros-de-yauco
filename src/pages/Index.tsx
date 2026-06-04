@@ -5,6 +5,7 @@ import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
 import { merch } from '../data/merch';
+import caribesLogo from '../assets/caribes-logo.png.asset.json';
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
@@ -103,22 +104,30 @@ const Index = () => {
                     className="w-16 h-16 object-contain"
                   />
                   <span className="font-display font-bold text-base text-gold">VS</span>
-                  <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="rgba(255,255,255,0.4)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  </div>
+                  {game.opponent.toLowerCase().includes('caribes') ? (
+                    <img
+                      src={caribesLogo.url}
+                      alt="Caribes de San Sebastián"
+                      className="w-16 h-16 object-contain"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.4)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
                 <div className="text-center font-display m-0 px-1">
                   <p className="text-white font-bold text-base uppercase m-0 leading-tight [text-wrap:balance] break-words hyphens-auto">
