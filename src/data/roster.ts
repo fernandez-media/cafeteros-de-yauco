@@ -26,7 +26,7 @@ export const staff = [
 
 export const roster: Player[] = [
   { number: '55', name: 'Kevin Rodriguez', position: 'Colocador', photo: kevinRodriguez.url },
-  { number: '24', name: 'Arnel Cabrera Rivera', position: 'Libero', photo: arnelCabrera.url },
+  { number: '24', name: 'Arnel Cabrera', position: 'Libero', photo: arnelCabrera.url },
   { number: '11', name: 'Jessie Colon', position: 'Bloqueador Central', photo: jessieColon.url },
   { number: '10', name: 'Ivan Fernandez', position: 'Bloqueador Central', photo: ivanFernandez.url },
   { number: '6', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
