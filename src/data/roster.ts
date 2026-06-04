@@ -4,6 +4,13 @@ export interface Player {
   position: string;
 }
 
+export const staff = [
+  { name: 'Abel Franceschi' },
+  { name: 'Cuco Pacheco' },
+  { name: 'Ancito Negrón' },
+  { name: 'Onix Torres' },
+];
+
 export const roster: Player[] = [
   { number: '-', name: 'Kevin Rodriguez', position: 'Colocador' },
   { number: '-', name: 'Yadiel Nadal', position: 'Colocador' },
