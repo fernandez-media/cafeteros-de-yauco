@@ -55,7 +55,7 @@ const Roster = () => {
                 <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
                   {player.number}
                 </span>
-                <PlayerAvatar photo={player.photo} name={player.name} size={40} />
+                <PlayerAvatar photo={player.photo} name={player.name} size={60} />
                 <div className="flex-1 min-w-0">
                   <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
                     {player.name}
@@ -65,10 +65,10 @@ const Roster = () => {
                       </span>
                     )}
                   </p>
-                  <p className="text-white/40 text-xs mt-0.5 m-0">
-                    {player.position}
-                  </p>
                 </div>
+                <span className="px-2 py-0.5 rounded bg-white/10 text-white/40 text-[11px] uppercase tracking-wider ml-auto">
+                  {player.position}
+                </span>
               </div>
             </ScrollReveal>
           ))}
