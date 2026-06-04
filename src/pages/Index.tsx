@@ -8,6 +8,7 @@ import { merch } from '../data/merch';
 import caribesLogo from '../assets/caribes-logo.png.asset.json';
 import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
 import metsLogo from '../assets/mets-logo.png.asset.json';
+import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
@@ -122,6 +123,12 @@ const Index = () => {
                     <img
                       src={metsLogo.url}
                       alt="Guaynabo Mets"
+                      className="w-16 h-16 object-contain"
+                    />
+                  ) : game.opponent.toLowerCase().includes('patriotas') ? (
+                    <img
+                      src={patriotasLogo.url}
+                      alt="Patriotas de Lares"
                       className="w-16 h-16 object-contain"
                     />
                   ) : (
