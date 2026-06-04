@@ -30,7 +30,7 @@ export const roster: Player[] = [
   { number: '7', name: 'Axel Melendez Watts', position: 'Esquina', photo: axelMelendezWatts.url },
   { number: '3', name: 'Daniel Rivera', position: 'Esquina', photo: danielRivera.url },
   { number: '9', name: 'Diego Rosich', position: 'Esquina', photo: diegoRosich.url },
-  { number: '-', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
+  { number: '6', name: 'Diego Negron', position: 'Esquina', photo: diegoNegron.url },
   { number: '10', name: 'Ivan Fernandez', position: 'Bloqueador Central', photo: ivanFernandez.url },
   { number: '11', name: 'Jessie Colon', position: 'Bloqueador Central', photo: jessieColon.url },
   { number: '2', name: 'George Acevedo', position: 'Libero', photo: georgeAcevedo.url },
