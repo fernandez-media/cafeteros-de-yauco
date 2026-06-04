@@ -525,6 +525,7 @@ const Index = () => {
                     height={400}
                     sizes="(max-width: 640px) 45vw, 320px"
                     className="max-w-full max-h-full object-contain"
+                    pictureClassName="max-w-full max-h-full flex items-center justify-center"
                   />
                   <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
                     Nuevo
