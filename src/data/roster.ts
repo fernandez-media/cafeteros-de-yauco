@@ -15,6 +15,7 @@ export interface Player {
   name: string;
   position: string;
   photo?: string;
+  captain?: boolean;
 }
 
 export const staff = [
