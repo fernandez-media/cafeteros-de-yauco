@@ -1,42 +1,23 @@
-## Restructure calendar preview cards in `src/pages/Index.tsx`
+## Problema
 
-Only layout changes inside the calendar preview card (lines ~83–168). No changes to data, colors, date/time, VISITANTE badge, logos, or team-name text content.
+En la sección "Merch" del Index, la imagen de la "Taza de Cafeteros" se ve recortada/desbordada del contenedor blanco de 160px de alto. La causa es que `ResponsiveImage` envuelve el `<img>` en un `<picture>` sin estilos. El `className="max-w-full max-h-full object-contain"` se aplica al `<img>`, pero su padre directo es el `<picture>` (inline, sin altura definida), por lo que `max-h-full` no limita realmente la altura al contenedor de 160px. La imagen termina renderizándose a su tamaño intrínseco (~1:1, 400×400), desbordando el área blanca.
 
-### 1. Replace the logos row + separate names block with two vertical team columns
+## Solución
 
-Current structure (simplified):
-```
-[ logo Cafeteros ] [ VS ] [ logo opponent ]
-[ "Cafeteros de Yauco" ]
-[ vs ]
-[ opponent name ]
-```
+Propagar la restricción de tamaño al elemento `<picture>` usando la prop `pictureClassName` que ya existe en `ResponsiveImage`, en la grilla de merch de `src/pages/Index.tsx`.
 
-New structure:
-```
-[ logo Cafeteros        VS        logo opponent ]
-[ "Cafeteros de Yauco"            opponent name ]
+### Cambio
+
+En `src/pages/Index.tsx` (línea ~521), añadir a `<ResponsiveImage>`:
+
+```tsx
+pictureClassName="max-w-full max-h-full flex items-center justify-center"
 ```
 
-Implementation:
-- Wrap each logo + its team name in a `flex flex-col items-center` column (no gap between logo and name).
-- Keep the central `VS` between the two columns, vertically centered with the logos (align row at logo height using `items-start` on the row and matching logo height, or center `VS` against the logo with a small top offset so it lines up with the logo, not the name).
-- Team name styling: `text-center uppercase font-bold text-white text-[12px] leading-tight mt-1` (12–13px, tight line-height, directly under logo, no extra spacing).
-- Remove the entire existing block that renders `Cafeteros de Yauco` / `vs` / `{game.opponent}` underneath.
+Esto hace que el `<picture>` respete el alto/ancho del contenedor (`h-[160px]` con padding) y, combinado con `object-contain` en el `<img>`, la taza se ajustará completamente dentro del área blanca sin desbordar.
 
-### 2. Venue/location row — single line, icon centered with text
+### Alcance
 
-Current: `flex items-start gap-1`, icon has `mt-0.5`, text uses `line-clamp-2` (allows wrapping to 2 lines).
-
-Change to:
-- Container: `flex items-center gap-1.5` (vertical centering, never stacks).
-- Icon: remove `mt-0.5`, keep `flex-shrink-0`.
-- Text: replace `line-clamp-2` with `truncate` (single line, ellipsis if overflow). Add `min-w-0` on the text or container as needed for truncate to work inside flex.
-
-### 3. Card height
-
-Card stays at `h-[260px]`. With the names now inline under the logos and the venue row collapsed to one line, vertical spacing should still fit; `mt-auto` on the venue row keeps it pinned to the bottom.
-
-### Out of scope
-- No edits to `src/data/calendar.ts`, `src/pages/Calendario.tsx`, or any other file.
-- No color, font-family, badge, date/time, or logo changes.
+- Solo edición visual/presentacional.
+- Un solo archivo: `src/pages/Index.tsx`.
+- No se modifican datos, lógica ni otras secciones.
