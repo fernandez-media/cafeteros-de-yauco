@@ -18,7 +18,7 @@ export const news: NewsArticle[] = [
   },
   {
     source: 'NotiCel',
-    title: 'Luego de 55 anos, los Cafeteros de Yauco se coronan campeones de la LVSM',
+    title: 'Luego de 55 años, los Cafeteros de Yauco se coronan campeones de la LVSM',
     excerpt: 'Los Cafeteros ganaron su primer campeonato en 55 años al vencer a los Caribes de San Sebastian en cinco sets.',
     date: '24 de enero, 2026',
     url: 'https://noticel.com/deportes/20260124/luego-de-55-anos-los-cafeteros-de-yauco-se-coronan-campeones-de-la-lvsm/',
