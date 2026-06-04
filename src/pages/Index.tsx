@@ -157,7 +157,7 @@ const Index = () => {
                   const venue = parts[0];
                   const city = parts.slice(1).join(', ');
                   return (
-                    <div className="mt-2 text-white/40 text-sm flex items-start gap-1.5 min-w-0">
+                    <div className="mt-2 text-white/40 text-sm flex items-center gap-1.5 min-w-0">
                       <svg
                         width="12"
                         height="12"
@@ -168,14 +168,13 @@ const Index = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         className="flex-shrink-0"
-                        style={{ marginTop: '2px' }}
                       >
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
                       </svg>
                       <div className="flex flex-col text-left leading-tight min-w-0">
-                        <span>{venue}</span>
-                        {city && <span>{city}</span>}
+                        <span>{city}</span>
+                        {venue && <span className="text-white/25">{venue}</span>}
                       </div>
                     </div>
                   );
