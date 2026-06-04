@@ -7,7 +7,7 @@ const Footer = () => {
       }}
     >
       {/* Main Section */}
-      <div className="pt-8 pb-6 flex flex-col items-center px-6">
+      <div className="pt-6 pb-4 sm:pt-8 sm:pb-6 flex flex-col items-center px-4 sm:px-6">
         {/* Logo */}
         <img
           src="/assets/CafeterosLogo.png"
