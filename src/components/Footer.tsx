@@ -16,7 +16,7 @@ const Footer = () => {
         />
 
         {/* Description */}
-        <p className="text-sm text-white/45 max-w-xs text-center leading-relaxed mb-5">
+        <p className="text-xs sm:text-sm text-white/45 max-w-xs text-center leading-relaxed mb-3 sm:mb-5">
           Equipo de voleibol profesional compitiendo en la Liga de Voleibol
           Superior Masculina de Puerto Rico. Representando a la Ciudad del Cafe
           con orgullo.
