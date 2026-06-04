@@ -170,27 +170,27 @@ const Index = () => {
                   'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
               }}
             />
-            <div className="relative z-10 p-8 text-center">
+            <div className="relative z-10 p-5 sm:p-8 text-center">
               <svg
-                width="48"
-                height="48"
+                width="40"
+                height="40"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#FFD700"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="mx-auto mb-4"
+                className="mx-auto mb-2 sm:mb-4"
               >
                 <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
                 <path d="M13 5v2" />
                 <path d="M13 17v2" />
                 <path d="M13 11v2" />
               </svg>
-              <h3 className="font-display font-bold text-2xl uppercase text-white mb-2 m-0">
+              <h3 className="font-display font-bold text-xl sm:text-2xl uppercase text-white mb-1 sm:mb-2 m-0">
                 Consigue tus boletos
               </h3>
-              <p className="text-white/50 text-sm mb-6 m-0">
+              <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
                 Asegura tu asiento para los juegos
                 <br />
                 de los Cafeteros de Yauco.
@@ -199,7 +199,7 @@ const Index = () => {
                 href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-7 py-3 bg-gold text-black font-display font-bold text-sm uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+                className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
               >
                 Comprar Boletos
               </a>
