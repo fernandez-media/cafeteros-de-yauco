@@ -37,7 +37,7 @@ type Props = {
 };
 
 const buildSrcSet = (name: string, widths: readonly number[], ext: 'avif' | 'webp') =>
-  widths.map((w) => `/assets/opt/${name}-${w}.${ext} ${w}w`).join(', ');
+  widths.map((w) => `${import.meta.env.BASE_URL}assets/opt/${name}-${w}.${ext} ${w}w`).join(', ');
 
 const ResponsiveImage: React.FC<Props> = ({
   name,
@@ -57,7 +57,7 @@ const ResponsiveImage: React.FC<Props> = ({
   const variant = IMAGE_VARIANTS[name];
   const widths = variant.widths;
   const fallbackWidth = widths[widths.length - 1];
-  const fallbackSrc = `/assets/opt/${name}-${fallbackWidth}.webp`;
+  const fallbackSrc = `${import.meta.env.BASE_URL}assets/opt/${name}-${fallbackWidth}.webp`;
 
   return (
     <picture className={pictureClassName}>
