@@ -77,6 +77,10 @@ const Nosotros = () => {
                 <img
                   src={src}
                   alt={`Cafeteros de Yauco ${i + 1}`}
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

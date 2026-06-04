@@ -21,6 +21,10 @@ const SplashScreen = () => {
       <img
         src="/assets/CafeterosLogo.png"
         alt="Cafeteros de Yauco"
+        width="180"
+        height="180"
+        fetchPriority="high"
+        decoding="async"
         className="splash-logo w-[180px] mb-10"
         style={{
           animation: 'splashPulse 1.6s ease-in-out infinite',

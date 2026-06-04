@@ -41,6 +41,11 @@ const Boleteria = () => {
             <img
               src="/assets/HeroSection.JPG"
               alt=""
+              width="1920"
+              height="800"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ opacity: 0.2 }}
             />

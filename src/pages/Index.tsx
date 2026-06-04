@@ -59,6 +59,10 @@ const Index = () => {
           <img
             src="/assets/HeroSection.JPG"
             alt="Cafeteros de Yauco"
+            width="1920"
+            height="1080"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>
@@ -143,6 +147,10 @@ const Index = () => {
                         <img
                           src="/assets/CafeterosLogo.png"
                           alt="Cafeteros de Yauco"
+                          width="64"
+                          height="64"
+                          loading="lazy"
+                          decoding="async"
                           className="w-16 h-16 object-contain"
                         />
                         <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
@@ -153,15 +161,15 @@ const Index = () => {
                     const opponentBlock = (
                       <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
                         {game.opponent.toLowerCase().includes('caribes') ? (
-                          <img src={caribesLogo.url} alt="Caribes de San Sebastián" className="w-16 h-16 object-contain" />
+                          <img src={caribesLogo.url} alt="Caribes de San Sebastián" width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                          <img src={gigantesLogo.url} alt="Gigantes de Carolina" className="w-16 h-16 object-contain" />
+                          <img src={gigantesLogo.url} alt="Gigantes de Carolina" width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('mets') ? (
-                          <img src={metsLogo.url} alt="Guaynabo Mets" className="w-16 h-16 object-contain" />
+                          <img src={metsLogo.url} alt="Guaynabo Mets" width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                          <img src={patriotasLogo.url} alt="Patriotas de Lares" className="w-16 h-16 object-contain" />
+                          <img src={patriotasLogo.url} alt="Patriotas de Lares" width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                          <img src={plataneroslogo.url} alt="Plataneros de Corozal" className="w-16 h-16 object-contain" />
+                          <img src={plataneroslogo.url} alt="Plataneros de Corozal" width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain" />
                         ) : (
                           <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -228,6 +236,11 @@ const Index = () => {
             <img
               src="/assets/HeroSection.JPG"
               alt=""
+              width="1920"
+              height="1080"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ opacity: 0.35 }}
             />
@@ -296,6 +309,7 @@ const Index = () => {
             <iframe
               src="https://www.youtube.com/embed/UDEYHpwK2LE"
               title="Serie Final LVSM Juego #3: Caribes vs. Cafeteros"
+              loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 w-full h-full border-0 rounded-2xl"
@@ -336,6 +350,10 @@ const Index = () => {
               <img
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
+                width="800"
+                height="400"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div
@@ -377,6 +395,10 @@ const Index = () => {
                   <img
                     src={article.image}
                     alt={article.title}
+                    width="90"
+                    height="70"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -502,6 +524,10 @@ const Index = () => {
                   <img
                     src={item.image}
                     alt={item.name}
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
                     className="max-w-full max-h-full object-contain"
                   />
                   <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
@@ -568,6 +594,10 @@ const Index = () => {
                 <img
                   src={src}
                   alt={`Cafeteros gallery ${i + 1}`}
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

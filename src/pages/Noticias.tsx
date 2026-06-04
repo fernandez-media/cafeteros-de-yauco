@@ -46,6 +46,10 @@ const Noticias = () => {
                 <img
                   src={article.image}
                   alt={article.title}
+                  width="800"
+                  height="400"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div

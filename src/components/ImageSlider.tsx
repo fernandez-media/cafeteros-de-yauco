@@ -132,6 +132,10 @@ const ImageSlider = () => {
           <img
             src={src}
             alt={`Cafeteros gallery ${(index % images.length) + 1}`}
+            width="220"
+            height="160"
+            loading={index < images.length ? 'eager' : 'lazy'}
+            decoding="async"
             className="w-full h-full object-cover pointer-events-none"
             draggable={false}
           />

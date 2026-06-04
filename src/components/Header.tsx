@@ -73,6 +73,10 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
       <img
         src="/assets/CafeterosLogo.png"
         alt="Cafeteros de Yauco"
+        width="36"
+        height="36"
+        fetchPriority="high"
+        decoding="async"
         className="order-2 ml-auto h-9 object-contain"
       />
     </header>

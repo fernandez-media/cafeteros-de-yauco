@@ -28,6 +28,10 @@ const PageHero = ({ title, subtitle, goldWord }: PageHeroProps) => {
       <img
         src="/assets/HeroSection.JPG"
         alt=""
+        width="1920"
+        height="600"
+        aria-hidden="true"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover opacity-30"
       />
 
