@@ -156,7 +156,7 @@ const Index = () => {
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
-          <div className="relative rounded-2xl overflow-hidden">
+          <div className="relative rounded-2xl overflow-hidden border-2 border-gold">
             <img
               src="/assets/HeroSection.JPG"
               alt=""
