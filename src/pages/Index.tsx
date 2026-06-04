@@ -216,7 +216,8 @@ const Index = () => {
                 })()}
               </div>
             </ScrollReveal>
-          ))}
+            );
+          })}
         </div>
       </section>
 
