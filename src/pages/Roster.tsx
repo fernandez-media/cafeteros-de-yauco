@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
-import { roster } from '../data/roster';
+import { roster, staff } from '../data/roster';
 
 const Roster = () => {
   return (
