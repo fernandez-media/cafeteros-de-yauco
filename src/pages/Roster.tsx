@@ -138,6 +138,7 @@ const Roster = () => {
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
