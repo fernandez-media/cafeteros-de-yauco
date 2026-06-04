@@ -65,10 +65,10 @@ const Roster = () => {
                       </span>
                     )}
                   </p>
+                  <p className="text-white/40 text-xs mt-0.5 m-0">
+                    {player.position}
+                  </p>
                 </div>
-                <span className="px-2 py-0.5 rounded bg-white/10 text-white/40 text-[11px] uppercase tracking-wider ml-auto">
-                  {player.position}
-                </span>
               </div>
             </ScrollReveal>
           ))}
