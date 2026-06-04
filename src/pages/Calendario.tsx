@@ -61,7 +61,7 @@ const Calendario = () => {
                   alt="Cafeteros"
                   width="36"
                   height="36"
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                   className="w-9 h-9 object-contain"
                 />
