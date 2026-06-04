@@ -106,14 +106,18 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
-          {previewGames.map((game, i) => (
+        <div ref={scrollRef} className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden pb-2 items-stretch">
+          {previewGames.map((game, i) => {
+            const isActive = i === activeIndex;
+            return (
             <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
-                className="flex flex-col w-[260px] rounded-2xl p-5 border"
+                ref={(el) => { cardRefs.current[i] = el; }}
+                className="flex flex-col w-[260px] rounded-2xl p-5 border transition-all duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
-                  borderColor: 'rgba(255, 215, 0, 0.08)',
+                  borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
+                  boxShadow: isActive ? '0 0 24px rgba(255, 215, 0, 0.45)' : 'none',
                 }}
               >
                 <div className="flex items-center justify-between mb-3">
