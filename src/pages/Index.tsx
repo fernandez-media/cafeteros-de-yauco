@@ -174,15 +174,15 @@ const Index = () => {
                     const opponentBlock = (
                       <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
                         {game.opponent.toLowerCase().includes('caribes') ? (
-                          <img src={caribesLogo.url} alt="Caribes de San Sebastián" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                          <img src={teamLogo('caribes')} alt="Caribes de San Sebastián" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                          <img src={gigantesLogo.url} alt="Gigantes de Carolina" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                          <img src={teamLogo('gigantes')} alt="Gigantes de Carolina" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('mets') ? (
-                          <img src={metsLogo.url} alt="Guaynabo Mets" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                          <img src={teamLogo('mets')} alt="Guaynabo Mets" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                          <img src={patriotasLogo.url} alt="Patriotas de Lares" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                          <img src={teamLogo('patriotas')} alt="Patriotas de Lares" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                          <img src={plataneroslogo.url} alt="Plataneros de Corozal" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                          <img src={teamLogo('plataneros')} alt="Plataneros de Corozal" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : (
                           <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
