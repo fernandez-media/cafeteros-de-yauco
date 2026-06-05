@@ -290,6 +290,59 @@ const Index = () => {
         </ScrollReveal>
       </section>
 
+      {/* ===== MERCH PREVIEW ===== */}
+      <section className="px-5 py-10">
+        <ScrollReveal>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
+              Merch
+            </h2>
+            <Link
+              to="/merch"
+              className="text-gold text-sm font-semibold no-underline hover:underline"
+            >
+              Ver todo
+            </Link>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-2 gap-3">
+          {merch.map((item, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <div
+                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]"
+              >
+                <div
+                  className="relative w-full h-[160px] flex items-center justify-center p-6"
+                  style={{ backgroundColor: item.bgColor }}
+                >
+                  <ResponsiveImage
+                    name={item.imageName}
+                    alt={item.name}
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 640px) 45vw, 320px"
+                    className="max-w-full max-h-full object-contain"
+                    pictureClassName="max-w-full max-h-full flex items-center justify-center"
+                  />
+                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
+                    Nuevo
+                  </span>
+                </div>
+                <div className="p-3">
+                  <p className="font-display font-bold text-sm text-white m-0 leading-tight">
+                    {item.name}
+                  </p>
+                  <p className="text-gold font-bold text-sm mt-1 m-0">
+                    {item.price}
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ===== PARTIDOS PREVIEW ===== */}
       <section className="px-5 py-10">
         <ScrollReveal>
@@ -488,59 +541,6 @@ const Index = () => {
             Ver Roster Completo
           </Link>
         </ScrollReveal>
-      </section>
-
-      {/* ===== MERCH PREVIEW ===== */}
-      <section className="px-5 py-10">
-        <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Merch
-            </h2>
-            <Link
-              to="/merch"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Ver todo
-            </Link>
-          </div>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-2 gap-3">
-          {merch.map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <div
-                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]"
-              >
-                <div
-                  className="relative w-full h-[160px] flex items-center justify-center p-6"
-                  style={{ backgroundColor: item.bgColor }}
-                >
-                  <ResponsiveImage
-                    name={item.imageName}
-                    alt={item.name}
-                    width={400}
-                    height={400}
-                    sizes="(max-width: 640px) 45vw, 320px"
-                    className="max-w-full max-h-full object-contain"
-                    pictureClassName="max-w-full max-h-full flex items-center justify-center"
-                  />
-                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
-                    Nuevo
-                  </span>
-                </div>
-                <div className="p-3">
-                  <p className="font-display font-bold text-sm text-white m-0 leading-tight">
-                    {item.name}
-                  </p>
-                  <p className="text-gold font-bold text-sm mt-1 m-0">
-                    {item.price}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
       </section>
 
       {/* ===== SOBRE NOSOTROS PREVIEW ===== */}
