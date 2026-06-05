@@ -8,11 +8,9 @@ import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
 import { merch } from '../data/merch';
-import caribesLogo from '../assets/caribes-logo.png.asset.json';
-import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
-import metsLogo from '../assets/mets-logo.png.asset.json';
-import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
-import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
+
+const BASE = import.meta.env.BASE_URL;
+const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
 
 
 const Index = () => {
