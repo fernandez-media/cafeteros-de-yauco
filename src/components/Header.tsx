@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import ResponsiveImage from './ResponsiveImage';
 
 interface HeaderProps {
   onMenuToggle: () => void;
