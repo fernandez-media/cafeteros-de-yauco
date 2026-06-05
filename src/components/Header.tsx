@@ -24,11 +24,11 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
       if (currentScrollY < 60) {
         header.style.background = 'rgba(0, 0, 0, 0.2)';
         header.style.backdropFilter = 'none';
-        header.style.webkitBackdropFilter = 'none';
+        (header.style as any).webkitBackdropFilter = 'none';
       } else {
         header.style.background = 'rgba(0, 0, 0, 0.85)';
         header.style.backdropFilter = 'blur(20px)';
-        header.style.webkitBackdropFilter = 'blur(20px)';
+        (header.style as any).webkitBackdropFilter = 'blur(20px)';
       }
 
       lastScrollY.current = currentScrollY;
