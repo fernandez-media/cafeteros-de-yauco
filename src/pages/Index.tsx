@@ -56,7 +56,7 @@ const Index = () => {
       {/* ===== HERO ===== */}
       <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
         <video
-          src={heroVideo.url}
+          src={`${import.meta.env.BASE_URL}media/hero.mp4`}
           poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
           autoPlay
           muted
