@@ -1,28 +1,47 @@
-## Objetivo
+## Hero Simplification Pass
 
-Sustituir la imagen estática del hero en la página de inicio por el video que adjuntaste, manteniendo el mismo encuadre, overlay oscuro y el título "CAFETEROS DE YAUCO" + botón "Ver Calendario" encima.
+### Goal
+Strip the hero down to a minimal, cinematic composition: logo (preserved) → tagline → animated scroll chevrons. Remove all text headings and CTA buttons.
 
-## Cambios
+### Scope
+`src/pages/Index.tsx` — hero `<section>` only. `src/index.css` — one new keyframe animation. No other files or sections touched.
 
-1. **Subir el video como asset CDN**
-   - Crear `src/assets/hero.mp4.asset.json` con `lovable-assets create` desde `/mnt/user-uploads/hf_20260605_033219_...mp4`.
-   - El binario queda servido por CDN, no se commitea al repo.
+### What to Remove
+- The `<h1>` block containing "CAFETEROS" / "DE YAUCO" text.
+- The "VER CALENDARIO" `<Link>` button.
+- Any other secondary CTA if present in the hero content area.
+- Clean up now-unused `Link` import if it becomes orphaned.
 
-2. **Reemplazar el `<ResponsiveImage name="hero" />` del hero** en `src/pages/Index.tsx` (líneas 56–95) por un `<video>`:
-   - `autoPlay`, `muted`, `loop`, `playsInline` (requisitos para que reproduzca solo en móvil y Safari).
-   - `preload="auto"`, `object-cover w-full h-full`.
-   - `poster` apuntando al `hero` actual (`ResponsiveImage`) — se usa el JPG/WebP existente como primer frame mientras carga el video, para evitar parpadeo negro.
-   - Conservar el overlay con gradiente a `#111111` y el contenedor con la animación `heroZoom` (o quitarla si el video ya tiene movimiento propio — recomiendo **quitar** `heroZoom` para no duplicar movimiento; el zoom CSS sobre video se siente raro).
+### What to Add
 
-3. **Mantener intacto**: título, botón CTA, slider de imágenes, resto de secciones, y la imagen `hero` original (sigue usándose como poster del video).
+**1. Tagline**
+- Text: `Explora el equipo campeón`
+- Positioned centered, below the logo.
+- Styles: `12px` size, `letter-spacing: 0.16em`, `text-transform: uppercase`, `color: rgba(255,255,255,0.3)`, `font-weight: 600`.
 
-## Notas técnicas
+**2. Scroll Indicator — Three Stacked Chevron Icons**
+- Use inline SVG `ChevronDown` icons (no icon library in project) wrapped in `<span>` elements with the requested class names for targeting.
+- Visual stacking order from top to bottom:
+  - Icon 1: `#C8A84B`, opacity `1`, size `22px`, delay `0s`
+  - Icon 2: `#C8A84B`, opacity `0.5`, size `19px`, delay `0.2s`
+  - Icon 3: `#C8A84B`, opacity `0.2`, size `16px`, delay `0.4s`
+- CSS keyframe `cascade` added to `src/index.css`:
+  ```css
+  @keyframes cascade {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+  }
+  ```
+- Apply `animation: cascade 1.6s ease-in-out infinite;` to each chevron, with per-element `animation-delay`.
 
-- El video se sirve desde `/__l5e/assets-v1/...` (CDN Cloudflare), con caching agresivo.
-- `muted` es obligatorio para que `autoPlay` funcione en todos los navegadores móviles.
-- Si en el futuro quieres un control de play/pause o sonido opt-in, se puede añadir después; este plan deja el video en modo "ambient background" igual que la imagen actual.
+### Layout Order (top to bottom inside hero content)
+```
+[logo]  (preserved as-is)
+[tagline]
+[three chevrons]
+```
 
-## Archivos afectados
-
-- `src/assets/hero.mp4.asset.json` (nuevo)
-- `src/pages/Index.tsx` (editado: solo el bloque hero)
+### Technical Notes
+- Framer Motion is **not** installed, so all animation is pure CSS.
+- The logo is not in the JSX hero block; it is assumed to be part of the video/background asset and must not be altered.
+- No changes to navbar, background video, gradients, colors, or any other page section.

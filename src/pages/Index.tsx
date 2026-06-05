@@ -73,20 +73,46 @@ const Index = () => {
               'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, #111111 100%)',
           }}
         />
-        <div className="absolute bottom-0 left-0 w-full px-5 pb-10">
-          <ScrollReveal>
-            <h1 className="font-display font-black text-[3.2rem] leading-[0.9] uppercase m-0">
-              <span className="text-gold">CAFETEROS</span>
-              <br />
-              <span className="text-white">DE YAUCO</span>
-            </h1>
-            <Link
-              to="/calendario"
-              className="inline-block mt-6 px-7 py-3 bg-gold text-black font-display font-bold text-sm uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
-            >
-              Ver Calendario
-            </Link>
-          </ScrollReveal>
+        <div className="absolute bottom-0 left-0 w-full px-5 pb-10 flex flex-col items-center">
+          <p
+            className="m-0 text-center"
+            style={{
+              fontSize: '12px',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.3)',
+              fontWeight: 600,
+            }}
+          >
+            Explora el equipo campeón
+          </p>
+          <div className="mt-4 flex flex-col items-center" aria-hidden="true">
+            {[
+              { size: 22, opacity: 1, delay: '0s' },
+              { size: 19, opacity: 0.5, delay: '0.2s' },
+              { size: 16, opacity: 0.2, delay: '0.4s' },
+            ].map((c, i) => (
+              <svg
+                key={i}
+                width={c.size}
+                height={c.size}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#C8A84B"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  opacity: c.opacity,
+                  animation: 'cascade 1.6s ease-in-out infinite',
+                  animationDelay: c.delay,
+                  marginTop: i === 0 ? 0 : -4,
+                }}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            ))}
+          </div>
         </div>
       </section>
 
