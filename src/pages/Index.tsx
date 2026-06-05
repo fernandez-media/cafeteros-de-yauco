@@ -13,7 +13,7 @@ import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
 import metsLogo from '../assets/mets-logo.png.asset.json';
 import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
-import heroVideo from '../assets/hero.mp4.asset.json';
+
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
