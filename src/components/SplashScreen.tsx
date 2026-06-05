@@ -100,9 +100,6 @@ const SplashScreen = () => {
           0%, 100% { transform: translateY(0) scale(1); }
           50% { transform: translateY(-8px) scale(1.02); }
         }
-        @keyframes trophyRingSpin {
-          to { transform: rotate(360deg); }
-        }
         @keyframes loadingSlide {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(350%); }
