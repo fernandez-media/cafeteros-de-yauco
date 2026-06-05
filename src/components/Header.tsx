@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import ResponsiveImage from './ResponsiveImage';
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -70,18 +69,6 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
         />
       </button>
 
-      {/* Logo */}
-      <ResponsiveImage
-        name="cafeteros-logo"
-        alt="Cafeteros de Yauco"
-        width={36}
-        height={36}
-        sizes="36px"
-        loading="eager"
-        fetchPriority="high"
-        pictureClassName="order-2 ml-auto h-9 inline-flex"
-        className="h-9 w-auto object-contain"
-      />
     </header>
   );
 };
