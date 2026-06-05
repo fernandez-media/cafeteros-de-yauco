@@ -55,14 +55,13 @@ const Index = () => {
       <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
         <video
           src={`${import.meta.env.BASE_URL}media/hero.mp4`}
-          poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center' }}
+          style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center', backgroundColor: '#000000' }}
         />
 
         <div
