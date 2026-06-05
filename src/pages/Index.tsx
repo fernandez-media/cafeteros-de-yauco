@@ -62,7 +62,7 @@ const Index = () => {
           playsInline
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center 30%' }}
+          style={{ objectPosition: 'center 15%', transform: 'scale(0.85)' }}
         />
 
         <div
