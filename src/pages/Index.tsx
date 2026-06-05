@@ -74,18 +74,6 @@ const Index = () => {
           }}
         />
         <div className="absolute bottom-0 left-0 w-full px-5 flex flex-col items-center" style={{ paddingBottom: '80px' }}>
-          <p
-            className="m-0 text-center"
-            style={{
-              fontSize: '12px',
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.3)',
-              fontWeight: 600,
-            }}
-          >
-            Explora el equipo campeón
-          </p>
           <div className="mt-4 flex flex-col items-center" aria-hidden="true">
             {[
               { size: 22, opacity: 1, delay: '0s' },
