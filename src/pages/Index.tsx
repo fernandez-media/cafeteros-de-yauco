@@ -8,6 +8,7 @@ import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
 import { merch } from '../data/merch';
+import heroFirstFrame from '../assets/hero-first-frame.jpg.asset.json';
 
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
@@ -22,6 +23,26 @@ const Index = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // Cross-browser hero video loading strategy
+  const [videoStrategy, setVideoStrategy] = useState<{ preload: 'auto' | 'metadata' | 'none'; loadSources: boolean }>(() => ({
+    preload: 'auto',
+    loadSources: true,
+  }));
+
+  useEffect(() => {
+    if (typeof navigator === 'undefined') return;
+    const ua = navigator.userAgent || '';
+    const isIOS = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+    const conn = (navigator as any).connection;
+    const saveData = conn?.saveData === true;
+    const slowNet = !!conn?.effectiveType && /^(slow-2g|2g|3g)$/.test(conn.effectiveType);
+    const defer = saveData || slowNet;
+    setVideoStrategy({
+      preload: defer ? 'none' : isIOS ? 'metadata' : 'auto',
+      loadSources: !defer,
+    });
+  }, []);
 
   useEffect(() => {
     const container = scrollRef.current;
