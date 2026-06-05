@@ -113,15 +113,15 @@ const Calendario = () => {
                   const opponentBlock = (
                     <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
                       {opp.includes('caribes') ? (
-                        <img src={caribesLogo.url} alt="Caribes de San Sebastián" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                        <img src={teamLogo('caribes')} alt="Caribes de San Sebastián" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
                       ) : opp.includes('gigantes') ? (
-                        <img src={gigantesLogo.url} alt="Gigantes de Carolina" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                        <img src={teamLogo('gigantes')} alt="Gigantes de Carolina" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
                       ) : opp.includes('mets') ? (
-                        <img src={metsLogo.url} alt="Guaynabo Mets" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                        <img src={teamLogo('mets')} alt="Guaynabo Mets" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
                       ) : opp.includes('patriotas') ? (
-                        <img src={patriotasLogo.url} alt="Patriotas de Lares" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                        <img src={teamLogo('patriotas')} alt="Patriotas de Lares" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
                       ) : opp.includes('plataneros') ? (
-                        <img src={plataneroslogo.url} alt="Plataneros de Corozal" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
+                        <img src={teamLogo('plataneros')} alt="Plataneros de Corozal" width="56" height="56" loading="eager" decoding="async" className="w-14 h-14 object-contain" />
                       ) : (
                         <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
                           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
