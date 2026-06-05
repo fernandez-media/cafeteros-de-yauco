@@ -1,15 +1,22 @@
-## Cambios
+# Subir el video del hero
 
-### 1. Eliminar la barra/dock transparente superior (Header)
-En `src/components/Header.tsx`:
-- Quitar el `<header>` con fondo translúcido y blur. El elemento `<header>` ya no aplicará `background`, `backdropFilter`, ni el ancho completo (`left-0 right-0`).
-- Dejar únicamente el botón hamburguesa flotando como elemento `fixed` en la esquina superior izquierda (`fixed top-3 left-4 z-[1001]`), sin contenedor de fondo.
-- Eliminar el efecto de scroll que cambia el background/blur del header (ya no es necesario). Se mantiene únicamente, si se desea, el comportamiento de ocultar al hacer scroll hacia abajo aplicado directamente al botón — o se elimina por simplicidad y el hamburger queda siempre visible.
+## Problema
+El video de fondo del hero usa `object-cover` con posición centrada por defecto. Esto hace que la estrella y el logo dentro del video queden muy abajo en pantallas verticales (móvil), porque el video se recorta por arriba y abajo equitativamente.
 
-Resultado: no hay barra horizontal arriba; solo se ve el icono de hamburguesa blanco flotando sobre el video del hero.
+## Cambio
+En `src/pages/Index.tsx` (línea 64), añadir `object-position` al `<video>` para correr el encuadre hacia arriba, de modo que el contenido importante (estrella + logo) suba visualmente.
 
-### 2. Subir los chevrons dorados del hero
-En `src/pages/Index.tsx` (línea 74), aumentar el `paddingBottom` del contenedor de los chevrons de `80px` a aproximadamente `130px` para que queden más separados del dock inferior de navegación.
+**Edit:**
+```tsx
+className="absolute inset-0 w-full h-full object-cover"
+style={{ objectPosition: 'center 30%' }}
+```
 
-### Sin cambios
-- Video, logo, colores, animaciones, menú lateral, contenido del resto de la página.
+Esto mueve el "ancla" del encuadre del 50% al 30% vertical: el video se recorta más por abajo y menos por arriba, subiendo la estrella y el logo dentro del cuadro visible.
+
+## Pregunta antes de implementar
+¿Te parece bien `center 30%` como punto de partida, o prefieres que lo suba más agresivo (`center 20%` o `center top`)? Si quieres puedo dejarlo en 30% y ajustamos después si se ve.
+
+## Alcance
+- Solo 1 línea cambia en `src/pages/Index.tsx`
+- No se toca nada más (ni chevrons, ni overlays, ni header)
