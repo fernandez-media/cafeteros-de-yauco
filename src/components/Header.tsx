@@ -21,8 +21,20 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
         header.style.transform = 'translateY(0)';
       }
 
+      if (currentScrollY < 60) {
+        header.style.background = 'rgba(0, 0, 0, 0.2)';
+        header.style.backdropFilter = 'none';
+        header.style.webkitBackdropFilter = 'none';
+      } else {
+        header.style.background = 'rgba(0, 0, 0, 0.85)';
+        header.style.backdropFilter = 'blur(20px)';
+        header.style.webkitBackdropFilter = 'blur(20px)';
+      }
+
       lastScrollY.current = currentScrollY;
     };
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -32,11 +44,6 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
     <header
       ref={headerRef}
       className="fixed top-0 left-0 right-0 z-[1000] h-14 flex items-center justify-between px-4 transition-transform duration-300"
-      style={{
-        background: 'rgba(0, 0, 0, 0.85)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-      }}
     >
       {/* Hamburger Button */}
       <button
