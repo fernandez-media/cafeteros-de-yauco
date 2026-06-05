@@ -73,17 +73,35 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
+      <section
+        className="relative overflow-hidden -mt-14"
+        style={{
+          height: '100dvh',
+          minHeight: '100dvh',
+          backgroundColor: '#000000',
+          backgroundImage: `url(${heroFirstFrame.url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+        }}
+      >
         <video
-          src={`${import.meta.env.BASE_URL}media/hero.mp4`}
+          key={videoStrategy.loadSources ? 'with-sources' : 'poster-only'}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload={videoStrategy.preload}
+          poster={heroFirstFrame.url}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center', backgroundColor: '#000000' }}
-        />
+          style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center', backgroundColor: 'transparent' }}
+        >
+          {videoStrategy.loadSources && (
+            <>
+              <source src={`${import.meta.env.BASE_URL}media/hero.webm`} type="video/webm" />
+              <source src={`${import.meta.env.BASE_URL}media/hero.mp4`} type="video/mp4" />
+            </>
+          )}
+        </video>
 
         <div
           className="absolute inset-0"
