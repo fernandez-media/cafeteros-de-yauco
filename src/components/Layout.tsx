@@ -4,32 +4,10 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import DockBar from "./DockBar";
 import Footer from "./Footer";
-import SplashScreen from "./SplashScreen";
-
-let splashShown = false;
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
-
-  const isHomePage = location.pathname === "/";
-  const [showSplash, setShowSplash] = useState(isHomePage && !splashShown);
-
-  useEffect(() => {
-    if (isHomePage && !splashShown) {
-      splashShown = true;
-      document.body.style.overflow = "hidden";
-      const timer = setTimeout(() => {
-        setShowSplash(false);
-        document.body.style.overflow = "";
-      }, 2200);
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = "";
-      };
-    }
-  }, [isHomePage]);
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,8 +28,6 @@ const Layout = () => {
 
   return (
     <>
-      {isHomePage && showSplash && <SplashScreen />}
-
       <Header onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
