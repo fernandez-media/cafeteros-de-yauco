@@ -54,7 +54,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
-      <section className="relative h-[85vh] min-h-[500px] overflow-hidden -mt-14">
+      <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
         <video
           src={heroVideo.url}
           poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
