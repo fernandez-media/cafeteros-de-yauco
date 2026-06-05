@@ -54,7 +54,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
-      <section className="relative h-[85vh] min-h-[500px] overflow-hidden -mt-14">
+      <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
         <video
           src={heroVideo.url}
           poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
@@ -73,7 +73,7 @@ const Index = () => {
               'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, #111111 100%)',
           }}
         />
-        <div className="absolute bottom-0 left-0 w-full px-5 pb-10 flex flex-col items-center">
+        <div className="absolute bottom-0 left-0 w-full px-5 flex flex-col items-center" style={{ paddingBottom: '80px' }}>
           <p
             className="m-0 text-center"
             style={{
