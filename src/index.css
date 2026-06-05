@@ -149,6 +149,11 @@ iframe:focus-visible,
   100% { transform: scale(1.15); }
 }
 
+@keyframes cascade {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
 /* ========== SCROLLBAR HIDDEN ========== */
 .scrollbar-hidden::-webkit-scrollbar { display: none; }
 .scrollbar-hidden { scrollbar-width: none; }
