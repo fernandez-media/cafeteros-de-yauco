@@ -13,6 +13,7 @@ import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
 import metsLogo from '../assets/mets-logo.png.asset.json';
 import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
+import heroVideo from '../assets/hero.mp4.asset.json';
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
@@ -54,22 +55,17 @@ const Index = () => {
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
       <section className="relative h-[85vh] min-h-[500px] overflow-hidden -mt-14">
-        <div
-          className="absolute inset-0 w-full h-full"
-          style={{ animation: 'heroZoom 20s ease-in-out infinite alternate' }}
-        >
-          <ResponsiveImage
-            name="hero"
-            alt="Cafeteros de Yauco"
-            width={1920}
-            height={1080}
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-            pictureClassName="block w-full h-full"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <video
+          src={heroVideo.url}
+          poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
         <div
           className="absolute inset-0"
           style={{

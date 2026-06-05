@@ -1,22 +1,28 @@
-# Plan: Forzar nueva pestaña en todas las tarjetas de noticias
+## Objetivo
 
-Las tres ubicaciones de tarjetas de noticias ya usan `target="_blank"` + `rel="noopener noreferrer"`, pero algunos contextos (PWA standalone en iOS, webviews dentro de apps, ciertos navegadores móviles) ignoran `target="_blank"` y abren el enlace en la misma vista. Vamos a reforzarlo con un handler explícito.
+Sustituir la imagen estática del hero en la página de inicio por el video que adjuntaste, manteniendo el mismo encuadre, overlay oscuro y el título "CAFETEROS DE YAUCO" + botón "Ver Calendario" encima.
 
 ## Cambios
 
-**Archivos:** `src/pages/Index.tsx` y `src/pages/Noticias.tsx`
+1. **Subir el video como asset CDN**
+   - Crear `src/assets/hero.mp4.asset.json` con `lovable-assets create` desde `/mnt/user-uploads/hf_20260605_033219_...mp4`.
+   - El binario queda servido por CDN, no se commitea al repo.
 
-Para cada uno de los 3 enlaces de noticia (featured + 2 side en Index, lista completa en Noticias):
+2. **Reemplazar el `<ResponsiveImage name="hero" />` del hero** en `src/pages/Index.tsx` (líneas 56–95) por un `<video>`:
+   - `autoPlay`, `muted`, `loop`, `playsInline` (requisitos para que reproduzca solo en móvil y Safari).
+   - `preload="auto"`, `object-cover w-full h-full`.
+   - `poster` apuntando al `hero` actual (`ResponsiveImage`) — se usa el JPG/WebP existente como primer frame mientras carga el video, para evitar parpadeo negro.
+   - Conservar el overlay con gradiente a `#111111` y el contenedor con la animación `heroZoom` (o quitarla si el video ya tiene movimiento propio — recomiendo **quitar** `heroZoom` para no duplicar movimiento; el zoom CSS sobre video se siente raro).
 
-1. Mantener `href`, `target="_blank"`, `rel="noopener noreferrer"` (para accesibilidad, SEO y middle-click).
-2. Añadir un `onClick` que:
-   - Llama a `e.preventDefault()`.
-   - Ejecuta `window.open(article.url, '_blank', 'noopener,noreferrer')`.
-   - Esto se ejecuta dentro del gesto de clic del usuario, lo que evita el bloqueo de popups y fuerza una pestaña/ventana nueva en navegadores que ignoran `target="_blank"` en `<a>`.
-
-No se toca ningún estilo, layout, dato, imagen, ni la navegación interna (las `<Link>` de react-router como "Ver todo" siguen igual). Los videos no se modifican.
+3. **Mantener intacto**: título, botón CTA, slider de imágenes, resto de secciones, y la imagen `hero` original (sigue usándose como poster del video).
 
 ## Notas técnicas
 
-- Se usa el mismo patrón en los 3 sitios: handler inline pequeño `onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}` (y `featuredArticle.url` para el destacado).
-- Sin dependencias nuevas.
+- El video se sirve desde `/__l5e/assets-v1/...` (CDN Cloudflare), con caching agresivo.
+- `muted` es obligatorio para que `autoPlay` funcione en todos los navegadores móviles.
+- Si en el futuro quieres un control de play/pause o sonido opt-in, se puede añadir después; este plan deja el video en modo "ambient background" igual que la imagen actual.
+
+## Archivos afectados
+
+- `src/assets/hero.mp4.asset.json` (nuevo)
+- `src/pages/Index.tsx` (editado: solo el bloque hero)
