@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import trophyImg from '@/assets/gold-trophy.png';
+import { Trophy } from 'lucide-react';
 
 const SplashScreen = () => {
   const [hidden, setHidden] = useState(false);
@@ -45,35 +45,14 @@ const SplashScreen = () => {
         }}
       />
 
-      {/* Trophy with animated rings */}
+      {/* Trophy icon */}
       <div className="relative flex items-center justify-center mb-12">
-        <div
-          aria-hidden
-          className="absolute rounded-full border border-[var(--gold)]/30"
+        <Trophy
+          size={120}
+          strokeWidth={1.2}
+          className="relative"
           style={{
-            width: 280,
-            height: 280,
-            animation: 'trophyRingSpin 8s linear infinite',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute rounded-full border border-dashed border-[var(--gold)]/20"
-          style={{
-            width: 340,
-            height: 340,
-            animation: 'trophyRingSpin 14s linear infinite reverse',
-          }}
-        />
-        <img
-          src={trophyImg}
-          alt="Trofeo dorado"
-          width={220}
-          height={220}
-          loading="eager"
-          fetchPriority="high"
-          className="relative w-[220px] h-auto"
-          style={{
+            color: 'var(--gold)',
             animation: 'trophyFloat 2.4s ease-in-out infinite',
             filter:
               'drop-shadow(0 0 24px rgba(255,215,0,0.55)) drop-shadow(0 0 60px rgba(255,215,0,0.25))',
