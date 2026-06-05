@@ -35,14 +35,14 @@ const Merch = () => {
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
-                className="rounded-2xl overflow-hidden"
+                className="rounded-2xl overflow-hidden [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate"
                 style={{
                   backgroundColor: '#1a1a1a',
                   border: '1px solid rgba(255, 215, 0, 0.08)',
                 }}
               >
                 <div
-                  className="relative w-full h-[180px] flex items-center justify-center p-6"
+                  className="relative w-full h-[180px] flex items-center justify-center p-6 overflow-hidden"
                   style={{ backgroundColor: item.bgColor }}
                 >
                   <ResponsiveImage

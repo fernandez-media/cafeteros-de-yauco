@@ -13,7 +13,7 @@ import gigantesLogo from '../assets/gigantes-logo.png.asset.json';
 import metsLogo from '../assets/mets-logo.png.asset.json';
 import patriotasLogo from '../assets/patriotas-logo.png.asset.json';
 import plataneroslogo from '../assets/plataneros-logo.png.asset.json';
-import heroVideo from '../assets/hero.mp4.asset.json';
+
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
@@ -56,7 +56,7 @@ const Index = () => {
       {/* ===== HERO ===== */}
       <section className="relative overflow-hidden -mt-14" style={{ height: '100dvh', minHeight: '100dvh' }}>
         <video
-          src={heroVideo.url}
+          src={`${import.meta.env.BASE_URL}media/hero.mp4`}
           poster={`${import.meta.env.BASE_URL}assets/opt/hero-1920.webp`}
           autoPlay
           muted
@@ -324,10 +324,10 @@ const Index = () => {
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
-                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]"
+                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate"
               >
                 <div
-                  className="relative w-full h-[160px] flex items-center justify-center p-6"
+                  className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden"
                   style={{ backgroundColor: item.bgColor }}
                 >
                   <ResponsiveImage
