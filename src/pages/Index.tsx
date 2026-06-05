@@ -373,6 +373,75 @@ const Index = () => {
         </ScrollReveal>
       </section>
 
+      {/* ===== ROSTER PREVIEW ===== */}
+      <section className="px-5 py-10">
+        <ScrollReveal>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
+              Roster
+            </h2>
+            <Link
+              to="/roster"
+              className="text-gold text-sm font-semibold no-underline hover:underline"
+            >
+              Ver todo
+            </Link>
+          </div>
+        </ScrollReveal>
+
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            backgroundColor: '#1a1a1a',
+            border: '1px solid rgba(255, 215, 0, 0.08)',
+          }}
+        >
+          {previewRoster.map((player, i) => (
+            <ScrollReveal key={i} delay={i * 0.04}>
+              <div
+                className="flex items-center gap-4 px-5 py-4"
+                style={{
+                  borderBottom:
+                    i < previewRoster.length - 1
+                      ? '1px solid rgba(255, 255, 255, 0.06)'
+                      : 'none',
+                }}
+              >
+                <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
+                  {player.number}
+                </span>
+                <PlayerAvatar photo={player.photo} name={player.name} size={40} />
+                <div className="flex-1 min-w-0">
+                  <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
+                    {player.name}
+                    {player.captain && (
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-yellow-400/20 text-yellow-400 font-display font-bold text-[9px] leading-none uppercase tracking-wider">
+                        capitán
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-white/40 text-xs mt-0.5 m-0">
+                    {player.position}
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        <ScrollReveal>
+          <Link
+            to="/roster"
+            className="block mt-4 w-full py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline transition-all duration-200 hover:bg-gold/10"
+            style={{
+              border: '1px solid rgba(255, 215, 0, 0.25)',
+            }}
+          >
+            Ver Roster Completo
+          </Link>
+        </ScrollReveal>
+      </section>
+
       {/* ===== NOTICIAS PREVIEW ===== */}
       <section className="px-5 py-10">
         <ScrollReveal>
@@ -472,75 +541,6 @@ const Index = () => {
             </ScrollReveal>
           ))}
         </div>
-      </section>
-
-      {/* ===== ROSTER PREVIEW ===== */}
-      <section className="px-5 py-10">
-        <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Roster
-            </h2>
-            <Link
-              to="/roster"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Ver todo
-            </Link>
-          </div>
-        </ScrollReveal>
-
-        <div
-          className="rounded-2xl overflow-hidden"
-          style={{
-            backgroundColor: '#1a1a1a',
-            border: '1px solid rgba(255, 215, 0, 0.08)',
-          }}
-        >
-          {previewRoster.map((player, i) => (
-            <ScrollReveal key={i} delay={i * 0.04}>
-              <div
-                className="flex items-center gap-4 px-5 py-4"
-                style={{
-                  borderBottom:
-                    i < previewRoster.length - 1
-                      ? '1px solid rgba(255, 255, 255, 0.06)'
-                      : 'none',
-                }}
-              >
-                <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
-                  {player.number}
-                </span>
-                <PlayerAvatar photo={player.photo} name={player.name} size={40} />
-                <div className="flex-1 min-w-0">
-                  <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
-                    {player.name}
-                    {player.captain && (
-                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-yellow-400/20 text-yellow-400 font-display font-bold text-[9px] leading-none uppercase tracking-wider">
-                        capitán
-                      </span>
-                    )}
-                  </p>
-                  <p className="text-white/40 text-xs mt-0.5 m-0">
-                    {player.position}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        <ScrollReveal>
-          <Link
-            to="/roster"
-            className="block mt-4 w-full py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline transition-all duration-200 hover:bg-gold/10"
-            style={{
-              border: '1px solid rgba(255, 215, 0, 0.25)',
-            }}
-          >
-            Ver Roster Completo
-          </Link>
-        </ScrollReveal>
       </section>
 
       {/* ===== SOBRE NOSOTROS PREVIEW ===== */}
