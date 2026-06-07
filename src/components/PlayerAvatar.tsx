@@ -12,7 +12,7 @@ const PlayerAvatar = ({ photo, name, size = 40 }: PlayerAvatarProps) => {
     return (
       <div
         className="rounded-full overflow-hidden bg-white/10 flex-shrink-0"
-        style={{ width: dimension, height: dimension }}
+        style={{ width: dimension, height: dimension, boxShadow: '0 0 0 2px hsl(var(--gold))' }}
       >
         <img
           src={photo}
