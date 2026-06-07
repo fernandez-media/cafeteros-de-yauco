@@ -30,7 +30,7 @@ const PlayerAvatar = ({ photo, name, size = 40 }: PlayerAvatarProps) => {
   return (
     <div
       className="rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"
-      style={{ width: dimension, height: dimension }}
+      style={{ width: dimension, height: dimension, boxShadow: '0 0 0 2px hsl(var(--gold))' }}
       aria-hidden="true"
     >
       <svg
