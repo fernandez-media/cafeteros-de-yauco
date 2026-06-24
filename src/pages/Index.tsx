@@ -71,7 +71,7 @@ const Index = () => {
 
 
   return (
-    <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:px-12 lg:[&>section:not(:first-of-type)]:!px-12">
+    <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12">
       {/* ===== HERO ===== */}
       <section
         className="relative overflow-hidden -mt-14 h-[100dvh] min-h-[100dvh] lg:h-[70vh] lg:min-h-0 lg:max-h-[800px]"
