@@ -159,14 +159,14 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-8 px-5 items-stretch">
+        <div ref={scrollRef} className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-5 overflow-x-auto lg:overflow-x-visible overflow-y-hidden scrollbar-hidden py-8 px-5 lg:px-12 items-stretch w-full max-w-[1200px] mx-auto">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
-            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
+            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0 lg:flex-shrink">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
+                className="flex flex-col w-[260px] lg:w-full rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 255, 255, 0.06)',
@@ -355,7 +355,7 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
