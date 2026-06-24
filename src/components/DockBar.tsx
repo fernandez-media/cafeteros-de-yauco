@@ -70,7 +70,7 @@ const DockBar = () => {
   const location = useLocation();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[800] px-3 pb-2" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
+    <div className="fixed bottom-0 left-0 right-0 z-[800] px-3 pb-2 lg:hidden" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
       <div
         className="flex justify-around items-center py-2 px-1 rounded-[22px]"
         style={{
