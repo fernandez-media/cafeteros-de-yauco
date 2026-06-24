@@ -74,9 +74,8 @@ const Index = () => {
     <div className="min-h-screen">
       {/* ===== HERO ===== */}
       <section
-        className="relative overflow-hidden -mt-14"
+        className="relative overflow-hidden -mt-14 h-[100dvh] lg:h-[70vh] lg:max-h-[800px]"
         style={{
-          height: '100dvh',
           minHeight: '100dvh',
           backgroundColor: '#000000',
           backgroundImage: `url(${heroFirstFrame.url})`,
