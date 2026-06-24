@@ -628,7 +628,7 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
             <ScrollReveal key={name} delay={i * 0.05}>
               <div className="rounded-2xl overflow-hidden aspect-square">
