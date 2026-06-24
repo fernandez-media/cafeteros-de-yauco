@@ -30,8 +30,8 @@ const Merch = () => {
         </Link>
       </div>
 
-      <div className="px-5 pb-10">
-        <div className="grid grid-cols-2 gap-3">
+      <div className="px-5 lg:px-12 pb-10 w-full max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
