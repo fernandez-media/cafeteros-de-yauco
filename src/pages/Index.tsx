@@ -439,7 +439,7 @@ const Index = () => {
         </ScrollReveal>
 
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-2xl overflow-hidden lg:bg-transparent lg:border-0 lg:rounded-none lg:grid lg:grid-cols-2 lg:gap-3"
           style={{
             backgroundColor: '#1a1a1a',
             border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -448,7 +448,7 @@ const Index = () => {
           {previewRoster.map((player, i) => (
             <ScrollReveal key={i} delay={i * 0.04}>
               <div
-                className="flex items-center gap-4 px-5 py-4"
+                className="flex items-center gap-4 px-5 py-4 lg:rounded-xl lg:bg-[#1a1a1a] lg:border lg:border-gold/10"
                 style={{
                   borderBottom:
                     i < previewRoster.length - 1
