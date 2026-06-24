@@ -7,7 +7,7 @@ const Header = ({ onMenuToggle, isMenuOpen }: HeaderProps) => {
   return (
     <button
       onClick={onMenuToggle}
-      className="fixed top-4 left-4 w-7 h-5 flex flex-col justify-between items-center bg-transparent border-none cursor-pointer z-[1001] p-0"
+      className="fixed top-4 left-4 w-7 h-5 flex lg:hidden flex-col justify-between items-center bg-transparent border-none cursor-pointer z-[1001] p-0"
       aria-label="Toggle menu"
     >
       <span

@@ -71,13 +71,11 @@ const Index = () => {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12">
       {/* ===== HERO ===== */}
       <section
-        className="relative overflow-hidden -mt-14"
+        className="relative overflow-hidden -mt-14 h-[100dvh] min-h-[100dvh] lg:h-[70vh] lg:min-h-0 lg:max-h-[800px]"
         style={{
-          height: '100dvh',
-          minHeight: '100dvh',
           backgroundColor: '#000000',
           backgroundImage: `url(${heroFirstFrame.url})`,
           backgroundSize: 'cover',
@@ -161,14 +159,14 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-8 px-5 items-stretch">
+        <div ref={scrollRef} className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-5 overflow-x-auto lg:overflow-x-visible overflow-y-hidden scrollbar-hidden py-8 px-5 lg:px-12 items-stretch w-full max-w-[1200px] mx-auto">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
-            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
+            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0 lg:flex-shrink">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
+                className="flex flex-col w-[260px] lg:w-full rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 255, 255, 0.06)',
@@ -357,7 +355,7 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div
@@ -441,7 +439,7 @@ const Index = () => {
         </ScrollReveal>
 
         <div
-          className="rounded-2xl overflow-hidden"
+          className="rounded-2xl overflow-hidden lg:bg-transparent lg:border-0 lg:rounded-none lg:grid lg:grid-cols-2 lg:gap-3"
           style={{
             backgroundColor: '#1a1a1a',
             border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -450,7 +448,7 @@ const Index = () => {
           {previewRoster.map((player, i) => (
             <ScrollReveal key={i} delay={i * 0.04}>
               <div
-                className="flex items-center gap-4 px-5 py-4"
+                className="flex items-center gap-4 px-5 py-4 lg:rounded-xl lg:bg-[#1a1a1a] lg:border lg:border-gold/10"
                 style={{
                   borderBottom:
                     i < previewRoster.length - 1
@@ -509,88 +507,90 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        {/* Featured Article */}
-        <ScrollReveal>
-          <a
-            href={featuredArticle.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => { e.preventDefault(); window.open(featuredArticle.url, '_blank', 'noopener,noreferrer'); }}
-            className="block rounded-2xl overflow-hidden mb-4 no-underline"
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid rgba(255, 215, 0, 0.08)',
-            }}
-          >
-            <div className="relative w-full h-[200px]">
-              <img
-                src={featuredArticle.image}
-                alt={featuredArticle.title}
-                width="800"
-                height="400"
-                loading="eager"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)',
-                }}
-              />
-            </div>
-            <div className="px-4 pb-4 -mt-8 relative z-10">
-              <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                {featuredArticle.source}
-              </span>
-              <h3 className="font-display font-bold text-base text-white mt-1 m-0 leading-tight">
-                {featuredArticle.title}
-              </h3>
-              <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">
-                {featuredArticle.excerpt}
-              </p>
-            </div>
-          </a>
-        </ScrollReveal>
+        <div className="flex flex-col lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4">
+          {/* Featured Article */}
+          <ScrollReveal>
+            <a
+              href={featuredArticle.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => { e.preventDefault(); window.open(featuredArticle.url, '_blank', 'noopener,noreferrer'); }}
+              className="block rounded-2xl overflow-hidden mb-4 lg:mb-0 lg:h-full no-underline"
+              style={{
+                backgroundColor: '#1a1a1a',
+                border: '1px solid rgba(255, 215, 0, 0.08)',
+              }}
+            >
+              <div className="relative w-full h-[200px] lg:h-[320px]">
+                <img
+                  src={featuredArticle.image}
+                  alt={featuredArticle.title}
+                  width="800"
+                  height="400"
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)',
+                  }}
+                />
+              </div>
+              <div className="px-4 pb-4 -mt-8 relative z-10">
+                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
+                  {featuredArticle.source}
+                </span>
+                <h3 className="font-display font-bold text-base lg:text-lg text-white mt-1 m-0 leading-tight">
+                  {featuredArticle.title}
+                </h3>
+                <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">
+                  {featuredArticle.excerpt}
+                </p>
+              </div>
+            </a>
+          </ScrollReveal>
 
-        {/* Side Articles */}
-        <div className="flex flex-col gap-3">
-          {sideArticles.map((article, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
-                className="flex gap-3 rounded-2xl p-3 no-underline"
-                style={{
-                  backgroundColor: '#1a1a1a',
-                  border: '1px solid rgba(255, 215, 0, 0.08)',
-                }}
-              >
-                <div className="flex-shrink-0 w-[90px] h-[70px] rounded-xl overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    width="90"
-                    height="70"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                    {article.source}
-                  </span>
-                  <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">
-                    {article.title}
-                  </h4>
-                  <p className="text-white/40 text-[11px] mt-1 m-0">{article.date}</p>
-                </div>
-              </a>
-            </ScrollReveal>
-          ))}
+          {/* Side Articles */}
+          <div className="flex flex-col gap-3">
+            {sideArticles.map((article, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
+                  className="flex gap-3 rounded-2xl p-3 no-underline"
+                  style={{
+                    backgroundColor: '#1a1a1a',
+                    border: '1px solid rgba(255, 215, 0, 0.08)',
+                  }}
+                >
+                  <div className="flex-shrink-0 w-[90px] h-[70px] rounded-xl overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      width="90"
+                      height="70"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
+                      {article.source}
+                    </span>
+                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">
+                      {article.title}
+                    </h4>
+                    <p className="text-white/40 text-[11px] mt-1 m-0">{article.date}</p>
+                  </div>
+                </a>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -628,7 +628,7 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
             <ScrollReveal key={name} delay={i * 0.05}>
               <div className="rounded-2xl overflow-hidden aspect-square">
