@@ -399,17 +399,17 @@ const Index = () => {
                 <p className="text-white/50 text-xs m-0 mt-0.5">Asegura tu asiento para los próximos juegos</p>
               </div>
             </div>
-            <a
-              href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+            <button
+              type="button"
+              onClick={() => setTicketsOpen(true)}
+              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
             >
-              Comprar
+              Ver fechas
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
-            </a>
+            </button>
+
           </div>
         </ScrollReveal>
       </section>
