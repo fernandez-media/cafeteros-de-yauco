@@ -201,7 +201,7 @@ const Index = () => {
 
         {/* DESKTOP header — title + countdown to next home game */}
         <ScrollReveal>
-          <div className="hidden lg:flex items-end justify-between mb-8 px-10 max-w-[1400px] mx-auto">
+          <div className="hidden lg:flex items-end justify-between mb-10 px-8 xl:px-12 max-w-[1600px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
                 Calendario
@@ -323,24 +323,24 @@ const Index = () => {
         </div>
 
         {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-6 px-10 w-full max-w-[1400px] mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-7 px-8 xl:px-12 w-full max-w-[1600px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
-                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={96} height={96} sizes="96px" loading="eager" pictureClassName="w-24 h-24 inline-flex" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">Cafeteros</p>
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={112} height={112} sizes="112px" loading="eager" pictureClassName="w-28 h-28 inline-flex" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros</p>
               </div>
             );
             const oppBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 {oppKey ? (
-                  <img src={teamLogo(oppKey)} alt={game.opponent} width="96" height="96" loading="eager" decoding="async" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="112" height="112" loading="eager" decoding="async" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-white/10" />
+                  <div className="w-28 h-28 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
@@ -355,7 +355,7 @@ const Index = () => {
                 >
                   {/* Top navy VS block */}
                   <div
-                    className="relative px-6 pt-8 pb-8 min-h-[240px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-10 pb-10 min-h-[300px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background:
                         'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
@@ -366,9 +366,9 @@ const Index = () => {
                         Próximo
                       </span>
                     )}
-                    <div className="flex items-center justify-center gap-6">
+                    <div className="flex items-center justify-center gap-5">
                       {blocks[0]}
-                      <span className="font-display font-black text-3xl text-white/90 leading-none">VS</span>
+                      <span className="font-display font-black text-4xl text-white/90 leading-none">VS</span>
                       {blocks[1]}
                     </div>
                   </div>
@@ -400,7 +400,7 @@ const Index = () => {
           <ScrollReveal delay={0.15}>
             <Link
               to="/calendario"
-              className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
+              className="relative rounded-3xl overflow-hidden block h-full min-h-[480px] no-underline group"
               style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
             >
               <ResponsiveImage
