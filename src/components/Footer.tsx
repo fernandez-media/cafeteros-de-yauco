@@ -9,7 +9,7 @@ const Footer = () => {
       }}
     >
       {/* Main Section */}
-      <div className="pt-6 pb-4 sm:pt-8 sm:pb-6 flex flex-col items-center px-4 sm:px-6">
+      <div className="pt-6 pb-4 sm:pt-8 sm:pb-6 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
         {/* Logo */}
         <ResponsiveImage
           name="cafeteros-logo"
@@ -30,7 +30,6 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex items-center gap-4 sm:gap-5">
-          {/* Facebook */}
           <a
             href="https://www.facebook.com/CafeterosVoli/?locale=es_LA"
             target="_blank"
@@ -43,7 +42,6 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* Instagram */}
           <a
             href="https://www.instagram.com/cafeterosdeyaucovolley/"
             target="_blank"
@@ -58,7 +56,6 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* YouTube — placeholder until URL is available */}
           <span
             className="w-14 h-14 rounded-full flex items-center justify-center border border-white/10 text-white/20"
             aria-hidden="true"
