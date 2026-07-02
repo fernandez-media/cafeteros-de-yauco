@@ -34,8 +34,9 @@ const Roster = () => {
       </div>
 
       <div className="px-5 lg:px-12 pb-10 w-full max-w-[1200px] mx-auto">
+        {/* Mobile list */}
         <div
-          className="rounded-2xl overflow-hidden lg:bg-transparent lg:border-0 lg:rounded-none lg:grid lg:grid-cols-2 lg:gap-3"
+          className="lg:hidden rounded-2xl overflow-hidden"
           style={{
             backgroundColor: '#1a1a1a',
             border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -44,7 +45,7 @@ const Roster = () => {
           {roster.map((player, i) => (
             <ScrollReveal key={i} delay={i * 0.03}>
               <div
-                className="flex items-center gap-4 px-5 py-4 lg:rounded-xl lg:bg-[#1a1a1a] lg:border lg:border-gold/10"
+                className="flex items-center gap-4 px-5 py-4"
                 style={{
                   borderBottom:
                     i < roster.length - 1
@@ -68,6 +69,44 @@ const Roster = () => {
                   <p className="text-white/40 text-xs mt-0.5 m-0">
                     {player.position}
                   </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {/* Desktop grid */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-5">
+          {roster.map((player, i) => (
+            <ScrollReveal key={i} delay={i * 0.03}>
+              <div
+                className="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-[0_15px_50px_rgba(255,215,0,0.15)]"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  border: '1px solid rgba(255, 215, 0, 0.08)',
+                }}
+              >
+                <span
+                  className="absolute top-3 right-4 font-display font-black text-5xl text-gold/25 leading-none z-10 transition-colors duration-300 group-hover:text-gold/60"
+                  aria-hidden="true"
+                >
+                  {player.number}
+                </span>
+                <div className="flex items-center gap-4 p-5">
+                  <PlayerAvatar photo={player.photo} name={player.name} size={80} />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-display font-bold text-base text-white uppercase m-0 leading-tight flex items-center gap-1.5 flex-wrap">
+                      {player.name}
+                      {player.captain && (
+                        <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-yellow-400/20 text-yellow-400 font-display font-bold text-[9px] leading-none uppercase tracking-wider">
+                          capitán
+                        </span>
+                      )}
+                    </p>
+                    <p className="text-gold/70 text-xs mt-1 m-0 uppercase tracking-wider font-semibold">
+                      {player.position}
+                    </p>
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
