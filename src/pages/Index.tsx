@@ -565,23 +565,52 @@ const Index = () => {
       </section>
 
       {/* ===== ROSTER PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="px-5 py-10 lg:py-16 lg:px-10">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Roster
+          <div className="flex items-center justify-between mb-5 lg:mb-8 lg:max-w-[1400px] lg:mx-auto">
+            <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
+              <span className="lg:hidden">Roster</span>
+              <span className="hidden lg:inline">Roster Cafeteros</span>
             </h2>
-            <Link
-              to="/roster"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Ver todo
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                to="/roster"
+                className="text-gold text-sm font-semibold no-underline hover:underline lg:hidden"
+              >
+                Ver todo
+              </Link>
+              {/* Desktop arrow controls */}
+              <div className="hidden lg:flex items-center gap-2">
+                <Link
+                  to="/roster"
+                  className="mr-4 text-white/60 hover:text-gold text-xs font-display font-bold uppercase tracking-[0.2em] no-underline transition-colors"
+                >
+                  Ver Roster Completo
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => scrollRoster(-1)}
+                  aria-label="Anterior"
+                  className="w-11 h-11 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 transition-all duration-200 flex items-center justify-center"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollRoster(1)}
+                  aria-label="Siguiente"
+                  className="w-11 h-11 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 transition-all duration-200 flex items-center justify-center"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </ScrollReveal>
 
+        {/* MOBILE: original list */}
         <div
-          className="rounded-2xl overflow-hidden lg:bg-transparent lg:border-0 lg:rounded-none lg:grid lg:grid-cols-2 lg:gap-3"
+          className="lg:hidden rounded-2xl overflow-hidden"
           style={{
             backgroundColor: '#1a1a1a',
             border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -590,7 +619,7 @@ const Index = () => {
           {previewRoster.map((player, i) => (
             <ScrollReveal key={i} delay={i * 0.04}>
               <div
-                className="flex items-center gap-4 px-5 py-4 lg:rounded-xl lg:bg-[#1a1a1a] lg:border lg:border-gold/10"
+                className="flex items-center gap-4 px-5 py-4"
                 style={{
                   borderBottom:
                     i < previewRoster.length - 1
@@ -623,7 +652,7 @@ const Index = () => {
         <ScrollReveal>
           <Link
             to="/roster"
-            className="block mt-4 w-full py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline transition-all duration-200 hover:bg-gold/10"
+            className="lg:hidden block mt-4 w-full py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline transition-all duration-200 hover:bg-gold/10"
             style={{
               border: '1px solid rgba(255, 215, 0, 0.25)',
             }}
@@ -631,6 +660,83 @@ const Index = () => {
             Ver Roster Completo
           </Link>
         </ScrollReveal>
+
+        {/* DESKTOP: Barça-style horizontal player carousel */}
+        <div className="hidden lg:block lg:max-w-[1400px] lg:mx-auto">
+          <div
+            ref={rosterScrollRef}
+            className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2"
+            style={{ scrollPaddingLeft: 0 }}
+          >
+            {roster.map((player, i) => (
+              <Link
+                key={i}
+                to="/roster"
+                data-roster-card
+                className="group relative snap-start flex-shrink-0 w-[260px] h-[380px] rounded-2xl overflow-hidden no-underline"
+                style={{
+                  background:
+                    'linear-gradient(180deg, #1e2a5e 0%, #0d1436 100%)',
+                  boxShadow:
+                    '0 20px 40px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.08) inset',
+                }}
+              >
+                {/* Big number backdrop */}
+                <span
+                  aria-hidden="true"
+                  className="absolute top-4 right-4 font-display font-black leading-none pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:text-gold/30"
+                  style={{
+                    fontSize: 96,
+                    color: 'rgba(255,255,255,0.08)',
+                  }}
+                >
+                  {player.number}
+                </span>
+
+                {/* Player photo */}
+                {player.photo ? (
+                  <img
+                    src={player.photo}
+                    alt={player.name}
+                    className="absolute inset-x-0 bottom-0 w-full h-[85%] object-contain object-bottom pointer-events-none select-none transition-transform duration-500 group-hover:scale-[1.04]"
+                    draggable={false}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-white/30 text-6xl font-display font-black">
+                    {player.number}
+                  </div>
+                )}
+
+                {/* Bottom gradient + info */}
+                <div
+                  className="absolute inset-x-0 bottom-0 p-5 pt-16"
+                  style={{
+                    background:
+                      'linear-gradient(0deg, rgba(5,10,30,0.95) 0%, rgba(5,10,30,0.7) 55%, rgba(5,10,30,0) 100%)',
+                  }}
+                >
+                  <p className="text-gold/80 text-[10px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1">
+                    {player.position}
+                  </p>
+                  <p className="font-display font-black text-white uppercase text-lg leading-tight m-0 flex items-center gap-2">
+                    {player.name}
+                    {player.captain && (
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/25 text-gold font-display font-bold text-[9px] leading-none uppercase tracking-wider">
+                        C
+                      </span>
+                    )}
+                  </p>
+                </div>
+
+                {/* Gold reveal on hover */}
+                <div
+                  className="absolute inset-x-0 bottom-0 h-[3px] bg-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                />
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ===== NOTICIAS PREVIEW ===== */}
