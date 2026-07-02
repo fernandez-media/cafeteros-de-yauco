@@ -74,7 +74,7 @@ const Index = () => {
     <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12">
       {/* ===== HERO ===== */}
       <section
-        className="relative overflow-hidden -mt-14 h-[100dvh] min-h-[100dvh] lg:h-[70vh] lg:min-h-0 lg:max-h-[800px]"
+        className="relative overflow-hidden -mt-14 lg:-mt-0 h-[100dvh] min-h-[100dvh] lg:h-[100dvh] lg:min-h-[100dvh] lg:max-h-none"
         style={{
           backgroundColor: '#000000',
           backgroundImage: `url(${heroFirstFrame.url})`,
@@ -105,10 +105,35 @@ const Index = () => {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, #111111 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.75) 85%, #111111 100%)',
           }}
         />
+
+        {/* Desktop title overlay */}
+        <div className="hidden lg:flex absolute inset-0 flex-col items-center justify-center px-8 text-center pointer-events-none">
+          <span className="hero-eyebrow font-display text-gold text-xs tracking-[0.55em] uppercase mb-6 opacity-0">
+            Liga de Voleibol Superior Masculina · 2025–26
+          </span>
+          <h1
+            className="hero-title font-display font-black uppercase text-white leading-[0.88] m-0"
+            style={{
+              fontSize: 'clamp(4rem, 10vw, 10rem)',
+              letterSpacing: '0.02em',
+              textShadow: '0 6px 40px rgba(0,0,0,0.55)',
+            }}
+          >
+            <span className="block hero-word" style={{ animationDelay: '0.15s' }}>Cafeteros</span>
+            <span className="block hero-word text-gold" style={{ animationDelay: '0.35s' }}>de Yauco</span>
+          </h1>
+          <span className="hero-eyebrow font-display text-white/60 text-sm tracking-[0.35em] uppercase mt-8 opacity-0" style={{ animationDelay: '0.7s' }}>
+            Pasión · Tradición · Campeones 2026
+          </span>
+        </div>
+
         <div className="absolute bottom-0 left-0 w-full px-5 flex flex-col items-center" style={{ paddingBottom: '120px' }}>
+          <span className="hidden lg:block font-display text-white/40 text-[10px] tracking-[0.4em] uppercase mb-2">
+            Scroll
+          </span>
           <div className="mt-4 flex flex-col items-center" aria-hidden="true">
             {[
               { size: 22, opacity: 1, delay: '0s' },
@@ -282,7 +307,8 @@ const Index = () => {
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
-          <div className="relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)] focus-within:border-gold/80 focus-within:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+          {/* Mobile: full CTA card */}
+          <div className="lg:hidden relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
             <ResponsiveImage
               name="hero"
               alt=""
@@ -297,34 +323,19 @@ const Index = () => {
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
               }}
             />
             <div className="relative z-10 p-5 sm:p-8 text-center">
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FFD700"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mx-auto mb-2 sm:mb-4"
-              >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-2 sm:mb-4">
                 <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                <path d="M13 5v2" />
-                <path d="M13 17v2" />
-                <path d="M13 11v2" />
+                <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
               </svg>
               <h3 className="font-display font-bold text-xl sm:text-2xl uppercase text-white mb-1 sm:mb-2 m-0">
                 Consigue tus boletos
               </h3>
               <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
-                Asegura tu asiento para los juegos
-                <br />
-                de los Cafeteros de Yauco.
+                Asegura tu asiento para los juegos<br />de los Cafeteros de Yauco.
               </p>
               <a
                 href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
@@ -335,6 +346,39 @@ const Index = () => {
                 Comprar Boletos
               </a>
             </div>
+          </div>
+
+          {/* Desktop: discrete compact banner */}
+          <div
+            className="hidden lg:flex items-center justify-between gap-6 max-w-[900px] mx-auto rounded-2xl px-6 py-4 transition-all duration-300 hover:border-gold/60 hover:shadow-[0_10px_40px_rgba(255,215,0,0.12)]"
+            style={{
+              background: 'linear-gradient(120deg, rgba(255,215,0,0.06) 0%, rgba(26,26,26,0.9) 60%)',
+              border: '1px solid rgba(255, 215, 0, 0.25)',
+            }}
+          >
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,215,0,0.10)', border: '1px solid rgba(255,215,0,0.25)' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                  <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className="font-display font-bold text-base uppercase text-white m-0 tracking-wide">Consigue tus boletos</p>
+                <p className="text-white/50 text-xs m-0 mt-0.5">Asegura tu asiento para los próximos juegos</p>
+              </div>
+            </div>
+            <a
+              href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+            >
+              Comprar
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
           </div>
         </ScrollReveal>
       </section>
