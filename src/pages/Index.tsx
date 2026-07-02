@@ -355,7 +355,7 @@ const Index = () => {
                 >
                   {/* Top navy VS block */}
                   <div
-                    className="relative px-6 pt-8 pb-8 min-h-[240px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-10 pb-10 min-h-[300px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background:
                         'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
@@ -366,9 +366,9 @@ const Index = () => {
                         Próximo
                       </span>
                     )}
-                    <div className="flex items-center justify-center gap-6">
+                    <div className="flex items-center justify-center gap-5">
                       {blocks[0]}
-                      <span className="font-display font-black text-3xl text-white/90 leading-none">VS</span>
+                      <span className="font-display font-black text-4xl text-white/90 leading-none">VS</span>
                       {blocks[1]}
                     </div>
                   </div>
