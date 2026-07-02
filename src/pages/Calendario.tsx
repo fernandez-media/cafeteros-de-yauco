@@ -10,9 +10,23 @@ const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
 
 const Calendario = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  );
 
   useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setActiveIndex(null);
+      return;
+    }
     const compute = () => {
       const center = window.innerHeight / 2;
       let best = 0;
@@ -32,7 +46,7 @@ const Calendario = () => {
       window.removeEventListener('scroll', compute);
       window.removeEventListener('resize', compute);
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <div className="min-h-screen -mt-14">
