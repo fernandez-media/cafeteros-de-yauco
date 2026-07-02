@@ -10,9 +10,23 @@ const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
 
 const Calendario = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  );
 
   useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setActiveIndex(null);
+      return;
+    }
     const compute = () => {
       const center = window.innerHeight / 2;
       let best = 0;
@@ -32,7 +46,7 @@ const Calendario = () => {
       window.removeEventListener('scroll', compute);
       window.removeEventListener('resize', compute);
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <div className="min-h-screen -mt-14">
@@ -66,7 +80,9 @@ const Calendario = () => {
           <ScrollReveal key={i} delay={i * 0.03}>
             <div
               ref={(el) => { cardRefs.current[i] = el; }}
-              className="rounded-2xl p-5 border transition-[border-color,box-shadow] duration-300"
+              onMouseEnter={isDesktop ? () => setActiveIndex(i) : undefined}
+              onMouseLeave={isDesktop ? () => setActiveIndex(null) : undefined}
+              className="rounded-2xl p-5 border transition-[border-color,box-shadow,transform] duration-300 lg:hover:-translate-y-1"
               style={{
                 backgroundColor: '#1a1a1a',
                 borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
