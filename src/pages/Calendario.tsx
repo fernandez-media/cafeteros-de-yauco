@@ -80,7 +80,9 @@ const Calendario = () => {
           <ScrollReveal key={i} delay={i * 0.03}>
             <div
               ref={(el) => { cardRefs.current[i] = el; }}
-              className="rounded-2xl p-5 border transition-[border-color,box-shadow] duration-300"
+              onMouseEnter={isDesktop ? () => setActiveIndex(i) : undefined}
+              onMouseLeave={isDesktop ? () => setActiveIndex(null) : undefined}
+              className="rounded-2xl p-5 border transition-[border-color,box-shadow,transform] duration-300 lg:hover:-translate-y-1"
               style={{
                 backgroundColor: '#1a1a1a',
                 borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 215, 0, 0.08)',
