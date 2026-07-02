@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import ResponsiveImage, { type ImageName } from './ResponsiveImage';
 
 const images: ImageName[] = [
@@ -12,12 +12,22 @@ const images: ImageName[] = [
 // Triple the images for seamless infinite loop
 const allImages: ImageName[] = [...images, ...images, ...images];
 
-const ITEM_WIDTH = 220;
-const ITEM_GAP = 12;
-const ITEM_TOTAL = ITEM_WIDTH + ITEM_GAP;
-const SET_WIDTH = images.length * ITEM_TOTAL;
-
 const ImageSlider = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const ITEM_WIDTH = isDesktop ? 340 : 220;
+  const ITEM_HEIGHT = isDesktop ? 240 : 160;
+  const ITEM_GAP = isDesktop ? 16 : 12;
+  const ITEM_TOTAL = ITEM_WIDTH + ITEM_GAP;
+  const SET_WIDTH = images.length * ITEM_TOTAL;
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(0);
   const isDragging = useRef(false);
@@ -127,7 +137,7 @@ const ImageSlider = () => {
           className="flex-shrink-0 rounded-[10px] overflow-hidden"
           style={{
             width: `${ITEM_WIDTH}px`,
-            height: '160px',
+            height: `${ITEM_HEIGHT}px`,
           }}
         >
           <ResponsiveImage
