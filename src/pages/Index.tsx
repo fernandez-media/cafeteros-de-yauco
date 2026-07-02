@@ -111,9 +111,6 @@ const Index = () => {
 
         {/* Desktop title overlay */}
         <div className="hidden lg:flex absolute inset-0 flex-col items-center justify-center px-8 text-center pointer-events-none">
-          <span className="hero-eyebrow font-display text-gold text-xs tracking-[0.55em] uppercase mb-6 opacity-0">
-            Liga de Voleibol Superior Masculina · 2025–26
-          </span>
           <h1
             className="hero-title font-display font-black uppercase text-white leading-[0.88] m-0"
             style={{
@@ -125,15 +122,9 @@ const Index = () => {
             <span className="block hero-word" style={{ animationDelay: '0.15s' }}>Cafeteros</span>
             <span className="block hero-word text-gold" style={{ animationDelay: '0.35s' }}>de Yauco</span>
           </h1>
-          <span className="hero-eyebrow font-display text-white/60 text-sm tracking-[0.35em] uppercase mt-8 opacity-0" style={{ animationDelay: '0.7s' }}>
-            Pasión · Tradición · Campeones 2026
-          </span>
         </div>
 
         <div className="absolute bottom-0 left-0 w-full px-5 flex flex-col items-center" style={{ paddingBottom: '120px' }}>
-          <span className="hidden lg:block font-display text-white/40 text-[10px] tracking-[0.4em] uppercase mb-2">
-            Scroll
-          </span>
           <div className="mt-4 flex flex-col items-center" aria-hidden="true">
             {[
               { size: 22, opacity: 1, delay: '0s' },
@@ -165,9 +156,10 @@ const Index = () => {
       </section>
 
       {/* ===== IMAGE SLIDER ===== */}
-      <section className="py-6">
+      <section className="py-6 lg:!max-w-none lg:!mx-0 lg:!px-0">
         <ImageSlider />
       </section>
+
 
       {/* ===== CALENDARIO PREVIEW ===== */}
       <section className="py-10 overflow-visible">
