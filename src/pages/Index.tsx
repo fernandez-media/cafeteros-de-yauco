@@ -720,7 +720,79 @@ const Index = () => {
           ))}
         </div>
       </section>
+
+      {/* ===== TICKETS MODAL (desktop) ===== */}
+      {ticketsOpen && (
+        <div
+          className="hidden lg:flex fixed inset-0 z-[1000] items-center justify-center p-6 animate-fade-in"
+          style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(8px)' }}
+          onClick={() => setTicketsOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Próximas fechas"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[520px] rounded-2xl overflow-hidden animate-scale-in"
+            style={{
+              background: 'linear-gradient(180deg, #1a1a1a 0%, #111111 100%)',
+              border: '1px solid rgba(255,215,0,0.25)',
+              boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setTicketsOpen(false)}
+              aria-label="Cerrar"
+              className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+            <div className="px-6 pt-6 pb-2">
+              <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.3em] m-0">Boletos</p>
+              <h3 className="font-display font-black text-2xl uppercase text-white m-0 mt-1">Próximas fechas</h3>
+              <p className="text-white/50 text-xs m-0 mt-1">Selecciona un juego y compra tu boleto oficial.</p>
+            </div>
+            <ul className="px-3 pt-3 pb-2 max-h-[340px] overflow-y-auto">
+              {calendar.slice(0, 6).map((g, i) => (
+                <li key={i} className="flex items-center justify-between gap-3 px-3 py-3 rounded-xl hover:bg-white/[0.04] transition-colors">
+                  <div className="min-w-0">
+                    <p className="font-display font-bold text-sm text-white uppercase m-0 truncate">vs {g.opponent}</p>
+                    <p className="text-white/45 text-xs m-0 mt-0.5">{g.date} · {g.time} · {g.isHome ? 'Local' : 'Visitante'}</p>
+                  </div>
+                  <span
+                    className="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                    style={{
+                      backgroundColor: g.isHome ? 'rgba(255,215,0,0.15)' : 'rgba(255,255,255,0.08)',
+                      color: g.isHome ? '#FFD700' : 'rgba(255,255,255,0.55)',
+                    }}
+                  >
+                    {g.isHome ? 'Yauco' : 'Away'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="px-6 py-4 border-t border-white/5 flex items-center justify-between gap-3">
+              <p className="text-white/40 text-xs m-0">Powered by Printco Tickets</p>
+              <a
+                href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+              >
+                Comprar ahora
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+
   );
 };
 
