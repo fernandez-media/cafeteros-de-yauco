@@ -329,18 +329,18 @@ const Index = () => {
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
-                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={96} height={96} sizes="96px" loading="eager" pictureClassName="w-24 h-24 inline-flex" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">Cafeteros</p>
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={112} height={112} sizes="112px" loading="eager" pictureClassName="w-28 h-28 inline-flex" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros</p>
               </div>
             );
             const oppBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 {oppKey ? (
-                  <img src={teamLogo(oppKey)} alt={game.opponent} width="96" height="96" loading="eager" decoding="async" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="112" height="112" loading="eager" decoding="async" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-white/10" />
+                  <div className="w-28 h-28 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
