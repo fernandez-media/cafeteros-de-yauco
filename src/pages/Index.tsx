@@ -184,14 +184,16 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-5 overflow-x-auto lg:overflow-x-visible overflow-y-hidden scrollbar-hidden py-8 px-5 lg:px-12 items-stretch w-full max-w-[1200px] mx-auto">
+
+        {/* MOBILE: horizontal scroll (unchanged) */}
+        <div ref={scrollRef} className="lg:hidden flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-8 px-5 items-stretch">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
-            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0 lg:flex-shrink">
+            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col w-[260px] lg:w-full rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
+                className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 255, 255, 0.06)',
@@ -205,9 +207,7 @@ const Index = () => {
                   <span
                     className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{
-                      backgroundColor: game.isHome
-                        ? 'rgba(255, 215, 0, 0.15)'
-                        : 'rgba(255, 255, 255, 0.08)',
+                      backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.08)',
                       color: game.isHome ? '#FFD700' : 'rgba(255, 255, 255, 0.5)',
                     }}
                   >
@@ -218,75 +218,33 @@ const Index = () => {
                   {(() => {
                     const cafeterosBlock = (
                       <div key="cafeteros" className="flex flex-col items-center flex-1 min-w-0">
-                        <ResponsiveImage
-                          name="cafeteros-logo"
-                          alt="Cafeteros de Yauco"
-                          width={64}
-                          height={64}
-                          sizes="64px"
-                          loading="eager"
-                          pictureClassName="w-16 h-16 inline-flex"
-                          className="w-16 h-16 object-contain"
-                        />
-                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                          Cafeteros de Yauco
-                        </p>
+                        <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={64} height={64} sizes="64px" loading="eager" pictureClassName="w-16 h-16 inline-flex" className="w-16 h-16 object-contain" />
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">Cafeteros de Yauco</p>
                       </div>
                     );
+                    const oppLower = game.opponent.toLowerCase();
+                    const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
                     const opponentBlock = (
                       <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
-                        {game.opponent.toLowerCase().includes('caribes') ? (
-                          <img src={teamLogo('caribes')} alt="Caribes de San Sebastián" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                          <img src={teamLogo('gigantes')} alt="Gigantes de Carolina" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('mets') ? (
-                          <img src={teamLogo('mets')} alt="Guaynabo Mets" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                          <img src={teamLogo('patriotas')} alt="Patriotas de Lares" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                          <img src={teamLogo('plataneros')} alt="Plataneros de Corozal" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                        {oppKey ? (
+                          <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <circle cx="12" cy="12" r="10" />
-                              <line x1="2" y1="12" x2="22" y2="12" />
-                              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                            </svg>
-                          </div>
+                          <div className="w-16 h-16 rounded-full bg-white/10" />
                         )}
-                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                          {game.opponent}
-                        </p>
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">{game.opponent}</p>
                       </div>
                     );
                     const blocks = game.isHome ? [opponentBlock, cafeterosBlock] : [cafeterosBlock, opponentBlock];
-                    return (
-                      <>
-                        {blocks[0]}
-                        <span className="font-display font-bold text-base text-gold pt-6">VS</span>
-                        {blocks[1]}
-                      </>
-                    );
+                    return (<>{blocks[0]}<span className="font-display font-bold text-base text-gold pt-6">VS</span>{blocks[1]}</>);
                   })()}
                 </div>
-
                 {(() => {
                   const parts = game.location.split(',').map((s) => s.trim());
                   const venue = parts[0];
                   const city = parts.slice(1).join(', ');
                   return (
                     <div className="mt-2 text-white/40 text-sm flex items-center gap-1.5 min-w-0">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0"
-                      >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
                       </svg>
@@ -301,6 +259,74 @@ const Index = () => {
             </ScrollReveal>
             );
           })}
+        </div>
+
+        {/* DESKTOP: Barça-style — 3 game cards + 1 "Next Games" image card */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-12 w-full max-w-[1200px] mx-auto">
+          {calendar.slice(0, 3).map((game, i) => {
+            const oppLower = game.opponent.toLowerCase();
+            const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+            const cafBlock = (
+              <div className="flex flex-col items-center flex-1 min-w-0">
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={64} height={64} sizes="64px" loading="eager" pictureClassName="w-16 h-16 inline-flex" className="w-16 h-16 object-contain" />
+                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">Cafeteros</p>
+              </div>
+            );
+            const oppBlock = (
+              <div className="flex flex-col items-center flex-1 min-w-0">
+                {oppKey ? (
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-white/10" />
+                )}
+                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+              </div>
+            );
+            const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
+            return (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-white/5 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1">
+                  <div className="px-5 pt-6 pb-5" style={{ background: 'linear-gradient(180deg, #14142b 0%, #0f0f1e 100%)' }}>
+                    <div className="flex items-center justify-center gap-4">
+                      {blocks[0]}
+                      <span className="font-display font-black text-2xl text-gold">VS</span>
+                      {blocks[1]}
+                    </div>
+                  </div>
+                  <div className="px-5 py-4 flex-1 flex flex-col">
+                    <p className="font-display font-bold text-base text-white m-0">{game.date} · {game.time}</p>
+                    <p className="text-white/50 text-xs mt-1 m-0 uppercase tracking-wide">LVSM · {game.isHome ? 'Local' : 'Visitante'}</p>
+                    <p className="text-white/40 text-xs mt-1 m-0 line-clamp-1">{game.location}</p>
+                    <Link to="/calendario" className="mt-auto pt-4 inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider no-underline hover:underline">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                      Detalles
+                    </Link>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+          <ScrollReveal delay={0.15}>
+            <Link to="/calendario" className="relative rounded-2xl overflow-hidden block h-full min-h-[260px] no-underline group">
+              <ResponsiveImage
+                name="dsc04989"
+                alt="Próximos juegos"
+                width={600}
+                height={600}
+                sizes="300px"
+                pictureClassName="absolute inset-0 w-full h-full"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-between p-5">
+                <h3 className="font-display font-black text-white text-2xl uppercase leading-tight m-0" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>Próximos<br />Juegos</h3>
+                <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider">
+                  Ver Calendario
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </span>
+              </div>
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -388,7 +414,7 @@ const Index = () => {
         <ScrollReveal>
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Merch
+              Tienda Oficial Cafeteros
             </h2>
             <Link
               to="/merch"
@@ -399,36 +425,42 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
+        {/* MOBILE: 2-col small cards (unchanged) */}
+        <div className="grid grid-cols-2 gap-3 lg:hidden">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
-              <div
-                className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate"
-              >
-                <div
-                  className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden"
-                  style={{ backgroundColor: item.bgColor }}
-                >
-                  <ResponsiveImage
-                    name={item.imageName}
-                    alt={item.name}
-                    width={400}
-                    height={400}
-                    sizes="(max-width: 640px) 45vw, 320px"
-                    className="max-w-full max-h-full object-contain"
-                    pictureClassName="max-w-full max-h-full flex items-center justify-center"
-                  />
-                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
-                    Nuevo
-                  </span>
+              <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
+                <div className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden" style={{ backgroundColor: item.bgColor }}>
+                  <ResponsiveImage name={item.imageName} alt={item.name} width={400} height={400} sizes="45vw" className="max-w-full max-h-full object-contain" pictureClassName="max-w-full max-h-full flex items-center justify-center" />
+                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">Nuevo</span>
                 </div>
                 <div className="p-3">
-                  <p className="font-display font-bold text-sm text-white m-0 leading-tight">
-                    {item.name}
-                  </p>
-                  <p className="text-gold font-bold text-sm mt-1 m-0">
-                    {item.price}
-                  </p>
+                  <p className="font-display font-bold text-sm text-white m-0 leading-tight">{item.name}</p>
+                  <p className="text-gold font-bold text-sm mt-1 m-0">{item.price}</p>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {/* DESKTOP: Barça-style — 3 big product tiles with SHOP NOW */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-5">
+          {merch.slice(0, 3).map((item, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <div className="rounded-2xl overflow-hidden bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
+                <div className="relative w-full h-[340px] flex items-center justify-center overflow-hidden" style={{ backgroundColor: item.bgColor }}>
+                  <ResponsiveImage name={item.imageName} alt={item.name} width={600} height={600} sizes="380px" className="max-w-[80%] max-h-[80%] object-contain transition-transform duration-500 group-hover:scale-105" pictureClassName="w-full h-full flex items-center justify-center" />
+                </div>
+                <div className="px-6 py-5 flex flex-col flex-1 bg-[#f7f7f5]">
+                  <h3 className="font-display font-black text-xl uppercase text-black m-0 tracking-tight">{item.name}</h3>
+                  <p className="text-black/60 text-sm mt-2 m-0 leading-relaxed">Producto oficial de los Cafeteros de Yauco. Edición 2025–26.</p>
+                  <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between">
+                    <span className="font-display font-bold text-base text-black">{item.price}</span>
+                    <Link to="/merch" className="inline-flex items-center gap-1.5 text-black font-display font-bold text-xs uppercase tracking-wider no-underline group-hover:text-gold transition-colors">
+                      Comprar
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
@@ -551,52 +583,28 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4">
-          {/* Featured Article */}
+        {/* MOBILE: featured + side list (unchanged) */}
+        <div className="flex flex-col lg:hidden">
           <ScrollReveal>
             <a
               href={featuredArticle.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => { e.preventDefault(); window.open(featuredArticle.url, '_blank', 'noopener,noreferrer'); }}
-              className="block rounded-2xl overflow-hidden mb-4 lg:mb-0 lg:h-full no-underline"
-              style={{
-                backgroundColor: '#1a1a1a',
-                border: '1px solid rgba(255, 215, 0, 0.08)',
-              }}
+              className="block rounded-2xl overflow-hidden mb-4 no-underline"
+              style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255, 215, 0, 0.08)' }}
             >
-              <div className="relative w-full h-[200px] lg:h-[320px]">
-                <img
-                  src={featuredArticle.image}
-                  alt={featuredArticle.title}
-                  width="800"
-                  height="400"
-                  loading="eager"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)',
-                  }}
-                />
+              <div className="relative w-full h-[200px]">
+                <img src={featuredArticle.image} alt={featuredArticle.title} width="800" height="400" loading="eager" decoding="async" className="w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)' }} />
               </div>
               <div className="px-4 pb-4 -mt-8 relative z-10">
-                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                  {featuredArticle.source}
-                </span>
-                <h3 className="font-display font-bold text-base lg:text-lg text-white mt-1 m-0 leading-tight">
-                  {featuredArticle.title}
-                </h3>
-                <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">
-                  {featuredArticle.excerpt}
-                </p>
+                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{featuredArticle.source}</span>
+                <h3 className="font-display font-bold text-base text-white mt-1 m-0 leading-tight">{featuredArticle.title}</h3>
+                <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">{featuredArticle.excerpt}</p>
               </div>
             </a>
           </ScrollReveal>
-
-          {/* Side Articles */}
           <div className="flex flex-col gap-3">
             {sideArticles.map((article, i) => (
               <ScrollReveal key={i} delay={i * 0.05}>
@@ -606,35 +614,52 @@ const Index = () => {
                   rel="noopener noreferrer"
                   onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
                   className="flex gap-3 rounded-2xl p-3 no-underline"
-                  style={{
-                    backgroundColor: '#1a1a1a',
-                    border: '1px solid rgba(255, 215, 0, 0.08)',
-                  }}
+                  style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255, 215, 0, 0.08)' }}
                 >
                   <div className="flex-shrink-0 w-[90px] h-[70px] rounded-xl overflow-hidden">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      width="90"
-                      height="70"
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={article.image} alt={article.title} width="90" height="70" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                      {article.source}
-                    </span>
-                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">
-                      {article.title}
-                    </h4>
+                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{article.source}</span>
+                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">{article.title}</h4>
                     <p className="text-white/40 text-[11px] mt-1 m-0">{article.date}</p>
                   </div>
                 </a>
               </ScrollReveal>
             ))}
           </div>
+        </div>
+
+        {/* DESKTOP: Barça-style 4-col news grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5">
+          {news.slice(0, 4).map((article, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
+                className="flex flex-col h-full rounded-xl overflow-hidden bg-[#1a1a1a] border border-white/5 no-underline group transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="relative w-full aspect-[16/10] overflow-hidden">
+                  <img src={article.image} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div className="px-4 pt-4 pb-3 flex-1 flex flex-col">
+                  <h3 className="font-display font-black text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
+                </div>
+                <div className="px-4 pb-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-gold text-[10px] font-black uppercase tracking-wider">
+                    <span className="inline-block w-2 h-2 bg-gold" />
+                    {article.source}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-white/40 text-[10px] uppercase tracking-wide">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                    {article.date}
+                  </span>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
