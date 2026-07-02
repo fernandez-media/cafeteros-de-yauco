@@ -23,6 +23,19 @@ const Index = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [ticketsOpen, setTicketsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!ticketsOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setTicketsOpen(false); };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [ticketsOpen]);
+
 
   // Cross-browser hero video loading strategy
   const [videoStrategy, setVideoStrategy] = useState<{ preload: 'auto' | 'metadata' | 'none'; loadSources: boolean }>(() => ({
