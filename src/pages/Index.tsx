@@ -307,7 +307,8 @@ const Index = () => {
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
         <ScrollReveal>
-          <div className="relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)] focus-within:border-gold/80 focus-within:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+          {/* Mobile: full CTA card */}
+          <div className="lg:hidden relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
             <ResponsiveImage
               name="hero"
               alt=""
@@ -322,34 +323,19 @@ const Index = () => {
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
               }}
             />
             <div className="relative z-10 p-5 sm:p-8 text-center">
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FFD700"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mx-auto mb-2 sm:mb-4"
-              >
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-2 sm:mb-4">
                 <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                <path d="M13 5v2" />
-                <path d="M13 17v2" />
-                <path d="M13 11v2" />
+                <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
               </svg>
               <h3 className="font-display font-bold text-xl sm:text-2xl uppercase text-white mb-1 sm:mb-2 m-0">
                 Consigue tus boletos
               </h3>
               <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
-                Asegura tu asiento para los juegos
-                <br />
-                de los Cafeteros de Yauco.
+                Asegura tu asiento para los juegos<br />de los Cafeteros de Yauco.
               </p>
               <a
                 href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
@@ -360,6 +346,39 @@ const Index = () => {
                 Comprar Boletos
               </a>
             </div>
+          </div>
+
+          {/* Desktop: discrete compact banner */}
+          <div
+            className="hidden lg:flex items-center justify-between gap-6 max-w-[900px] mx-auto rounded-2xl px-6 py-4 transition-all duration-300 hover:border-gold/60 hover:shadow-[0_10px_40px_rgba(255,215,0,0.12)]"
+            style={{
+              background: 'linear-gradient(120deg, rgba(255,215,0,0.06) 0%, rgba(26,26,26,0.9) 60%)',
+              border: '1px solid rgba(255, 215, 0, 0.25)',
+            }}
+          >
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,215,0,0.10)', border: '1px solid rgba(255,215,0,0.25)' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                  <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className="font-display font-bold text-base uppercase text-white m-0 tracking-wide">Consigue tus boletos</p>
+                <p className="text-white/50 text-xs m-0 mt-0.5">Asegura tu asiento para los próximos juegos</p>
+              </div>
+            </div>
+            <a
+              href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+            >
+              Comprar
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
           </div>
         </ScrollReveal>
       </section>
