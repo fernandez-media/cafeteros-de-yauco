@@ -379,37 +379,90 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Desktop: discrete compact banner */}
-          <div
-            className="hidden lg:flex items-center justify-between gap-6 max-w-[900px] mx-auto rounded-2xl px-6 py-4 transition-all duration-300 hover:border-gold/60 hover:shadow-[0_10px_40px_rgba(255,215,0,0.12)]"
-            style={{
-              background: 'linear-gradient(120deg, rgba(255,215,0,0.06) 0%, rgba(26,26,26,0.9) 60%)',
-              border: '1px solid rgba(255, 215, 0, 0.25)',
-            }}
-          >
-            <div className="flex items-center gap-4 min-w-0">
-              <div className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,215,0,0.10)', border: '1px solid rgba(255,215,0,0.25)' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                  <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
-                </svg>
-              </div>
-              <div className="min-w-0">
-                <p className="font-display font-bold text-base uppercase text-white m-0 tracking-wide">Consigue tus boletos</p>
-                <p className="text-white/50 text-xs m-0 mt-0.5">Asegura tu asiento para los próximos juegos</p>
+          {/* Desktop: Barça-style wide premium banner */}
+          <div className="hidden lg:block max-w-[1200px] mx-auto">
+            <div
+              className="relative overflow-hidden rounded-[28px] group"
+              style={{
+                background:
+                  'linear-gradient(180deg, #0a1230 0%, #0d1a4a 55%, #0a1230 100%)',
+                boxShadow:
+                  '0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.12) inset',
+                minHeight: 280,
+              }}
+            >
+              {/* Faint crest / hero backdrop */}
+              <ResponsiveImage
+                name="hero"
+                alt=""
+                width={1920}
+                height={800}
+                sizes="1200px"
+                ariaHidden
+                pictureClassName="absolute inset-0 w-full h-full"
+                className="w-full h-full object-cover"
+                style={{ opacity: 0.28, filter: 'saturate(1.1)' }}
+              />
+              {/* Left fade so text is readable */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(8,14,40,0.96) 0%, rgba(8,14,40,0.85) 35%, rgba(8,14,40,0.35) 65%, rgba(8,14,40,0.1) 100%)',
+                }}
+              />
+              {/* Gold vignette on top edge */}
+              <div
+                className="absolute inset-x-0 top-0 h-[2px]"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.6), transparent)' }}
+              />
+
+              {/* Player image on the right */}
+              <img
+                src="/__l5e/assets-v1/292465f5-69c7-44ad-a933-2bd3f36b21cb/kevin-rodriguez.png"
+                alt=""
+                aria-hidden="true"
+                className="absolute right-0 bottom-0 h-[110%] w-auto object-contain object-bottom pointer-events-none select-none transition-transform duration-700 group-hover:scale-[1.03]"
+                style={{
+                  filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))',
+                  maxWidth: '55%',
+                }}
+                draggable={false}
+              />
+
+              {/* Content */}
+              <div className="relative z-10 px-10 py-12 lg:py-14 max-w-[620px]">
+                <p className="text-gold/80 text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-3">
+                  Boletería Oficial
+                </p>
+                <h3
+                  className="font-display font-black uppercase m-0 leading-[0.95]"
+                  style={{
+                    color: '#FFD700',
+                    fontSize: 'clamp(2rem, 3.4vw, 3rem)',
+                    textShadow: '0 4px 30px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  Vive cada juego <br />
+                  <span className="text-white">en vivo</span>
+                </h3>
+                <p className="text-white/75 text-sm lg:text-base mt-4 mb-7 max-w-[420px] leading-relaxed m-0">
+                  Asegura tu asiento para los próximos juegos de los Cafeteros
+                  de Yauco. Boletos oficiales, acceso prioritario y la mejor
+                  experiencia del voleibol superior.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setTicketsOpen(true)}
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)]"
+                >
+                  Más Info
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setTicketsOpen(true)}
-              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
-            >
-              Ver fechas
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-
           </div>
         </ScrollReveal>
       </section>
