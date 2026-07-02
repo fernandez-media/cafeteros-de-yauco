@@ -184,14 +184,16 @@ const Index = () => {
             </Link>
           </div>
         </ScrollReveal>
-        <div ref={scrollRef} className="flex lg:grid lg:grid-cols-3 gap-4 lg:gap-5 overflow-x-auto lg:overflow-x-visible overflow-y-hidden scrollbar-hidden py-8 px-5 lg:px-12 items-stretch w-full max-w-[1200px] mx-auto">
+
+        {/* MOBILE: horizontal scroll (unchanged) */}
+        <div ref={scrollRef} className="lg:hidden flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-8 px-5 items-stretch">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
-            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0 lg:flex-shrink">
+            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col w-[260px] lg:w-full rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
+                className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
                 style={{
                   backgroundColor: '#1a1a1a',
                   borderColor: isActive ? 'rgba(255, 215, 0, 0.8)' : 'rgba(255, 255, 255, 0.06)',
@@ -205,9 +207,7 @@ const Index = () => {
                   <span
                     className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{
-                      backgroundColor: game.isHome
-                        ? 'rgba(255, 215, 0, 0.15)'
-                        : 'rgba(255, 255, 255, 0.08)',
+                      backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.08)',
                       color: game.isHome ? '#FFD700' : 'rgba(255, 255, 255, 0.5)',
                     }}
                   >
@@ -218,75 +218,33 @@ const Index = () => {
                   {(() => {
                     const cafeterosBlock = (
                       <div key="cafeteros" className="flex flex-col items-center flex-1 min-w-0">
-                        <ResponsiveImage
-                          name="cafeteros-logo"
-                          alt="Cafeteros de Yauco"
-                          width={64}
-                          height={64}
-                          sizes="64px"
-                          loading="eager"
-                          pictureClassName="w-16 h-16 inline-flex"
-                          className="w-16 h-16 object-contain"
-                        />
-                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                          Cafeteros de Yauco
-                        </p>
+                        <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={64} height={64} sizes="64px" loading="eager" pictureClassName="w-16 h-16 inline-flex" className="w-16 h-16 object-contain" />
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">Cafeteros de Yauco</p>
                       </div>
                     );
+                    const oppLower = game.opponent.toLowerCase();
+                    const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
                     const opponentBlock = (
                       <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
-                        {game.opponent.toLowerCase().includes('caribes') ? (
-                          <img src={teamLogo('caribes')} alt="Caribes de San Sebastián" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('gigantes') ? (
-                          <img src={teamLogo('gigantes')} alt="Gigantes de Carolina" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('mets') ? (
-                          <img src={teamLogo('mets')} alt="Guaynabo Mets" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('patriotas') ? (
-                          <img src={teamLogo('patriotas')} alt="Patriotas de Lares" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
-                        ) : game.opponent.toLowerCase().includes('plataneros') ? (
-                          <img src={teamLogo('plataneros')} alt="Plataneros de Corozal" width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                        {oppKey ? (
+                          <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <circle cx="12" cy="12" r="10" />
-                              <line x1="2" y1="12" x2="22" y2="12" />
-                              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                            </svg>
-                          </div>
+                          <div className="w-16 h-16 rounded-full bg-white/10" />
                         )}
-                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">
-                          {game.opponent}
-                        </p>
+                        <p className="text-white font-bold text-[12px] uppercase leading-tight text-center mt-1 m-0 break-words">{game.opponent}</p>
                       </div>
                     );
                     const blocks = game.isHome ? [opponentBlock, cafeterosBlock] : [cafeterosBlock, opponentBlock];
-                    return (
-                      <>
-                        {blocks[0]}
-                        <span className="font-display font-bold text-base text-gold pt-6">VS</span>
-                        {blocks[1]}
-                      </>
-                    );
+                    return (<>{blocks[0]}<span className="font-display font-bold text-base text-gold pt-6">VS</span>{blocks[1]}</>);
                   })()}
                 </div>
-
                 {(() => {
                   const parts = game.location.split(',').map((s) => s.trim());
                   const venue = parts[0];
                   const city = parts.slice(1).join(', ');
                   return (
                     <div className="mt-2 text-white/40 text-sm flex items-center gap-1.5 min-w-0">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0"
-                      >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
                       </svg>
@@ -301,6 +259,74 @@ const Index = () => {
             </ScrollReveal>
             );
           })}
+        </div>
+
+        {/* DESKTOP: Barça-style — 3 game cards + 1 "Next Games" image card */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-12 w-full max-w-[1200px] mx-auto">
+          {calendar.slice(0, 3).map((game, i) => {
+            const oppLower = game.opponent.toLowerCase();
+            const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+            const cafBlock = (
+              <div className="flex flex-col items-center flex-1 min-w-0">
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={64} height={64} sizes="64px" loading="eager" pictureClassName="w-16 h-16 inline-flex" className="w-16 h-16 object-contain" />
+                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">Cafeteros</p>
+              </div>
+            );
+            const oppBlock = (
+              <div className="flex flex-col items-center flex-1 min-w-0">
+                {oppKey ? (
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-white/10" />
+                )}
+                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+              </div>
+            );
+            const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
+            return (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-white/5 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1">
+                  <div className="px-5 pt-6 pb-5" style={{ background: 'linear-gradient(180deg, #14142b 0%, #0f0f1e 100%)' }}>
+                    <div className="flex items-center justify-center gap-4">
+                      {blocks[0]}
+                      <span className="font-display font-black text-2xl text-gold">VS</span>
+                      {blocks[1]}
+                    </div>
+                  </div>
+                  <div className="px-5 py-4 flex-1 flex flex-col">
+                    <p className="font-display font-bold text-base text-white m-0">{game.date} · {game.time}</p>
+                    <p className="text-white/50 text-xs mt-1 m-0 uppercase tracking-wide">LVSM · {game.isHome ? 'Local' : 'Visitante'}</p>
+                    <p className="text-white/40 text-xs mt-1 m-0 line-clamp-1">{game.location}</p>
+                    <Link to="/calendario" className="mt-auto pt-4 inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider no-underline hover:underline">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                      Detalles
+                    </Link>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+          <ScrollReveal delay={0.15}>
+            <Link to="/calendario" className="relative rounded-2xl overflow-hidden block h-full min-h-[260px] no-underline group">
+              <ResponsiveImage
+                name="dsc04989"
+                alt="Próximos juegos"
+                width={600}
+                height={600}
+                sizes="300px"
+                pictureClassName="absolute inset-0 w-full h-full"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-between p-5">
+                <h3 className="font-display font-black text-white text-2xl uppercase leading-tight m-0" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>Próximos<br />Juegos</h3>
+                <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider">
+                  Ver Calendario
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </span>
+              </div>
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
