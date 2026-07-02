@@ -137,7 +137,7 @@ const ImageSlider = () => {
           className="flex-shrink-0 rounded-[10px] overflow-hidden"
           style={{
             width: `${ITEM_WIDTH}px`,
-            height: '160px',
+            height: `${ITEM_HEIGHT}px`,
           }}
         >
           <ResponsiveImage
