@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import DesktopSidebar from "./DesktopSidebar";
+import DesktopDock from "./DesktopDock";
 import DockBar from "./DockBar";
 import Footer from "./Footer";
 
@@ -31,14 +31,12 @@ const Layout = () => {
     <>
       <Header onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
-      <DesktopSidebar />
+      <DesktopDock />
 
-      <div className="lg:pl-[220px]">
-        <main className="pt-14">
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+      <main className="pt-14 lg:pt-0">
+        <Outlet />
+      </main>
+      <Footer />
       <DockBar />
     </>
   );
