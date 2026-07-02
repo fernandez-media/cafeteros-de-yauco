@@ -583,52 +583,28 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-[2fr_1fr] lg:gap-4">
-          {/* Featured Article */}
+        {/* MOBILE: featured + side list (unchanged) */}
+        <div className="flex flex-col lg:hidden">
           <ScrollReveal>
             <a
               href={featuredArticle.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => { e.preventDefault(); window.open(featuredArticle.url, '_blank', 'noopener,noreferrer'); }}
-              className="block rounded-2xl overflow-hidden mb-4 lg:mb-0 lg:h-full no-underline"
-              style={{
-                backgroundColor: '#1a1a1a',
-                border: '1px solid rgba(255, 215, 0, 0.08)',
-              }}
+              className="block rounded-2xl overflow-hidden mb-4 no-underline"
+              style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255, 215, 0, 0.08)' }}
             >
-              <div className="relative w-full h-[200px] lg:h-[320px]">
-                <img
-                  src={featuredArticle.image}
-                  alt={featuredArticle.title}
-                  width="800"
-                  height="400"
-                  loading="eager"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)',
-                  }}
-                />
+              <div className="relative w-full h-[200px]">
+                <img src={featuredArticle.image} alt={featuredArticle.title} width="800" height="400" loading="eager" decoding="async" className="w-full h-full object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)' }} />
               </div>
               <div className="px-4 pb-4 -mt-8 relative z-10">
-                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                  {featuredArticle.source}
-                </span>
-                <h3 className="font-display font-bold text-base lg:text-lg text-white mt-1 m-0 leading-tight">
-                  {featuredArticle.title}
-                </h3>
-                <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">
-                  {featuredArticle.excerpt}
-                </p>
+                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{featuredArticle.source}</span>
+                <h3 className="font-display font-bold text-base text-white mt-1 m-0 leading-tight">{featuredArticle.title}</h3>
+                <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">{featuredArticle.excerpt}</p>
               </div>
             </a>
           </ScrollReveal>
-
-          {/* Side Articles */}
           <div className="flex flex-col gap-3">
             {sideArticles.map((article, i) => (
               <ScrollReveal key={i} delay={i * 0.05}>
@@ -638,35 +614,52 @@ const Index = () => {
                   rel="noopener noreferrer"
                   onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
                   className="flex gap-3 rounded-2xl p-3 no-underline"
-                  style={{
-                    backgroundColor: '#1a1a1a',
-                    border: '1px solid rgba(255, 215, 0, 0.08)',
-                  }}
+                  style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255, 215, 0, 0.08)' }}
                 >
                   <div className="flex-shrink-0 w-[90px] h-[70px] rounded-xl overflow-hidden">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      width="90"
-                      height="70"
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={article.image} alt={article.title} width="90" height="70" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">
-                      {article.source}
-                    </span>
-                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">
-                      {article.title}
-                    </h4>
+                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{article.source}</span>
+                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">{article.title}</h4>
                     <p className="text-white/40 text-[11px] mt-1 m-0">{article.date}</p>
                   </div>
                 </a>
               </ScrollReveal>
             ))}
           </div>
+        </div>
+
+        {/* DESKTOP: Barça-style 4-col news grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5">
+          {news.slice(0, 4).map((article, i) => (
+            <ScrollReveal key={i} delay={i * 0.05}>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
+                className="flex flex-col h-full rounded-xl overflow-hidden bg-[#1a1a1a] border border-white/5 no-underline group transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="relative w-full aspect-[16/10] overflow-hidden">
+                  <img src={article.image} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div className="px-4 pt-4 pb-3 flex-1 flex flex-col">
+                  <h3 className="font-display font-black text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
+                </div>
+                <div className="px-4 pb-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-gold text-[10px] font-black uppercase tracking-wider">
+                    <span className="inline-block w-2 h-2 bg-gold" />
+                    {article.source}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-white/40 text-[10px] uppercase tracking-wide">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                    {article.date}
+                  </span>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
