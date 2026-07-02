@@ -183,9 +183,10 @@ const Index = () => {
 
 
       {/* ===== CALENDARIO PREVIEW ===== */}
-      <section className="py-10 overflow-visible">
+      <section className="py-10 lg:py-16 overflow-visible">
+        {/* MOBILE header */}
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5 px-5">
+          <div className="flex items-center justify-between mb-5 px-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Calendario
             </h2>
@@ -194,6 +195,53 @@ const Index = () => {
               className="text-gold text-sm font-semibold no-underline hover:underline"
             >
               Ver todo
+            </Link>
+          </div>
+        </ScrollReveal>
+
+        {/* DESKTOP header — title + countdown to next home game */}
+        <ScrollReveal>
+          <div className="hidden lg:flex items-end justify-between mb-8 px-10 max-w-[1400px] mx-auto">
+            <div className="flex items-end gap-10">
+              <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
+                Calendario
+              </h2>
+              {(() => {
+                const next = calendar[0];
+                return (
+                  <div className="flex items-center gap-6 pb-1">
+                    <span className="text-white/50 font-display font-bold text-[11px] uppercase tracking-[0.3em]">
+                      Próximo <br /> partido
+                    </span>
+                    <div className="flex items-end gap-3">
+                      {[
+                        { v: '12', l: 'Días' },
+                        { v: '08', l: 'Horas' },
+                        { v: '34', l: 'Min' },
+                        { v: '22', l: 'Seg' },
+                      ].map((t, idx) => (
+                        <div key={idx} className="flex items-end gap-3">
+                          <div className="flex flex-col items-center">
+                            <span className="font-display font-black text-white text-3xl leading-none tabular-nums">{t.v}</span>
+                            <span className="text-white/40 text-[9px] font-display font-bold uppercase tracking-[0.25em] mt-1">{t.l}</span>
+                          </div>
+                          {idx < 3 && <span className="font-display font-black text-gold text-3xl leading-none pb-4">:</span>}
+                        </div>
+                      ))}
+                    </div>
+                    <span className="text-white/60 text-xs ml-4 hidden xl:inline">
+                      {next.date} · {next.time}
+                    </span>
+                  </div>
+                );
+              })()}
+            </div>
+            <Link
+              to="/calendario"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 font-display font-bold text-xs uppercase tracking-[0.2em] no-underline transition-all duration-200"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+              Sync Calendar
             </Link>
           </div>
         </ScrollReveal>
@@ -274,45 +322,75 @@ const Index = () => {
           })}
         </div>
 
-        {/* DESKTOP: Barça-style — 3 game cards + 1 "Next Games" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-12 w-full max-w-[1200px] mx-auto">
+        {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6 px-10 w-full max-w-[1400px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
-                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={64} height={64} sizes="64px" loading="eager" pictureClassName="w-16 h-16 inline-flex" className="w-16 h-16 object-contain" />
-                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">Cafeteros</p>
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={96} height={96} sizes="96px" loading="eager" pictureClassName="w-24 h-24 inline-flex" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">Cafeteros</p>
               </div>
             );
             const oppBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 {oppKey ? (
-                  <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="eager" decoding="async" className="w-16 h-16 object-contain" />
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="96" height="96" loading="eager" decoding="async" className="w-24 h-24 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
                 ) : (
-                  <div className="w-16 h-16 rounded-full bg-white/10" />
+                  <div className="w-24 h-24 rounded-full bg-white/10" />
                 )}
-                <p className="text-white/80 text-[11px] uppercase leading-tight text-center mt-2 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
             return (
               <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-white/5 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1">
-                  <div className="px-5 pt-6 pb-5" style={{ background: 'linear-gradient(180deg, #14142b 0%, #0f0f1e 100%)' }}>
-                    <div className="flex items-center justify-center gap-4">
+                <div
+                  className="rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(255,215,0,0.25)] group"
+                  style={{
+                    background: '#ffffff',
+                    boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  {/* Top navy VS block */}
+                  <div
+                    className="relative px-6 pt-8 pb-8 min-h-[240px] flex flex-col justify-center overflow-hidden"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
+                    }}
+                  >
+                    {i === 0 && (
+                      <span className="absolute top-4 left-4 text-[10px] font-display font-bold uppercase tracking-[0.2em] text-gold/90 bg-gold/10 px-2.5 py-1 rounded-full border border-gold/30">
+                        Próximo
+                      </span>
+                    )}
+                    <div className="flex items-center justify-center gap-6">
                       {blocks[0]}
-                      <span className="font-display font-black text-2xl text-gold">VS</span>
+                      <span className="font-display font-black text-3xl text-white/90 leading-none">VS</span>
                       {blocks[1]}
                     </div>
                   </div>
-                  <div className="px-5 py-4 flex-1 flex flex-col">
-                    <p className="font-display font-bold text-base text-white m-0">{game.date} · {game.time}</p>
-                    <p className="text-white/50 text-xs mt-1 m-0 uppercase tracking-wide">LVSM · {game.isHome ? 'Local' : 'Visitante'}</p>
-                    <p className="text-white/40 text-xs mt-1 m-0 line-clamp-1">{game.location}</p>
-                    <Link to="/calendario" className="mt-auto pt-4 inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider no-underline hover:underline">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-                      Detalles
+                  {/* Bottom white info block */}
+                  <div className="px-6 py-6 flex-1 flex flex-col bg-white">
+                    <p className="font-display font-black text-black text-lg leading-tight m-0">
+                      {game.date} · {game.time}
+                    </p>
+                    <p className="text-black/60 text-sm mt-2 m-0">
+                      LVSM · Jornada {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
+                    </p>
+                    <p className="text-black/50 text-xs mt-1 m-0 line-clamp-1">
+                      {game.location}
+                    </p>
+                    <Link
+                      to="/calendario"
+                      className="mt-5 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
+                    >
+                      <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                      </span>
+                      Match Centre
                     </Link>
                   </div>
                 </div>
@@ -320,21 +398,38 @@ const Index = () => {
             );
           })}
           <ScrollReveal delay={0.15}>
-            <Link to="/calendario" className="relative rounded-2xl overflow-hidden block h-full min-h-[260px] no-underline group">
+            <Link
+              to="/calendario"
+              className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
+              style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
+            >
               <ResponsiveImage
                 name="dsc04989"
                 alt="Próximos juegos"
-                width={600}
-                height={600}
-                sizes="300px"
+                width={800}
+                height={800}
+                sizes="360px"
                 pictureClassName="absolute inset-0 w-full h-full"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-between p-5">
-                <h3 className="font-display font-black text-white text-2xl uppercase leading-tight m-0" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>Próximos<br />Juegos</h3>
-                <span className="inline-flex items-center gap-1.5 text-gold text-xs font-bold uppercase tracking-wider">
-                  Ver Calendario
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.9) 100%)',
+                }}
+              />
+              <div className="absolute inset-0 flex flex-col justify-between p-6">
+                <h3
+                  className="font-display font-black text-white text-3xl uppercase leading-none m-0"
+                  style={{ textShadow: '0 4px 20px rgba(0,0,0,0.6)' }}
+                >
+                  Próximos
+                  <br />
+                  Juegos
+                </h3>
+                <span className="inline-flex items-center gap-2 text-white font-display font-bold text-xs uppercase tracking-[0.2em] underline underline-offset-4 decoration-gold/70 group-hover:text-gold transition-colors">
+                  Ver el Calendario
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                 </span>
               </div>
@@ -342,6 +437,7 @@ const Index = () => {
           </ScrollReveal>
         </div>
       </section>
+
 
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
