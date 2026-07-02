@@ -36,7 +36,7 @@ const DesktopDock = () => {
           : '0 6px 30px rgba(0,0,0,0.35)',
       }}
     >
-      <NavLink to="/" className="flex items-center gap-2 pl-2 pr-3 py-1 no-underline">
+      <NavLink to="/" className="flex items-center pl-2 pr-2 py-1 no-underline">
         <ResponsiveImage
           name="cafeteros-logo"
           alt="Cafeteros de Yauco"
@@ -46,12 +46,10 @@ const DesktopDock = () => {
           pictureClassName="w-8 h-8 inline-flex"
           className="w-8 h-8 object-contain"
         />
-        <span className="font-display font-bold text-[11px] uppercase tracking-[0.15em] text-white/90 leading-none whitespace-nowrap">
-          Cafeteros
-        </span>
       </NavLink>
 
       <span className="w-px h-6 bg-gold/25" aria-hidden="true" />
+
 
       <ul className="flex items-center gap-1 pr-1">
         {navItems.map((item) => (
