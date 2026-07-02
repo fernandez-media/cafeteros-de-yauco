@@ -24,6 +24,14 @@ const Index = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ticketsOpen, setTicketsOpen] = useState(false);
+  const rosterScrollRef = useRef<HTMLDivElement>(null);
+  const scrollRoster = (dir: 1 | -1) => {
+    const el = rosterScrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('[data-roster-card]');
+    const step = card ? card.offsetWidth + 16 : 280;
+    el.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     if (!ticketsOpen) return;
