@@ -366,7 +366,7 @@ const Index = () => {
                 >
                   {/* Top navy VS block */}
                   <div
-                    className="relative px-6 pt-10 pb-10 min-h-[300px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background:
                         'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
@@ -377,18 +377,18 @@ const Index = () => {
                         Próximo
                       </span>
                     )}
-                    <div className="flex items-center justify-center gap-5">
+                    <div className="flex items-center justify-center gap-6">
                       {blocks[0]}
-                      <span className="font-display font-black text-4xl text-white/90 leading-none">VS</span>
+                      <span className="font-display font-black text-5xl text-white/90 leading-none">VS</span>
                       {blocks[1]}
                     </div>
                   </div>
                   {/* Bottom white info block */}
-                  <div className="px-6 py-6 flex-1 flex flex-col bg-white">
-                    <p className="font-display font-black text-black text-lg leading-tight m-0">
+                  <div className="px-6 py-7 flex-1 flex flex-col bg-white">
+                    <p className="font-display font-black text-black text-xl leading-tight m-0">
                       {game.date} · {game.time}
                     </p>
-                    <p className="text-black/60 text-sm mt-2 m-0">
+                    <p className="text-black/60 text-[15px] mt-2 m-0">
                       LVSM · Jornada {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
                     </p>
                     <p className="text-black/50 text-xs mt-1 m-0 line-clamp-1">
