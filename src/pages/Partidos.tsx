@@ -3,7 +3,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
 import ResponsiveImage from '../components/ResponsiveImage';
 import { videos } from '../data/videos';
-import { matches } from '../data/matches';
+import { matches, type Match } from '../data/matches';
 
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
