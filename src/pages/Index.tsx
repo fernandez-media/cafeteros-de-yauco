@@ -24,6 +24,8 @@ const Index = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ticketsOpen, setTicketsOpen] = useState(false);
+  const ticketPlayers = roster.filter((p) => !!p.photo);
+  const [ticketPlayerIndex, setTicketPlayerIndex] = useState(0);
   const rosterScrollRef = useRef<HTMLDivElement>(null);
   const scrollRoster = (dir: 1 | -1) => {
     const el = rosterScrollRef.current;
