@@ -532,18 +532,23 @@ const Index = () => {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.6), transparent)' }}
               />
 
-              {/* Player image on the right */}
-              <img
-                src="/__l5e/assets-v1/292465f5-69c7-44ad-a933-2bd3f36b21cb/kevin-rodriguez.png"
-                alt=""
-                aria-hidden="true"
-                className="absolute right-0 bottom-0 h-[110%] w-auto object-contain object-bottom pointer-events-none select-none transition-transform duration-700 group-hover:scale-[1.03]"
-                style={{
-                  filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))',
-                  maxWidth: '55%',
-                }}
-                draggable={false}
-              />
+              {/* Player image on the right — rotates through roster */}
+              <div className="absolute right-0 bottom-0 h-[110%] pointer-events-none" style={{ width: '55%' }}>
+                {ticketPlayers.map((p, idx) => (
+                  <img
+                    key={p.name}
+                    src={p.photo}
+                    alt=""
+                    aria-hidden="true"
+                    className={`absolute inset-0 w-full h-full object-contain object-bottom select-none transition-opacity duration-700 ease-in-out ${
+                      idx === ticketPlayerIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{ filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))' }}
+                    draggable={false}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                ))}
+              </div>
 
               {/* Content */}
               <div className="relative z-10 px-10 py-12 lg:py-14 max-w-[620px]">
