@@ -929,7 +929,7 @@ const Index = () => {
                   <img src={article.image} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="px-4 pt-4 pb-3 flex-1 flex flex-col">
-                  <h3 className="font-display font-black text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
+                  <h3 className="font-display font-normal text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
                 </div>
                 <div className="px-4 pb-4 pt-3 border-t border-white/5 flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-gold text-[10px] font-black uppercase tracking-wider">
