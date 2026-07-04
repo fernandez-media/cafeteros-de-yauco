@@ -411,7 +411,7 @@ const Index = () => {
           <ScrollReveal delay={0.15}>
             <Link
               to="/calendario"
-              className="relative rounded-3xl overflow-hidden block h-full min-h-[480px] no-underline group"
+              className="relative rounded-3xl overflow-hidden block h-full min-h-[520px] no-underline group"
               style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
             >
               <ResponsiveImage
