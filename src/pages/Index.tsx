@@ -46,6 +46,15 @@ const Index = () => {
     };
   }, [ticketsOpen]);
 
+  useEffect(() => {
+    if (ticketPlayers.length < 2) return;
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      setTicketPlayerIndex((i) => (i + 1) % ticketPlayers.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [ticketPlayers.length]);
+
 
   // Cross-browser hero video loading strategy
   const [videoStrategy, setVideoStrategy] = useState<{ preload: 'auto' | 'metadata' | 'none'; loadSources: boolean }>(() => ({
