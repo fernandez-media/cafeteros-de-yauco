@@ -212,7 +212,7 @@ const Index = () => {
 
         {/* DESKTOP header — title + countdown to next home game */}
         <ScrollReveal>
-          <div className="hidden lg:flex items-end justify-between mb-10 px-8 xl:px-12 max-w-[1600px] mx-auto">
+          <div className="hidden lg:flex items-end justify-between mb-12 px-10 2xl:px-16 max-w-[1760px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
                 Calendario
