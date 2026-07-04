@@ -334,7 +334,7 @@ const Index = () => {
         </div>
 
         {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-7 px-8 xl:px-12 w-full max-w-[1600px] mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-8 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
