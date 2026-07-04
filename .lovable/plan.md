@@ -1,73 +1,50 @@
-# Rediseño Desktop — Cafeteros de Yauco
 
-Objetivo: elevar la versión desktop (≥1024px) a nivel de sitio profesional deportivo, manteniendo intacta la versión móvil (todos los cambios bajo `lg:`).
+## Cambios (solo desktop, excepto arreglo del preview)
 
-## 1. Navegación: Dock flotante superior
+### 1. Dock superior más grande y visible — `src/components/DesktopDock.tsx`
+- Logo: `w-8 h-8` → `w-10 h-10` (32→40px).
+- Padding del contenedor: `6px 10px` / `8px 14px` → `10px 16px` / `12px 20px`.
+- Items del menú: texto `text-[12px]` → `text-[14px]`, padding `px-4 py-2` → `px-5 py-2.5`, tracking `0.14em` → `0.16em`.
+- Separador: `h-6` → `h-7`.
+- Fondo un poco más opaco (`rgba(10,10,10,0.9)` scrolled) y borde `rgba(255,215,0,0.25)` para mayor visibilidad.
+- Ajustar `top` a 18/28 para acompañar el nuevo tamaño.
 
-- Ocultar `DesktopSidebar` en desktop (o eliminar su render).
-- Quitar `lg:pl-[220px]` de `Layout.tsx` — contenido a ancho completo.
-- Crear `src/components/DesktopDock.tsx`: dock flotante fijo, centrado horizontalmente arriba (`top: 24px`, `left: 50%`, `translateX(-50%)`), sólo visible `hidden lg:flex`, `z-[900]`.
-  - Contenido: logo pequeño de Cafeteros a la izquierda, separador vertical dorado, y los 5 links (Inicio, Calendario, Roster, Boletos, Merch) en fila.
-  - Estilo: glassmorphism (`backdrop-blur-xl`, `bg-[rgba(17,17,17,0.7)]`, borde `rgba(255,215,0,0.15)`, `rounded-full`, sombra suave dorada).
-  - Estado activo: pill dorada `bg-gold/15 text-gold`. Hover: underline animado y ligero `translateY(-1px)`.
-  - Al hacer scroll >80px: reducir padding y aumentar opacidad de fondo (efecto "shrink on scroll" con listener liviano).
+### 2. Calendario desktop estilo Barça a todo lo ancho — `src/pages/Index.tsx`
+Problema: el `<div>` padre (línea 95) fuerza `max-w-[1200px]` y `px-12` sobre todas las secciones excepto la primera, lo que recorta el calendario aunque su grid diga `max-w-[1600px]`.
 
-## 2. Hero fullscreen inmersivo (Index)
+- La sección de calendario ya usa `lg:!max-w-none lg:!mx-0 lg:!px-0` en el patrón del slider — aplicar lo mismo al `<section>` del calendario para escaparse del wrapper.
+- Header y grid: subir `max-w-[1600px]` → `max-w-[1760px]`, padding lateral `px-8 xl:px-12` → `px-10 2xl:px-16`, `gap-7` → `gap-8`.
+- Cards más grandes:
+  - Bloque navy: `min-h-[300px]` → `min-h-[340px]`, logos `w-28 h-28` → `w-32 h-32`, VS `text-4xl` → `text-5xl`, gap `gap-5` → `gap-6`.
+  - Bloque blanco: `py-6` → `py-7`, fecha `text-lg` → `text-xl`, línea LVSM `text-sm` → `text-[15px]`.
+  - Card imagen "Próximos Juegos": `min-h-[480px]` → alineado al alto real de las otras cards (`h-full` ya lo hace) y título `text-3xl` → `text-4xl`.
+- Countdown header: `mb-10` → `mb-12`, sin cambios de tamaño más allá de mantener alineación.
 
-- Hero desktop: `lg:h-[100dvh] lg:max-h-none` (ocupa toda la primera vista).
-- Añadir overlay tipográfico central: `<h1>CAFETEROS DE YAUCO</h1>` con `font-display font-black`, `lg:text-[9rem]` con `letter-spacing`, color blanco con `text-stroke` sutil dorado y `drop-shadow`. Subtítulo pequeño en dorado: "LVSM 2025–26".
-- Animación entrada: fade + scale up (0.94 → 1) con `cubic-bezier(0.16,1,0.3,1)` 1.2s. Letras animadas en cascada (stagger por palabra usando spans + delay CSS).
-- Parallax suave: el video de fondo se traslada verticalmente ligero en scroll (transform via requestAnimationFrame; solo desktop, `prefers-reduced-motion` respetado).
-- Indicador "scroll" abajo centrado con las flechas cascada existentes + texto "SCROLL".
-- Móvil sin cambios.
+### 3. Foto rotativa en el card de "Boletería Oficial" — `src/pages/Index.tsx`
+- Reemplazar el `<img src="/__l5e/assets-v1/…/kevin-rodriguez.png">` (línea 526, ruta rota) por un componente que rote entre los `roster[].photo` disponibles.
+- Añadir estado `ticketPlayerIndex` y `useEffect` con `setInterval` (cada 4s) que avanza el índice; usar `roster.filter(p => p.photo)` como pool.
+- Transición: `opacity` con `transition-opacity duration-700` sobre dos capas cruzadas, o key + fade simple. Preferencia: una sola `<img>` con `key={index}` y clase de fade-in para simplicidad.
+- Respetar `prefers-reduced-motion`: si está activo, no rotar.
 
-## 3. Calendario alineado
+### 4. Quitar bold al texto de noticias — `src/pages/Index.tsx` (grid desktop, líneas 902-931)
+- `h3` de la card: `font-black` → `font-normal`, mantener tamaño y line-clamp.
+- Source label: mantener como está (es una etiqueta).
+- (No tocar mobile — el usuario dijo "el texto de las noticias", pero solo estamos en desktop; aplicamos únicamente al bloque `hidden lg:grid`.)
 
-- **Home preview** (`Index.tsx`): en desktop cambiar el carrusel horizontal por una fila estática de 3 tarjetas centradas y del mismo alto (`lg:grid-cols-3 items-stretch`). Ocultar la lógica de `activeIndex` en desktop (aplicar el highlight sólo si `window.innerWidth < 1024`).
-- **Página `/calendario`**: ya usa `lg:grid-cols-3`. Ajustar tarjetas para altura uniforme (`h-full`, `flex-col`), padding consistente, y alineación de fecha/badge/logos/ubicación en las mismas líneas base. Añadir hover: `lg:hover:-translate-y-1 lg:hover:border-gold/40 lg:hover:shadow-[0_10px_40px_rgba(255,215,0,0.15)]`.
-- Añadir encabezado de sección en desktop con contador de próximos juegos y filtro visual Local/Visitante (chips, sólo UI, sin lógica nueva compleja — filtro por state local sobre el array).
+### 5. Nuevo UI de "Sobre Nosotros" desktop — `src/pages/Index.tsx` (líneas 934-985)
+Reemplazar la card oscura + galería 4-col por un layout más legible tipo editorial:
+- Grid `lg:grid-cols-12` con:
+  - Columna izquierda (`col-span-5`): imagen grande (`dsc04710`) en `rounded-3xl aspect-[4/5]`.
+  - Columna derecha (`col-span-7`): eyebrow "Cafeteros de Yauco", título grande `text-4xl xl:text-5xl font-display font-black uppercase`, párrafo con `text-white/85 text-lg leading-relaxed` (más grande que el actual `text-sm text-white/70` para que se lea), CTA "Conoce Más" a `/nosotros`.
+  - Debajo, tira horizontal de 3 fotos pequeñas (`dsc01912`, `dsc04629`, `dsc04989`) `aspect-square rounded-2xl`.
+- Mobile queda intacto.
 
-## 4. Boletos más discreto
+### 6. Arreglar el bug del preview
+Causa probable: `<img src="/__l5e/assets-v1/292465f5-69c7-44ad-a933-2bd3f36b21cb/kevin-rodriguez.png">` — ruta absoluta hacia un asset externo que no existe. En algunos entornos de preview, un 404 en un asset con `select-none` en `absolute` no rompe render pero puede causar comportamientos raros; sobre todo, se elimina al aplicar el punto 3 (usar `roster[].photo` que sí resuelven vía `${BASE}media/roster/…`).
 
-- **Home preview**: reducir la tarjeta CTA a un banner compacto de 2 columnas en desktop (`lg:grid-cols-[1fr_auto] lg:max-w-[900px] lg:mx-auto lg:py-6`): texto+icono a la izquierda, botón a la derecha. Sin imagen de fondo hero — reemplazar por gradiente dorado sutil (`from-[#1a1500] to-[#1a1a1a]`), borde dorado fino. Altura ~120px.
-- **Página `/boleteria`**: en desktop, contener a `lg:max-w-[760px] lg:mx-auto`, reducir padding del CTA card (`lg:p-10`), y mostrar la card de "Informacion" en columna al lado (`lg:grid-cols-[1.5fr_1fr]`).
+Además, tras aplicar cambios se hará un smoke check del dev server / typecheck para asegurar que no queda ningún import roto.
 
-## 5. Otras secciones (desktop only)
-
-- **ImageSlider**: `lg:max-w-[1200px] lg:mx-auto`, aumentar altura visual y suavizar la máscara.
-- **Roster preview (Index)**: pasar de lista vertical a `lg:grid-cols-3` con tarjeta por jugador (avatar grande, número dorado esquina, nombre + posición). Full page `/roster` ya en 2 cols → subir a `lg:grid-cols-3` con tarjeta rediseñada (imagen dominante, overlay con nombre en la parte inferior, número dorado grande en esquina superior).
-- **Merch**: mantener `lg:grid-cols-4`, agregar hover con zoom sobre la imagen (`group-hover:scale-105`) y overlay dorado al pasar.
-- **News (Index)**: mantener `lg:grid-cols-[2fr_1fr]` editorial; aumentar tipografía del artículo destacado en desktop (`lg:text-4xl`).
-- **Footer**: contenedor `lg:max-w-[1200px] lg:mx-auto lg:grid-cols-3`.
-
-## 6. Interactividad y animación (desktop)
-
-- Enriquecer `ScrollReveal` con variante `fade-up-lg` con más desplazamiento (60px) sólo en `lg`.
-- Cursor: en botones y tarjetas clave, micro-interacciones con `transition-transform duration-300 ease-out`.
-- Añadir `prefers-reduced-motion` guard global en `index.css` para desactivar parallax y cascadas.
-- Sin dependencias nuevas — todo con Tailwind + CSS + refs existentes.
-
-## 7. Guardarraíles
-
-- Cero cambios visuales <1024px (todo con prefijo `lg:` o condicionado por `window.innerWidth`).
-- Mantener paleta actual (`#111111`, `#1a1a1a`, `#FFD700`) y tipografías Barlow.
-- Ocultar `DockBar` móvil en `lg` (ya lo está) y `Header` hamburguesa en `lg` (ya lo está).
-- No tocar YouTube embeds, datos, ni lógica de negocio.
-
-## Archivos a editar/crear
-
-Crear:
-- `src/components/DesktopDock.tsx`
-
-Editar:
-- `src/components/Layout.tsx` (quitar sidebar/padding-left, montar DesktopDock)
-- `src/components/DesktopSidebar.tsx` (dejar de renderizar o eliminar del layout)
-- `src/pages/Index.tsx` (hero fullscreen + título central, calendario alineado, boletos compacto, roster grid, etc.)
-- `src/pages/Calendario.tsx` (uniformidad y hover)
-- `src/pages/Boleteria.tsx` (contenedor angosto, 2 columnas)
-- `src/pages/Roster.tsx` (grid 3 columnas con tarjeta rediseñada)
-- `src/pages/Merch.tsx` (hover mejorado)
-- `src/components/Footer.tsx` (grid desktop)
-- `src/index.css` (utilidades desktop: parallax off en reduced-motion, keyframes de hero title, glass dock)
-
-¿Procedo con esta dirección?
+## Notas técnicas
+- Nada de business logic: sólo JSX + estilos + un `useState/useEffect` para la rotación.
+- Todos los colores siguen usando tokens existentes (`gold`, `white/xx`, `#1a1a1a`, gradientes navy ya en uso).
+- Sin cambios en mobile salvo lo mínimo colateral necesario.
