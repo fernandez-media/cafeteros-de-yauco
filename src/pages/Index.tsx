@@ -432,7 +432,7 @@ const Index = () => {
               />
               <div className="absolute inset-0 flex flex-col justify-between p-6">
                 <h3
-                  className="font-display font-black text-white text-3xl uppercase leading-none m-0"
+                  className="font-display font-black text-white text-4xl uppercase leading-none m-0"
                   style={{ textShadow: '0 4px 20px rgba(0,0,0,0.6)' }}
                 >
                   Próximos
