@@ -948,9 +948,9 @@ const Index = () => {
       </section>
 
       {/* ===== SOBRE NOSOTROS PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="px-5 py-10 lg:py-20">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Sobre Nosotros
             </h2>
@@ -963,42 +963,112 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal>
-          <div
-            className="rounded-2xl p-5 mb-4"
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid rgba(255, 215, 0, 0.08)',
-            }}
-          >
-            <p className="text-white/70 text-sm leading-relaxed m-0">
-               Los Cafeteros de Yauco son un equipo de voleibol profesional que
-              compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
-              Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
-              tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
-              hicieron historia al ganar su primer campeonato en 55 años.
-            </p>
-          </div>
-        </ScrollReveal>
+        {/* MOBILE */}
+        <div className="lg:hidden">
+          <ScrollReveal>
+            <div
+              className="rounded-2xl p-5 mb-4"
+              style={{
+                backgroundColor: '#1a1a1a',
+                border: '1px solid rgba(255, 215, 0, 0.08)',
+              }}
+            >
+              <p className="text-white/70 text-sm leading-relaxed m-0">
+                Los Cafeteros de Yauco son un equipo de voleibol profesional que
+                compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
+                Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
+                tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
+                hicieron historia al ganar su primer campeonato en 55 años.
+              </p>
+            </div>
+          </ScrollReveal>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
-          {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
-            <ScrollReveal key={name} delay={i * 0.05}>
-              <div className="rounded-2xl overflow-hidden aspect-square">
+          <div className="grid grid-cols-2 gap-3">
+            {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
+              <ScrollReveal key={name} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden aspect-square">
+                  <ResponsiveImage
+                    name={name}
+                    alt={`Cafeteros gallery ${i + 1}`}
+                    width={600}
+                    height={600}
+                    sizes="45vw"
+                    pictureClassName="block w-full h-full"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* DESKTOP: editorial layout */}
+        <div className="hidden lg:block max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-12 gap-10 items-center">
+            <ScrollReveal className="col-span-5">
+              <div className="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_25px_60px_-20px_rgba(0,0,0,0.6)]">
                 <ResponsiveImage
-                  name={name}
-                  alt={`Cafeteros gallery ${i + 1}`}
-                  width={600}
-                  height={600}
-                  sizes="(max-width: 640px) 45vw, 320px"
+                  name="dsc04710"
+                  alt="Cafeteros de Yauco"
+                  width={800}
+                  height={1000}
+                  sizes="480px"
                   pictureClassName="block w-full h-full"
                   className="w-full h-full object-cover"
                 />
               </div>
             </ScrollReveal>
-          ))}
+
+            <ScrollReveal className="col-span-7">
+              <div>
+                <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">
+                  Sobre Nosotros
+                </p>
+                <h2 className="font-display font-black uppercase text-white text-4xl xl:text-5xl leading-[0.95] tracking-tight m-0 mb-6">
+                  Cafeteros <br />
+                  <span className="text-gold">de Yauco</span>
+                </h2>
+                <p className="text-white/85 text-lg leading-relaxed m-0 mb-5">
+                  Un equipo de voleibol profesional que representa a la Ciudad
+                  del Café en la Liga de Voleibol Superior Masculina de Puerto
+                  Rico. Pasión, tradición y orgullo de todo un pueblo.
+                </p>
+                <p className="text-white/70 text-base leading-relaxed m-0 mb-8">
+                  En enero de 2026, los Cafeteros hicieron historia al ganar su
+                  primer campeonato de la LVSM en 55 años, un logro grabado en
+                  el corazón de Yauco y de todo Puerto Rico.
+                </p>
+                <Link
+                  to="/nosotros"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] no-underline transition-transform duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
+                >
+                  Conoce Más
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid grid-cols-3 gap-5 mt-12">
+            {(['dsc01912', 'dsc04629', 'dsc04989'] as const).map((name, i) => (
+              <ScrollReveal key={name} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden aspect-square shadow-[0_15px_40px_-20px_rgba(0,0,0,0.5)]">
+                  <ResponsiveImage
+                    name={name}
+                    alt={`Cafeteros ${i + 1}`}
+                    width={600}
+                    height={600}
+                    sizes="360px"
+                    pictureClassName="block w-full h-full"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
+
 
       {/* ===== TICKETS MODAL (desktop) ===== */}
       {ticketsOpen && (
