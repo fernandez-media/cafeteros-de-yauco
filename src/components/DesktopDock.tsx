@@ -25,30 +25,30 @@ const DesktopDock = () => {
       aria-label="Navegación principal"
       className="hidden lg:flex fixed left-1/2 -translate-x-1/2 z-[900] items-center gap-2 rounded-full transition-all duration-300"
       style={{
-        top: scrolled ? 14 : 24,
-        padding: scrolled ? '6px 10px' : '8px 14px',
-        background: scrolled ? 'rgba(10,10,10,0.85)' : 'rgba(17,17,17,0.55)',
+        top: scrolled ? 18 : 28,
+        padding: scrolled ? '10px 16px' : '12px 20px',
+        background: scrolled ? 'rgba(10,10,10,0.9)' : 'rgba(17,17,17,0.6)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 215, 0, 0.18)',
+        border: '1px solid rgba(255, 215, 0, 0.25)',
         boxShadow: scrolled
-          ? '0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.05) inset'
-          : '0 6px 30px rgba(0,0,0,0.35)',
+          ? '0 14px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,0,0.06) inset'
+          : '0 8px 34px rgba(0,0,0,0.4)',
       }}
     >
       <NavLink to="/" className="flex items-center pl-2 pr-2 py-1 no-underline">
         <ResponsiveImage
           name="cafeteros-logo"
           alt="Cafeteros de Yauco"
-          width={32}
-          height={32}
-          sizes="32px"
-          pictureClassName="w-8 h-8 inline-flex"
-          className="w-8 h-8 object-contain"
+          width={40}
+          height={40}
+          sizes="40px"
+          pictureClassName="w-10 h-10 inline-flex"
+          className="w-10 h-10 object-contain"
         />
       </NavLink>
 
-      <span className="w-px h-6 bg-gold/25" aria-hidden="true" />
+      <span className="w-px h-7 bg-gold/25" aria-hidden="true" />
 
 
       <ul className="flex items-center gap-1 pr-1">
@@ -58,10 +58,10 @@ const DesktopDock = () => {
               to={item.path}
               end={item.end}
               className={({ isActive }) =>
-                `relative inline-flex items-center px-4 py-2 rounded-full text-[12px] font-display font-semibold uppercase tracking-[0.14em] no-underline transition-all duration-200 ${
+                `relative inline-flex items-center px-5 py-2.5 rounded-full text-[14px] font-display font-semibold uppercase tracking-[0.16em] no-underline transition-all duration-200 ${
                   isActive
                     ? 'bg-gold/15 text-gold shadow-[inset_0_0_0_1px_rgba(255,215,0,0.35)]'
-                    : 'text-white/65 hover:text-white hover:bg-white/[0.06] hover:-translate-y-[1px]'
+                    : 'text-white/70 hover:text-white hover:bg-white/[0.06] hover:-translate-y-[1px]'
                 }`
               }
             >

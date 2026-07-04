@@ -24,6 +24,8 @@ const Index = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ticketsOpen, setTicketsOpen] = useState(false);
+  const ticketPlayers = roster.filter((p) => !!p.photo);
+  const [ticketPlayerIndex, setTicketPlayerIndex] = useState(0);
   const rosterScrollRef = useRef<HTMLDivElement>(null);
   const scrollRoster = (dir: 1 | -1) => {
     const el = rosterScrollRef.current;
@@ -43,6 +45,15 @@ const Index = () => {
       window.removeEventListener('keydown', onKey);
     };
   }, [ticketsOpen]);
+
+  useEffect(() => {
+    if (ticketPlayers.length < 2) return;
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      setTicketPlayerIndex((i) => (i + 1) % ticketPlayers.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [ticketPlayers.length]);
 
 
   // Cross-browser hero video loading strategy
@@ -183,7 +194,7 @@ const Index = () => {
 
 
       {/* ===== CALENDARIO PREVIEW ===== */}
-      <section className="py-10 lg:py-16 overflow-visible">
+      <section className="py-10 lg:py-16 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
         {/* MOBILE header */}
         <ScrollReveal>
           <div className="flex items-center justify-between mb-5 px-5 lg:hidden">
@@ -201,7 +212,7 @@ const Index = () => {
 
         {/* DESKTOP header — title + countdown to next home game */}
         <ScrollReveal>
-          <div className="hidden lg:flex items-end justify-between mb-10 px-8 xl:px-12 max-w-[1600px] mx-auto">
+          <div className="hidden lg:flex items-end justify-between mb-12 px-10 2xl:px-16 max-w-[1760px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
                 Calendario
@@ -323,24 +334,24 @@ const Index = () => {
         </div>
 
         {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-7 px-8 xl:px-12 w-full max-w-[1600px] mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-8 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
-                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={112} height={112} sizes="112px" loading="eager" pictureClassName="w-28 h-28 inline-flex" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros</p>
+                <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros</p>
               </div>
             );
             const oppBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 {oppKey ? (
-                  <img src={teamLogo(oppKey)} alt={game.opponent} width="112" height="112" loading="eager" decoding="async" className="w-28 h-28 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
+                  <img src={teamLogo(oppKey)} alt={game.opponent} width="128" height="128" loading="eager" decoding="async" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
                 ) : (
-                  <div className="w-28 h-28 rounded-full bg-white/10" />
+                  <div className="w-32 h-32 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-[13px] font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
@@ -355,7 +366,7 @@ const Index = () => {
                 >
                   {/* Top navy VS block */}
                   <div
-                    className="relative px-6 pt-10 pb-10 min-h-[300px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background:
                         'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
@@ -366,18 +377,18 @@ const Index = () => {
                         Próximo
                       </span>
                     )}
-                    <div className="flex items-center justify-center gap-5">
+                    <div className="flex items-center justify-center gap-6">
                       {blocks[0]}
-                      <span className="font-display font-black text-4xl text-white/90 leading-none">VS</span>
+                      <span className="font-display font-black text-5xl text-white/90 leading-none">VS</span>
                       {blocks[1]}
                     </div>
                   </div>
                   {/* Bottom white info block */}
-                  <div className="px-6 py-6 flex-1 flex flex-col bg-white">
-                    <p className="font-display font-black text-black text-lg leading-tight m-0">
+                  <div className="px-6 py-7 flex-1 flex flex-col bg-white">
+                    <p className="font-display font-black text-black text-xl leading-tight m-0">
                       {game.date} · {game.time}
                     </p>
-                    <p className="text-black/60 text-sm mt-2 m-0">
+                    <p className="text-black/60 text-[15px] mt-2 m-0">
                       LVSM · Jornada {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
                     </p>
                     <p className="text-black/50 text-xs mt-1 m-0 line-clamp-1">
@@ -400,7 +411,7 @@ const Index = () => {
           <ScrollReveal delay={0.15}>
             <Link
               to="/calendario"
-              className="relative rounded-3xl overflow-hidden block h-full min-h-[480px] no-underline group"
+              className="relative rounded-3xl overflow-hidden block h-full min-h-[520px] no-underline group"
               style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
             >
               <ResponsiveImage
@@ -421,7 +432,7 @@ const Index = () => {
               />
               <div className="absolute inset-0 flex flex-col justify-between p-6">
                 <h3
-                  className="font-display font-black text-white text-3xl uppercase leading-none m-0"
+                  className="font-display font-black text-white text-4xl uppercase leading-none m-0"
                   style={{ textShadow: '0 4px 20px rgba(0,0,0,0.6)' }}
                 >
                   Próximos
@@ -521,18 +532,23 @@ const Index = () => {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.6), transparent)' }}
               />
 
-              {/* Player image on the right */}
-              <img
-                src="/__l5e/assets-v1/292465f5-69c7-44ad-a933-2bd3f36b21cb/kevin-rodriguez.png"
-                alt=""
-                aria-hidden="true"
-                className="absolute right-0 bottom-0 h-[110%] w-auto object-contain object-bottom pointer-events-none select-none transition-transform duration-700 group-hover:scale-[1.03]"
-                style={{
-                  filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))',
-                  maxWidth: '55%',
-                }}
-                draggable={false}
-              />
+              {/* Player image on the right — rotates through roster */}
+              <div className="absolute right-0 bottom-0 h-[110%] pointer-events-none" style={{ width: '55%' }}>
+                {ticketPlayers.map((p, idx) => (
+                  <img
+                    key={p.name}
+                    src={p.photo}
+                    alt=""
+                    aria-hidden="true"
+                    className={`absolute inset-0 w-full h-full object-contain object-bottom select-none transition-opacity duration-700 ease-in-out ${
+                      idx === ticketPlayerIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{ filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))' }}
+                    draggable={false}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                ))}
+              </div>
 
               {/* Content */}
               <div className="relative z-10 px-10 py-12 lg:py-14 max-w-[620px]">
@@ -913,7 +929,7 @@ const Index = () => {
                   <img src={article.image} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="px-4 pt-4 pb-3 flex-1 flex flex-col">
-                  <h3 className="font-display font-black text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
+                  <h3 className="font-display font-normal text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
                 </div>
                 <div className="px-4 pb-4 pt-3 border-t border-white/5 flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-gold text-[10px] font-black uppercase tracking-wider">
@@ -932,9 +948,9 @@ const Index = () => {
       </section>
 
       {/* ===== SOBRE NOSOTROS PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="px-5 py-10 lg:py-20">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Sobre Nosotros
             </h2>
@@ -947,42 +963,112 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal>
-          <div
-            className="rounded-2xl p-5 mb-4"
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid rgba(255, 215, 0, 0.08)',
-            }}
-          >
-            <p className="text-white/70 text-sm leading-relaxed m-0">
-               Los Cafeteros de Yauco son un equipo de voleibol profesional que
-              compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
-              Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
-              tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
-              hicieron historia al ganar su primer campeonato en 55 años.
-            </p>
-          </div>
-        </ScrollReveal>
+        {/* MOBILE */}
+        <div className="lg:hidden">
+          <ScrollReveal>
+            <div
+              className="rounded-2xl p-5 mb-4"
+              style={{
+                backgroundColor: '#1a1a1a',
+                border: '1px solid rgba(255, 215, 0, 0.08)',
+              }}
+            >
+              <p className="text-white/70 text-sm leading-relaxed m-0">
+                Los Cafeteros de Yauco son un equipo de voleibol profesional que
+                compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
+                Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
+                tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
+                hicieron historia al ganar su primer campeonato en 55 años.
+              </p>
+            </div>
+          </ScrollReveal>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
-          {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
-            <ScrollReveal key={name} delay={i * 0.05}>
-              <div className="rounded-2xl overflow-hidden aspect-square">
+          <div className="grid grid-cols-2 gap-3">
+            {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
+              <ScrollReveal key={name} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden aspect-square">
+                  <ResponsiveImage
+                    name={name}
+                    alt={`Cafeteros gallery ${i + 1}`}
+                    width={600}
+                    height={600}
+                    sizes="45vw"
+                    pictureClassName="block w-full h-full"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* DESKTOP: editorial layout */}
+        <div className="hidden lg:block max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-12 gap-10 items-center">
+            <ScrollReveal className="col-span-5">
+              <div className="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_25px_60px_-20px_rgba(0,0,0,0.6)]">
                 <ResponsiveImage
-                  name={name}
-                  alt={`Cafeteros gallery ${i + 1}`}
-                  width={600}
-                  height={600}
-                  sizes="(max-width: 640px) 45vw, 320px"
+                  name="dsc04710"
+                  alt="Cafeteros de Yauco"
+                  width={800}
+                  height={1000}
+                  sizes="480px"
                   pictureClassName="block w-full h-full"
                   className="w-full h-full object-cover"
                 />
               </div>
             </ScrollReveal>
-          ))}
+
+            <ScrollReveal className="col-span-7">
+              <div>
+                <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">
+                  Sobre Nosotros
+                </p>
+                <h2 className="font-display font-black uppercase text-white text-4xl xl:text-5xl leading-[0.95] tracking-tight m-0 mb-6">
+                  Cafeteros <br />
+                  <span className="text-gold">de Yauco</span>
+                </h2>
+                <p className="text-white/85 text-lg leading-relaxed m-0 mb-5">
+                  Un equipo de voleibol profesional que representa a la Ciudad
+                  del Café en la Liga de Voleibol Superior Masculina de Puerto
+                  Rico. Pasión, tradición y orgullo de todo un pueblo.
+                </p>
+                <p className="text-white/70 text-base leading-relaxed m-0 mb-8">
+                  En enero de 2026, los Cafeteros hicieron historia al ganar su
+                  primer campeonato de la LVSM en 55 años, un logro grabado en
+                  el corazón de Yauco y de todo Puerto Rico.
+                </p>
+                <Link
+                  to="/nosotros"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] no-underline transition-transform duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
+                >
+                  Conoce Más
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid grid-cols-3 gap-5 mt-12">
+            {(['dsc01912', 'dsc04629', 'dsc04989'] as const).map((name, i) => (
+              <ScrollReveal key={name} delay={i * 0.05}>
+                <div className="rounded-2xl overflow-hidden aspect-square shadow-[0_15px_40px_-20px_rgba(0,0,0,0.5)]">
+                  <ResponsiveImage
+                    name={name}
+                    alt={`Cafeteros ${i + 1}`}
+                    width={600}
+                    height={600}
+                    sizes="360px"
+                    pictureClassName="block w-full h-full"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
+
 
       {/* ===== TICKETS MODAL (desktop) ===== */}
       {ticketsOpen && (
