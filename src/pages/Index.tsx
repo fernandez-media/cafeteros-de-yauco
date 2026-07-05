@@ -210,49 +210,19 @@ const Index = () => {
           </div>
         </ScrollReveal>
 
-        {/* DESKTOP header — title + countdown to next home game */}
+        {/* DESKTOP header */}
         <ScrollReveal>
           <div className="hidden lg:flex items-end justify-between mb-12 px-10 2xl:px-16 max-w-[1760px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
                 Calendario
               </h2>
-              {(() => {
-                const next = calendar[0];
-                return (
-                  <div className="flex items-center gap-6 pb-1">
-                    <span className="text-white/50 font-display font-bold text-[11px] uppercase tracking-[0.3em]">
-                      Próximo <br /> partido
-                    </span>
-                    <div className="flex items-end gap-3">
-                      {[
-                        { v: '12', l: 'Días' },
-                        { v: '08', l: 'Horas' },
-                        { v: '34', l: 'Min' },
-                        { v: '22', l: 'Seg' },
-                      ].map((t, idx) => (
-                        <div key={idx} className="flex items-end gap-3">
-                          <div className="flex flex-col items-center">
-                            <span className="font-display font-black text-white text-3xl leading-none tabular-nums">{t.v}</span>
-                            <span className="text-white/40 text-[9px] font-display font-bold uppercase tracking-[0.25em] mt-1">{t.l}</span>
-                          </div>
-                          {idx < 3 && <span className="font-display font-black text-gold text-3xl leading-none pb-4">:</span>}
-                        </div>
-                      ))}
-                    </div>
-                    <span className="text-white/60 text-xs ml-4 hidden xl:inline">
-                      {next.date} · {next.time}
-                    </span>
-                  </div>
-                );
-              })()}
             </div>
             <Link
               to="/calendario"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 font-display font-bold text-xs uppercase tracking-[0.2em] no-underline transition-all duration-200"
+              className="text-gold text-sm font-semibold no-underline hover:underline"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-              Sync Calendar
+              Ver todo
             </Link>
           </div>
         </ScrollReveal>
@@ -338,6 +308,7 @@ const Index = () => {
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+            const isMidHome = i === 1 && game.isHome;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
@@ -364,12 +335,13 @@ const Index = () => {
                     boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
                   }}
                 >
-                  {/* Top navy VS block */}
+                  {/* Top VS block */}
                   <div
                     className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
                     style={{
-                      background:
-                        'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
+                      background: isMidHome
+                        ? 'linear-gradient(180deg, #C8A84B 0%, #A68A3B 100%)'
+                        : 'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
                     }}
                   >
                     {i === 0 && (
@@ -682,7 +654,7 @@ const Index = () => {
           <div className="flex items-center justify-between mb-5 lg:mb-8 lg:max-w-[1400px] lg:mx-auto">
             <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
               <span className="lg:hidden">Roster</span>
-              <span className="hidden lg:inline">Roster Cafeteros</span>
+              <span className="hidden lg:inline">Roster</span>
             </h2>
             <div className="flex items-center gap-3">
               <Link
