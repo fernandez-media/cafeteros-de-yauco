@@ -341,7 +341,7 @@ const Index = () => {
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros de Yauco</p>
               </div>
             );
             const oppBlock = (
