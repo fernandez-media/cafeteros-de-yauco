@@ -654,7 +654,7 @@ const Index = () => {
           <div className="flex items-center justify-between mb-5 lg:mb-8 lg:max-w-[1400px] lg:mx-auto">
             <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
               <span className="lg:hidden">Roster</span>
-              <span className="hidden lg:inline">Roster Cafeteros</span>
+              <span className="hidden lg:inline">Roster</span>
             </h2>
             <div className="flex items-center gap-3">
               <Link
