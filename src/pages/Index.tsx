@@ -351,7 +351,7 @@ const Index = () => {
                 ) : (
                   <div className="w-32 h-32 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent.split(' ')[0]}</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
