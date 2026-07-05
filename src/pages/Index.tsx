@@ -308,6 +308,7 @@ const Index = () => {
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+            const isMidHome = i === 1 && game.isHome;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
@@ -334,12 +335,13 @@ const Index = () => {
                     boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
                   }}
                 >
-                  {/* Top navy VS block */}
+                  {/* Top VS block */}
                   <div
                     className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
                     style={{
-                      background:
-                        'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
+                      background: isMidHome
+                        ? 'linear-gradient(180deg, #C8A84B 0%, #A68A3B 100%)'
+                        : 'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
                     }}
                   >
                     {i === 0 && (
