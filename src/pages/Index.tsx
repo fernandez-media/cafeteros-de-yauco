@@ -337,7 +337,7 @@ const Index = () => {
                 >
                   {/* Top VS block */}
                   <div
-                    className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-8 pb-8 min-h-[260px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background: isMidHome
                         ? 'linear-gradient(180deg, #C8A84B 0%, #A68A3B 100%)'
