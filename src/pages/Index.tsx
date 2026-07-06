@@ -194,7 +194,7 @@ const Index = () => {
 
 
       {/* ===== CALENDARIO PREVIEW ===== */}
-      <section className="py-10 lg:py-16 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
+      <section className="py-10 lg:py-12 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
         {/* MOBILE header */}
         <ScrollReveal>
           <div className="flex items-center justify-between mb-5 px-5 lg:hidden">
@@ -304,7 +304,7 @@ const Index = () => {
         </div>
 
         {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-8 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
@@ -312,7 +312,7 @@ const Index = () => {
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros de Yauco</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">Cafeteros de Yauco</p>
               </div>
             );
             const oppBlock = (
@@ -322,7 +322,7 @@ const Index = () => {
                 ) : (
                   <div className="w-32 h-32 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent}</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">{game.opponent}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
@@ -337,7 +337,7 @@ const Index = () => {
                 >
                   {/* Top VS block */}
                   <div
-                    className="relative px-6 pt-12 pb-12 min-h-[340px] flex flex-col justify-center overflow-hidden"
+                    className="relative px-6 pt-8 pb-8 min-h-[260px] flex flex-col justify-center overflow-hidden"
                     style={{
                       background: isMidHome
                         ? 'linear-gradient(180deg, #C8A84B 0%, #A68A3B 100%)'
@@ -356,7 +356,7 @@ const Index = () => {
                     </div>
                   </div>
                   {/* Bottom white info block */}
-                  <div className="px-6 py-7 flex-1 flex flex-col bg-white">
+                  <div className="px-6 py-5 flex-1 flex flex-col bg-white">
                     <p className="font-display font-black text-black text-xl leading-tight m-0">
                       {game.date} · {game.time}
                     </p>
@@ -368,7 +368,7 @@ const Index = () => {
                     </p>
                     <Link
                       to="/calendario"
-                      className="mt-5 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
+                      className="mt-4 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
                     >
                       <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center">
                         <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
@@ -383,7 +383,7 @@ const Index = () => {
           <ScrollReveal delay={0.15}>
             <Link
               to="/calendario"
-              className="relative rounded-3xl overflow-hidden block h-full min-h-[520px] no-underline group"
+              className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
               style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
             >
               <ResponsiveImage
