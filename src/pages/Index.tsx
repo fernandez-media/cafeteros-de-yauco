@@ -387,7 +387,7 @@ const Index = () => {
               style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
             >
               <ResponsiveImage
-                name="dsc04989"
+                name="dsc04710"
                 alt="Próximos juegos"
                 width={800}
                 height={800}
