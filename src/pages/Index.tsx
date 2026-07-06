@@ -304,7 +304,7 @@ const Index = () => {
         </div>
 
         {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-8 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
@@ -312,7 +312,7 @@ const Index = () => {
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">Cafeteros de Yauco</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">Cafeteros de Yauco</p>
               </div>
             );
             const oppBlock = (
@@ -322,7 +322,7 @@ const Index = () => {
                 ) : (
                   <div className="w-32 h-32 rounded-full bg-white/10" />
                 )}
-                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-4 m-0 tracking-wide">{game.opponent}</p>
+                <p className="text-white text-sm font-display font-bold uppercase leading-tight text-center mt-3 m-0 tracking-wide">{game.opponent}</p>
               </div>
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
