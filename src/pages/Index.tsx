@@ -356,7 +356,7 @@ const Index = () => {
                     </div>
                   </div>
                   {/* Bottom white info block */}
-                  <div className="px-6 py-7 flex-1 flex flex-col bg-white">
+                  <div className="px-6 py-5 flex-1 flex flex-col bg-white">
                     <p className="font-display font-black text-black text-xl leading-tight m-0">
                       {game.date} · {game.time}
                     </p>
@@ -368,7 +368,7 @@ const Index = () => {
                     </p>
                     <Link
                       to="/calendario"
-                      className="mt-5 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
+                      className="mt-4 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
                     >
                       <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center">
                         <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
