@@ -194,7 +194,7 @@ const Index = () => {
 
 
       {/* ===== CALENDARIO PREVIEW ===== */}
-      <section className="py-10 lg:py-16 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
+      <section className="py-10 lg:py-12 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
         {/* MOBILE header */}
         <ScrollReveal>
           <div className="flex items-center justify-between mb-5 px-5 lg:hidden">
