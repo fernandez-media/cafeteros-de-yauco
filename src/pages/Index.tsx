@@ -565,7 +565,7 @@ const Index = () => {
         <ScrollReveal>
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Tienda Oficial Cafeteros
+              TIENDA OFICIAL
             </h2>
             <Link
               to="/merch"
