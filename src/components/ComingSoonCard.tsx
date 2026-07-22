@@ -29,12 +29,6 @@ const ComingSoonCard = ({ comingSoon, className, style, children }: Props) => {
       style={style}
       onClick={handleClick}
     >
-      {comingSoon && (
-        <span className="absolute top-2 md:top-3 right-2 md:right-3 z-10 bg-black/75 backdrop-blur-md text-[#F5C518] text-[9px] md:text-[10px] font-bold tracking-wider px-2 md:px-2.5 py-1 md:py-1.5 rounded-full border border-[#F5C518]/40 uppercase">
-          Próximamente
-        </span>
-      )}
-
       {children}
 
       {active && (
@@ -74,9 +68,6 @@ const ComingSoonCard = ({ comingSoon, className, style, children }: Props) => {
           <p className="mt-1.5 text-white/70 text-[11px] md:text-xs leading-snug max-w-[160px] md:max-w-[200px] m-0">
             Este producto estará disponible muy pronto. ¡Mantente atento!
           </p>
-          <span className="mt-3 text-white/40 text-[9px] md:text-[10px] uppercase tracking-wider">
-            Toca para cerrar
-          </span>
         </div>
       )}
     </div>

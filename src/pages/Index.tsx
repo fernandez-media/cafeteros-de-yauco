@@ -583,7 +583,7 @@ const Index = () => {
               <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
                 <div className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden" style={{ backgroundColor: item.bgColor }}>
                   <ResponsiveImage name={item.imageName} alt={item.name} width={400} height={400} sizes="45vw" className="max-w-full max-h-full object-contain" pictureClassName="max-w-full max-h-full flex items-center justify-center" />
-                  {item.isNew && <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">Nuevo</span>}
+                  
                 </div>
                 <div className="p-3">
                   <p className="font-display font-bold text-sm text-white m-0 leading-tight">{item.name}</p>
