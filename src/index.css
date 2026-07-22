@@ -208,3 +208,24 @@ iframe:focus-visible,
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(245, 197, 24, 0.4)); }
   50%      { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(245, 197, 24, 0.8)); }
 }
+
+/* ========== PARTIDOS LIST ========== */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+.animate-shimmer { animation: shimmer 2s ease-in-out infinite; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes modalScaleIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

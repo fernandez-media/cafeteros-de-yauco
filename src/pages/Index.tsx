@@ -56,6 +56,30 @@ const Index = () => {
     return () => clearInterval(id);
   }, [ticketPlayers.length]);
 
+  // ===== PARTIDOS: modal state =====
+  const partidosDestacados = [
+    { id: 'juego-6', numero: 'Juego 6', serie: 'Serie Final', resultado: '3-2', fecha: '24 de enero, 2026', youtubeId: 'PLACEHOLDER_JUEGO_6', esCampeonato: true },
+    { id: 'juego-5', numero: 'Juego 5', serie: 'Serie Final', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: false },
+    { id: 'juego-4', numero: 'Juego 4', serie: 'Serie Final', resultado: '3-1', fecha: '20 de enero, 2026', youtubeId: 'DmSWs9uJIH8', esCampeonato: false },
+    { id: 'juego-3', numero: 'Juego 3', serie: 'Serie Final', resultado: '3-1', fecha: '18 de enero, 2026', youtubeId: 'UDEYHpwK2LE', esCampeonato: false },
+  ];
+  const [videoModalId, setVideoModalId] = useState<string | null>(null);
+  const openVideoModal = (youtubeId: string) => {
+    if (youtubeId.startsWith('PLACEHOLDER')) return;
+    setVideoModalId(youtubeId);
+  };
+  const closeVideoModal = () => setVideoModalId(null);
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') closeVideoModal(); };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+  useEffect(() => {
+    if (videoModalId) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
+  }, [videoModalId]);
+
 
   // Cross-browser hero video loading strategy
   const [videoStrategy, setVideoStrategy] = useState<{ preload: 'auto' | 'metadata' | 'none'; loadSources: boolean }>(() => ({
@@ -620,34 +644,127 @@ const Index = () => {
       </section>
 
       {/* ===== PARTIDOS PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="w-full px-4 lg:px-12 py-10">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Partidos
-            </h2>
-            <Link
-              to="/partidos"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
+          <div className="flex items-center justify-between mb-6 lg:max-w-[1200px] lg:mx-auto">
+            <div>
+              <h2 className="text-white text-xl md:text-2xl font-black uppercase tracking-wider m-0">Partidos</h2>
+              <p className="text-white/50 text-xs mt-1 uppercase tracking-widest">Revive la serie final</p>
+            </div>
+            <Link to="/partidos" className="text-gold text-sm font-semibold no-underline hover:underline">Ver todo</Link>
+          </div>
+        </ScrollReveal>
+
+        <div className="flex flex-col gap-2.5 lg:max-w-[1200px] lg:mx-auto">
+          {partidosDestacados.map((partido, index) => {
+            const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
+            return (
+              <div key={partido.id} style={{ animation: `fadeInUp 0.5s ease-out ${index * 0.08}s both` }}>
+                <button
+                  type="button"
+                  onClick={() => openVideoModal(partido.youtubeId)}
+                  disabled={isPlaceholder}
+                  className="group relative w-full flex items-center gap-4 bg-[#111111] hover:bg-[#171717] rounded-2xl p-3 border border-[#222222] hover:border-gold/50 transition-all duration-300 overflow-hidden text-left disabled:cursor-not-allowed"
+                >
+                  {/* Shimmer glow on hover */}
+                  <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-gold/10 to-transparent animate-shimmer" />
+                  </div>
+
+                  {/* Thumbnail */}
+                  <div className="relative flex-shrink-0 w-[96px] md:w-[140px] h-[54px] md:h-[80px] rounded-lg overflow-hidden bg-black">
+                    {isPlaceholder ? (
+                      <div className="w-full h-full flex items-center justify-center bg-[#0a0a0a] text-white/30 text-[10px] uppercase tracking-wider font-bold">
+                        Próximo
+                      </div>
+                    ) : (
+                      <>
+                        <img
+                          src={`https://img.youtube.com/vi/${partido.youtubeId}/hqdefault.jpg`}
+                          alt={`${partido.numero} thumbnail`}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gold/90 flex items-center justify-center shadow-lg">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="black" className="ml-0.5">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {partido.esCampeonato && (
+                      <div className="absolute top-1 left-1 text-[10px]">🏆</div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 text-[10px] md:text-xs uppercase tracking-wider text-gold font-bold">
+                      <span>{partido.numero}</span>
+                      <span className="text-white/30">·</span>
+                      <span className="text-white/60">{partido.serie}</span>
+                    </div>
+                    <div className="text-[13px] md:text-sm font-bold text-white mt-0.5 truncate">
+                      Yauco vs. San Sebastián
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[11px] md:text-xs text-white/50 mt-0.5">
+                      <span className="text-white font-semibold">{partido.resultado}</span>
+                      <span>·</span>
+                      <span>{partido.fecha}</span>
+                    </div>
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="hidden md:block text-white/30 group-hover:text-gold group-hover:translate-x-1 transition-all pr-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Modal */}
+        {videoModalId && (
+          <div
+            onClick={closeVideoModal}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md px-3 md:px-6"
+            style={{ animation: 'modalFadeIn 0.25s ease-out both' }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-5xl"
+              style={{ animation: 'modalScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both' }}
             >
-              Ver todo
-            </Link>
+              <button
+                type="button"
+                onClick={closeVideoModal}
+                aria-label="Cerrar video"
+                className="absolute -top-12 right-2 md:-top-14 md:right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+              <div className="relative w-full rounded-2xl overflow-hidden bg-black ring-1 ring-gold/30 shadow-[0_0_60px_rgba(255,215,0,0.15)]" style={{ paddingTop: '56.25%' }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${videoModalId}?autoplay=1`}
+                  title="Video del partido"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              </div>
+            </div>
           </div>
-        </ScrollReveal>
-        <ScrollReveal>
-          <div className="relative w-full rounded-2xl overflow-hidden" style={{ paddingTop: '56.25%' }}>
-            <iframe
-              src="https://www.youtube.com/embed/UDEYHpwK2LE"
-              title="Serie Final LVSM Juego #3: Caribes vs. Cafeteros"
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full border-0 rounded-2xl"
-            />
-          </div>
-        </ScrollReveal>
+        )}
       </section>
+
 
       {/* ===== ROSTER PREVIEW ===== */}
       <section className="px-5 py-10 lg:py-16 lg:px-10">
