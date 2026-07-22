@@ -29,7 +29,7 @@ const Boleteria = () => {
         </Link>
       </div>
 
-      <div className="px-5 lg:px-12 pb-10 lg:max-w-[960px] lg:mx-auto">
+      <div className="px-5 lg:px-12 pb-4 lg:pb-6 lg:max-w-[960px] lg:mx-auto">
         <div className="flex flex-col lg:grid lg:grid-cols-[1.6fr_1fr] lg:gap-5">
           {/* Main CTA Card */}
           <ScrollReveal>
