@@ -4,6 +4,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import ImageSlider from '../components/ImageSlider';
 import ResponsiveImage from '../components/ResponsiveImage';
 import PlayerAvatar from '../components/PlayerAvatar';
+import ComingSoonCard from '../components/ComingSoonCard';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
