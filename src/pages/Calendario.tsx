@@ -73,7 +73,7 @@ const Calendario = () => {
         </Link>
       </div>
 
-      <div className="px-5 lg:px-12 pb-10 flex flex-col lg:grid lg:grid-cols-3 gap-4 lg:gap-5 w-full max-w-[1200px] mx-auto">
+      <div className="px-5 lg:px-12 pb-4 lg:pb-6 flex flex-col lg:grid lg:grid-cols-3 gap-4 lg:gap-5 w-full max-w-[1200px] mx-auto">
         {calendar.map((game, i) => {
           const isActive = i === activeIndex;
           return (
