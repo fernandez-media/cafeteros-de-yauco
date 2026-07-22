@@ -709,8 +709,6 @@ const Index = () => {
                       Yauco vs. San Sebastián
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px] md:text-xs text-white/50 mt-0.5">
-                      <span className="text-white font-semibold">{partido.resultado}</span>
-                      <span>·</span>
                       <span>{partido.fecha}</span>
                     </div>
                   </div>
