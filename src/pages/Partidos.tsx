@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
-import ResponsiveImage from '../components/ResponsiveImage';
 
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
@@ -105,34 +104,6 @@ const partidosData: Partido[] = [
   },
 ];
 
-const TeamLogo = ({ logoKey, alt, size = 32 }: { logoKey: string | null; alt: string; size?: number }) => {
-  if (!logoKey) {
-    return (
-      <ResponsiveImage
-        name="cafeteros-logo"
-        alt={alt}
-        width={size}
-        height={size}
-        sizes={`${size}px`}
-        loading="lazy"
-        pictureClassName="inline-flex"
-        className="object-contain"
-      />
-    );
-  }
-  return (
-    <img
-      src={teamLogo(logoKey)}
-      alt={alt}
-      width={size}
-      height={size}
-      loading="lazy"
-      decoding="async"
-      className="object-contain"
-      style={{ width: size, height: size }}
-    />
-  );
-};
 
 const Partidos = () => {
   const [activeTab, setActiveTab] = useState<'final' | 'semifinal'>('final');
@@ -227,42 +198,40 @@ const Partidos = () => {
                     : 'hover:bg-[#161616] hover:border-[#F5C518]/60 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(245,197,24,0.15)] cursor-pointer'
                 }`}
               >
-                {/* Shimmer */}
-                {!isPlaceholder && (
-                  <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
-                    <div className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-[#F5C518]/10 to-transparent animate-shimmer" />
-                  </div>
-                )}
+                {/* Shimmer effect al hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F5C518]/8 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                </div>
 
-                {/* THUMBNAIL */}
-                <div className="relative flex-shrink-0 rounded-xl overflow-hidden bg-[#0a0a0a] border border-[#222]" style={{ width: 110, height: 62 }}>
-                  <div className="lg:hidden absolute inset-0" />
+                {/* THUMBNAIL (más pequeño) */}
+                <div className="relative flex-shrink-0 w-[100px] h-[56px] lg:w-[120px] lg:h-[68px] rounded-xl overflow-hidden bg-[#0a0a0a]">
                   {isPlaceholder ? (
-                    <div className="w-full h-full flex items-center justify-center text-[#444]">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#F5C518" opacity="0.4">
+                        <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
                   ) : (
                     <>
                       <img
                         src={`https://img.youtube.com/vi/${partido.youtubeId}/mqdefault.jpg`}
-                        alt={`${partido.numero} — ${partido.serieLabel}`}
+                        alt={`${partido.numero}`}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        width={120}
+                        height={68}
                       />
-                      <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-[#F5C518] flex items-center justify-center shadow-lg">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-black translate-x-[1px]">
-                            <polygon points="5 3 19 12 5 21 5 3" />
+                        <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-[#F5C518] flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="#000000">
+                            <path d="M8 5v14l11-7z" />
                           </svg>
                         </div>
                       </div>
                       {partido.esCampeonato && (
-                        <div className="absolute top-1 left-1 text-[10px] leading-none px-1.5 py-0.5 rounded bg-[#F5C518] text-black font-bold">
+                        <div className="absolute top-1 left-1 bg-[#F5C518] text-black text-[8px] font-black px-1 py-0.5 rounded uppercase tracking-wider flex items-center gap-0.5">
                           🏆
                         </div>
                       )}
@@ -270,66 +239,46 @@ const Partidos = () => {
                   )}
                 </div>
 
-                {/* CENTER INFO */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 text-[10px] lg:text-[11px] uppercase tracking-wider mb-1.5">
-                    <span className="text-white font-bold">{partido.numero}</span>
-                    <span className="text-[#444]">·</span>
-                    <span className="text-[#999]">{partido.serieLabel}</span>
+                {/* INFO CENTRAL */}
+                <div className="flex-1 min-w-0 relative z-10">
+                  {/* Serie + número + contexto */}
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className="text-[#F5C518] text-[10px] lg:text-[11px] font-black uppercase tracking-widest">
+                      {partido.numero}
+                    </span>
+                    <span className="text-white/20 text-[10px]">·</span>
+                    <span className="text-white/50 text-[10px] lg:text-[11px] uppercase tracking-wider">
+                      {partido.serieLabel}
+                    </span>
                     {partido.contexto && (
                       <>
-                        <span className="text-[#444]">·</span>
-                        <span className="text-[#F5C518] font-bold">{partido.contexto}</span>
+                        <span className="text-white/20 text-[10px]">·</span>
+                        <span className="text-[#F5C518] text-[9px] lg:text-[10px] font-bold uppercase tracking-wider bg-[#F5C518]/10 px-1.5 py-0.5 rounded">
+                          {partido.contexto}
+                        </span>
                       </>
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2 lg:gap-3">
-                    {/* Local */}
-                    <div className="flex items-center gap-1.5 lg:gap-2 min-w-0">
-                      <TeamLogo logoKey={partido.equipoLocalLogoKey} alt={partido.equipoLocal} size={28} />
-                      <span
-                        className={`text-xs lg:text-sm font-bold truncate ${
-                          partido.ganador === 'local' ? 'text-white' : 'text-[#777]'
-                        }`}
-                      >
-                        {partido.equipoLocalCorto}
-                      </span>
-                    </div>
+                  {/* Nombres completos (protagonista) */}
+                  <p className="text-white text-base lg:text-lg font-bold truncate group-hover:text-[#F5C518] transition-colors duration-300 leading-tight">
+                    {partido.equipoLocal} <span className="text-white/40 font-normal mx-1">vs.</span> {partido.equipoVisitante}
+                  </p>
 
-                    {/* Score */}
-                    <div className="px-2 lg:px-3 py-1 rounded-md bg-[#0a0a0a] border border-[#222] flex-shrink-0">
-                      <span className="font-mono font-bold text-sm lg:text-base text-white tabular-nums">
-                        {partido.resultado}
-                      </span>
-                    </div>
-
-                    {/* Visitante */}
-                    <div className="flex items-center gap-1.5 lg:gap-2 min-w-0">
-                      <span
-                        className={`text-xs lg:text-sm font-bold truncate ${
-                          partido.ganador === 'visitante' ? 'text-white' : 'text-[#777]'
-                        }`}
-                      >
-                        {partido.equipoVisitanteCorto}
-                      </span>
-                      <TeamLogo logoKey={partido.equipoVisitanteLogoKey} alt={partido.equipoVisitante} size={28} />
-                    </div>
-                  </div>
-
-                  <div className="text-[10px] lg:text-[11px] text-[#666] mt-1.5">{partido.fecha}</div>
+                  {/* Fecha */}
+                  <p className="text-white/40 text-[10px] lg:text-[11px] mt-1.5">
+                    {partido.fecha}
+                  </p>
                 </div>
 
-                {/* RIGHT CHEVRON */}
-                <div className="hidden md:flex items-center gap-2 flex-shrink-0 text-[#666] group-hover:text-[#F5C518] transition-colors">
-                  <span className="text-xs font-semibold uppercase tracking-wider">
-                    {isPlaceholder ? 'Próximamente' : 'Ver partido'}
+                {/* CHEVRON DERECHA */}
+                <div className="hidden md:flex flex-shrink-0 items-center gap-2 opacity-60 group-hover:opacity-100 transition-all duration-300">
+                  <span className="text-[#F5C518] text-xs font-semibold uppercase tracking-wider opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                    Ver partido
                   </span>
-                  {!isPlaceholder && (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  )}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
                 </div>
               </button>
             );
