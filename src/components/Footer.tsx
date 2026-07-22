@@ -63,7 +63,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/[0.06] mt-2 sm:mt-3 pt-2 sm:pt-3 pb-[100px] lg:pb-6 text-center">
+      <div className="border-t border-white/[0.06] mt-1 sm:mt-2 pt-2 sm:pt-3 pb-20 lg:pb-5 text-center">
         <p className="text-xs text-white/25 m-0">
           &copy; 2025 Cafeteros de Yauco. Todos los derechos reservados.
         </p>
