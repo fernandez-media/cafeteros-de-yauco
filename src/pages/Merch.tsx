@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
 import ResponsiveImage from '../components/ResponsiveImage';
+import ComingSoonCard from '../components/ComingSoonCard';
 import { merch } from '../data/merch';
 
 const Merch = () => {
@@ -34,8 +35,9 @@ const Merch = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
-              <div
-                className="rounded-2xl overflow-hidden [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate"
+              <ComingSoonCard
+                comingSoon={item.comingSoon}
+                className="rounded-2xl [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate"
                 style={{
                   backgroundColor: '#1a1a1a',
                   border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -55,9 +57,11 @@ const Merch = () => {
                     fetchPriority={i === 0 ? 'high' : undefined}
                     className="max-w-full max-h-full object-contain"
                   />
-                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
-                    Nuevo
-                  </span>
+                  {item.isNew && (
+                    <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
+                      Nuevo
+                    </span>
+                  )}
                 </div>
                 <div className="p-3">
                   <p className="font-display font-bold text-sm text-white m-0 leading-tight">
@@ -67,7 +71,7 @@ const Merch = () => {
                     {item.price}
                   </p>
                 </div>
-              </div>
+              </ComingSoonCard>
             </ScrollReveal>
           ))}
         </div>

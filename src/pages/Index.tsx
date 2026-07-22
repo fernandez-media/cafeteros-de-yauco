@@ -579,16 +579,16 @@ const Index = () => {
         <div className="grid grid-cols-2 gap-3 lg:hidden">
           {merch.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
-              <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
+              <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
                 <div className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden" style={{ backgroundColor: item.bgColor }}>
                   <ResponsiveImage name={item.imageName} alt={item.name} width={400} height={400} sizes="45vw" className="max-w-full max-h-full object-contain" pictureClassName="max-w-full max-h-full flex items-center justify-center" />
-                  <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">Nuevo</span>
+                  {item.isNew && <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">Nuevo</span>}
                 </div>
                 <div className="p-3">
                   <p className="font-display font-bold text-sm text-white m-0 leading-tight">{item.name}</p>
                   <p className="text-gold font-bold text-sm mt-1 m-0">{item.price}</p>
                 </div>
-              </div>
+              </ComingSoonCard>
             </ScrollReveal>
           ))}
         </div>
@@ -597,7 +597,7 @@ const Index = () => {
         <div className="hidden lg:grid lg:grid-cols-3 gap-5">
           {merch.slice(0, 3).map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
-              <div className="rounded-2xl overflow-hidden bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
+              <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
                 <div className="relative w-full h-[340px] flex items-center justify-center overflow-hidden" style={{ backgroundColor: item.bgColor }}>
                   <ResponsiveImage name={item.imageName} alt={item.name} width={600} height={600} sizes="380px" className="max-w-[80%] max-h-[80%] object-contain transition-transform duration-500 group-hover:scale-105" pictureClassName="w-full h-full flex items-center justify-center" />
                 </div>
@@ -606,13 +606,13 @@ const Index = () => {
                   <p className="text-black/60 text-sm mt-2 m-0 leading-relaxed">Producto oficial de los Cafeteros de Yauco. Edición 2025–26.</p>
                   <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between">
                     <span className="font-display font-bold text-base text-black">{item.price}</span>
-                    <Link to="/merch" className="inline-flex items-center gap-1.5 text-black font-display font-bold text-xs uppercase tracking-wider no-underline group-hover:text-gold transition-colors">
+                    <span className="inline-flex items-center gap-1.5 text-black font-display font-bold text-xs uppercase tracking-wider group-hover:text-gold transition-colors">
                       Comprar
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-                    </Link>
+                    </span>
                   </div>
                 </div>
-              </div>
+              </ComingSoonCard>
             </ScrollReveal>
           ))}
         </div>
