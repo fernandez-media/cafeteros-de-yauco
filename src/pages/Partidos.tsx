@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 
-const BASE = import.meta.env.BASE_URL;
-const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
 
 type Partido = {
   id: string;
