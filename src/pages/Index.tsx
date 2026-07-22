@@ -58,8 +58,7 @@ const Index = () => {
 
   // ===== PARTIDOS: modal state =====
   const partidosDestacados = [
-    { id: 'juego-6', numero: 'Juego 6', serie: 'Serie Final', resultado: '3-2', fecha: '24 de enero, 2026', youtubeId: 'PLACEHOLDER_JUEGO_6', esCampeonato: true },
-    { id: 'juego-5', numero: 'Juego 5', serie: 'Serie Final', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: false },
+    { id: 'juego-5', numero: 'Juego 5', serie: 'Serie Final', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: true },
     { id: 'juego-4', numero: 'Juego 4', serie: 'Serie Final', resultado: '3-1', fecha: '20 de enero, 2026', youtubeId: 'DmSWs9uJIH8', esCampeonato: false },
     { id: 'juego-3', numero: 'Juego 3', serie: 'Serie Final', resultado: '3-1', fecha: '18 de enero, 2026', youtubeId: 'UDEYHpwK2LE', esCampeonato: false },
   ];

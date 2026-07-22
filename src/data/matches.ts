@@ -76,16 +76,4 @@ export const matches: Match[] = [
     videoId: '',
     headline: 'Clásico de la montaña',
   },
-  {
-    id: '6',
-    date: 'Nov 18',
-    time: '8:00 PM',
-    opponent: 'Caribes de San Sebastián',
-    opponentKey: 'caribes',
-    location: 'Coliseo Raúl Pipote Oliveras, Yauco',
-    isHome: true,
-    status: 'upcoming',
-    videoId: '',
-    headline: 'Revancha en casa',
-  },
 ];
