@@ -57,11 +57,6 @@ const Merch = () => {
                     fetchPriority={i === 0 ? 'high' : undefined}
                     className="max-w-full max-h-full object-contain"
                   />
-                  {item.isNew && (
-                    <span className="absolute top-2 left-2 text-[9px] font-bold uppercase tracking-wider text-black bg-gold px-2 py-0.5 rounded-full">
-                      Nuevo
-                    </span>
-                  )}
                 </div>
                 <div className="p-3">
                   <p className="font-display font-bold text-sm text-white m-0 leading-tight">
