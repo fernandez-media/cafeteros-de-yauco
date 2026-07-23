@@ -121,7 +121,7 @@ const Partidos = () => {
   const partidosFiltrados = partidosData.filter((p) => p.serie === activeTab);
 
   const tabs = [
-    { key: 'final' as const, label: 'Serie Final', count: 6 },
+    { key: 'final' as const, label: 'Serie Final', count: 5 },
     { key: 'semifinal' as const, label: 'Semifinal', count: 5 },
   ];
 
