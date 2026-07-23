@@ -24,18 +24,11 @@ type Partido = {
 
 const partidosData: Partido[] = [
   {
-    id: 'final-6', numero: 'Juego 6', serie: 'final', serieLabel: 'Serie Final',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Caribes de San Sebastián', equipoVisitanteCorto: 'SAN SEBASTIÁN', equipoVisitanteLogoKey: 'caribes',
-    resultado: '3-2', ganador: 'local', fecha: '24 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_JUEGO_6', esCampeonato: true, contexto: 'CAMPEONATO',
-  },
-  {
     id: 'final-5', numero: 'Juego 5', serie: 'final', serieLabel: 'Serie Final',
     equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
     equipoVisitante: 'Caribes de San Sebastián', equipoVisitanteCorto: 'SAN SEBASTIÁN', equipoVisitanteLogoKey: 'caribes',
     resultado: '2-3', ganador: 'visitante', fecha: '22 de enero, 2026',
-    youtubeId: 'RxmvKjlE6uk', esCampeonato: false,
+    youtubeId: 'RxmvKjlE6uk', esCampeonato: true, contexto: 'CAMPEONATO',
   },
   {
     id: 'final-4', numero: 'Juego 4', serie: 'final', serieLabel: 'Serie Final',
