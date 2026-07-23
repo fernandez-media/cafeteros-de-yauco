@@ -275,9 +275,18 @@ const Partidos = () => {
                   </div>
 
                   {/* Nombres completos (protagonista) */}
-                  <p className="text-white text-base lg:text-lg font-bold truncate group-hover:text-[#F5C518] transition-colors duration-300 leading-tight">
-                    <span className="text-white/40 font-normal mr-1.5">vs.</span>{partido.equipoVisitante}
-                  </p>
+                  <div className="flex items-center gap-2 lg:gap-2.5 min-w-0">
+                    <TeamLogo logoKey={partido.equipoLocalLogoKey} name={partido.equipoLocal} />
+                    <span className="text-white text-xs lg:text-sm font-bold tracking-wide group-hover:text-[#F5C518] transition-colors duration-300">
+                      {partido.equipoLocalCorto}
+                    </span>
+                    <span className="text-white/40 text-[11px] lg:text-xs font-normal px-0.5">vs.</span>
+                    <TeamLogo logoKey={partido.equipoVisitanteLogoKey} name={partido.equipoVisitante} />
+                    <span className="text-white text-xs lg:text-sm font-bold tracking-wide truncate group-hover:text-[#F5C518] transition-colors duration-300">
+                      {partido.equipoVisitanteCorto}
+                    </span>
+                  </div>
+
 
                   {/* Fecha */}
                   <p className="text-white/40 text-[10px] lg:text-[11px] mt-1.5">
