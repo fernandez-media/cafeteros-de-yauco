@@ -253,7 +253,7 @@ const Partidos = () => {
 
                   {/* Nombres completos (protagonista) */}
                   <p className="text-white text-base lg:text-lg font-bold truncate group-hover:text-[#F5C518] transition-colors duration-300 leading-tight">
-                    {partido.equipoLocal} <span className="text-white/40 font-normal mx-1">vs.</span> {partido.equipoVisitante}
+                    <span className="text-white/40 font-normal mr-1.5">vs.</span>{partido.equipoVisitante}
                   </p>
 
                   {/* Fecha */}
