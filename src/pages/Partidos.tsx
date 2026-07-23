@@ -126,7 +126,7 @@ const Partidos = () => {
   ];
 
   return (
-    <div className="min-h-screen -mt-14 bg-black">
+    <div className="min-h-screen -mt-14 bg-[#0a0a0a]">
       <PageHero title="Partidos" goldWord="Partidos" subtitle="Revive y sigue cada juego" />
 
       <div className="px-5 lg:px-10 pt-4 pb-4 max-w-[1200px] lg:mx-auto">
