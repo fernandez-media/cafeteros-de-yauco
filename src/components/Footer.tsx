@@ -5,7 +5,7 @@ const Footer = () => {
     <footer
       className="w-full"
       style={{
-        background: 'linear-gradient(to bottom, #111111, #0a0a0a)',
+        background: '#0a0a0a',
       }}
     >
       {/* Main Section */}
