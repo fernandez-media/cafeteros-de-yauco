@@ -1,6 +1,29 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
+import caribesLogo from '../assets/caribes-logo.png.asset.json';
+import plataneroLogo from '../assets/plataneros-logo.png.asset.json';
+
+const cafeterosLogoUrl = `${import.meta.env.BASE_URL}assets/opt/cafeteros-logo-192.webp`;
+
+const teamLogoMap: Record<string, string> = {
+  caribes: caribesLogo.url,
+  plataneros: plataneroLogo.url,
+};
+
+const TeamLogo = ({ logoKey, name }: { logoKey: string | null; name: string }) => {
+  const src = logoKey ? teamLogoMap[logoKey] : cafeterosLogoUrl;
+  return (
+    <div
+      className="rounded-full overflow-hidden bg-white/5 flex-shrink-0 w-7 h-7 lg:w-8 lg:h-8"
+      style={{ boxShadow: '0 0 0 1.5px rgba(245,197,24,0.5)' }}
+    >
+      <img src={src} alt={name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+    </div>
+  );
+};
+
+
 
 
 type Partido = {
@@ -252,9 +275,18 @@ const Partidos = () => {
                   </div>
 
                   {/* Nombres completos (protagonista) */}
-                  <p className="text-white text-base lg:text-lg font-bold truncate group-hover:text-[#F5C518] transition-colors duration-300 leading-tight">
-                    <span className="text-white/40 font-normal mr-1.5">vs.</span>{partido.equipoVisitante}
-                  </p>
+                  <div className="flex items-center gap-2 lg:gap-2.5 min-w-0">
+                    <TeamLogo logoKey={partido.equipoLocalLogoKey} name={partido.equipoLocal} />
+                    <span className="text-white text-xs lg:text-sm font-bold tracking-wide group-hover:text-[#F5C518] transition-colors duration-300">
+                      {partido.equipoLocalCorto}
+                    </span>
+                    <span className="text-white/40 text-[11px] lg:text-xs font-normal px-0.5">vs.</span>
+                    <TeamLogo logoKey={partido.equipoVisitanteLogoKey} name={partido.equipoVisitante} />
+                    <span className="text-white text-xs lg:text-sm font-bold tracking-wide truncate group-hover:text-[#F5C518] transition-colors duration-300">
+                      {partido.equipoVisitanteCorto}
+                    </span>
+                  </div>
+
 
                   {/* Fecha */}
                   <p className="text-white/40 text-[10px] lg:text-[11px] mt-1.5">
