@@ -24,18 +24,11 @@ type Partido = {
 
 const partidosData: Partido[] = [
   {
-    id: 'final-6', numero: 'Juego 6', serie: 'final', serieLabel: 'Serie Final',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Caribes de San Sebastián', equipoVisitanteCorto: 'SAN SEBASTIÁN', equipoVisitanteLogoKey: 'caribes',
-    resultado: '3-2', ganador: 'local', fecha: '24 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_JUEGO_6', esCampeonato: true, contexto: 'CAMPEONATO',
-  },
-  {
     id: 'final-5', numero: 'Juego 5', serie: 'final', serieLabel: 'Serie Final',
     equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
     equipoVisitante: 'Caribes de San Sebastián', equipoVisitanteCorto: 'SAN SEBASTIÁN', equipoVisitanteLogoKey: 'caribes',
     resultado: '2-3', ganador: 'visitante', fecha: '22 de enero, 2026',
-    youtubeId: 'RxmvKjlE6uk', esCampeonato: false,
+    youtubeId: 'RxmvKjlE6uk', esCampeonato: true, contexto: 'CAMPEONATO',
   },
   {
     id: 'final-4', numero: 'Juego 4', serie: 'final', serieLabel: 'Serie Final',
@@ -128,12 +121,12 @@ const Partidos = () => {
   const partidosFiltrados = partidosData.filter((p) => p.serie === activeTab);
 
   const tabs = [
-    { key: 'final' as const, label: 'Serie Final', count: 6 },
+    { key: 'final' as const, label: 'Serie Final', count: 5 },
     { key: 'semifinal' as const, label: 'Semifinal', count: 5 },
   ];
 
   return (
-    <div className="min-h-screen -mt-14 bg-black">
+    <div className="min-h-screen -mt-14 bg-[#0a0a0a]">
       <PageHero title="Partidos" goldWord="Partidos" subtitle="Revive y sigue cada juego" />
 
       <div className="px-5 lg:px-10 pt-4 pb-4 max-w-[1200px] lg:mx-auto">
@@ -260,7 +253,7 @@ const Partidos = () => {
 
                   {/* Nombres completos (protagonista) */}
                   <p className="text-white text-base lg:text-lg font-bold truncate group-hover:text-[#F5C518] transition-colors duration-300 leading-tight">
-                    {partido.equipoLocal} <span className="text-white/40 font-normal mx-1">vs.</span> {partido.equipoVisitante}
+                    <span className="text-white/40 font-normal mr-1.5">vs.</span>{partido.equipoVisitante}
                   </p>
 
                   {/* Fecha */}
