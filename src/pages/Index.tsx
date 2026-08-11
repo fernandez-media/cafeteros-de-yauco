@@ -5,6 +5,7 @@ import ImageSlider from '../components/ImageSlider';
 import ResponsiveImage from '../components/ResponsiveImage';
 import PlayerAvatar from '../components/PlayerAvatar';
 import ComingSoonCard from '../components/ComingSoonCard';
+import ReelsSection from '../components/ReelsSection';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
@@ -583,6 +584,11 @@ const Index = () => {
         </ScrollReveal>
       </section>
 
+      {/* ===== REELS / REDES SOCIALES ===== */}
+      <ScrollReveal>
+        <ReelsSection />
+      </ScrollReveal>
+
       {/* ===== MERCH PREVIEW ===== */}
       <section className="px-5 py-10">
         <ScrollReveal>
@@ -1071,7 +1077,7 @@ const Index = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-2 gap-3">
-            {(['dsc01912', 'dsc04629', 'dsc04710', 'dsc04989'] as const).map((name, i) => (
+            {(['dsc04710', 'dsc04989'] as const).map((name, i) => (
               <ScrollReveal key={name} delay={i * 0.05}>
                 <div className="rounded-2xl overflow-hidden aspect-square">
                   <ResponsiveImage
@@ -1137,7 +1143,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-3 gap-5 mt-12">
-            {(['dsc01912', 'dsc04629', 'dsc04989'] as const).map((name, i) => (
+            {(['dsc04710', 'dsc04989'] as const).map((name, i) => (
               <ScrollReveal key={name} delay={i * 0.05}>
                 <div className="rounded-2xl overflow-hidden aspect-square shadow-[0_15px_40px_-20px_rgba(0,0,0,0.5)]">
                   <ResponsiveImage

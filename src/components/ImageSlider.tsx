@@ -1,16 +1,15 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
-import ResponsiveImage, { type ImageName } from './ResponsiveImage';
 
-const images: ImageName[] = [
-  'dsc01912',
-  'dsc04629',
-  'dsc04710',
-  'dsc04989',
-  'hero',
+const sliderImages = [
+  { src: `${import.meta.env.BASE_URL}assets/slider/abel.webp`, alt: 'Cafeteros en acción' },
+  { src: `${import.meta.env.BASE_URL}assets/slider/arnel.webp`, alt: 'Cafeteros celebración' },
+  { src: `${import.meta.env.BASE_URL}assets/slider/diego.webp`, alt: 'Cafeteros equipo' },
+  { src: `${import.meta.env.BASE_URL}assets/slider/ivan.webp`, alt: 'Cafeteros dirigencia' },
+  { src: `${import.meta.env.BASE_URL}assets/slider/jessie.webp`, alt: 'Cafeteros victoria' },
+  { src: `${import.meta.env.BASE_URL}assets/slider/kevin.webp`, alt: 'Cafeteros jugada' },
 ];
 
-// Triple the images for seamless infinite loop
-const allImages: ImageName[] = [...images, ...images, ...images];
+const allImages = [...sliderImages, ...sliderImages, ...sliderImages];
 
 const ImageSlider = () => {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -18,7 +17,7 @@ const ImageSlider = () => {
   const ITEM_HEIGHT = isDesktop ? 240 : 160;
   const ITEM_GAP = isDesktop ? 16 : 12;
   const ITEM_TOTAL = ITEM_WIDTH + ITEM_GAP;
-  const SET_WIDTH = images.length * ITEM_TOTAL;
+  const SET_WIDTH = sliderImages.length * ITEM_TOTAL;
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
@@ -26,7 +25,6 @@ const ImageSlider = () => {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
-
 
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(0);
@@ -44,33 +42,28 @@ const ImageSlider = () => {
 
     container.scrollLeft += 1;
 
-    // Loop logic: jump back when we've scrolled past 2 sets
     if (container.scrollLeft >= SET_WIDTH * 2) {
       container.scrollLeft -= SET_WIDTH;
     }
-    // Jump forward if we scroll before the first set boundary
     if (container.scrollLeft <= 0) {
       container.scrollLeft += SET_WIDTH;
     }
 
     animationRef.current = requestAnimationFrame(autoScroll);
-  }, []);
+  }, [SET_WIDTH]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Start at the second set so we can scroll in both directions
     container.scrollLeft = SET_WIDTH;
-
     animationRef.current = requestAnimationFrame(autoScroll);
 
     return () => {
       cancelAnimationFrame(animationRef.current);
     };
-  }, [autoScroll]);
+  }, [autoScroll, SET_WIDTH]);
 
-  // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
     isGrabbing.current = true;
@@ -96,7 +89,6 @@ const ImageSlider = () => {
     }
   };
 
-  // Touch drag handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     isDragging.current = true;
     startX.current = e.touches[0].pageX;
@@ -131,7 +123,7 @@ const ImageSlider = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {allImages.map((name, index) => (
+      {allImages.map((img, index) => (
         <div
           key={index}
           className="flex-shrink-0 rounded-[10px] overflow-hidden"
@@ -140,15 +132,11 @@ const ImageSlider = () => {
             height: `${ITEM_HEIGHT}px`,
           }}
         >
-          <ResponsiveImage
-            name={name}
-            alt={`Cafeteros gallery ${(index % images.length) + 1}`}
-            width={220}
-            height={160}
-            sizes="220px"
-            loading={index < images.length ? 'eager' : 'lazy'}
+          <img
+            src={img.src}
+            alt={img.alt}
+            loading={index < sliderImages.length ? 'eager' : 'lazy'}
             draggable={false}
-            pictureClassName="block w-full h-full pointer-events-none"
             className="w-full h-full object-cover pointer-events-none"
           />
         </div>
