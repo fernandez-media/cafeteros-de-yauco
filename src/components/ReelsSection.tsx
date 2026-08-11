@@ -114,7 +114,7 @@ const ReelsSection = () => {
           className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 mb-2"
           style={{ letterSpacing: '0.04em' }}
         >
-          CAFETEROSYAUCO
+          REDES <span className="text-gold">SOCIALES</span>
         </h2>
         <p className="text-white/40 text-sm lg:text-base m-0">
           Short form. Full impact.
