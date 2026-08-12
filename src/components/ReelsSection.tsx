@@ -105,20 +105,12 @@ const ReelsSection = () => {
   return (
     <section className="py-10 lg:py-16">
       <div className="text-center mb-6 lg:mb-10 px-5">
-        <p
-          className="text-gold/70 text-[11px] font-display font-bold uppercase tracking-[0.3em] m-0 mb-2"
-        >
-          // Nuestras Redes
-        </p>
         <h2
-          className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 mb-2"
+          className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0"
           style={{ letterSpacing: '0.04em' }}
         >
           REDES <span className="text-gold">SOCIALES</span>
         </h2>
-        <p className="text-white/40 text-sm lg:text-base m-0">
-          Short form. Full impact.
-        </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-5 lg:grid-cols-4 lg:gap-5 lg:max-w-[1200px] lg:mx-auto">
