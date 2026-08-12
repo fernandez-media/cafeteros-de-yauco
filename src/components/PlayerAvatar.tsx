@@ -11,7 +11,7 @@ const PlayerAvatar = ({ photo, name, size = 40 }: PlayerAvatarProps) => {
   if (photo) {
     return (
       <div
-        className="rounded-full overflow-hidden bg-white/10 flex-shrink-0"
+        className="rounded-full overflow-hidden flex-shrink-0"
         style={{ width: dimension, height: dimension, boxShadow: 'none' }}
       >
         <img

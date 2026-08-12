@@ -46,7 +46,7 @@ const FbIcon = ({ size = 14 }: { size?: number }) => (
 function ReelCard({ reel }: { reel: ReelItem }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -69,10 +69,19 @@ function ReelCard({ reel }: { reel: ReelItem }) {
     }
   }, [isVisible]);
 
+  const glowColor = reel.icon === 'instagram' ? 'rgba(225,48,108,0.6)' : 'rgba(24,119,242,0.6)';
+
   return (
-    <div
+    <a
       ref={cardRef}
-      className="relative rounded-2xl overflow-hidden aspect-[9/16] group bg-[#1a1a1a] border border-gold/10"
+      href={reel.instagramUrl || '#'}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => { if (!reel.instagramUrl) e.preventDefault(); }}
+      className="relative rounded-2xl overflow-hidden aspect-[9/16] group bg-[#1a1a1a] border border-gold/10 block transition-shadow duration-300"
+      style={{ boxShadow: 'none' }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
     >
       <video
         ref={videoRef}
@@ -84,18 +93,10 @@ function ReelCard({ reel }: { reel: ReelItem }) {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      <a
-        href={reel.instagramUrl || '#'}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute top-2.5 left-2.5 z-10 flex items-center justify-center w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm"
-        onClick={(e) => {
-          if (!reel.instagramUrl) e.preventDefault();
-        }}
-      >
+      <div className="absolute top-2.5 left-2.5 z-10 flex items-center justify-center w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm">
         {reel.icon === 'instagram' ? <IgIcon /> : <FbIcon />}
-      </a>
-    </div>
+      </div>
+    </a>
   );
 }
 

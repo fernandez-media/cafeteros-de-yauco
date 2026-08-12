@@ -17,9 +17,9 @@ export const staff = [
 ];
 
 export const roster: Player[] = [
+  { number: '11', name: 'Jessie Colón', position: 'Bloqueador Central', photo: photo('jessie-colon.png'), captain: true },
   { number: '55', name: 'Kevin Rodriguez', position: 'Colocador', photo: photo('kevin-rodriguez.png') },
   { number: '24', name: 'Arnel Cabrera', position: 'Libero', photo: photo('arnel-cabrera.png') },
-  { number: '11', name: 'Jessie Colón', position: 'Bloqueador Central', photo: photo('jessie-colon.png'), captain: true },
   { number: '10', name: 'Iván Fernández', position: 'Bloqueador Central', photo: photo('ivan-fernandez.png') },
   { number: '6', name: 'Diego Negrón', position: 'Esquina', photo: photo('diego-negron.png') },
   { number: '7', name: 'Axel Melendez Watts', position: 'Esquina', photo: photo('axel-melendez-watts.png') },

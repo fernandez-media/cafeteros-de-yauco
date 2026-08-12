@@ -82,6 +82,7 @@ const Index = () => {
 
 
   // Cross-browser hero video loading strategy
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [videoStrategy, setVideoStrategy] = useState<{ preload: 'auto' | 'metadata' | 'none'; loadSources: boolean }>(() => ({
     preload: 'auto',
     loadSources: true,
@@ -100,6 +101,23 @@ const Index = () => {
       loadSources: !defer,
     });
   }, []);
+
+  useEffect(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    const tryPlay = () => { v.play().catch(() => {}); };
+    const onVisible = () => { if (!document.hidden) tryPlay(); };
+    const onPause = () => { if (!document.hidden) setTimeout(tryPlay, 100); };
+    tryPlay();
+    v.addEventListener('loadeddata', tryPlay);
+    v.addEventListener('pause', onPause);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      v.removeEventListener('loadeddata', tryPlay);
+      v.removeEventListener('pause', onPause);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [videoStrategy.loadSources]);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -140,6 +158,7 @@ const Index = () => {
         }}
       >
         <video
+          ref={heroVideoRef}
           key={videoStrategy.loadSources ? 'with-sources' : 'poster-only'}
           autoPlay
           muted
