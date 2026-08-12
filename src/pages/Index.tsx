@@ -835,7 +835,7 @@ const Index = () => {
                 <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
                   {player.number}
                 </span>
-                <PlayerAvatar photo={player.photo} name={player.name} size={40} />
+                <PlayerAvatar photo={player.photo} name={player.name} size={56} />
                 <div className="flex-1 min-w-0">
                   <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
                     {player.name}
