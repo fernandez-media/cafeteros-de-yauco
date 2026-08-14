@@ -347,12 +347,11 @@ const Index = () => {
           })}
         </div>
 
-        {/* DESKTOP: Barça-style — 3 large game cards + 1 "Próximos Juegos" image card */}
+        {/* DESKTOP: Glassmorphism game cards + "Próximos Partidos" image card */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
-            const isMidHome = i === 1 && game.isHome;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
@@ -373,21 +372,19 @@ const Index = () => {
             return (
               <ScrollReveal key={i} delay={i * 0.05}>
                 <div
-                  className="rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(255,215,0,0.25)] group"
+                  className="rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 group"
                   style={{
-                    background: '#ffffff',
-                    boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
+                    background: game.isHome
+                      ? 'linear-gradient(180deg, rgba(255,215,0,0.08) 0%, rgba(255,215,0,0.03) 100%)'
+                      : 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: game.isHome ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                   }}
                 >
                   {/* Top VS block */}
-                  <div
-                    className="relative px-6 pt-8 pb-8 min-h-[260px] flex flex-col justify-center overflow-hidden"
-                    style={{
-                      background: isMidHome
-                        ? 'linear-gradient(180deg, #C8A84B 0%, #A68A3B 100%)'
-                        : 'linear-gradient(180deg, #0d1436 0%, #101a4a 100%)',
-                    }}
-                  >
+                  <div className="relative px-6 pt-8 pb-8 min-h-[260px] flex flex-col justify-center overflow-hidden">
                     {i === 0 && (
                       <span className="absolute top-4 left-4 text-[10px] font-display font-bold uppercase tracking-[0.2em] text-gold/90 bg-gold/10 px-2.5 py-1 rounded-full border border-gold/30">
                         Próximo
@@ -399,25 +396,30 @@ const Index = () => {
                       {blocks[1]}
                     </div>
                   </div>
-                  {/* Bottom white info block */}
-                  <div className="px-6 py-5 flex-1 flex flex-col bg-white">
-                    <p className="font-display font-black text-black text-xl leading-tight m-0">
+                  {/* Bottom info block */}
+                  <div
+                    className="px-6 py-5 flex-1 flex flex-col"
+                    style={{
+                      borderTop: game.isHome ? '1px solid rgba(255,215,0,0.1)' : '1px solid rgba(255,255,255,0.06)',
+                    }}
+                  >
+                    <p className="font-display font-black text-white text-xl leading-tight m-0">
                       {game.date} · {game.time}
                     </p>
-                    <p className="text-black/60 text-[15px] mt-2 m-0">
+                    <p className="text-white/50 text-[15px] mt-2 m-0">
                       LVSM · Jornada {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
                     </p>
-                    <p className="text-black/50 text-xs mt-1 m-0 line-clamp-1">
+                    <p className="text-white/30 text-xs mt-1 m-0 line-clamp-1">
                       {game.location}
                     </p>
                     <Link
                       to="/calendario"
-                      className="mt-4 inline-flex items-center gap-2 text-[#0d1436] font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-gold-dim transition-colors"
+                      className="mt-4 inline-flex items-center gap-2 text-gold font-display font-bold text-xs uppercase tracking-[0.2em] no-underline group-hover:text-white transition-colors"
                     >
                       <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center">
                         <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                       </span>
-                      Match Centre
+                      Más Información
                     </Link>
                   </div>
                 </div>
@@ -428,11 +430,11 @@ const Index = () => {
             <Link
               to="/calendario"
               className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
-              style={{ boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)' }}
+              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
             >
               <ResponsiveImage
                 name="dsc04710"
-                alt="Próximos juegos"
+                alt="Próximos Partidos"
                 width={800}
                 height={800}
                 sizes="360px"
@@ -453,7 +455,7 @@ const Index = () => {
                 >
                   Próximos
                   <br />
-                  Juegos
+                  Partidos
                 </h3>
                 <span className="inline-flex items-center gap-2 text-white font-display font-bold text-xs uppercase tracking-[0.2em] underline underline-offset-4 decoration-gold/70 group-hover:text-gold transition-colors">
                   Ver el Calendario
@@ -668,37 +670,39 @@ const Index = () => {
       </section>
 
       {/* ===== PARTIDOS PREVIEW ===== */}
-      <section className="w-full px-4 lg:px-12 py-10">
+      <section className="w-full px-5 lg:px-12 py-10 lg:py-16">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-6 lg:max-w-[1200px] lg:mx-auto">
+          <div className="flex items-center justify-between mb-6 lg:mb-10 lg:max-w-[1200px] lg:mx-auto">
             <div>
-              <h2 className="text-white text-xl md:text-2xl font-black uppercase tracking-wider m-0">Partidos</h2>
-              <p className="text-white/50 text-xs mt-1 uppercase tracking-widest">Revive la serie final</p>
+              <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">Partidos</h2>
+              <p className="text-white/40 text-xs mt-1 uppercase tracking-widest">Revive la serie final</p>
             </div>
             <Link to="/partidos" className="text-gold text-sm font-semibold no-underline hover:underline">Ver todo</Link>
           </div>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-2.5 lg:max-w-[1200px] lg:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 lg:max-w-[1200px] lg:mx-auto">
           {partidosDestacados.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
-              <div key={partido.id} style={{ animation: `fadeInUp 0.5s ease-out ${index * 0.08}s both` }}>
+              <ScrollReveal key={partido.id} delay={index * 0.08}>
                 <button
                   type="button"
                   onClick={() => openVideoModal(partido.youtubeId)}
                   disabled={isPlaceholder}
-                  className="group relative w-full flex items-center gap-4 bg-[#111111] hover:bg-[#171717] rounded-2xl p-3 border border-[#222222] hover:border-gold/50 transition-all duration-300 overflow-hidden text-left disabled:cursor-not-allowed"
+                  className="group relative w-full rounded-2xl overflow-hidden text-left disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                  }}
                 >
-                  {/* Shimmer glow on hover */}
-                  <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-gold/10 to-transparent animate-shimmer" />
-                  </div>
-
                   {/* Thumbnail */}
-                  <div className="relative flex-shrink-0 w-[96px] md:w-[140px] h-[54px] md:h-[80px] rounded-lg overflow-hidden bg-black">
+                  <div className="relative w-full aspect-video overflow-hidden">
                     {isPlaceholder ? (
-                      <div className="w-full h-full flex items-center justify-center bg-[#0a0a0a] text-white/30 text-[10px] uppercase tracking-wider font-bold">
+                      <div className="w-full h-full flex items-center justify-center bg-[#0a0a0a] text-white/30 text-xs uppercase tracking-wider font-bold">
                         Próximo
                       </div>
                     ) : (
@@ -707,11 +711,12 @@ const Index = () => {
                           src={`https://img.youtube.com/vi/${partido.youtubeId}/hqdefault.jpg`}
                           alt={`${partido.numero} thumbnail`}
                           loading="lazy"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gold/90 flex items-center justify-center shadow-lg">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="black" className="ml-0.5">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                          <div className="w-12 h-12 rounded-full bg-gold/90 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.4)] group-hover:shadow-[0_0_30px_rgba(255,215,0,0.6)] transition-shadow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="black" className="ml-0.5">
                               <path d="M8 5v14l11-7z" />
                             </svg>
                           </div>
@@ -719,33 +724,28 @@ const Index = () => {
                       </>
                     )}
                     {partido.esCampeonato && (
-                      <div className="absolute top-1 left-1 text-[10px]">🏆</div>
+                      <span className="absolute top-3 left-3 text-[10px] font-display font-bold uppercase tracking-[0.15em] text-gold bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-gold/30">
+                        Campeonato
+                      </span>
                     )}
                   </div>
 
                   {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 text-[10px] md:text-xs uppercase tracking-wider text-gold font-bold">
+                  <div className="p-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-gold font-bold">
                       <span>{partido.numero}</span>
-                      <span className="text-white/30">·</span>
-                      <span className="text-white/60">{partido.serie}</span>
+                      <span className="text-white/20">·</span>
+                      <span className="text-white/50">{partido.serie}</span>
                     </div>
-                    <div className="text-[13px] md:text-sm font-bold text-white mt-0.5 truncate">
+                    <p className="text-sm font-bold text-white mt-1 m-0">
                       Yauco vs. San Sebastián
-                    </div>
-                    <div className="flex items-center gap-1.5 text-[11px] md:text-xs text-white/50 mt-0.5">
-                      <span>{partido.fecha}</span>
-                    </div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="hidden md:block text-white/30 group-hover:text-gold group-hover:translate-x-1 transition-all pr-2">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
+                    </p>
+                    <p className="text-xs text-white/40 mt-1 m-0">
+                      {partido.fecha}
+                    </p>
                   </div>
                 </button>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
