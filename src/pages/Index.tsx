@@ -17,121 +17,67 @@ const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
 
 
 const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [centerIdx, setCenterIdx] = useState(-1);
-  const autoScrollRef = useRef<number>(0);
-  const isPausedRef = useRef(false);
-  const speedRef = useRef(0.3);
-
-  const duplicated = [...players, ...players, ...players];
-
-  const updateCenter = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const containerCenter = el.scrollLeft + el.offsetWidth / 2;
-    const cards = el.children;
-    let closest = -1;
-    let minDist = Infinity;
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i] as HTMLElement;
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const dist = Math.abs(containerCenter - cardCenter);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    }
-    setCenterIdx(closest);
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const singleSetWidth = el.scrollWidth / 3;
-    el.scrollLeft = singleSetWidth;
-
-    const tick = () => {
-      if (!isPausedRef.current && el) {
-        el.scrollLeft += speedRef.current;
-        if (el.scrollLeft >= singleSetWidth * 2) {
-          el.scrollLeft -= singleSetWidth;
-        }
-        if (el.scrollLeft <= 0) {
-          el.scrollLeft += singleSetWidth;
-        }
-      }
-      updateCenter();
-      autoScrollRef.current = requestAnimationFrame(tick);
-    };
-    autoScrollRef.current = requestAnimationFrame(tick);
-
-    return () => cancelAnimationFrame(autoScrollRef.current);
-  }, [updateCenter]);
-
-  const handleTouchStart = () => { isPausedRef.current = true; };
-  const handleTouchEnd = () => {
-    setTimeout(() => { isPausedRef.current = false; }, 2000);
-  };
+  const doubled = [...players, ...players];
 
   return (
-    <div className="lg:hidden relative">
+    <div className="lg:hidden relative overflow-hidden">
+      <style>{`
+        @keyframes mobileRosterScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .mobile-roster-marquee {
+          animation: mobileRosterScroll 30s linear infinite;
+        }
+      `}</style>
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to right, #000000, transparent)' }} />
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto scrollbar-hidden pb-4"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        style={{ scrollbarWidth: 'none' }}
-      >
-        {duplicated.map((player, i) => {
-          const isCenter = i === centerIdx;
-          return (
-            <Link
-              key={i}
-              to="/roster"
-              className="flex-shrink-0 w-[150px] rounded-xl overflow-hidden no-underline"
-              style={{
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                border: isCenter ? '1px solid rgba(255,215,0,0.35)' : '1px solid rgba(255,215,0,0.08)',
-                boxShadow: isCenter ? '0 0 18px rgba(245,197,24,0.15), 0 0 35px rgba(245,197,24,0.05)' : 'none',
-                transition: 'border 0.4s ease, box-shadow 0.4s ease',
-              }}
-            >
-              <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
-                {player.photo ? (
-                  <img
-                    src={player.photo}
-                    alt={player.name}
-                    className="w-full h-full object-cover"
-                    style={player.photoPosition ? { objectPosition: player.photoPosition } : undefined}
-                    draggable={false}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white/20 text-5xl font-display font-black">
-                    {player.number}
-                  </div>
+      <div className="mobile-roster-marquee flex gap-4 pb-4 w-max">
+        {doubled.map((player, i) => (
+          <Link
+            key={i}
+            to="/roster"
+            className="flex-shrink-0 w-[180px] rounded-xl overflow-hidden no-underline"
+            style={{
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+              border: '1px solid rgba(255,215,0,0.08)',
+            }}
+          >
+            <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
+              {player.photo ? (
+                <img
+                  src={player.photo}
+                  alt={player.name}
+                  className="w-full h-full object-cover"
+                  style={player.photoPosition ? { objectPosition: player.photoPosition } : undefined}
+                  draggable={false}
+                  loading="eager"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-white/20 text-5xl font-display font-black">
+                  {player.number}
+                </div>
+              )}
+              <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
+              <span className="absolute top-2 right-2 font-display font-black text-gold/20 text-xl leading-none select-none">
+                #{player.number}
+              </span>
+            </div>
+            <div className="px-3 py-2.5">
+              <p className="font-display font-black text-white uppercase text-xs leading-tight m-0 flex items-center gap-1">
+                {player.name}
+                {player.captain && (
+                  <span className="inline-flex items-center justify-center px-1 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase tracking-wider">
+                    C
+                  </span>
                 )}
-                <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
-                <span className="absolute top-2 right-2 font-display font-black text-gold/20 text-xl leading-none select-none">
-                  #{player.number}
-                </span>
-              </div>
-              <div className="px-3 py-2.5">
-                <p className="font-display font-black text-white uppercase text-xs leading-tight m-0 flex items-center gap-1">
-                  {player.name}
-                  {player.captain && (
-                    <span className="inline-flex items-center justify-center px-1 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase tracking-wider">
-                      C
-                    </span>
-                  )}
-                </p>
-                <p className="text-gold/60 text-[10px] font-display font-semibold uppercase tracking-[0.12em] m-0 mt-0.5">
-                  {player.position}
-                </p>
-              </div>
-            </Link>
-          );
-        })}
+              </p>
+              <p className="text-gold/60 text-[10px] font-display font-semibold uppercase tracking-[0.12em] m-0 mt-0.5">
+                {player.position}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
@@ -1266,13 +1212,6 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
-                <Link
-                  to="/nosotros"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gold text-black font-display font-bold text-xs uppercase tracking-[0.14em] no-underline transition-transform duration-200 active:scale-[0.97]"
-                >
-                  Conoce Más
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                </Link>
               </div>
             </div>
           </ScrollReveal>
@@ -1326,15 +1265,6 @@ const Index = () => {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.15}>
-                <Link
-                  to="/nosotros"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] no-underline transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
-                >
-                  Conoce Más
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                </Link>
-              </ScrollReveal>
             </div>
           </div>
         </div>
