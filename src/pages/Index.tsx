@@ -369,7 +369,7 @@ const Index = () => {
         </video>
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.15) 70%, transparent 100%)' }} />
         <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #000000 0%, transparent 100%)' }} />
-        <div ref={heroTextRef} className="relative z-10 w-full pl-[3vw] pr-12 will-change-transform">
+        <div ref={heroTextRef} className="relative z-10 w-full pl-[7vw] pr-12 will-change-transform">
           <div className="max-w-[700px]">
             <h1 className="m-0 leading-[0.9]" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
               <span
@@ -387,7 +387,7 @@ const Index = () => {
             </h1>
             <p
               className="text-white/50 mt-4 m-0 font-medium leading-relaxed"
-              style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.95rem' }}
+              style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.1rem' }}
             >
               Tu fuente oficial para todo sobre los Cafeteros de Yauco.<br />
               Calendario, boletos, noticias y más. Toda la temporada en un solo lugar.

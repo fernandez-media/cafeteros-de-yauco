@@ -166,20 +166,12 @@ const Roster = () => {
                   {section.title}
                 </h2>
               </ScrollReveal>
-              <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 lg:grid-cols-4">
                 {section.members.map((member, i) => (
                   <ScrollReveal key={i} delay={i * 0.04}>
-                    <div
-                      className="rounded-xl px-3 py-2.5"
-                      style={{
-                        backgroundColor: '#111',
-                        border: '1px solid rgba(255, 215, 0, 0.06)',
-                      }}
-                    >
-                      <p className="font-display font-bold text-xs text-white uppercase m-0 leading-tight">
-                        {member.name}
-                      </p>
-                    </div>
+                    <p className="font-display font-bold text-sm text-white/70 uppercase m-0 py-1">
+                      {member.name}
+                    </p>
                   </ScrollReveal>
                 ))}
               </div>
