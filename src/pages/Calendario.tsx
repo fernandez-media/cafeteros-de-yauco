@@ -128,9 +128,9 @@ const Calendario = () => {
                         </div>
                         <div className="flex items-center gap-4">
                           {oppKey ? (
-                            <img src={teamLogo(oppKey)} alt={game.opponent} width="64" height="64" loading="lazy" decoding="async" className="w-16 h-16 object-contain flex-shrink-0" />
+                            <img src={teamLogo(oppKey)} alt={game.opponent} width="80" height="80" loading="lazy" decoding="async" className="w-20 h-20 object-contain flex-shrink-0" />
                           ) : (
-                            <div className="w-16 h-16 rounded-full bg-white/10 flex-shrink-0" />
+                            <div className="w-20 h-20 rounded-full bg-white/10 flex-shrink-0" />
                           )}
                           <div className="flex-1 min-w-0">
                             <p className="text-white font-display font-bold text-base uppercase m-0 truncate">

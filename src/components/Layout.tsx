@@ -42,7 +42,7 @@ const Layout = () => {
       <main id="main-content" className="pt-14 lg:pt-0">
         <Outlet />
       </main>
-      <Footer />
+      {location.pathname === '/' && <Footer />}
       <DockBar />
     </>
   );

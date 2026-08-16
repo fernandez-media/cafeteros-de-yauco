@@ -77,7 +77,7 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
       <div
         ref={scrollRef}
-        className="flex gap-3 overflow-x-auto scrollbar-hidden pb-2"
+        className="flex gap-5 overflow-x-auto scrollbar-hidden pb-4"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         style={{ scrollbarWidth: 'none' }}
@@ -92,7 +92,8 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
               style={{
                 background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
                 border: isCenter ? '1px solid rgba(255,215,0,0.35)' : '1px solid rgba(255,215,0,0.08)',
-                boxShadow: isCenter ? '0 0 20px rgba(245,197,24,0.2), 0 0 40px rgba(245,197,24,0.08)' : 'none',
+                boxShadow: isCenter ? '0 0 18px rgba(245,197,24,0.15), 0 0 35px rgba(245,197,24,0.05)' : 'none',
+                transition: 'border 0.4s ease, box-shadow 0.4s ease',
               }}
             >
               <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
@@ -815,7 +816,6 @@ const Index = () => {
           <div className="flex flex-col items-center mb-6 lg:mb-12">
             <h2 className="font-display font-black text-3xl lg:text-6xl uppercase text-white m-0 tracking-tight text-center">Partidos</h2>
             <p className="text-white/40 text-xs lg:text-sm mt-2 uppercase tracking-widest text-center">Revive la serie final</p>
-            <Link to="/partidos" className="text-gold text-sm font-semibold no-underline hover:underline mt-3 lg:hidden">Ver todo</Link>
           </div>
         </ScrollReveal>
 
@@ -882,6 +882,9 @@ const Index = () => {
               </ScrollReveal>
             );
           })}
+          <Link to="/partidos" className="roster-glass-btn block mt-4 mx-0 py-3.5 rounded-full text-center text-gold/90 text-sm font-display font-bold uppercase tracking-widest no-underline">
+            Ver Todos los Partidos
+          </Link>
         </div>
 
         {/* DESKTOP: 4-col grid */}
@@ -1018,7 +1021,7 @@ const Index = () => {
         <ScrollReveal>
           <Link
             to="/roster"
-            className="lg:hidden roster-glass-btn block mt-6 mx-5 py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline"
+            className="lg:hidden roster-glass-btn block mt-6 mx-5 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
           >
             Ver Roster Completo
           </Link>

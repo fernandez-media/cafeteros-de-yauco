@@ -12,9 +12,9 @@ export interface Player {
 
 export const staff = [
   { name: 'Abel Franceschi' },
+  { name: 'Onix Torres' },
   { name: 'Cuco Pacheco' },
   { name: 'Ancito Negrón' },
-  { name: 'Onix Torres' },
 ];
 
 export const medical = [

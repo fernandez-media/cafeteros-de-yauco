@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
-import caribesLogo from '../assets/caribes-logo.png.asset.json';
-import plataneroLogo from '../assets/plataneros-logo.png.asset.json';
 
-const cafeterosLogoUrl = `${import.meta.env.BASE_URL}assets/opt/cafeteros-logo-192.webp`;
+const BASE = import.meta.env.BASE_URL;
+const cafeterosLogoUrl = `${BASE}assets/opt/cafeteros-logo-192.webp`;
 
 const teamLogoMap: Record<string, string> = {
-  caribes: caribesLogo.url,
-  plataneros: plataneroLogo.url,
+  caribes: `${BASE}media/logos/caribes.webp`,
+  plataneros: `${BASE}media/logos/plataneros.webp`,
 };
 
 const TeamLogo = ({ logoKey, name }: { logoKey: string | null; name: string }) => {
   const src = logoKey ? teamLogoMap[logoKey] : cafeterosLogoUrl;
   return (
     <div
-      className="rounded-full overflow-hidden bg-white/5 flex-shrink-0 w-7 h-7 lg:w-8 lg:h-8"
+      className="rounded-full overflow-hidden bg-white/5 flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12"
       style={{ boxShadow: '0 0 0 1.5px rgba(245,197,24,0.5)' }}
     >
       <img src={src} alt={name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
@@ -81,46 +80,10 @@ const partidosData: Partido[] = [
     resultado: '2-3', ganador: 'visitante', fecha: '14 de enero, 2026',
     youtubeId: 'toVNnFBDUlE', esCampeonato: false,
   },
-  {
-    id: 'semi-5', numero: 'Juego 5', serie: 'semifinal', serieLabel: 'Semifinal',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Plataneros de Corozal', equipoVisitanteCorto: 'COROZAL', equipoVisitanteLogoKey: 'plataneros',
-    resultado: '3-1', ganador: 'local', fecha: '10 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_SEMI_5', esCampeonato: false, contexto: 'AVANZAN A LA FINAL',
-  },
-  {
-    id: 'semi-4', numero: 'Juego 4', serie: 'semifinal', serieLabel: 'Semifinal',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Plataneros de Corozal', equipoVisitanteCorto: 'COROZAL', equipoVisitanteLogoKey: 'plataneros',
-    resultado: '3-1', ganador: 'local', fecha: '8 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_SEMI_4', esCampeonato: false,
-  },
-  {
-    id: 'semi-3', numero: 'Juego 3', serie: 'semifinal', serieLabel: 'Semifinal',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Plataneros de Corozal', equipoVisitanteCorto: 'COROZAL', equipoVisitanteLogoKey: 'plataneros',
-    resultado: '3-2', ganador: 'local', fecha: '6 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_SEMI_3', esCampeonato: false,
-  },
-  {
-    id: 'semi-2', numero: 'Juego 2', serie: 'semifinal', serieLabel: 'Semifinal',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Plataneros de Corozal', equipoVisitanteCorto: 'COROZAL', equipoVisitanteLogoKey: 'plataneros',
-    resultado: '3-0', ganador: 'local', fecha: '4 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_SEMI_2', esCampeonato: false,
-  },
-  {
-    id: 'semi-1', numero: 'Juego 1', serie: 'semifinal', serieLabel: 'Semifinal',
-    equipoLocal: 'Cafeteros de Yauco', equipoLocalCorto: 'YAUCO', equipoLocalLogoKey: null,
-    equipoVisitante: 'Plataneros de Corozal', equipoVisitanteCorto: 'COROZAL', equipoVisitanteLogoKey: 'plataneros',
-    resultado: '3-0', ganador: 'local', fecha: '2 de enero, 2026',
-    youtubeId: 'PLACEHOLDER_SEMI_1', esCampeonato: false,
-  },
 ];
 
 
 const Partidos = () => {
-  const [activeTab, setActiveTab] = useState<'final' | 'semifinal'>('final');
   const [videoModalId, setVideoModalId] = useState<string | null>(null);
 
   const openVideoModal = (youtubeId: string) => {
@@ -141,16 +104,9 @@ const Partidos = () => {
     return () => { document.body.style.overflow = ''; };
   }, [videoModalId]);
 
-  const partidosFiltrados = partidosData.filter((p) => p.serie === activeTab);
-
-  const tabs = [
-    { key: 'final' as const, label: 'Serie Final', count: 5 },
-    { key: 'semifinal' as const, label: 'Semifinal', count: 5 },
-  ];
-
   return (
     <div className="min-h-screen -mt-14 bg-[#0a0a0a]">
-      <PageHero title="Partidos" goldWord="Partidos" subtitle="Revive y sigue cada juego" />
+      <PageHero title="Partidos" goldWord="Partidos" subtitle="Revive la serie final" />
 
       <div className="px-5 lg:px-10 pt-4 pb-4 max-w-[1200px] lg:mx-auto">
         <Link
@@ -164,40 +120,14 @@ const Partidos = () => {
         </Link>
       </div>
 
-      {/* TABS */}
-      <div className="px-5 lg:px-10 max-w-[1200px] lg:mx-auto mb-6 lg:mb-8">
-        <div className="flex items-center justify-center gap-2 lg:gap-3">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.key;
-            return (
-              <button
-                key={tab.key}
-                type="button"
-                onClick={() => setActiveTab(tab.key)}
-                className={`flex items-center gap-2 px-5 lg:px-6 py-2.5 lg:py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  isActive
-                    ? 'bg-[#F5C518] text-black shadow-lg shadow-[#F5C518]/20'
-                    : 'bg-[#1a1a1a] text-[#999999] hover:text-white hover:bg-[#252525] border border-[#2a2a2a]'
-                }`}
-              >
-                {tab.label}
-                <span
-                  className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
-                    isActive ? 'bg-black/20 text-black' : 'bg-[#0a0a0a] text-[#666]'
-                  }`}
-                >
-                  {tab.count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+      <div className="px-5 lg:px-10 max-w-[1200px] lg:mx-auto mb-6">
+        <h2 className="font-display font-black text-xl uppercase text-white m-0 tracking-tight text-center">Serie Final</h2>
       </div>
 
       {/* LISTA */}
       <div className="px-5 lg:px-10 pb-12 lg:pb-20 max-w-[1000px] lg:mx-auto">
         <div className="flex flex-col gap-3">
-          {partidosFiltrados.map((partido, index) => {
+          {partidosData.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
               <button
