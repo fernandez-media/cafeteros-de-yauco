@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import type { Player } from '../data/roster';
 import ScrollReveal from '../components/ScrollReveal';
 import ImageSlider from '../components/ImageSlider';
 import ResponsiveImage from '../components/ResponsiveImage';
-import PlayerAvatar from '../components/PlayerAvatar';
 import ComingSoonCard from '../components/ComingSoonCard';
 import ReelsSection from '../components/ReelsSection';
 import { calendar } from '../data/calendar';
@@ -13,12 +13,131 @@ import { merch } from '../data/merch';
 import heroFirstFrame from '../assets/hero-first-frame.jpg.asset.json';
 
 const BASE = import.meta.env.BASE_URL;
-const teamLogo = (name: string) => `${BASE}media/logos/${name}.png`;
+const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
 
+
+const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [centerIdx, setCenterIdx] = useState(-1);
+  const autoScrollRef = useRef<number>(0);
+  const isPausedRef = useRef(false);
+  const speedRef = useRef(0.5);
+
+  const duplicated = [...players, ...players, ...players];
+
+  const updateCenter = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const containerCenter = el.scrollLeft + el.offsetWidth / 2;
+    const cards = el.children;
+    let closest = -1;
+    let minDist = Infinity;
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i] as HTMLElement;
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(containerCenter - cardCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    }
+    setCenterIdx(closest);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const singleSetWidth = el.scrollWidth / 3;
+    el.scrollLeft = singleSetWidth;
+
+    const tick = () => {
+      if (!isPausedRef.current && el) {
+        el.scrollLeft += speedRef.current;
+        if (el.scrollLeft >= singleSetWidth * 2) {
+          el.scrollLeft -= singleSetWidth;
+        }
+        if (el.scrollLeft <= 0) {
+          el.scrollLeft += singleSetWidth;
+        }
+      }
+      updateCenter();
+      autoScrollRef.current = requestAnimationFrame(tick);
+    };
+    autoScrollRef.current = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(autoScrollRef.current);
+  }, [updateCenter]);
+
+  const handleTouchStart = () => { isPausedRef.current = true; };
+  const handleTouchEnd = () => {
+    setTimeout(() => { isPausedRef.current = false; }, 2000);
+  };
+
+  return (
+    <div className="lg:hidden relative">
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to right, #000000, transparent)' }} />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
+      <div
+        ref={scrollRef}
+        className="flex gap-3 overflow-x-auto scrollbar-hidden pb-2"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        style={{ scrollbarWidth: 'none' }}
+      >
+        {duplicated.map((player, i) => {
+          const isCenter = i === centerIdx;
+          return (
+            <Link
+              key={i}
+              to="/roster"
+              className="flex-shrink-0 w-[150px] rounded-xl overflow-hidden no-underline"
+              style={{
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                border: isCenter ? '1px solid rgba(255,215,0,0.35)' : '1px solid rgba(255,215,0,0.08)',
+                boxShadow: isCenter ? '0 0 20px rgba(245,197,24,0.2), 0 0 40px rgba(245,197,24,0.08)' : 'none',
+              }}
+            >
+              <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
+                {player.photo ? (
+                  <img
+                    src={player.photo}
+                    alt={player.name}
+                    className="w-full h-full object-cover"
+                    style={player.photoPosition ? { objectPosition: player.photoPosition } : undefined}
+                    draggable={false}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-white/20 text-5xl font-display font-black">
+                    {player.number}
+                  </div>
+                )}
+                <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
+                <span className="absolute top-2 right-2 font-display font-black text-gold/20 text-xl leading-none select-none">
+                  #{player.number}
+                </span>
+              </div>
+              <div className="px-3 py-2.5">
+                <p className="font-display font-black text-white uppercase text-xs leading-tight m-0 flex items-center gap-1">
+                  {player.name}
+                  {player.captain && (
+                    <span className="inline-flex items-center justify-center px-1 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase tracking-wider">
+                      C
+                    </span>
+                  )}
+                </p>
+                <p className="text-gold/60 text-[10px] font-display font-semibold uppercase tracking-[0.12em] m-0 mt-0.5">
+                  {player.position}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const Index = () => {
   const previewGames = calendar.slice(0, 5);
-  const previewRoster = roster.slice(0, 7);
   const featuredArticle = news[0];
   const sideArticles = news.slice(1, 3);
 
@@ -26,16 +145,7 @@ const Index = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ticketsOpen, setTicketsOpen] = useState(false);
-  const ticketPlayers = roster.filter((p) => !!p.photo);
-  const [ticketPlayerIndex, setTicketPlayerIndex] = useState(0);
-  const rosterScrollRef = useRef<HTMLDivElement>(null);
-  const scrollRoster = (dir: 1 | -1) => {
-    const el = rosterScrollRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>('[data-roster-card]');
-    const step = card ? card.offsetWidth + 16 : 280;
-    el.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
-  };
+
 
   useEffect(() => {
     if (!ticketsOpen) return;
@@ -48,20 +158,12 @@ const Index = () => {
     };
   }, [ticketsOpen]);
 
-  useEffect(() => {
-    if (ticketPlayers.length < 2) return;
-    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => {
-      setTicketPlayerIndex((i) => (i + 1) % ticketPlayers.length);
-    }, 4000);
-    return () => clearInterval(id);
-  }, [ticketPlayers.length]);
-
   // ===== PARTIDOS: modal state =====
   const partidosDestacados = [
     { id: 'juego-5', numero: 'Juego 5', serie: 'Serie Final', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: true },
     { id: 'juego-4', numero: 'Juego 4', serie: 'Serie Final', resultado: '3-1', fecha: '20 de enero, 2026', youtubeId: 'DmSWs9uJIH8', esCampeonato: false },
     { id: 'juego-3', numero: 'Juego 3', serie: 'Serie Final', resultado: '3-1', fecha: '18 de enero, 2026', youtubeId: 'UDEYHpwK2LE', esCampeonato: false },
+    { id: 'juego-2', numero: 'Juego 2', serie: 'Serie Final', resultado: '3-0', fecha: '16 de enero, 2026', youtubeId: 'UxgrXXt3q9g', esCampeonato: false },
   ];
   const [videoModalId, setVideoModalId] = useState<string | null>(null);
   const openVideoModal = (youtubeId: string) => {
@@ -80,6 +182,51 @@ const Index = () => {
     return () => { document.body.style.overflow = ''; };
   }, [videoModalId]);
 
+
+  // Parallax scroll effect
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const heroVideoContainerRef = useRef<HTMLVideoElement>(null);
+
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    if (!isDesktop) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+
+        if (heroTextRef.current && scrollY < vh) {
+          heroTextRef.current.style.transform = `translateY(${scrollY * 0.3}px)`;
+          heroTextRef.current.style.opacity = `${1 - scrollY / (vh * 0.8)}`;
+        }
+
+        if (heroVideoContainerRef.current && scrollY < vh) {
+          heroVideoContainerRef.current.style.transform = `translateY(${scrollY * 0.15}px) scale(${1 + scrollY * 0.0003})`;
+        }
+
+        document.querySelectorAll<HTMLElement>('[data-parallax]').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const speed = parseFloat(el.dataset.parallax || '0.1');
+          if (rect.top < vh && rect.bottom > 0) {
+            const progress = (vh - rect.top) / (vh + rect.height);
+            el.style.transform = `translateY(${(progress - 0.5) * speed * -100}px)`;
+          }
+        });
+
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Cross-browser hero video loading strategy
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -146,10 +293,11 @@ const Index = () => {
 
 
   return (
-    <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12">
+    <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12" style={{ backgroundColor: '#000000' }}>
       {/* ===== HERO ===== */}
+      {/* MOBILE HERO */}
       <section
-        className="relative overflow-hidden -mt-14 lg:-mt-0 h-[100dvh] min-h-[100dvh] lg:h-[100dvh] lg:min-h-[100dvh] lg:max-h-none"
+        className="lg:hidden relative overflow-hidden -mt-14 h-[100dvh] min-h-[100dvh]"
         style={{
           backgroundColor: '#000000',
           backgroundImage: `url(${heroFirstFrame.url})`,
@@ -166,64 +314,31 @@ const Index = () => {
           playsInline
           preload={videoStrategy.preload}
           poster={heroFirstFrame.url}
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center', backgroundColor: 'transparent' }}
         >
           {videoStrategy.loadSources && (
             <>
-              <source src={`${import.meta.env.BASE_URL}media/hero.webm`} type="video/webm" />
-              <source src={`${import.meta.env.BASE_URL}media/hero.mp4`} type="video/mp4" />
+              <source src={`${import.meta.env.BASE_URL}media/hero-movil.webm`} type="video/webm" />
+              <source src={`${import.meta.env.BASE_URL}media/hero-movil.mp4`} type="video/mp4" />
             </>
           )}
         </video>
-
         <div
           className="absolute inset-0"
           style={{
-            background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.75) 85%, #111111 100%)',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.75) 85%, #000000 100%)',
           }}
         />
-
-        {/* Desktop title overlay */}
-        <div className="hidden lg:flex absolute inset-0 flex-col items-center justify-center px-8 text-center pointer-events-none">
-          <h1
-            className="hero-title font-display font-black uppercase text-white leading-[0.88] m-0"
-            style={{
-              fontSize: 'clamp(4rem, 10vw, 10rem)',
-              letterSpacing: '0.02em',
-              textShadow: '0 6px 40px rgba(0,0,0,0.55)',
-            }}
-          >
-            <span className="block hero-word" style={{ animationDelay: '0.15s' }}>Cafeteros</span>
-            <span className="block hero-word text-gold" style={{ animationDelay: '0.35s' }}>de Yauco</span>
-          </h1>
-        </div>
-
         <div className="absolute bottom-0 left-0 w-full px-5 flex flex-col items-center" style={{ paddingBottom: '120px' }}>
-          <div className="mt-4 flex flex-col items-center" aria-hidden="true">
+          <div className="mt-8 flex flex-col items-center" aria-hidden="true">
             {[
               { size: 22, opacity: 1, delay: '0s' },
               { size: 19, opacity: 0.5, delay: '0.2s' },
               { size: 16, opacity: 0.2, delay: '0.4s' },
             ].map((c, i) => (
-              <svg
-                key={i}
-                width={c.size}
-                height={c.size}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#C8A84B"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{
-                  opacity: c.opacity,
-                  animation: 'cascade 1.6s ease-in-out infinite',
-                  animationDelay: c.delay,
-                  marginTop: i === 0 ? 0 : -4,
-                }}
-              >
+              <svg key={i} width={c.size} height={c.size} viewBox="0 0 24 24" fill="none" stroke="#C8A84B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: c.opacity, animation: 'cascade 1.6s ease-in-out infinite', animationDelay: c.delay, marginTop: i === 0 ? 0 : -4 }}>
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             ))}
@@ -231,8 +346,75 @@ const Index = () => {
         </div>
       </section>
 
+      {/* DESKTOP HERO — full-bleed video background */}
+      <section className="hidden lg:flex relative overflow-hidden h-[100dvh] min-h-[100dvh] items-center !max-w-none !mx-0 !px-0" style={{ backgroundColor: '#000000' }}>
+        <video
+          ref={heroVideoContainerRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload={videoStrategy.preload}
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 bottom-0 w-full object-cover will-change-transform"
+          style={{ objectPosition: 'center 20%', transform: 'scale(0.92)', transformOrigin: 'center top' }}
+        >
+          {videoStrategy.loadSources && (
+            <>
+              <source src={`${import.meta.env.BASE_URL}media/hero-desktop.webm`} type="video/webm" />
+              <source src={`${import.meta.env.BASE_URL}media/hero-desktop.mp4`} type="video/mp4" />
+            </>
+          )}
+        </video>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.15) 70%, transparent 100%)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #000000 0%, transparent 100%)' }} />
+        <div ref={heroTextRef} className="relative z-10 w-full pl-[3vw] pr-12 will-change-transform">
+          <div className="max-w-[700px]">
+            <h1 className="m-0 leading-[0.9]" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+              <span
+                className="block text-white font-bold uppercase hero-word"
+                style={{ fontSize: 'clamp(4rem, 7.5vw, 8rem)', letterSpacing: '-0.03em', animationDelay: '0.15s' }}
+              >
+                Cafeteros
+              </span>
+              <span
+                className="block font-bold uppercase hero-word"
+                style={{ fontSize: 'clamp(4rem, 7.5vw, 8rem)', letterSpacing: '-0.03em', color: '#FFD700', animationDelay: '0.35s' }}
+              >
+                de Yauco
+              </span>
+            </h1>
+            <p
+              className="text-white/50 mt-4 m-0 font-medium leading-relaxed"
+              style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.95rem' }}
+            >
+              Tu fuente oficial para todo sobre los Cafeteros de Yauco.<br />
+              Calendario, boletos, noticias y más. Toda la temporada en un solo lugar.
+            </p>
+            <Link
+              to="/calendario"
+              className="inline-flex items-center gap-3 mt-8 px-7 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider no-underline transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                background: 'linear-gradient(135deg, #FFD700 0%, #C8A84B 100%)',
+                color: '#000',
+                boxShadow: '0 4px 20px rgba(255,215,0,0.3)',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Calendario
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ===== IMAGE SLIDER ===== */}
-      <section className="py-6 lg:!max-w-none lg:!mx-0 lg:!px-0">
+      <section className="py-6 lg:!max-w-none lg:!mx-0 lg:!px-0" data-parallax="0.08">
         <ImageSlider />
       </section>
 
@@ -309,7 +491,7 @@ const Index = () => {
                       </div>
                     );
                     const oppLower = game.opponent.toLowerCase();
-                    const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+                    const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('carolina') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : oppLower.includes('naranjito') ? 'naranjito' : oppLower.includes('adjuntas') ? 'adjuntas' : null;
                     const opponentBlock = (
                       <div key="opponent" className="flex flex-col items-center flex-1 min-w-0">
                         {oppKey ? (
@@ -351,7 +533,7 @@ const Index = () => {
         <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
           {calendar.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
-            const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('gigantes') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : null;
+            const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('carolina') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : oppLower.includes('naranjito') ? 'naranjito' : oppLower.includes('adjuntas') ? 'adjuntas' : null;
             const cafBlock = (
               <div className="flex flex-col items-center flex-1 min-w-0">
                 <ResponsiveImage name="cafeteros-logo" alt="Cafeteros de Yauco" width={128} height={128} sizes="128px" loading="eager" pictureClassName="w-32 h-32 inline-flex" className="w-32 h-32 object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.5)]" />
@@ -407,7 +589,7 @@ const Index = () => {
                       {game.date} · {game.time}
                     </p>
                     <p className="text-white/50 text-[15px] mt-2 m-0">
-                      LVSM · Jornada {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
+                      LVSM · Juego {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
                     </p>
                     <p className="text-white/30 text-xs mt-1 m-0 line-clamp-1">
                       {game.location}
@@ -501,104 +683,62 @@ const Index = () => {
               <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
                 Asegura tu asiento para los juegos<br />de los Cafeteros de Yauco.
               </p>
-              <a
-                href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+              <button
+                type="button"
+                onClick={() => setTicketsOpen(true)}
+                className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
               >
                 Comprar Boletos
-              </a>
+              </button>
             </div>
           </div>
 
-          {/* Desktop: Barça-style wide premium banner */}
-          <div className="hidden lg:block max-w-[1200px] mx-auto">
-            <div
-              className="relative overflow-hidden rounded-[28px] group"
-              style={{
-                background:
-                  'linear-gradient(180deg, #0a1230 0%, #0d1a4a 55%, #0a1230 100%)',
-                boxShadow:
-                  '0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.12) inset',
-                minHeight: 280,
-              }}
-            >
-              {/* Faint crest / hero backdrop */}
-              <ResponsiveImage
-                name="hero"
-                alt=""
-                width={1920}
-                height={800}
-                sizes="1200px"
-                ariaHidden
-                pictureClassName="absolute inset-0 w-full h-full"
-                className="w-full h-full object-cover"
-                style={{ opacity: 0.28, filter: 'saturate(1.1)' }}
-              />
-              {/* Left fade so text is readable */}
-              <div
-                className="absolute inset-0"
+          {/* Desktop: large open layout — floating text + image */}
+          <div className="hidden lg:flex max-w-[1400px] mx-auto items-center gap-16 py-10">
+            {/* Left: floating text, no card */}
+            <div className="flex-1">
+              <p className="text-gold/60 text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">
+                Boletería Oficial
+              </p>
+              <h3
+                className="font-display font-black uppercase m-0 leading-[0.9]"
                 style={{
-                  background:
-                    'linear-gradient(90deg, rgba(8,14,40,0.96) 0%, rgba(8,14,40,0.85) 35%, rgba(8,14,40,0.35) 65%, rgba(8,14,40,0.1) 100%)',
+                  fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                  letterSpacing: '-0.02em',
                 }}
-              />
-              {/* Gold vignette on top edge */}
-              <div
-                className="absolute inset-x-0 top-0 h-[2px]"
-                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.6), transparent)' }}
-              />
+              >
+                <span className="text-gold block">Consigue tus</span>
+                <span className="text-white block">boletos</span>
+              </h3>
+              <p className="text-white/50 text-base mt-6 mb-10 max-w-[460px] leading-relaxed m-0">
+                Asegura tu asiento para los próximos juegos de los Cafeteros
+                de Yauco. Boletos oficiales, acceso prioritario y la mejor
+                experiencia del voleibol superior.
+              </p>
+              <button
+                type="button"
+                onClick={() => setTicketsOpen(true)}
+                className="inline-flex items-center gap-3 px-9 py-4 bg-gold text-black font-display font-bold text-base uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)]"
+              >
+                Comprar Boletos
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
 
-              {/* Player image on the right — rotates through roster */}
-              <div className="absolute right-0 bottom-0 h-[110%] pointer-events-none" style={{ width: '55%' }}>
-                {ticketPlayers.map((p, idx) => (
-                  <img
-                    key={p.name}
-                    src={p.photo}
-                    alt=""
-                    aria-hidden="true"
-                    className={`absolute inset-0 w-full h-full object-contain object-bottom select-none transition-opacity duration-700 ease-in-out ${
-                      idx === ticketPlayerIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    style={{ filter: 'drop-shadow(-20px 20px 40px rgba(0,0,0,0.5))' }}
-                    draggable={false}
-                    loading={idx === 0 ? 'eager' : 'lazy'}
-                  />
-                ))}
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 px-10 py-12 lg:py-14 max-w-[620px]">
-                <p className="text-gold/80 text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-3">
-                  Boletería Oficial
-                </p>
-                <h3
-                  className="font-display font-black uppercase m-0 leading-[0.95]"
-                  style={{
-                    color: '#FFD700',
-                    fontSize: 'clamp(2rem, 3.4vw, 3rem)',
-                    textShadow: '0 4px 30px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  Vive cada juego <br />
-                  <span className="text-white">en vivo</span>
-                </h3>
-                <p className="text-white/75 text-sm lg:text-base mt-4 mb-7 max-w-[420px] leading-relaxed m-0">
-                  Asegura tu asiento para los próximos juegos de los Cafeteros
-                  de Yauco. Boletos oficiales, acceso prioritario y la mejor
-                  experiencia del voleibol superior.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setTicketsOpen(true)}
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)]"
-                >
-                  Más Info
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
+            {/* Right: image */}
+            <div className="flex-1 relative">
+              <div className="rounded-[24px] overflow-hidden" style={{ boxShadow: '0 30px 80px -20px rgba(0,0,0,0.6)' }}>
+                <ResponsiveImage
+                  name="hero"
+                  alt="Cafeteros de Yauco en acción"
+                  width={800}
+                  height={600}
+                  sizes="600px"
+                  pictureClassName="w-full"
+                  className="w-full h-auto object-cover aspect-[4/3]"
+                />
               </div>
             </div>
           </div>
@@ -670,18 +810,82 @@ const Index = () => {
       </section>
 
       {/* ===== PARTIDOS PREVIEW ===== */}
-      <section className="w-full px-5 lg:px-12 py-10 lg:py-16">
+      <section className="w-full px-5 lg:px-8 py-10 lg:py-16 lg:!max-w-none lg:!mx-0">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-6 lg:mb-10 lg:max-w-[1200px] lg:mx-auto">
-            <div>
-              <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">Partidos</h2>
-              <p className="text-white/40 text-xs mt-1 uppercase tracking-widest">Revive la serie final</p>
-            </div>
-            <Link to="/partidos" className="text-gold text-sm font-semibold no-underline hover:underline">Ver todo</Link>
+          <div className="flex flex-col items-center mb-6 lg:mb-12">
+            <h2 className="font-display font-black text-3xl lg:text-6xl uppercase text-white m-0 tracking-tight text-center">Partidos</h2>
+            <p className="text-white/40 text-xs lg:text-sm mt-2 uppercase tracking-widest text-center">Revive la serie final</p>
+            <Link to="/partidos" className="text-gold text-sm font-semibold no-underline hover:underline mt-3 lg:hidden">Ver todo</Link>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 lg:max-w-[1200px] lg:mx-auto">
+        {/* MOBILE: compact horizontal cards */}
+        <div className="flex flex-col gap-2.5 lg:hidden">
+          {partidosDestacados.map((partido, index) => {
+            const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
+            return (
+              <ScrollReveal key={partido.id} delay={index * 0.06}>
+                <button
+                  type="button"
+                  onClick={() => openVideoModal(partido.youtubeId)}
+                  disabled={isPlaceholder}
+                  className="group relative w-full flex items-center gap-3 rounded-2xl overflow-hidden text-left disabled:cursor-not-allowed transition-all duration-300 p-2.5"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <div className="relative flex-shrink-0 w-[120px] h-[72px] rounded-xl overflow-hidden bg-[#0a0a0a]">
+                    {isPlaceholder ? (
+                      <div className="w-full h-full flex items-center justify-center text-white/30 text-[10px] uppercase tracking-wider font-bold">
+                        Próximo
+                      </div>
+                    ) : (
+                      <>
+                        <img
+                          src={`https://img.youtube.com/vi/${partido.youtubeId}/mqdefault.jpg`}
+                          alt={`${partido.numero} thumbnail`}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full bg-gold/90 flex items-center justify-center shadow-[0_0_12px_rgba(255,215,0,0.4)]">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="black" className="ml-0.5">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {partido.esCampeonato && (
+                      <span className="absolute top-1.5 left-1.5 text-[8px] font-display font-bold uppercase tracking-wider text-gold bg-black/70 px-1.5 py-0.5 rounded-full">
+                        Campeonato
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-gold font-black">
+                      <span>{partido.numero}</span>
+                      <span className="text-white/20">·</span>
+                      <span className="text-white/40 font-semibold">{partido.serie}</span>
+                    </div>
+                    <p className="text-sm font-bold text-white mt-1 m-0">
+                      Yauco vs. San Sebastián
+                    </p>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,215,0,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+
+        {/* DESKTOP: 4-col grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6">
           {partidosDestacados.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
@@ -699,7 +903,6 @@ const Index = () => {
                     boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                   }}
                 >
-                  {/* Thumbnail */}
                   <div className="relative w-full aspect-video overflow-hidden">
                     {isPlaceholder ? (
                       <div className="w-full h-full flex items-center justify-center bg-[#0a0a0a] text-white/30 text-xs uppercase tracking-wider font-bold">
@@ -729,8 +932,6 @@ const Index = () => {
                       </span>
                     )}
                   </div>
-
-                  {/* Info */}
                   <div className="p-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                     <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-gold font-bold">
                       <span>{partido.numero}</span>
@@ -753,29 +954,39 @@ const Index = () => {
         {/* Modal */}
         {videoModalId && (
           <div
-            onClick={closeVideoModal}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md px-3 md:px-6"
             style={{ animation: 'modalFadeIn 0.25s ease-out both' }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video del partido"
+            onKeyDown={(e) => { if (e.key === 'Escape') closeVideoModal(); }}
           >
+            <button
+              type="button"
+              onClick={closeVideoModal}
+              aria-label="Cerrar video"
+              className="absolute inset-0 w-full h-full cursor-default"
+              tabIndex={-1}
+            />
             <div
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl"
+              className="relative w-full max-w-5xl z-10"
               style={{ animation: 'modalScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both' }}
             >
               <button
                 type="button"
                 onClick={closeVideoModal}
                 aria-label="Cerrar video"
+                autoFocus
                 className="absolute -top-12 right-2 md:-top-14 md:right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
               <div className="relative w-full rounded-2xl overflow-hidden bg-black ring-1 ring-gold/30 shadow-[0_0_60px_rgba(255,215,0,0.15)]" style={{ paddingTop: '56.25%' }}>
                 <iframe
-                  src={`https://www.youtube.com/embed/${videoModalId}?autoplay=1`}
+                  src={`https://www.youtube-nocookie.com/embed/${videoModalId}?autoplay=1`}
                   title="Video del partido"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -789,184 +1000,116 @@ const Index = () => {
 
 
       {/* ===== ROSTER PREVIEW ===== */}
-      <section className="px-5 py-10 lg:py-16 lg:px-10">
+      <section className="py-10 lg:py-16 !max-w-none !mx-0 lg:!px-0">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5 lg:mb-8 lg:max-w-[1400px] lg:mx-auto">
-            <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
-              <span className="lg:hidden">Roster</span>
-              <span className="hidden lg:inline">Roster</span>
+          <div className="text-center mb-6 lg:mb-10 lg:max-w-[1200px] lg:mx-auto lg:px-12">
+            <h2 className="font-display font-black uppercase text-white m-0 tracking-tight lg:hidden" style={{ fontSize: 'clamp(2.2rem, 8vw, 3rem)', letterSpacing: '-0.02em' }}>
+              Roster
             </h2>
-            <div className="flex items-center gap-3">
-              <Link
-                to="/roster"
-                className="text-gold text-sm font-semibold no-underline hover:underline lg:hidden"
-              >
-                Ver todo
-              </Link>
-              {/* Desktop arrow controls */}
-              <div className="hidden lg:flex items-center gap-2">
-                <Link
-                  to="/roster"
-                  className="mr-4 text-white/60 hover:text-gold text-xs font-display font-bold uppercase tracking-[0.2em] no-underline transition-colors"
-                >
-                  Ver Roster Completo
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => scrollRoster(-1)}
-                  aria-label="Anterior"
-                  className="w-11 h-11 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 transition-all duration-200 flex items-center justify-center"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollRoster(1)}
-                  aria-label="Siguiente"
-                  className="w-11 h-11 rounded-full border border-white/15 text-white/80 hover:text-gold hover:border-gold hover:bg-gold/5 transition-all duration-200 flex items-center justify-center"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                </button>
-              </div>
-            </div>
+            <h2 className="hidden lg:block font-display font-black uppercase text-white m-0" style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}>
+              Roster
+            </h2>
           </div>
         </ScrollReveal>
 
-        {/* MOBILE: original list */}
-        <div
-          className="lg:hidden rounded-2xl overflow-hidden"
-          style={{
-            backgroundColor: '#1a1a1a',
-            border: '1px solid rgba(255, 215, 0, 0.08)',
-          }}
-        >
-          {previewRoster.map((player, i) => (
-            <ScrollReveal key={i} delay={i * 0.04}>
-              <div
-                className="flex items-center gap-4 px-5 py-4"
-                style={{
-                  borderBottom:
-                    i < previewRoster.length - 1
-                      ? '1px solid rgba(255, 255, 255, 0.06)'
-                      : 'none',
-                }}
-              >
-                <span className="w-8 text-center font-display font-bold text-lg text-gold/60">
-                  {player.number}
-                </span>
-                <PlayerAvatar photo={player.photo} name={player.name} size={56} />
-                <div className="flex-1 min-w-0">
-                  <p className="font-display font-bold text-sm text-white uppercase m-0 flex items-center gap-1.5">
-                    {player.name}
-                    {player.captain && (
-                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-yellow-400/20 text-yellow-400 font-display font-bold text-[9px] leading-none uppercase tracking-wider">
-                        capitán
-                      </span>
-                    )}
-                  </p>
-                  <p className="text-white/40 text-xs mt-0.5 m-0">
-                    {player.position}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+        {/* MOBILE: Auto-scrolling roster with center glow */}
+        <MobileRosterCarousel players={roster} />
 
         <ScrollReveal>
           <Link
             to="/roster"
-            className="lg:hidden block mt-4 w-full py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline transition-all duration-200 hover:bg-gold/10"
-            style={{
-              border: '1px solid rgba(255, 215, 0, 0.25)',
-            }}
+            className="lg:hidden roster-glass-btn block mt-6 mx-5 py-3.5 rounded-full text-center font-display font-bold text-sm uppercase tracking-wider text-gold no-underline"
           >
             Ver Roster Completo
           </Link>
         </ScrollReveal>
 
-        {/* DESKTOP: Barça-style horizontal player carousel */}
-        <div className="hidden lg:block lg:max-w-[1400px] lg:mx-auto">
-          <div
-            ref={rosterScrollRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2"
-            style={{ scrollPaddingLeft: 0 }}
-          >
-            {roster.map((player, i) => (
-              <Link
-                key={i}
-                to="/roster"
-                data-roster-card
-                className="group relative snap-start flex-shrink-0 w-[260px] h-[380px] rounded-2xl overflow-hidden no-underline"
-                style={{
-                  background:
-                    'linear-gradient(180deg, #1e2a5e 0%, #0d1436 100%)',
-                  boxShadow:
-                    '0 20px 40px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.08) inset',
-                }}
-              >
-                {/* Big number backdrop */}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-4 right-4 font-display font-black leading-none pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:text-gold/30"
+        {/* DESKTOP: Auto-scrolling roster loop */}
+        <div className="hidden lg:block lg:mt-8">
+          <style>{`
+            @keyframes rosterScroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .roster-marquee {
+              animation: rosterScroll 40s linear infinite;
+            }
+            .roster-marquee:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
+          <div className="relative overflow-hidden">
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to right, #000000, transparent)' }} />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
+            <div className="roster-marquee flex gap-5 pb-4 w-max">
+              {[...roster, ...roster].map((player, i) => (
+                <Link
+                  key={i}
+                  to="/roster"
+                  className="group relative flex-shrink-0 w-[220px] rounded-2xl overflow-hidden no-underline transition-transform duration-300 hover:-translate-y-1"
                   style={{
-                    fontSize: 96,
-                    color: 'rgba(255,255,255,0.08)',
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                    border: '1px solid rgba(255,215,0,0.08)',
                   }}
                 >
-                  {player.number}
-                </span>
-
-                {/* Player photo */}
-                {player.photo ? (
-                  <img
-                    src={player.photo}
-                    alt={player.name}
-                    className="absolute inset-x-0 bottom-0 w-full h-[85%] object-contain object-bottom pointer-events-none select-none transition-transform duration-500 group-hover:scale-[1.04]"
-                    draggable={false}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-white/30 text-6xl font-display font-black">
-                    {player.number}
-                  </div>
-                )}
-
-                {/* Bottom gradient + info */}
-                <div
-                  className="absolute inset-x-0 bottom-0 p-5 pt-16"
-                  style={{
-                    background:
-                      'linear-gradient(0deg, rgba(5,10,30,0.95) 0%, rgba(5,10,30,0.7) 55%, rgba(5,10,30,0) 100%)',
-                  }}
-                >
-                  <p className="text-gold/80 text-[10px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1">
-                    {player.position}
-                  </p>
-                  <p className="font-display font-black text-white uppercase text-lg leading-tight m-0 flex items-center gap-2">
-                    {player.name}
-                    {player.captain && (
-                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/25 text-gold font-display font-bold text-[9px] leading-none uppercase tracking-wider">
-                        C
-                      </span>
+                  <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
+                    {player.photo ? (
+                      <img
+                        src={player.photo}
+                        alt={player.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        style={player.photoPosition ? { objectPosition: player.photoPosition } : undefined}
+                        draggable={false}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white/20 text-6xl font-display font-black">
+                        {player.number}
+                      </div>
                     )}
-                  </p>
-                </div>
-
-                {/* Gold reveal on hover */}
-                <div
-                  className="absolute inset-x-0 bottom-0 h-[3px] bg-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-                />
-              </Link>
-            ))}
+                    <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
+                    <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }} />
+                    <span className="absolute top-3 right-3 font-display font-black text-gold/20 text-3xl leading-none select-none">
+                      #{player.number}
+                    </span>
+                  </div>
+                  <div className="px-4 py-3">
+                    <p className="font-display font-black text-white uppercase text-sm leading-tight m-0 flex items-center gap-1.5">
+                      {player.name}
+                      {player.captain && (
+                        <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[9px] leading-none uppercase tracking-wider">
+                          C
+                        </span>
+                      )}
+                    </p>
+                    <p className="text-gold/60 text-[11px] font-display font-semibold uppercase tracking-[0.15em] m-0 mt-1">
+                      {player.position}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="text-center mt-6">
+            <Link
+              to="/roster"
+              className="inline-flex items-center gap-2 text-gold text-sm font-display font-bold uppercase tracking-wider no-underline hover:text-white transition-colors duration-200"
+            >
+              Ver Roster Completo
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ===== NOTICIAS PREVIEW ===== */}
-      <section className="px-5 py-10">
+      <section className="px-5 lg:px-8 py-10 lg:py-20 lg:!max-w-none lg:!mx-0">
+        {/* Section header */}
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Noticias
             </h2>
@@ -977,9 +1120,17 @@ const Index = () => {
               Ver todo
             </Link>
           </div>
+          <div className="hidden lg:block text-center mb-12">
+            <h2 className="font-display font-black uppercase text-white m-0" style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}>
+              Noticias
+            </h2>
+            <p className="text-white/40 text-sm mt-3 m-0 uppercase tracking-[0.3em] font-display">
+              Cobertura de prensa
+            </p>
+          </div>
         </ScrollReveal>
 
-        {/* MOBILE: featured + side list (unchanged) */}
+        {/* MOBILE: featured + compact list */}
         <div className="flex flex-col lg:hidden">
           <ScrollReveal>
             <a
@@ -995,8 +1146,10 @@ const Index = () => {
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 60%)' }} />
               </div>
               <div className="px-4 pb-4 -mt-8 relative z-10">
-                <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{featuredArticle.source}</span>
-                <h3 className="font-display font-bold text-base text-white mt-1 m-0 leading-tight">{featuredArticle.title}</h3>
+                <span className="flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-wider">
+                  {featuredArticle.source}
+                </span>
+                <h3 className="font-display font-normal lg:font-bold text-base text-white mt-1 m-0 leading-tight">Los Campeones del Voleibol Superior Masculino<br />nos visitan en El Primer Round</h3>
                 <p className="text-white/40 text-xs mt-2 m-0 line-clamp-2">{featuredArticle.excerpt}</p>
               </div>
             </a>
@@ -1016,8 +1169,10 @@ const Index = () => {
                     <img src={article.image} alt={article.title} width="90" height="70" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-gold text-[10px] font-bold uppercase tracking-wider">{article.source}</span>
-                    <h4 className="font-display font-bold text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">{article.title}</h4>
+                    <span className="flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-wider">
+                      {article.source}
+                    </span>
+                    <h4 className="font-display font-normal text-sm text-white mt-0.5 m-0 leading-tight line-clamp-2">{article.title}</h4>
                     <p className="text-white/40 text-[11px] mt-1 m-0">{article.date}</p>
                   </div>
                 </a>
@@ -1026,30 +1181,41 @@ const Index = () => {
           </div>
         </div>
 
-        {/* DESKTOP: Barça-style 4-col news grid */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-5">
+        {/* DESKTOP: 4-col grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6">
           {news.slice(0, 4).map((article, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+            <ScrollReveal key={i} delay={i * 0.08}>
               <a
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => { e.preventDefault(); window.open(article.url, '_blank', 'noopener,noreferrer'); }}
-                className="flex flex-col h-full rounded-xl overflow-hidden bg-[#1a1a1a] border border-white/5 no-underline group transition-transform duration-300 hover:-translate-y-1"
+                className="group relative flex flex-col rounded-2xl overflow-hidden no-underline h-full transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                }}
               >
-                <div className="relative w-full aspect-[16/10] overflow-hidden">
-                  <img src={article.image} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)' }} />
                 </div>
-                <div className="px-4 pt-4 pb-3 flex-1 flex flex-col">
-                  <h3 className="font-display font-normal text-white text-base leading-snug m-0 line-clamp-3">{article.title}</h3>
-                </div>
-                <div className="px-4 pb-4 pt-3 border-t border-white/5 flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-gold text-[10px] font-black uppercase tracking-wider">
-                    <span className="inline-block w-2 h-2 bg-gold" />
+                <div className="p-6 flex-1 flex flex-col">
+                  <span className="inline-flex items-center gap-2 text-gold text-[11px] font-black uppercase tracking-[0.2em] mb-3">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold" />
                     {article.source}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-white/40 text-[10px] uppercase tracking-wide">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                  <h4 className="font-display font-normal text-white text-xl leading-relaxed m-0 line-clamp-3">
+                    {article.title}
+                  </h4>
+                  <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-white/30 text-[11px] uppercase tracking-wide">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                     {article.date}
                   </span>
                 </div>
@@ -1060,194 +1226,167 @@ const Index = () => {
       </section>
 
       {/* ===== SOBRE NOSOTROS PREVIEW ===== */}
-      <section className="px-5 py-10 lg:py-20">
-        <ScrollReveal>
-          <div className="flex items-center justify-between mb-5 lg:hidden">
-            <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
-              Sobre Nosotros
-            </h2>
-            <Link
-              to="/nosotros"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Mas
-            </Link>
-          </div>
-        </ScrollReveal>
-
+      <section className="py-10 lg:py-24 overflow-hidden">
         {/* MOBILE */}
-        <div className="lg:hidden">
+        <div className="lg:hidden px-5">
           <ScrollReveal>
-            <div
-              className="rounded-2xl p-5 mb-4"
-              style={{
-                backgroundColor: '#1a1a1a',
-                border: '1px solid rgba(255, 215, 0, 0.08)',
-              }}
-            >
-              <p className="text-white/70 text-sm leading-relaxed m-0">
-                Los Cafeteros de Yauco son un equipo de voleibol profesional que
-                compite en la Liga de Voleibol Superior Masculina de Puerto Rico.
-                Representando a la Ciudad del Cafe, el equipo encarna la pasion, la
-                tradicion y el orgullo de todo un pueblo. En 2026, los Cafeteros
-                hicieron historia al ganar su primer campeonato en 55 años.
-              </p>
+            <div className="relative rounded-3xl overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.1)' }}>
+              <div className="relative aspect-[4/3]">
+                <ResponsiveImage
+                  name="dsc04710"
+                  alt="Cafeteros de Yauco"
+                  width={800}
+                  height={600}
+                  sizes="90vw"
+                  pictureClassName="block w-full h-full"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #111 0%, rgba(17,17,17,0.7) 40%, transparent 70%)' }} />
+              </div>
+              <div className="relative px-5 pb-6 -mt-20 z-10">
+                <p className="text-gold text-[10px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-2">Sobre Nosotros</p>
+                <h2 className="font-display font-black uppercase text-white text-2xl leading-[0.95] m-0 mb-3">
+                  Cafeteros <span className="text-gold">de Yauco</span>
+                </h2>
+                <p className="text-white/70 text-sm leading-relaxed m-0 mb-5">
+                  Un equipo de voleibol profesional que representa a la Ciudad del Café en la LVSM. En 2026, hicieron historia al ganar su primer campeonato en 55 años.
+                </p>
+                <div className="grid grid-cols-3 gap-3 mb-5">
+                  {[
+                    { value: '55', label: 'Años de espera' },
+                    { value: '1971', label: 'Último título' },
+                    { value: '2026', label: 'Campeones' },
+                  ].map((stat) => (
+                    <div key={stat.label} className="text-center py-3 rounded-xl" style={{ backgroundColor: 'rgba(255, 215, 0, 0.06)', border: '1px solid rgba(255, 215, 0, 0.1)' }}>
+                      <p className="font-display font-black text-gold text-lg m-0 leading-none">{stat.value}</p>
+                      <p className="text-white/40 text-[9px] uppercase tracking-wider mt-1 m-0">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  to="/nosotros"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gold text-black font-display font-bold text-xs uppercase tracking-[0.14em] no-underline transition-transform duration-200 active:scale-[0.97]"
+                >
+                  Conoce Más
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
-
-          <div className="grid grid-cols-2 gap-3">
-            {(['dsc04710', 'dsc04989'] as const).map((name, i) => (
-              <ScrollReveal key={name} delay={i * 0.05}>
-                <div className="rounded-2xl overflow-hidden aspect-square">
-                  <ResponsiveImage
-                    name={name}
-                    alt={`Cafeteros gallery ${i + 1}`}
-                    width={600}
-                    height={600}
-                    sizes="45vw"
-                    pictureClassName="block w-full h-full"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
 
-        {/* DESKTOP: editorial layout */}
-        <div className="hidden lg:block max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-12 gap-10 items-center">
-            <ScrollReveal className="col-span-5">
-              <div className="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_25px_60px_-20px_rgba(0,0,0,0.6)]">
+        {/* DESKTOP */}
+        <div className="hidden lg:block max-w-[1200px] mx-auto px-10">
+          <div className="relative grid grid-cols-12 gap-0 items-stretch rounded-[2rem] overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.08)', minHeight: '520px' }}>
+            <ScrollReveal className="col-span-6 relative">
+              <div className="absolute inset-0">
                 <ResponsiveImage
                   name="dsc04710"
                   alt="Cafeteros de Yauco"
                   width={800}
                   height={1000}
-                  sizes="480px"
+                  sizes="600px"
                   pictureClassName="block w-full h-full"
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 50%, #111 100%)' }} />
               </div>
             </ScrollReveal>
 
-            <ScrollReveal className="col-span-7">
-              <div>
-                <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">
-                  Sobre Nosotros
-                </p>
+            <div className="col-span-6 relative z-10 flex flex-col justify-center py-14 px-12" style={{ backgroundColor: '#111' }}>
+              <ScrollReveal>
+                <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">Sobre Nosotros</p>
                 <h2 className="font-display font-black uppercase text-white text-4xl xl:text-5xl leading-[0.95] tracking-tight m-0 mb-6">
                   Cafeteros <br />
                   <span className="text-gold">de Yauco</span>
                 </h2>
-                <p className="text-white/85 text-lg leading-relaxed m-0 mb-5">
-                  Un equipo de voleibol profesional que representa a la Ciudad
-                  del Café en la Liga de Voleibol Superior Masculina de Puerto
-                  Rico. Pasión, tradición y orgullo de todo un pueblo.
+                <p className="text-white/80 text-base leading-relaxed m-0 mb-4">
+                  Un equipo de voleibol profesional que representa a la Ciudad del Café en la Liga de Voleibol Superior Masculina de Puerto Rico. Pasión, tradición y orgullo de todo un pueblo.
                 </p>
-                <p className="text-white/70 text-base leading-relaxed m-0 mb-8">
-                  En enero de 2026, los Cafeteros hicieron historia al ganar su
-                  primer campeonato de la LVSM en 55 años, un logro grabado en
-                  el corazón de Yauco y de todo Puerto Rico.
+                <p className="text-white/55 text-sm leading-relaxed m-0 mb-8">
+                  En enero de 2026, los Cafeteros hicieron historia al ganar su primer campeonato de la LVSM en 55 años, un logro grabado en el corazón de Yauco y de todo Puerto Rico.
                 </p>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.1}>
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  {[
+                    { value: '55', label: 'Años de espera' },
+                    { value: '1971', label: 'Último título' },
+                    { value: '2026', label: 'Campeones' },
+                  ].map((stat) => (
+                    <div key={stat.label} className="text-center py-4 rounded-xl transition-colors duration-300 hover:border-gold/30 cursor-default" style={{ backgroundColor: 'rgba(255, 215, 0, 0.04)', border: '1px solid rgba(255, 215, 0, 0.1)' }}>
+                      <p className="font-display font-black text-gold text-2xl m-0 leading-none">{stat.value}</p>
+                      <p className="text-white/40 text-[10px] uppercase tracking-wider mt-1.5 m-0">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.15}>
                 <Link
                   to="/nosotros"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] no-underline transition-transform duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gold text-black font-display font-bold text-sm uppercase tracking-[0.14em] no-underline transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
                 >
                   Conoce Más
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                 </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <div className="grid grid-cols-3 gap-5 mt-12">
-            {(['dsc04710', 'dsc04989'] as const).map((name, i) => (
-              <ScrollReveal key={name} delay={i * 0.05}>
-                <div className="rounded-2xl overflow-hidden aspect-square shadow-[0_15px_40px_-20px_rgba(0,0,0,0.5)]">
-                  <ResponsiveImage
-                    name={name}
-                    alt={`Cafeteros ${i + 1}`}
-                    width={600}
-                    height={600}
-                    sizes="360px"
-                    pictureClassName="block w-full h-full"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
               </ScrollReveal>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
 
-      {/* ===== TICKETS MODAL (desktop) ===== */}
+      {/* ===== TICKETS POPUP — Coming Soon ===== */}
       {ticketsOpen && (
         <div
-          className="hidden lg:flex fixed inset-0 z-[1000] items-center justify-center p-6 animate-fade-in"
-          style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(8px)' }}
+          className="fixed inset-0 z-[1000] flex items-center justify-center p-6"
+          style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(10px)', animation: 'modalFadeIn 0.2s ease' }}
           onClick={() => setTicketsOpen(false)}
+          onKeyDown={(e) => { if (e.key === 'Escape') setTicketsOpen(false); }}
           role="dialog"
           aria-modal="true"
-          aria-label="Próximas fechas"
+          aria-label="Boletos proximamente"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[520px] rounded-2xl overflow-hidden animate-scale-in"
+            className="relative w-full max-w-[560px] rounded-2xl overflow-hidden text-center"
             style={{
               background: 'linear-gradient(180deg, #1a1a1a 0%, #111111 100%)',
-              border: '1px solid rgba(255,215,0,0.25)',
+              border: '1px solid rgba(255,215,0,0.2)',
               boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
+              animation: 'modalScaleIn 0.3s ease',
             }}
           >
             <button
               type="button"
               onClick={() => setTicketsOpen(false)}
               aria-label="Cerrar"
-              className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+              className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors z-10"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
-            <div className="px-6 pt-6 pb-2">
-              <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.3em] m-0">Boletos</p>
-              <h3 className="font-display font-black text-2xl uppercase text-white m-0 mt-1">Próximas fechas</h3>
-              <p className="text-white/50 text-xs m-0 mt-1">Selecciona un juego y compra tu boleto oficial.</p>
-            </div>
-            <ul className="px-3 pt-3 pb-2 max-h-[340px] overflow-y-auto">
-              {calendar.slice(0, 6).map((g, i) => (
-                <li key={i} className="flex items-center justify-between gap-3 px-3 py-3 rounded-xl hover:bg-white/[0.04] transition-colors">
-                  <div className="min-w-0">
-                    <p className="font-display font-bold text-sm text-white uppercase m-0 truncate">vs {g.opponent}</p>
-                    <p className="text-white/45 text-xs m-0 mt-0.5">{g.date} · {g.time} · {g.isHome ? 'Local' : 'Visitante'}</p>
-                  </div>
-                  <span
-                    className="flex-shrink-0 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                    style={{
-                      backgroundColor: g.isHome ? 'rgba(255,215,0,0.15)' : 'rgba(255,255,255,0.08)',
-                      color: g.isHome ? '#FFD700' : 'rgba(255,255,255,0.55)',
-                    }}
-                  >
-                    {g.isHome ? 'Yauco' : 'Away'}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="px-6 py-4 border-t border-white/5 flex items-center justify-between gap-3">
-              <p className="text-white/40 text-xs m-0">Powered by Printco Tickets</p>
-              <a
-                href="https://cafeterosdeyaucovollyball.printcotickets.com/browse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-full no-underline transition-transform duration-200 hover:scale-105"
+            <div className="px-10 pt-14 pb-12">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
+                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
+              </svg>
+              <h3 className="font-display font-black text-3xl lg:text-4xl uppercase text-white m-0">
+                Proximamente
+              </h3>
+              <p className="text-white/50 text-base mt-4 m-0 leading-relaxed max-w-[400px] mx-auto">
+                Pronto el calendario de la temporada estara disponible y podras separar tus fechas para los juegos de los Cafeteros de Yauco.
+              </p>
+              <button
+                type="button"
+                onClick={() => setTicketsOpen(false)}
+                className="mt-8 inline-flex items-center gap-2 px-9 py-3.5 bg-gold text-black font-display font-bold text-base uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
               >
-                Comprar ahora
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </a>
+                Entendido
+              </button>
             </div>
           </div>
         </div>

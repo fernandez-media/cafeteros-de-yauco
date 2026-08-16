@@ -5,32 +5,33 @@ const Footer = () => {
     <footer
       className="w-full"
       style={{
-        background: '#0a0a0a',
+        background: '#000000',
       }}
     >
       {/* Main Section */}
-      <div className="pt-5 pb-4 sm:pt-6 sm:pb-5 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
+      <div className="pt-10 pb-6 sm:pt-12 sm:pb-8 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
         {/* Logo */}
         <ResponsiveImage
           name="cafeteros-logo"
           alt="Cafeteros de Yauco"
-          width={48}
-          height={48}
-          sizes="48px"
-          pictureClassName="h-12 w-12 mb-2 sm:mb-3 inline-flex"
-          className="h-12 w-12 object-contain"
+          width={120}
+          height={120}
+          sizes="120px"
+          pictureClassName="h-28 w-28 lg:h-32 lg:w-32 mb-4 sm:mb-6 inline-flex"
+          className="h-28 w-28 lg:h-32 lg:w-32 object-contain"
         />
 
         {/* Social Icons */}
-        <div className="flex items-center gap-4 sm:gap-5">
+        <div className="flex items-center gap-5 sm:gap-6">
           <a
             href="https://www.facebook.com/CafeterosVoli/?locale=es_LA"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-11 h-11 rounded-full flex items-center justify-center border border-white/15 text-white/50 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-[3px]"
+            className="w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(24,119,242,0.3)]"
+            style={{ borderColor: 'rgba(24, 119, 242, 0.4)', color: '#1877F2' }}
             aria-label="Facebook"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
             </svg>
           </a>
@@ -39,10 +40,11 @@ const Footer = () => {
             href="https://www.instagram.com/cafeterosdeyaucovolley/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-11 h-11 rounded-full flex items-center justify-center border border-white/15 text-white/50 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-[3px]"
+            className="w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(225,48,108,0.3)]"
+            style={{ borderColor: 'rgba(225, 48, 108, 0.4)', color: '#E1306C' }}
             aria-label="Instagram"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -50,11 +52,11 @@ const Footer = () => {
           </a>
 
           <span
-            className="w-11 h-11 rounded-full flex items-center justify-center border border-white/10 text-white/20"
+            className="w-14 h-14 rounded-full flex items-center justify-center border border-white/10 text-white/20"
             aria-hidden="true"
             title="YouTube (próximamente)"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z" />
               <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
             </svg>
@@ -63,9 +65,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/[0.06] mt-1 sm:mt-2 pt-2 sm:pt-3 pb-16 lg:pb-5 text-center">
+      <div className="border-t border-white/[0.06] mt-2 sm:mt-4 pt-4 sm:pt-5 pb-16 lg:pb-6 text-center">
         <p className="text-xs text-white/25 m-0">
-          &copy; 2025 Cafeteros de Yauco. Todos los derechos reservados.
+          &copy; 2026 Cafeteros de Yauco. Todos los derechos reservados.
         </p>
       </div>
     </footer>

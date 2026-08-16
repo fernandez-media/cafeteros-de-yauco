@@ -49,7 +49,7 @@ const Noticias = () => {
                   alt={article.title}
                   width="800"
                   height="400"
-                  loading="eager"
+                  loading={i < 2 ? 'eager' : 'lazy'}
                   decoding="async"
                   className="w-full h-full object-cover"
                 />

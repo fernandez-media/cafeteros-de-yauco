@@ -307,29 +307,39 @@ const Partidos = () => {
       {/* MODAL */}
       {videoModalId && (
         <div
-          onClick={closeVideoModal}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md px-3 md:px-6"
           style={{ animation: 'modalFadeIn 0.25s ease-out both' }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video del partido"
+          onKeyDown={(e) => { if (e.key === 'Escape') closeVideoModal(); }}
         >
+          <button
+            type="button"
+            onClick={closeVideoModal}
+            aria-label="Cerrar video"
+            className="absolute inset-0 w-full h-full cursor-default"
+            tabIndex={-1}
+          />
           <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-5xl"
+            className="relative w-full max-w-5xl z-10"
             style={{ animation: 'modalScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both' }}
           >
             <button
               type="button"
               onClick={closeVideoModal}
               aria-label="Cerrar video"
+              autoFocus
               className="absolute -top-12 right-2 md:-top-14 md:right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-gold hover:text-black text-white flex items-center justify-center transition-colors"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
             <div className="relative w-full rounded-2xl overflow-hidden bg-black ring-1 ring-gold/30 shadow-[0_0_60px_rgba(255,215,0,0.15)]" style={{ paddingTop: '56.25%' }}>
               <iframe
-                src={`https://www.youtube.com/embed/${videoModalId}?autoplay=1`}
+                src={`https://www.youtube-nocookie.com/embed/${videoModalId}?autoplay=1`}
                 title="Video del partido"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

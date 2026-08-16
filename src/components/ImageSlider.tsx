@@ -13,9 +13,9 @@ const allImages = [...sliderImages, ...sliderImages, ...sliderImages];
 
 const ImageSlider = () => {
   const [isDesktop, setIsDesktop] = useState(false);
-  const ITEM_WIDTH = isDesktop ? 340 : 220;
-  const ITEM_HEIGHT = isDesktop ? 240 : 160;
-  const ITEM_GAP = isDesktop ? 16 : 12;
+  const ITEM_WIDTH = isDesktop ? 480 : 220;
+  const ITEM_HEIGHT = isDesktop ? 340 : 160;
+  const ITEM_GAP = isDesktop ? 20 : 12;
   const ITEM_TOTAL = ITEM_WIDTH + ITEM_GAP;
   const SET_WIDTH = sliderImages.length * ITEM_TOTAL;
 
@@ -31,11 +31,11 @@ const ImageSlider = () => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollStart = useRef(0);
-  const isGrabbing = useRef(false);
+  const isVisible = useRef(true);
 
   const autoScroll = useCallback(() => {
     const container = containerRef.current;
-    if (!container || isDragging.current) {
+    if (!container || isDragging.current || !isVisible.current) {
       animationRef.current = requestAnimationFrame(autoScroll);
       return;
     }
@@ -59,14 +59,20 @@ const ImageSlider = () => {
     container.scrollLeft = SET_WIDTH;
     animationRef.current = requestAnimationFrame(autoScroll);
 
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible.current = entry.isIntersecting; },
+      { threshold: 0.1 }
+    );
+    observer.observe(container);
+
     return () => {
       cancelAnimationFrame(animationRef.current);
+      observer.disconnect();
     };
   }, [autoScroll, SET_WIDTH]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
-    isGrabbing.current = true;
     startX.current = e.pageX;
     scrollStart.current = containerRef.current?.scrollLeft ?? 0;
     if (containerRef.current) {
@@ -83,7 +89,6 @@ const ImageSlider = () => {
 
   const handleMouseUp = () => {
     isDragging.current = false;
-    isGrabbing.current = false;
     if (containerRef.current) {
       containerRef.current.style.cursor = 'grab';
     }
@@ -108,6 +113,8 @@ const ImageSlider = () => {
   return (
     <div
       ref={containerRef}
+      role="region"
+      aria-label="Galería de fotos de los Cafeteros"
       className="slider-container scrollbar-hidden w-full overflow-x-auto cursor-grab select-none"
       style={{
         display: 'flex',

@@ -40,11 +40,11 @@ const DesktopDock = () => {
         <ResponsiveImage
           name="cafeteros-logo"
           alt="Cafeteros de Yauco"
-          width={40}
-          height={40}
-          sizes="40px"
-          pictureClassName="w-10 h-10 inline-flex"
-          className="w-10 h-10 object-contain"
+          width={64}
+          height={64}
+          sizes="64px"
+          pictureClassName="w-16 h-16 inline-flex"
+          className="w-16 h-16 object-contain"
         />
       </NavLink>
 

@@ -11,7 +11,7 @@
   --slate: #6B7280;
   --white: #FFFFFF;
   --black: #000000;
-  --bg-primary: #111111;
+  --bg-primary: #000000;
   --bg-card: #1a1a1a;
   --bg-card-hover: #222222;
   --border-subtle: rgba(255, 215, 0, 0.08);
@@ -175,6 +175,31 @@ iframe:focus-visible,
 .scrollbar-hidden::-webkit-scrollbar { display: none; }
 .scrollbar-hidden { scrollbar-width: none; }
 
+/* ========== GLASSMORPHISM BUTTON ========== */
+@keyframes glassShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.roster-glass-btn {
+  background: linear-gradient(135deg, rgba(245,197,24,0.08) 0%, rgba(255,255,255,0.04) 50%, rgba(245,197,24,0.08) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 0.5px solid rgba(245,197,24,0.15);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.roster-glass-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(245,197,24,0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glassShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* ========== SLIDER MASK ========== */
 .slider-mask {
   mask: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
@@ -191,12 +216,43 @@ iframe:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
   .hero-word, .hero-eyebrow {
-    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
   }
+  .reveal, .reveal-left, .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ========== MARQUEE ========== */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll var(--duration, 40s) linear infinite;
+}
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+.marquee-pause-hover:hover {
+  animation-play-state: paused;
+}
+.marquee-content {
+  display: flex;
+  gap: var(--gap, 1.5rem);
+  flex-shrink: 0;
+  padding-right: var(--gap, 1.5rem);
 }
 
 /* ========== COMING SOON OVERLAY ========== */

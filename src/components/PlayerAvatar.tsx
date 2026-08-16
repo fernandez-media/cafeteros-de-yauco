@@ -1,10 +1,11 @@
 interface PlayerAvatarProps {
   photo?: string;
+  photoPosition?: string;
   name: string;
   size?: number;
 }
 
-const PlayerAvatar = ({ photo, name, size = 40 }: PlayerAvatarProps) => {
+const PlayerAvatar = ({ photo, photoPosition, name, size = 40 }: PlayerAvatarProps) => {
   const dimension = `${size}px`;
   const iconSize = Math.round(size * 0.5);
 
@@ -22,6 +23,7 @@ const PlayerAvatar = ({ photo, name, size = 40 }: PlayerAvatarProps) => {
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover"
+          style={photoPosition ? { objectPosition: photoPosition } : undefined}
         />
       </div>
     );

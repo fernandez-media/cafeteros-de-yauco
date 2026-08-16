@@ -9,6 +9,14 @@ export interface NewsArticle {
 
 export const news: NewsArticle[] = [
   {
+    source: 'Primer Round',
+    title: 'Los Campeones del Voleibol Superior Masculino nos visitan en El Primer Round',
+    excerpt: 'Los Cafeteros de Yauco visitan el programa Primer Round para hablar sobre su historico campeonato en la LVSM.',
+    date: 'Enero, 2026',
+    url: 'https://www.youtube.com/watch?v=Jd2lNYgcGcU&t=1s',
+    image: 'https://img.youtube.com/vi/Jd2lNYgcGcU/hqdefault.jpg',
+  },
+  {
     source: 'El Nuevo Dia',
     title: 'Cafeteros ganan el titulo del Voleibol Superior por primera vez en 55 años',
     excerpt: 'Yauco derroto a los Caribes de San Sebastian en el quinto juego de la serie final para coronarse campeones de la LVSM.',
@@ -33,7 +41,7 @@ export const news: NewsArticle[] = [
     image: 'https://www.primerahora.com/resizer/v2/HYUDQ5RLEFCITIXNXJ4XI3M43U.jpg?auth=42c747ad026096ce25e213d5f57b0136847b4ffebb7f03b6e9f393a257edf6c8&quality=75&width=2560&focal=841%2C380',
   },
   {
-    source: 'Primer Round · Video',
+    source: 'Primer Round',
     title: 'Los Cafeteros de Yauco hicieron historia: un campeonato inolvidable que unio generaciones',
     excerpt: 'Video documental de la hazana de los Cafeteros en la final de la LVSM, un momento que quedara grabado en la memoria de Yauco.',
     date: 'Enero, 2026',
