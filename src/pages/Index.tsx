@@ -21,7 +21,7 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
   const [centerIdx, setCenterIdx] = useState(-1);
   const autoScrollRef = useRef<number>(0);
   const isPausedRef = useRef(false);
-  const speedRef = useRef(0.5);
+  const speedRef = useRef(0.3);
 
   const duplicated = [...players, ...players, ...players];
 

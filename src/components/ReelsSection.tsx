@@ -55,7 +55,8 @@ const FbIcon = ({ size = 14 }: { size?: number }) => (
 function ReelCard({ reel }: { reel: ReelItem }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLAnchorElement>(null);
+  const [glowActive, setGlowActive] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = cardRef.current;
@@ -80,18 +81,27 @@ function ReelCard({ reel }: { reel: ReelItem }) {
 
   const glowColor = reel.icon === 'instagram' ? 'rgba(225,48,108,0.6)' : 'rgba(24,119,242,0.6)';
 
+  const handleClick = () => {
+    if (!glowActive) {
+      setGlowActive(true);
+    } else {
+      window.open(reel.instagramUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <a
+    <div
       ref={cardRef}
-      href={reel.instagramUrl || '#'}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={(e) => { if (!reel.instagramUrl) e.preventDefault(); }}
-      aria-label={`Ver reel en ${reel.icon === 'instagram' ? 'Instagram' : 'Facebook'} (abre en nueva pestaña)`}
-      className="relative rounded-2xl overflow-hidden aspect-[9/16] group bg-[#1a1a1a] border border-gold/10 block transition-shadow duration-300"
-      style={{ boxShadow: 'none' }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={(e) => { if (e.key === 'Enter') handleClick(); }}
+      aria-label={`Ver reel en ${reel.icon === 'instagram' ? 'Instagram' : 'Facebook'}`}
+      className="relative rounded-2xl overflow-hidden aspect-[9/16] group bg-[#1a1a1a] border border-gold/10 block cursor-pointer"
+      style={{
+        boxShadow: glowActive ? `0 0 20px ${glowColor}, 0 0 40px ${glowColor}` : 'none',
+        transition: 'box-shadow 0.4s ease',
+      }}
     >
       <video
         ref={videoRef}
@@ -107,7 +117,19 @@ function ReelCard({ reel }: { reel: ReelItem }) {
       <div className="absolute top-2.5 left-2.5 lg:top-4 lg:left-4 z-10 flex items-center justify-center w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-black/50 backdrop-blur-sm">
         {reel.icon === 'instagram' ? <IgIcon /> : <FbIcon />}
       </div>
-    </a>
+
+      {glowActive && (
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center py-3 bg-gradient-to-t from-black/70 to-transparent">
+          <span className="text-white text-xs font-display font-bold uppercase tracking-wider flex items-center gap-1.5">
+            {reel.icon === 'instagram' ? 'Ver en Instagram' : 'Ver en Facebook'}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7" />
+              <polyline points="7 7 17 7 17 17" />
+            </svg>
+          </span>
+        </div>
+      )}
+    </div>
   );
 }
 

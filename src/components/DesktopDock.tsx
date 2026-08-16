@@ -48,8 +48,7 @@ const DesktopDock = () => {
         />
       </NavLink>
 
-      <span className="w-px h-7 bg-gold/25" aria-hidden="true" />
-
+      <span className="w-px h-10 bg-gold/25 mx-1" aria-hidden="true" />
 
       <ul className="flex items-center gap-1 pr-1">
         {navItems.map((item) => (
