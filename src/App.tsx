@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import SkeletonLoader from "./components/SkeletonLoader";
 import Index from "./pages/Index";
 
 const Calendario = lazy(() => import("./pages/Calendario"));
@@ -12,7 +13,7 @@ const Noticias = lazy(() => import("./pages/Noticias"));
 
 function App() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<SkeletonLoader />}>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Index />} />
