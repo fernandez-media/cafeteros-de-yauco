@@ -10,7 +10,7 @@ import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
 import { merch } from '../data/merch';
-import heroFirstFrame from '../assets/hero-first-frame.jpg.asset.json';
+const heroFirstFrameUrl = `${import.meta.env.BASE_URL}media/hero-first-frame.webp`;
 
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
@@ -247,7 +247,7 @@ const Index = () => {
         className="lg:hidden relative overflow-hidden -mt-14 h-[100dvh] min-h-[100dvh]"
         style={{
           backgroundColor: '#000000',
-          backgroundImage: `url(${heroFirstFrame.url})`,
+          backgroundImage: `url(${heroFirstFrameUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
         }}
@@ -260,7 +260,7 @@ const Index = () => {
           loop
           playsInline
           preload={videoStrategy.preload}
-          poster={heroFirstFrame.url}
+          poster={heroFirstFrameUrl}
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center center', transform: 'scale(1.1)', transformOrigin: 'center center', backgroundColor: 'transparent' }}
