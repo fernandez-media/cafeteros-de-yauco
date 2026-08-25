@@ -715,10 +715,10 @@ const Index = () => {
 
         {/* MOBILE: 2-col small cards (unchanged) */}
         <div className="grid grid-cols-2 gap-3 lg:hidden">
-          {merch.map((item, i) => (
+          {merch.slice(0, 4).map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
-                <div className="relative w-full h-[160px] flex items-center justify-center p-6 overflow-hidden" style={{ backgroundColor: item.bgColor }}>
+                <div className="relative w-full h-[160px] flex items-center justify-center p-3 overflow-hidden" style={{ backgroundColor: item.bgColor }}>
                   <ResponsiveImage name={item.imageName} alt={item.name} width={400} height={400} sizes="45vw" className="max-w-full max-h-full object-contain" pictureClassName="max-w-full max-h-full flex items-center justify-center" />
                   
                 </div>

@@ -16,6 +16,9 @@ export const IMAGE_VARIANTS = {
   merch2: { widths: [320, 640, 960], ratio: 1 },
   merch3: { widths: [320, 640, 960], ratio: 1 },
   merch4: { widths: [320, 640, 960], ratio: 1 },
+  merch5: { widths: [320, 640, 960], ratio: 1 },
+  merch6: { widths: [320, 640, 960], ratio: 1 },
+  merch7: { widths: [320, 640, 960], ratio: 1 },
 } as const;
 
 export type ImageName = keyof typeof IMAGE_VARIANTS;
