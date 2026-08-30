@@ -151,20 +151,6 @@ const ReelsSection = () => {
         ))}
       </div>
 
-      <div className="text-center mt-5 lg:mt-8">
-        <a
-          href="https://www.instagram.com/cafeterosdeyaucovolley/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-gold text-sm font-display font-bold uppercase tracking-wider no-underline hover:text-white transition-colors duration-200"
-        >
-          Ver mas en Instagram
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
-          </svg>
-        </a>
-      </div>
     </section>
   );
 };
