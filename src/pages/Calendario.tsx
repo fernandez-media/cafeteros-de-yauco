@@ -97,8 +97,9 @@ const Calendario = () => {
             <div className="flex flex-col gap-3">
               {group.games.map((game, i) => {
                 const oppKey = getOppKey(game.opponent);
-                const day = game.date.split(' ')[1];
-                const weekday = getDayOfWeek(group.month, parseInt(day));
+                const isTBD = !game.date.includes(' ');
+                const day = isTBD ? '' : game.date.split(' ')[1];
+                const weekday = isTBD ? '' : getDayOfWeek(group.month, parseInt(day));
                 return (
                   <ScrollReveal key={`${gi}-${i}`} delay={i * 0.04}>
                     <div
@@ -112,9 +113,15 @@ const Calendario = () => {
                       <div className="lg:hidden p-5">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2 text-gold">
-                            <span className="font-display font-bold text-base leading-none">{weekday}, {day} de {group.month}</span>
-                            <span className="opacity-40">·</span>
-                            <span className="text-sm font-semibold">{game.time}</span>
+                            <span className="font-display font-bold text-base leading-none">
+                              {isTBD ? 'Próximamente' : `${weekday}, ${day} de ${group.month}`}
+                            </span>
+                            {game.time && (
+                              <>
+                                <span className="opacity-40">·</span>
+                                <span className="text-sm font-semibold">{game.time}</span>
+                              </>
+                            )}
                           </div>
                           <span
                             className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
@@ -147,14 +154,16 @@ const Calendario = () => {
                       <div className="hidden lg:flex items-center px-6 py-5 gap-6">
                         {/* Date - full name */}
                         <div className="w-64 flex-shrink-0 text-gold">
-                          <p className="font-display font-black text-lg leading-tight m-0">{weekday}, {day} de {group.month}</p>
+                          <p className="font-display font-black text-lg leading-tight m-0">
+                            {isTBD ? 'Próximamente' : `${weekday}, ${day} de ${group.month}`}
+                          </p>
                         </div>
 
                         <div className="w-px h-14 bg-white/10 flex-shrink-0" />
 
                         {/* Time */}
                         <div className="w-24 flex-shrink-0 text-center">
-                          <p className="text-gold text-base font-semibold m-0">{game.time}</p>
+                          <p className="text-gold text-base font-semibold m-0">{game.time || '—'}</p>
                         </div>
 
                         <div className="w-px h-12 bg-white/10 flex-shrink-0" />

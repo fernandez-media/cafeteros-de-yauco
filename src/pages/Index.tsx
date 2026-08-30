@@ -10,6 +10,7 @@ import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
 import { merch } from '../data/merch';
+import { announcements } from '../data/announcements';
 const heroFirstFrameUrl = `${import.meta.env.BASE_URL}media/hero-first-frame.webp`;
 
 const BASE = import.meta.env.BASE_URL;
@@ -18,21 +19,47 @@ const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
 
 const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
   const doubled = [...players, ...players];
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    let raf: number;
+    const speed = 0.5;
+    const tick = () => {
+      if (!pausedRef.current && el) {
+        el.scrollLeft += speed;
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const handleTouchStart = () => {
+    pausedRef.current = true;
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+  };
+  const handleTouchEnd = () => {
+    resumeTimerRef.current = setTimeout(() => { pausedRef.current = false; }, 3000);
+  };
 
   return (
-    <div className="lg:hidden relative overflow-hidden">
-      <style>{`
-        @keyframes mobileRosterScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .mobile-roster-marquee {
-          animation: mobileRosterScroll 30s linear infinite;
-        }
-      `}</style>
+    <div className="lg:hidden relative">
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to right, #000000, transparent)' }} />
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
-      <div className="mobile-roster-marquee flex gap-4 pb-4 w-max">
+      <div
+        ref={scrollContainerRef}
+        className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide"
+        style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {doubled.map((player, i) => (
           <Link
             key={i}
@@ -417,7 +444,7 @@ const Index = () => {
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white/50 text-sm font-semibold uppercase tracking-wide">
-                    {game.date} &middot; {game.time}
+                    {game.date}{game.time ? ` · ${game.time}` : ''}
                   </span>
                   <span
                     className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
@@ -596,6 +623,57 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ===== ANUNCIOS ===== */}
+      {announcements.length > 0 && (
+        <section className="px-5 py-10">
+          <ScrollReveal>
+            <div className="flex items-baseline justify-between mb-5">
+              <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
+                Anuncios
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.05}>
+            {(() => {
+              const item = announcements[0];
+              const inner = (
+                <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
+                  <div className="relative w-full aspect-[4/5] lg:aspect-[16/9] overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-4 lg:p-6">
+                    <p className="text-gold/60 text-[10px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-1">
+                      {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                    <h3 className="font-display font-bold text-lg lg:text-2xl uppercase text-white m-0 mb-2 leading-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-white/60 text-sm lg:text-base m-0 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+              return item.link ? (
+                <a href={item.link} target="_blank" rel="noopener noreferrer" className="block no-underline">
+                  {inner}
+                </a>
+              ) : inner;
+            })()}
+          </ScrollReveal>
+        </section>
+      )}
+
+      {/* ===== REELS / REDES SOCIALES ===== */}
+      <ScrollReveal>
+        <ReelsSection />
+      </ScrollReveal>
 
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
@@ -691,11 +769,6 @@ const Index = () => {
           </div>
         </ScrollReveal>
       </section>
-
-      {/* ===== REELS / REDES SOCIALES ===== */}
-      <ScrollReveal>
-        <ReelsSection />
-      </ScrollReveal>
 
       {/* ===== MERCH PREVIEW ===== */}
       <section className="px-5 py-10">
