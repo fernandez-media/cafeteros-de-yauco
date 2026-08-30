@@ -659,7 +659,7 @@ const Index = () => {
               const item = announcements[0];
               const inner = (
                 <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
-                  <div className="relative w-full aspect-[5/5] lg:aspect-[16/9] overflow-hidden">
+                  <div className="relative w-full aspect-[4/4.6] lg:aspect-[16/9] overflow-hidden">
                     <img
                       src={item.image}
                       alt={item.title}
