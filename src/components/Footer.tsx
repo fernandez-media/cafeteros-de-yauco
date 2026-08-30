@@ -8,8 +8,7 @@ const Footer = () => {
         background: '#000000',
       }}
     >
-      {/* Main Section */}
-      <div className="pt-10 pb-6 sm:pt-12 sm:pb-8 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
+      <div className="pt-10 pb-20 lg:pb-8 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
         {/* Logo */}
         <ResponsiveImage
           name="cafeteros-logo"
@@ -62,13 +61,6 @@ const Footer = () => {
             </svg>
           </span>
         </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="border-t border-white/[0.06] mt-2 sm:mt-4 pt-4 sm:pt-5 pb-16 lg:pb-6 text-center">
-        <p className="text-xs text-white/25 m-0">
-          &copy; 2026 Cafeteros de Yauco. Todos los derechos reservados.
-        </p>
       </div>
     </footer>
   );

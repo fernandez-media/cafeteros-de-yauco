@@ -1265,26 +1265,26 @@ const Index = () => {
                 />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #111 0%, rgba(17,17,17,0.7) 40%, transparent 70%)' }} />
               </div>
-              <div className="relative px-5 pb-6 -mt-20 z-10">
+              <div className="relative px-5 pb-8 -mt-20 z-10">
                 <p className="text-gold text-[10px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-2">Sobre Nosotros</p>
-                <h2 className="font-display font-black uppercase text-white text-2xl leading-[0.95] m-0 mb-3">
+                <h2 className="font-display font-black uppercase text-white text-2xl leading-[0.95] m-0 mb-4">
                   Cafeteros <span className="text-gold">de Yauco</span>
                 </h2>
-                <p className="text-white/70 text-sm leading-relaxed m-0 mb-5">
-                  Un equipo de voleibol profesional que representa a la Ciudad del Café en la LVSM. En 2026, hicieron historia al ganar su primer campeonato en 55 años.
-                </p>
-                <div className="grid grid-cols-3 gap-3 mb-5">
-                  {[
-                    { value: '55', label: 'Años de espera' },
-                    { value: '1971', label: 'Último título' },
-                    { value: '2026', label: 'Campeones' },
-                  ].map((stat) => (
-                    <div key={stat.label} className="text-center py-3 rounded-xl" style={{ backgroundColor: 'rgba(255, 215, 0, 0.06)', border: '1px solid rgba(255, 215, 0, 0.1)' }}>
-                      <p className="font-display font-black text-gold text-lg m-0 leading-none">{stat.value}</p>
-                      <p className="text-white/40 text-[9px] uppercase tracking-wider mt-1 m-0">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
+                <ScrollReveal delay={0.05}>
+                  <p className="text-white/75 text-base leading-relaxed m-0 mb-4">
+                    El voleibol llegó a Puerto Rico de la mano de los estadounidenses, y Yauco se destacó desde la década de 1920 como uno de los primeros núcleos de aficionados y equipos locales en abrazar este deporte.
+                  </p>
+                </ScrollReveal>
+                <ScrollReveal delay={0.1}>
+                  <p className="text-white/75 text-base leading-relaxed m-0 mb-4">
+                    El pueblo adoptó el juego con tanta pasión que se convirtió en una de las sedes fundacionales de la gran tradición de la malla alta en la isla, viendo nacer a destacados atletas, entrenadores, árbitros y directivos federativos del voleibol.
+                  </p>
+                </ScrollReveal>
+                <ScrollReveal delay={0.15}>
+                  <p className="text-white/75 text-base leading-relaxed m-0">
+                    En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años — un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
+                  </p>
+                </ScrollReveal>
               </div>
             </div>
           </ScrollReveal>
@@ -1315,29 +1315,22 @@ const Index = () => {
                   Cafeteros <br />
                   <span className="text-gold">de Yauco</span>
                 </h2>
-                <p className="text-white/80 text-base leading-relaxed m-0 mb-4">
-                  Un equipo de voleibol profesional que representa a la Ciudad del Café en la Liga de Voleibol Superior Masculina de Puerto Rico. Pasión, tradición y orgullo de todo un pueblo.
-                </p>
-                <p className="text-white/55 text-sm leading-relaxed m-0 mb-8">
-                  En enero de 2026, los Cafeteros hicieron historia al ganar su primer campeonato de la LVSM en 55 años, un logro grabado en el corazón de Yauco y de todo Puerto Rico.
+              </ScrollReveal>
+              <ScrollReveal delay={0.05}>
+                <p className="text-white/80 text-lg leading-relaxed m-0 mb-5">
+                  El voleibol llegó a Puerto Rico de la mano de los estadounidenses, y Yauco se destacó desde la década de 1920 como uno de los primeros núcleos de aficionados y equipos locales en abrazar este deporte.
                 </p>
               </ScrollReveal>
-
               <ScrollReveal delay={0.1}>
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  {[
-                    { value: '55', label: 'Años de espera' },
-                    { value: '1971', label: 'Último título' },
-                    { value: '2026', label: 'Campeones' },
-                  ].map((stat) => (
-                    <div key={stat.label} className="text-center py-4 rounded-xl transition-colors duration-300 hover:border-gold/30 cursor-default" style={{ backgroundColor: 'rgba(255, 215, 0, 0.04)', border: '1px solid rgba(255, 215, 0, 0.1)' }}>
-                      <p className="font-display font-black text-gold text-2xl m-0 leading-none">{stat.value}</p>
-                      <p className="text-white/40 text-[10px] uppercase tracking-wider mt-1.5 m-0">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-white/70 text-base leading-relaxed m-0 mb-5">
+                  El pueblo adoptó el juego con tanta pasión que se convirtió en una de las sedes fundacionales de la gran tradición de la malla alta en la isla, viendo nacer a destacados atletas, entrenadores, árbitros y directivos federativos del voleibol.
+                </p>
               </ScrollReveal>
-
+              <ScrollReveal delay={0.15}>
+                <p className="text-white/65 text-base leading-relaxed m-0">
+                  En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años — un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
+                </p>
+              </ScrollReveal>
             </div>
           </div>
         </div>
