@@ -85,7 +85,7 @@ const Calendario = () => {
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-6">
                 <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 tracking-tight">
-                  {group.month}
+                  {group.month === 'TBD' ? 'Por confirmar' : group.month}
                 </h2>
                 <div className="flex-1 h-px bg-white/10" />
                 <span className="text-white/30 text-xs font-semibold uppercase tracking-wider">
@@ -97,7 +97,7 @@ const Calendario = () => {
             <div className="flex flex-col gap-3">
               {group.games.map((game, i) => {
                 const oppKey = getOppKey(game.opponent);
-                const isTBD = !game.date.includes(' ');
+                const isTBD = game.date === 'TBD';
                 const day = isTBD ? '' : game.date.split(' ')[1];
                 const weekday = isTBD ? '' : getDayOfWeek(group.month, parseInt(day));
                 return (
@@ -112,15 +112,20 @@ const Calendario = () => {
                       {/* Mobile layout */}
                       <div className="lg:hidden p-5">
                         <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2 text-gold">
-                            <span className="font-display font-bold text-base leading-none">
-                              {isTBD ? 'Próximamente' : `${weekday}, ${day} de ${group.month}`}
-                            </span>
-                            {game.time && (
-                              <>
-                                <span className="opacity-40">·</span>
-                                <span className="text-sm font-semibold">{game.time}</span>
-                              </>
+                          <div className="flex items-center gap-2">
+                            {isTBD ? (
+                              <span
+                                className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full inline-flex items-center gap-1.5"
+                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.45)' }}
+                              >
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Fecha por anunciar
+                              </span>
+                            ) : (
+                              <span className="font-display font-bold text-base leading-none text-gold">
+                                {weekday}, {day} de {group.month}
+                                {game.time && <><span className="opacity-40"> · </span><span className="text-sm font-semibold">{game.time}</span></>}
+                              </span>
                             )}
                           </div>
                           <span
@@ -154,9 +159,19 @@ const Calendario = () => {
                       <div className="hidden lg:flex items-center px-6 py-5 gap-6">
                         {/* Date - full name */}
                         <div className="w-64 flex-shrink-0 text-gold">
-                          <p className="font-display font-black text-lg leading-tight m-0">
-                            {isTBD ? 'Próximamente' : `${weekday}, ${day} de ${group.month}`}
-                          </p>
+                          {isTBD ? (
+                            <span
+                              className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full inline-flex items-center gap-1.5"
+                              style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.45)' }}
+                            >
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                              Fecha por anunciar
+                            </span>
+                          ) : (
+                            <p className="font-display font-black text-lg leading-tight m-0">
+                              {weekday}, {day} de {group.month}
+                            </p>
+                          )}
                         </div>
 
                         <div className="w-px h-14 bg-white/10 flex-shrink-0" />

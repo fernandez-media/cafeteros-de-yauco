@@ -27,7 +27,7 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
     const el = scrollContainerRef.current;
     if (!el) return;
     let raf: number;
-    const speed = 0.5;
+    const speed = 0.7;
     const tick = () => {
       if (!pausedRef.current && el) {
         el.scrollLeft += speed;
@@ -55,8 +55,8 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(to left, #000000, transparent)' }} />
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 pb-4 overflow-x-auto scrollbar-hide"
-        style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+        className="flex gap-4 pb-4 overflow-x-auto scrollbar-hidden"
+        style={{ WebkitOverflowScrolling: 'touch' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -134,10 +134,10 @@ const Index = () => {
 
   // ===== PARTIDOS: modal state =====
   const partidosDestacados = [
-    { id: 'juego-5', numero: 'Juego 5', serie: 'Serie Final', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: true },
-    { id: 'juego-4', numero: 'Juego 4', serie: 'Serie Final', resultado: '3-1', fecha: '20 de enero, 2026', youtubeId: 'DmSWs9uJIH8', esCampeonato: false },
-    { id: 'juego-3', numero: 'Juego 3', serie: 'Serie Final', resultado: '3-1', fecha: '18 de enero, 2026', youtubeId: 'UDEYHpwK2LE', esCampeonato: false },
-    { id: 'juego-2', numero: 'Juego 2', serie: 'Serie Final', resultado: '3-0', fecha: '16 de enero, 2026', youtubeId: 'UxgrXXt3q9g', esCampeonato: false },
+    { id: 'juego-5', numero: 'Juego 5', serie: 'Serie 4-1', resultado: '2-3', fecha: '22 de enero, 2026', youtubeId: 'RxmvKjlE6uk', esCampeonato: true },
+    { id: 'juego-4', numero: 'Juego 4', serie: 'Serie 3-1', resultado: '3-1', fecha: '20 de enero, 2026', youtubeId: 'DmSWs9uJIH8', esCampeonato: false },
+    { id: 'juego-3', numero: 'Juego 3', serie: 'Serie 2-1', resultado: '3-1', fecha: '18 de enero, 2026', youtubeId: 'UDEYHpwK2LE', esCampeonato: false },
+    { id: 'juego-2', numero: 'Juego 2', serie: 'Serie 2-0', resultado: '3-0', fecha: '16 de enero, 2026', youtubeId: 'UxgrXXt3q9g', esCampeonato: false },
   ];
   const [videoModalId, setVideoModalId] = useState<string | null>(null);
   const openVideoModal = (youtubeId: string) => {
@@ -443,9 +443,19 @@ const Index = () => {
                 }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white/50 text-sm font-semibold uppercase tracking-wide">
-                    {game.date}{game.time ? ` · ${game.time}` : ''}
-                  </span>
+                  {game.date === 'TBD' ? (
+                    <span
+                      className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full inline-flex items-center gap-1.5"
+                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.45)' }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      Fecha por anunciar
+                    </span>
+                  ) : (
+                    <span className="text-white/50 text-sm font-semibold uppercase tracking-wide">
+                      {game.date}{game.time ? ` · ${game.time}` : ''}
+                    </span>
+                  )}
                   <span
                     className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap"
                     style={{
@@ -559,9 +569,19 @@ const Index = () => {
                       borderTop: game.isHome ? '1px solid rgba(255,215,0,0.1)' : '1px solid rgba(255,255,255,0.06)',
                     }}
                   >
-                    <p className="font-display font-black text-white text-xl leading-tight m-0">
-                      {game.date} · {game.time}
-                    </p>
+                    {game.date === 'TBD' ? (
+                      <span
+                        className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 w-fit"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'rgba(255, 255, 255, 0.45)' }}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Fecha por anunciar
+                      </span>
+                    ) : (
+                      <p className="font-display font-black text-white text-xl leading-tight m-0">
+                        {game.date} · {game.time}
+                      </p>
+                    )}
                     <p className="text-white/50 text-[15px] mt-2 m-0">
                       LVSM · Juego {i + 1} · {game.isHome ? 'Local' : 'Visitante'}
                     </p>
@@ -1272,7 +1292,7 @@ const Index = () => {
                 </h2>
                 <ScrollReveal delay={0.05}>
                   <p className="text-white/75 text-base leading-relaxed m-0 mb-4">
-                    El voleibol llegó a Puerto Rico de la mano de los estadounidenses, y Yauco se destacó desde la década de 1920 como uno de los primeros núcleos de aficionados y equipos locales en abrazar este deporte.
+                    Desde la década de 1920, Yauco se destacó como uno de los primeros núcleos de aficionados y equipos locales en abrazar el voleibol en Puerto Rico.
                   </p>
                 </ScrollReveal>
                 <ScrollReveal delay={0.1}>
@@ -1282,7 +1302,7 @@ const Index = () => {
                 </ScrollReveal>
                 <ScrollReveal delay={0.15}>
                   <p className="text-white/75 text-base leading-relaxed m-0">
-                    En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años — un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
+                    En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años, un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
                   </p>
                 </ScrollReveal>
               </div>
@@ -1318,7 +1338,7 @@ const Index = () => {
               </ScrollReveal>
               <ScrollReveal delay={0.05}>
                 <p className="text-white/80 text-lg leading-relaxed m-0 mb-5">
-                  El voleibol llegó a Puerto Rico de la mano de los estadounidenses, y Yauco se destacó desde la década de 1920 como uno de los primeros núcleos de aficionados y equipos locales en abrazar este deporte.
+                  Desde la década de 1920, Yauco se destacó como uno de los primeros núcleos de aficionados y equipos locales en abrazar el voleibol en Puerto Rico.
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
@@ -1328,7 +1348,7 @@ const Index = () => {
               </ScrollReveal>
               <ScrollReveal delay={0.15}>
                 <p className="text-white/65 text-base leading-relaxed m-0">
-                  En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años — un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
+                  En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años, un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
                 </p>
               </ScrollReveal>
             </div>

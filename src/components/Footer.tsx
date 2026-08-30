@@ -8,7 +8,7 @@ const Footer = () => {
         background: '#000000',
       }}
     >
-      <div className="pt-10 pb-20 lg:pb-8 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
+      <div className="pt-6 pb-6 lg:pt-10 lg:pb-8 flex flex-col items-center px-4 sm:px-6 lg:max-w-[1200px] lg:mx-auto">
         {/* Logo */}
         <ResponsiveImage
           name="cafeteros-logo"
