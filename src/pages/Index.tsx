@@ -868,10 +868,12 @@ const Index = () => {
                   type="button"
                   onClick={() => openVideoModal(partido.youtubeId)}
                   disabled={isPlaceholder}
-                  className="group relative w-full flex items-center gap-3 rounded-2xl overflow-hidden text-left disabled:cursor-not-allowed transition-all duration-300 p-2.5"
+                  className={`group relative w-full flex items-center gap-3 rounded-2xl overflow-hidden text-left disabled:cursor-not-allowed transition-all duration-300 p-2.5${partido.esCampeonato ? ' partido-campeonato' : ''}`}
                   style={{
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
-                    border: '1px solid rgba(255,255,255,0.08)',
+                    background: partido.esCampeonato
+                      ? 'linear-gradient(180deg, rgba(255,215,0,0.08) 0%, rgba(255,215,0,0.02) 100%)'
+                      : 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    border: partido.esCampeonato ? '1px solid rgba(255,215,0,0.3)' : '1px solid rgba(255,255,255,0.08)',
                     boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
                   }}
                 >

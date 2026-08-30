@@ -255,6 +255,18 @@ iframe:focus-visible,
   padding-right: var(--gap, 1.5rem);
 }
 
+/* ========== CAMPEONATO PULSE ========== */
+@keyframes campeonatoPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 215, 0, 0.15), inset 0 0 0 1px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.35), inset 0 0 0 1px rgba(255, 215, 0, 0.5); }
+}
+.partido-campeonato {
+  animation: campeonatoPulse 3s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .partido-campeonato { animation: none; }
+}
+
 /* ========== COMING SOON OVERLAY ========== */
 @keyframes overlayFadeIn {
   from { opacity: 0; transform: scale(0.92); }
