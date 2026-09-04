@@ -28,7 +28,7 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
     const el = scrollContainerRef.current;
     if (!el) return;
     let raf: number;
-    const speed = 0.7;
+    const speed = 1;
     const tick = () => {
       if (!pausedRef.current && el) {
         el.scrollLeft += speed;
@@ -646,9 +646,9 @@ const Index = () => {
 
       {/* ===== ANUNCIOS ===== */}
       {announcements.length > 0 && (
-        <section className="px-5 py-10">
+        <section className="py-10">
           <ScrollReveal>
-            <div className="flex items-baseline justify-between mb-5">
+            <div className="flex items-baseline justify-between mb-5 px-5">
               <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                 Anuncios
               </h2>
@@ -656,37 +656,42 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.05}>
-            {(() => {
-              const item = announcements[0];
-              const inner = (
-                <div className="rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
-                  <div className="relative w-full aspect-[4/4.6] lg:aspect-[16/9] overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover object-top"
-                      loading="lazy"
-                    />
+            <div className="flex gap-4 overflow-x-auto scrollbar-hidden px-5 snap-x snap-mandatory pb-2">
+              {announcements.map((item) => {
+                const inner = (
+                  <div className="flex-shrink-0 w-[85vw] max-w-[400px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
+                    <div className="relative w-full aspect-[3/4] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover object-top"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-4 lg:p-6">
+                      <p className="text-gold/60 text-[10px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-1">
+                        {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </p>
+                      <h3 className="font-display font-bold text-lg lg:text-2xl uppercase text-white m-0 mb-2 leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-white/60 text-sm lg:text-base m-0 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                  <div className="p-4 lg:p-6">
-                    <p className="text-gold/60 text-[10px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-1">
-                      {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </p>
-                    <h3 className="font-display font-bold text-lg lg:text-2xl uppercase text-white m-0 mb-2 leading-tight">
-                      {item.title}
-                    </h3>
-                    <p className="text-white/60 text-sm lg:text-base m-0 leading-relaxed">
-                      {item.description}
-                    </p>
+                );
+                return item.link ? (
+                  <a key={item.id} href={item.link} target="_blank" rel="noopener noreferrer" className="block no-underline flex-shrink-0">
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={item.id} className="flex-shrink-0">
+                    {inner}
                   </div>
-                </div>
-              );
-              return item.link ? (
-                <a href={item.link} target="_blank" rel="noopener noreferrer" className="block no-underline">
-                  {inner}
-                </a>
-              ) : inner;
-            })()}
+                );
+              })}
+            </div>
           </ScrollReveal>
         </section>
       )}

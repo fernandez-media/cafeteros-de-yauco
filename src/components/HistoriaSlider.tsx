@@ -40,7 +40,7 @@ const HistoriaSlider = () => {
       return;
     }
 
-    container.scrollLeft += 0.7;
+    container.scrollLeft += 1;
 
     if (container.scrollLeft >= SET_WIDTH * 2) {
       container.scrollLeft -= SET_WIDTH;
