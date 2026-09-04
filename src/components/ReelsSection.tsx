@@ -52,11 +52,11 @@ const FbIcon = ({ size = 14 }: { size?: number }) => (
   </svg>
 );
 
-function ReelCard({ reel }: { reel: ReelItem }) {
+function ReelCard({ reel, index, activeIndex, onActivate }: { reel: ReelItem; index: number; activeIndex: number | null; onActivate: (i: number) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [glowActive, setGlowActive] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const glowActive = activeIndex === index;
 
   useEffect(() => {
     const el = cardRef.current;
@@ -83,7 +83,7 @@ function ReelCard({ reel }: { reel: ReelItem }) {
 
   const handleClick = () => {
     if (!glowActive) {
-      setGlowActive(true);
+      onActivate(index);
     } else {
       window.open(reel.instagramUrl, '_blank', 'noopener,noreferrer');
     }
@@ -134,6 +134,8 @@ function ReelCard({ reel }: { reel: ReelItem }) {
 }
 
 const ReelsSection = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
     <section className="py-10 lg:py-16">
       <div className="text-center mb-6 lg:mb-10 px-5">
@@ -147,7 +149,7 @@ const ReelsSection = () => {
 
       <div className="grid grid-cols-2 gap-3 px-5 lg:grid-cols-4 lg:gap-6 lg:max-w-[1400px] lg:mx-auto lg:px-10">
         {reels.map((reel, i) => (
-          <ReelCard key={i} reel={reel} />
+          <ReelCard key={i} reel={reel} index={i} activeIndex={activeIndex} onActivate={setActiveIndex} />
         ))}
       </div>
 

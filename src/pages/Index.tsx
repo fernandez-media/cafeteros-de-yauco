@@ -6,6 +6,7 @@ import ImageSlider from '../components/ImageSlider';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ComingSoonCard from '../components/ComingSoonCard';
 import ReelsSection from '../components/ReelsSection';
+import HistoriaSlider from '../components/HistoriaSlider';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
@@ -848,6 +849,9 @@ const Index = () => {
           ))}
         </div>
       </section>
+
+      {/* ===== HISTORIA SLIDER ===== */}
+      <HistoriaSlider />
 
       {/* ===== PARTIDOS PREVIEW ===== */}
       <section className="w-full px-5 lg:px-8 py-10 lg:py-16 lg:!max-w-none lg:!mx-0">
