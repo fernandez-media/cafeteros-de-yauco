@@ -659,7 +659,7 @@ const Index = () => {
             <div className="flex gap-4 overflow-x-auto scrollbar-hidden px-5 snap-x snap-mandatory pb-2">
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[85vw] max-w-[400px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
+                  <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
                     <div className="relative w-full aspect-[3/4] overflow-hidden">
                       <img
                         src={item.image}
@@ -668,14 +668,14 @@ const Index = () => {
                         loading="lazy"
                       />
                     </div>
-                    <div className="p-4 lg:p-6">
-                      <p className="text-gold/60 text-[10px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-1">
+                    <div className="p-3 lg:p-6">
+                      <p className="text-gold/60 text-[9px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-0.5">
                         {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </p>
-                      <h3 className="font-display font-bold text-lg lg:text-2xl uppercase text-white m-0 mb-2 leading-tight">
+                      <h3 className="font-display font-bold text-sm lg:text-2xl uppercase text-white m-0 mb-1 leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-white/60 text-sm lg:text-base m-0 leading-relaxed">
+                      <p className="text-white/60 text-xs lg:text-base m-0 leading-relaxed line-clamp-2">
                         {item.description}
                       </p>
                     </div>
