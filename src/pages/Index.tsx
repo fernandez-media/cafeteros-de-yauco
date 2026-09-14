@@ -17,6 +17,16 @@ const heroFirstFrameUrl = `${import.meta.env.BASE_URL}media/hero-first-frame.web
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
 
+const MONTH_NUM: Record<string, number> = {
+  Enero: 0, Febrero: 1, Marzo: 2, Abril: 3, Mayo: 4, Junio: 5,
+  Julio: 6, Agosto: 7, Septiembre: 8, Octubre: 9, Noviembre: 10, Diciembre: 11,
+};
+const DAYS_SHORT = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const getGameDay = (dateStr: string) => {
+  const [month, day] = dateStr.split(' ');
+  return DAYS_SHORT[new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day)).getDay()];
+};
+
 
 const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
   const doubled = [...players, ...players];
@@ -453,8 +463,8 @@ const Index = () => {
                       Por anunciar
                     </span>
                   ) : (
-                    <span className="text-white/50 text-sm font-semibold uppercase tracking-wide">
-                      {game.date}{game.time ? ` · ${game.time}` : ''}
+                    <span className="text-white/50 text-[11px] font-semibold uppercase tracking-wide whitespace-nowrap">
+                      {getGameDay(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                     </span>
                   )}
                   <span
@@ -580,7 +590,7 @@ const Index = () => {
                       </span>
                     ) : (
                       <p className="font-display font-black text-white text-xl leading-tight m-0">
-                        {game.date} · {game.time}
+                        {getGameDay(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                       </p>
                     )}
                     <p className="text-white/50 text-[15px] mt-2 m-0">
