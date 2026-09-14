@@ -122,7 +122,7 @@ const Calendario = () => {
                                 Fecha por anunciar
                               </span>
                             ) : (
-                              <span className="font-display font-bold text-lg leading-none text-gold">
+                              <span className="font-display font-bold text-lg leading-none text-white">
                                 {weekday}, {day} de {group.month}
                                 {game.time && <><span className="opacity-40"> · </span><span className="text-base font-semibold">{game.time}</span></>}
                               </span>
