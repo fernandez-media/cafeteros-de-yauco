@@ -7,7 +7,7 @@ export interface Game {
 }
 
 export const calendar: Game[] = [
-  { date: 'Octubre 22', time: '', opponent: 'Patriotas de Lares', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
+  { date: 'Octubre 23', time: '', opponent: 'Patriotas de Lares', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
   { date: 'Octubre 25', time: '', opponent: 'Plataneros de Corozal', location: 'Carmen Zoraida Figueroa, Corozal', isHome: false },
   { date: 'Octubre 30', time: '', opponent: 'Changos de Naranjito', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
   { date: 'Noviembre 1', time: '', opponent: 'Gigantes de Adjuntas', location: 'Coliseo Rafael Llull Pérez, Adjuntas', isHome: false },
