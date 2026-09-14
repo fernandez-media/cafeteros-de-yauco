@@ -51,14 +51,14 @@ const Calendario = () => {
       {/* Hero */}
       <div className="relative w-full h-[280px] lg:h-[520px] overflow-hidden">
         <ResponsiveImage
-          name="dsc04629"
-          alt="Cafeteros de Yauco"
-          width={1920}
-          height={800}
+          name="lacuna-fans"
+          alt="Fanáticos de los Cafeteros de Yauco"
+          width={1440}
+          height={1920}
           sizes="100vw"
           pictureClassName="absolute inset-0 w-full h-full"
           className="w-full h-full object-cover"
-          style={{ objectPosition: 'center 30%' }}
+          style={{ objectPosition: 'center 35%' }}
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 80%, #000 100%)' }} />
         <div className="absolute bottom-0 left-0 w-full px-5 lg:px-12 pb-8 lg:pb-14">
@@ -122,9 +122,9 @@ const Calendario = () => {
                                 Fecha por anunciar
                               </span>
                             ) : (
-                              <span className="font-display font-bold text-base leading-none text-gold">
+                              <span className="font-display font-bold text-lg leading-none text-gold">
                                 {weekday}, {day} de {group.month}
-                                {game.time && <><span className="opacity-40"> · </span><span className="text-sm font-semibold">{game.time}</span></>}
+                                {game.time && <><span className="opacity-40"> · </span><span className="text-base font-semibold">{game.time}</span></>}
                               </span>
                             )}
                           </div>

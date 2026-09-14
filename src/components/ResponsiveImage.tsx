@@ -9,6 +9,7 @@ export const IMAGE_VARIANTS = {
   hero: { widths: [640, 1280, 1920], ratio: 16 / 9 },
   dsc01912: { widths: [640, 1280, 1920], ratio: 1 },
   dsc04629: { widths: [640, 1280, 1920], ratio: 1 },
+  'lacuna-fans': { widths: [640, 1280, 1920], ratio: 3 / 4 },
   dsc04710: { widths: [640, 1280, 1920], ratio: 1 },
   dsc04989: { widths: [640, 1280, 1920], ratio: 1 },
   'cafeteros-logo': { widths: [96, 192, 384], ratio: 1 },

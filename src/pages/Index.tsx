@@ -22,9 +22,14 @@ const MONTH_NUM: Record<string, number> = {
   Julio: 6, Agosto: 7, Septiembre: 8, Octubre: 9, Noviembre: 10, Diciembre: 11,
 };
 const DAYS_SHORT = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const DAYS_FULL = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 const getGameDay = (dateStr: string) => {
   const [month, day] = dateStr.split(' ');
   return DAYS_SHORT[new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day)).getDay()];
+};
+const getGameDayFull = (dateStr: string) => {
+  const [month, day] = dateStr.split(' ');
+  return DAYS_FULL[new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day)).getDay()];
 };
 
 
@@ -463,8 +468,8 @@ const Index = () => {
                       Por anunciar
                     </span>
                   ) : (
-                    <span className="text-white/50 text-[11px] font-semibold uppercase tracking-wide whitespace-nowrap">
-                      {getGameDay(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
+                    <span className="text-white/70 text-[13px] font-bold uppercase tracking-wide whitespace-nowrap">
+                      {getGameDayFull(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                     </span>
                   )}
                   <span
@@ -589,8 +594,8 @@ const Index = () => {
                         Fecha por anunciar
                       </span>
                     ) : (
-                      <p className="font-display font-black text-white text-xl leading-tight m-0">
-                        {getGameDay(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
+                      <p className="font-display font-black text-white text-2xl leading-tight m-0">
+                        {getGameDayFull(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                       </p>
                     )}
                     <p className="text-white/50 text-[15px] mt-2 m-0">
@@ -666,10 +671,10 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.05}>
-            <div className="flex gap-4 overflow-x-auto scrollbar-hidden px-5 snap-x snap-mandatory pb-2">
+            <div className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
+                  <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-colors duration-200 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
                     <div className="relative w-full aspect-[3/4] overflow-hidden">
                       <img
                         src={item.image}
