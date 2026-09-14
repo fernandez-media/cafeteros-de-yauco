@@ -468,7 +468,7 @@ const Index = () => {
                       Por anunciar
                     </span>
                   ) : (
-                    <span className="text-white/70 text-[13px] font-bold uppercase tracking-wide whitespace-nowrap">
+                    <span className="text-white/70 text-[11px] font-bold uppercase tracking-wide whitespace-nowrap">
                       {getGameDayFull(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                     </span>
                   )}
@@ -594,7 +594,7 @@ const Index = () => {
                         Fecha por anunciar
                       </span>
                     ) : (
-                      <p className="font-display font-black text-white text-2xl leading-tight m-0">
+                      <p className="font-display font-black text-white text-lg leading-tight m-0">
                         {getGameDayFull(game.date)}, {game.date}{game.time ? ` · ${game.time}` : ''}
                       </p>
                     )}
