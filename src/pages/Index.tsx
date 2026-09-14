@@ -21,12 +21,7 @@ const MONTH_NUM: Record<string, number> = {
   Enero: 0, Febrero: 1, Marzo: 2, Abril: 3, Mayo: 4, Junio: 5,
   Julio: 6, Agosto: 7, Septiembre: 8, Octubre: 9, Noviembre: 10, Diciembre: 11,
 };
-const DAYS_SHORT = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const DAYS_FULL = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-const getGameDay = (dateStr: string) => {
-  const [month, day] = dateStr.split(' ');
-  return DAYS_SHORT[new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day)).getDay()];
-};
 const getGameDayFull = (dateStr: string) => {
   const [month, day] = dateStr.split(' ');
   return DAYS_FULL[new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day)).getDay()];
