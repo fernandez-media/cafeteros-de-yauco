@@ -666,7 +666,7 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.05}>
-            <div className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+            <div className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1" style={{ paddingLeft: '20px', paddingRight: '20px', scrollPadding: '0 20px' }}>
               {announcements.map((item) => {
                 const inner = (
                   <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-colors duration-200 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
