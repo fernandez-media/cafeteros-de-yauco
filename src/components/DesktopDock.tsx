@@ -27,7 +27,7 @@ const DesktopDock = () => {
       style={{
         top: scrolled ? 18 : 28,
         padding: scrolled ? '10px 16px' : '12px 20px',
-        background: scrolled ? 'rgba(10,10,10,0.9)' : 'rgba(17,17,17,0.6)',
+        background: scrolled ? 'rgba(10,10,10,0.72)' : 'rgba(17,17,17,0.35)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         border: '1px solid rgba(255, 215, 0, 0.25)',

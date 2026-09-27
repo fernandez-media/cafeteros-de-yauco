@@ -410,16 +410,10 @@ const Index = () => {
       <section className="py-10 lg:py-12 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
         {/* MOBILE header */}
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5 px-5 lg:hidden">
+          <div className="flex flex-col items-center mb-2 px-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Calendario
             </h2>
-            <Link
-              to="/calendario"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Ver todo
-            </Link>
           </div>
         </ScrollReveal>
 
@@ -441,7 +435,7 @@ const Index = () => {
         </ScrollReveal>
 
         {/* MOBILE: horizontal scroll (unchanged) */}
-        <div ref={scrollRef} className="lg:hidden flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-8 px-5 items-stretch">
+        <div ref={scrollRef} className="lg:hidden flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hidden py-3 px-5 items-stretch">
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
@@ -525,6 +519,15 @@ const Index = () => {
             );
           })}
         </div>
+
+        <ScrollReveal>
+          <Link
+            to="/calendario"
+            className="lg:hidden roster-glass-btn block mt-2 mx-5 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
+          >
+            Ver todo el Calendario
+          </Link>
+        </ScrollReveal>
 
         {/* DESKTOP: Glassmorphism game cards + "Próximos Partidos" image card */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
@@ -660,7 +663,7 @@ const Index = () => {
       {announcements.length > 0 && (
         <section className="py-10">
           <ScrollReveal>
-            <div className="flex items-baseline justify-between mb-5 px-5">
+            <div className="flex flex-col items-center lg:items-start mb-5 px-5">
               <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                 Anuncios
               </h2>
@@ -818,13 +821,13 @@ const Index = () => {
       {/* ===== MERCH PREVIEW ===== */}
       <section className="px-5 py-10">
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-between mb-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               TIENDA OFICIAL
             </h2>
             <Link
               to="/merch"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
+              className="hidden lg:block text-gold text-sm font-semibold no-underline hover:underline"
             >
               Ver todo
             </Link>
@@ -848,6 +851,15 @@ const Index = () => {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal>
+          <Link
+            to="/merch"
+            className="lg:hidden roster-glass-btn block mt-4 mx-0 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
+          >
+            Ver toda la Tienda
+          </Link>
+        </ScrollReveal>
 
         {/* DESKTOP: Barça-style — 3 big product tiles with SHOP NOW */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-5">
@@ -1181,16 +1193,10 @@ const Index = () => {
       <section className="px-5 lg:px-8 py-10 lg:py-20 lg:!max-w-none lg:!mx-0">
         {/* Section header */}
         <ScrollReveal>
-          <div className="flex items-center justify-between mb-5 lg:hidden">
+          <div className="flex flex-col items-center mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Noticias
             </h2>
-            <Link
-              to="/noticias"
-              className="text-gold text-sm font-semibold no-underline hover:underline"
-            >
-              Ver todo
-            </Link>
           </div>
           <div className="hidden lg:block text-center mb-12">
             <h2 className="font-display font-black uppercase text-white m-0" style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}>
@@ -1252,6 +1258,15 @@ const Index = () => {
             ))}
           </div>
         </div>
+
+        <ScrollReveal>
+          <Link
+            to="/noticias"
+            className="lg:hidden roster-glass-btn block mt-4 mx-0 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
+          >
+            Ver todas las Noticias
+          </Link>
+        </ScrollReveal>
 
         {/* DESKTOP: 4-col grid */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-6">
