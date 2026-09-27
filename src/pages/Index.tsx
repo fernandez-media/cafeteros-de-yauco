@@ -672,11 +672,11 @@ const Index = () => {
               {announcements.map((item) => {
                 const inner = (
                   <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-colors duration-200 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
-                    <div className="relative w-full aspect-[3/4] overflow-hidden">
+                    <div className="relative w-full aspect-[7/8] overflow-hidden bg-black">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover object-top"
+                        className="w-full h-full object-cover object-center"
                         loading="lazy"
                       />
                     </div>
