@@ -40,7 +40,7 @@ const Boleteria = () => {
             <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               <span className="text-gold">Boletería</span>
             </h1>
-            <p className="text-white/50 text-base lg:text-lg mt-3 m-0 uppercase tracking-widest">
+            <p className="text-white/50 text-xs lg:text-sm mt-2 m-0 uppercase tracking-widest">
               Asegura tu asiento en La Cuna del Voleibol
             </p>
           </div>
