@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-09-27T18:13:25.182Z",
+        "reason": "Pre-existing project font choice, part of established design system"
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-l-4 border-[#F5CE3E]",
+        "createdAt": "2026-09-27T20:00:00.000Z",
+        "reason": "User explicitly provided this editorial header design with gold left border accent"
+      }
+    ]
+  }
+}

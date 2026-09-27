@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImage from '../components/ResponsiveImage';
-
-const BASE = import.meta.env.BASE_URL;
+import BoleteriaCredencial from '../components/BoleteriaCredencial';
 
 const Boleteria = () => {
   return (
@@ -38,71 +37,20 @@ const Boleteria = () => {
             </svg>
           </Link>
           <div className="max-w-[1200px] mx-auto text-center">
-            <h1 className="font-display font-black text-4xl lg:text-7xl uppercase text-white leading-[0.95] m-0 tracking-tight">
+            <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               <span className="text-gold">Boletería</span>
             </h1>
-            <p className="text-white/50 text-sm lg:text-base mt-2 m-0 uppercase tracking-widest">
-              Asegura tu asiento en La Cuna
+            <p className="text-white/50 text-base lg:text-lg mt-3 m-0 uppercase tracking-widest">
+              Asegura tu asiento en La Cuna del Voleibol
             </p>
           </div>
         </div>
       </div>
 
-      {/* Abonados — Main Section */}
-      <div className="px-5 lg:px-12 pb-6 pt-4 lg:pt-8 max-w-[960px] mx-auto">
+      {/* Credencial de Temporada */}
+      <div className="px-5 lg:px-12 pb-4 lg:pb-16 pt-4 lg:pt-6">
         <ScrollReveal>
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              backgroundColor: '#111',
-              border: '1px solid rgba(255, 215, 0, 0.1)',
-            }}
-          >
-            <div className="p-5 lg:p-8">
-              {/* Title */}
-              <h2 className="font-display font-black uppercase text-white text-center m-0 mb-1 leading-tight" style={{ fontSize: 'clamp(14px, 4.2vw, 24px)' }}>
-                ¡No te pierdas ni un solo juego de los <span className="text-gold">Cafeteros</span>!
-              </h2>
-              <p className="text-white/60 text-xs text-center m-0 mb-5 leading-relaxed">
-                Ya están disponibles los abonos para la temporada regular 2026.<br />
-                Hay espacios limitados. Consigue los tuyos antes que se acaben.
-              </p>
-
-              <div className="max-w-[200px] mx-auto">
-                {/* CTA */}
-                <a
-                  href="https://cafeterosdeyaucovollyball.printcotickets.com/events/178163"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center py-2.5 mb-3 bg-gold text-black font-display font-bold text-xs uppercase tracking-wider rounded-lg no-underline animate-pulse-cta"
-                >
-                  Comprar Boletos
-                </a>
-
-                {/* Promo Image */}
-                <div className="rounded-xl overflow-hidden">
-                  <img src={`${BASE}media/boleteria/abonos-disponibles.webp`}
-                    alt="Abonos Disponibles — Temporada 2026" width={1080} height={1440}
-                    loading="lazy" decoding="async"
-                    className="w-full h-auto" />
-                </div>
-              </div>
-
-              <style>{`
-                @keyframes pulse-cta {
-                  0%, 100% { transform: scale(1); }
-                  50% { transform: scale(1.04); }
-                }
-                .animate-pulse-cta {
-                  animation: pulse-cta 2s ease-in-out infinite;
-                }
-                .animate-pulse-cta:active {
-                  animation: none;
-                  transform: scale(0.97);
-                }
-              `}</style>
-            </div>
-          </div>
+          <BoleteriaCredencial ctaHref="https://cafeterosdeyaucovollyball.printcotickets.com/events/178163" />
         </ScrollReveal>
       </div>
 
