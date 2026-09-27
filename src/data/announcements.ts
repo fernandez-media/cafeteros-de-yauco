@@ -9,6 +9,14 @@ export interface Announcement {
 
 export const announcements: Announcement[] = [
   {
+    id: 'abonos-disponibles-2026',
+    title: 'Abonos Ya Disponibles',
+    description: 'Ya están a la venta los abonos para la temporada regular 2026. Asegura tu asiento en La Cuna del Voleibol para todos los juegos en casa.',
+    image: '/media/announcements/abonos-disponibles-2026.jpg',
+    link: '/boleteria',
+    date: '2026-09-27T12:00:00',
+  },
+  {
     id: 'axel-melendez-2026',
     title: 'Axel Meléndez Firma con Cafeteros',
     description: '¡El yaucano vuelve a casa! Axel Meléndez firma nuevamente con los Cafeteros luego de coronarse Novato del Año en la pasada temporada y de tener un gran verano con la Selección Nacional.',
