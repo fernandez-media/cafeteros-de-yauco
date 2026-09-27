@@ -60,7 +60,7 @@ const Boleteria = () => {
           >
             <div className="p-5 lg:p-8">
               {/* Title */}
-              <h2 className="font-display font-black uppercase text-white text-center m-0 mb-1 leading-tight whitespace-nowrap" style={{ fontSize: 'clamp(14px, 4.2vw, 24px)' }}>
+              <h2 className="font-display font-black uppercase text-white text-center m-0 mb-1 leading-tight" style={{ fontSize: 'clamp(14px, 4.2vw, 24px)' }}>
                 ¡No te pierdas ni un solo juego de los <span className="text-gold">Cafeteros</span>!
               </h2>
               <p className="text-white/60 text-xs text-center m-0 mb-5 leading-relaxed">
@@ -68,7 +68,7 @@ const Boleteria = () => {
                 Hay espacios limitados. Consigue los tuyos antes que se acaben.
               </p>
 
-              <div className="max-w-[280px] mx-auto">
+              <div className="max-w-[200px] mx-auto">
                 {/* CTA */}
                 <a
                   href="https://cafeterosdeyaucovollyball.printcotickets.com/events/178163"
