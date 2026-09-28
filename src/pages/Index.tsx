@@ -671,26 +671,26 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.05}>
-            <div className="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1" style={{ paddingLeft: '20px', paddingRight: '20px', scrollPadding: '0 20px' }}>
+            <div className="flex gap-5 lg:gap-6 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1" style={{ paddingLeft: '20px', paddingRight: '20px', scrollPadding: '0 20px' }}>
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[420px] snap-start rounded-2xl overflow-hidden bg-[#1a1a1a] border border-gold/10 transition-colors duration-200 hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)]">
-                    <div className="relative w-full aspect-[7/8] overflow-hidden bg-black">
+                  <div className="flex-shrink-0 w-[75vw] max-w-[340px] lg:w-[38vw] lg:max-w-[560px] snap-start rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
+                    <div className="relative w-full aspect-[4/5] lg:aspect-[4/5] overflow-hidden bg-black">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover object-center"
+                        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                         loading="lazy"
                       />
                     </div>
-                    <div className="p-3 lg:p-6">
-                      <p className="text-gold/60 text-[9px] lg:text-xs font-display font-bold uppercase tracking-[0.2em] m-0 mb-0.5">
+                    <div className="p-4 lg:p-6">
+                      <p className="text-gold/50 text-[10px] lg:text-[11px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1.5">
                         {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </p>
-                      <h3 className="font-display font-bold text-sm lg:text-2xl uppercase text-white m-0 mb-1 leading-tight">
+                      <h3 className="font-display font-bold text-base lg:text-[22px] uppercase text-white m-0 mb-1.5 leading-[1.1]">
                         {item.title}
                       </h3>
-                      <p className="text-white/60 text-xs lg:text-base m-0 leading-relaxed line-clamp-2">
+                      <p className="text-white/50 text-xs lg:text-[15px] m-0 leading-relaxed line-clamp-2">
                         {item.description}
                       </p>
                     </div>
@@ -756,13 +756,12 @@ const Index = () => {
               <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
                 Asegura tu asiento para los juegos<br />de los Cafeteros de Yauco.
               </p>
-              <button
-                type="button"
-                onClick={() => setTicketsOpen(true)}
-                className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
+              <Link
+                to="/boleteria"
+                className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105 no-underline"
               >
                 Comprar Boletos
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -788,16 +787,15 @@ const Index = () => {
                 de Yauco. Boletos oficiales, acceso prioritario y la mejor
                 experiencia del voleibol superior.
               </p>
-              <button
-                type="button"
-                onClick={() => setTicketsOpen(true)}
-                className="inline-flex items-center gap-3 px-9 py-4 bg-gold text-black font-display font-bold text-base uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)]"
+              <Link
+                to="/boleteria"
+                className="inline-flex items-center gap-3 px-9 py-4 bg-gold text-black font-display font-bold text-base uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)] no-underline"
               >
                 Comprar Boletos
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
-              </button>
+              </Link>
             </div>
 
             {/* Right: image */}
