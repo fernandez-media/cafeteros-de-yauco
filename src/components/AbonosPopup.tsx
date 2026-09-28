@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
-import abonosArt from "@/assets/abonos-ya-disponibles.jpg";
+import abonosArt from "@/assets/abonos-ya-disponibles.png";
 
 const STORAGE_KEY = "cafeteros-abonos-popup-seen";
 
@@ -68,8 +68,8 @@ export default function AbonosPopup() {
           <img
             src={abonosArt}
             alt="Abonos ya disponibles"
-            width={1081}
-            height={1236}
+            width={1080}
+            height={1246}
             className="block h-auto w-full rounded-[10px]"
           />
         </div>

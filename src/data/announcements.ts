@@ -12,7 +12,7 @@ export const announcements: Announcement[] = [
     id: 'abonos-disponibles-2026',
     title: 'Abonos Ya Disponibles',
     description: 'Ya están a la venta los abonos para la temporada regular 2026. Asegura tu asiento en La Cuna del Voleibol para todos los juegos en casa.',
-    image: '/media/announcements/abonos-disponibles-2026.jpg',
+    image: '/media/announcements/abonos-disponibles-2026.png',
     link: '/boleteria',
     date: '2026-09-27T12:00:00',
   },

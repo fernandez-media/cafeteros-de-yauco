@@ -1,5 +1,5 @@
 import { Ticket } from "lucide-react";
-import abonosArt from "@/assets/abonos-ya-disponibles.jpg";
+import abonosArt from "@/assets/abonos-ya-disponibles.png";
 
 type Tier = {
   name: string;
@@ -78,8 +78,8 @@ export default function CredencialPase({
       <img
         src={abonosArt}
         alt="Abonos ya disponibles: los Cafeteros celebran en la cancha de La Cuna"
-        width={1081}
-        height={1236}
+        width={1080}
+        height={1246}
         loading="lazy"
         className="block h-auto w-full rounded-[10px]"
       />
