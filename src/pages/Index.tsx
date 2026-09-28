@@ -130,19 +130,6 @@ const Index = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [ticketsOpen, setTicketsOpen] = useState(false);
-
-
-  useEffect(() => {
-    if (!ticketsOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setTicketsOpen(false); };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [ticketsOpen]);
 
   // ===== PARTIDOS: modal state =====
   const partidosDestacados = [
@@ -1398,61 +1385,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-
-      {/* ===== TICKETS POPUP — Coming Soon ===== */}
-      {ticketsOpen && (
-        <div
-          className="fixed inset-0 z-[1000] flex items-center justify-center p-6"
-          style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(10px)', animation: 'modalFadeIn 0.2s ease' }}
-          onClick={() => setTicketsOpen(false)}
-          onKeyDown={(e) => { if (e.key === 'Escape') setTicketsOpen(false); }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Boletos proximamente"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[560px] rounded-2xl overflow-hidden text-center"
-            style={{
-              background: 'linear-gradient(180deg, #1a1a1a 0%, #111111 100%)',
-              border: '1px solid rgba(255,215,0,0.2)',
-              boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
-              animation: 'modalScaleIn 0.3s ease',
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setTicketsOpen(false)}
-              aria-label="Cerrar"
-              className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors z-10"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-            <div className="px-10 pt-14 pb-12">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
-                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
-              </svg>
-              <h3 className="font-display font-black text-3xl lg:text-4xl uppercase text-white m-0">
-                Proximamente
-              </h3>
-              <p className="text-white/50 text-base mt-4 m-0 leading-relaxed max-w-[400px] mx-auto">
-                Pronto el calendario de la temporada estara disponible y podras separar tus fechas para los juegos de los Cafeteros de Yauco.
-              </p>
-              <button
-                type="button"
-                onClick={() => setTicketsOpen(false)}
-                className="mt-8 inline-flex items-center gap-2 px-9 py-3.5 bg-gold text-black font-display font-bold text-base uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105"
-              >
-                Entendido
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
 
   );
