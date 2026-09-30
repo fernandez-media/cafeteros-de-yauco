@@ -16,7 +16,7 @@ const Merch = () => {
   };
 
   const buildWhatsAppUrl = (name: string, size: string) => {
-    const msg = encodeURIComponent(`Deseo la camisa ${name} en size ${size}`);
+    const msg = encodeURIComponent(`¡Saludos! Deseo la camisa ${name} en size ${size} ☕`);
     return `https://wa.me/${WA_NUMBER}?text=${msg}`;
   };
 
