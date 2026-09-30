@@ -853,20 +853,27 @@ const Index = () => {
           </Link>
         </ScrollReveal>
 
-        {/* DESKTOP: Barça-style — 3 big product tiles with SHOP NOW */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-5">
-          {merch.slice(0, 3).map((item, i) => (
+        {/* DESKTOP: 4-col product tiles */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5">
+          {merch.slice(0, 4).map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <Link to="/merch" className="no-underline block h-full">
                 <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
-                  <div className="relative w-full h-[340px] flex items-center justify-center overflow-hidden" style={{ backgroundColor: item.bgColor }}>
-                    <ResponsiveImage name={item.imageName} alt={item.name} width={600} height={600} sizes="380px" className="max-w-[80%] max-h-[80%] object-contain transition-transform duration-500 group-hover:scale-105" pictureClassName="w-full h-full flex items-center justify-center" />
+                  <div className={`relative w-full h-[280px] flex items-center justify-center overflow-hidden ${
+                    item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'p-0' : item.id === 'tshirt-blanca' ? 'p-6' : 'p-2'
+                  }`} style={{ backgroundColor: item.bgColor }}>
+                    <ResponsiveImage name={item.imageName} alt={item.name} width={600} height={600} sizes="280px" className={
+                      item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
+                        ? 'w-full h-full object-cover scale-[1.35] transition-transform duration-500 group-hover:scale-[1.4]'
+                        : 'max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105'
+                    } pictureClassName={
+                      item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'w-full h-full' : 'w-full h-full flex items-center justify-center'
+                    } />
                   </div>
-                  <div className="px-6 py-5 flex flex-col flex-1 bg-[#f7f7f5]">
-                    <h3 className="font-display font-black text-xl uppercase text-black m-0 tracking-tight">{item.name}</h3>
-                    <p className="text-black/60 text-sm mt-2 m-0 leading-relaxed">Producto oficial de los Cafeteros de Yauco. Edición 2025–26.</p>
-                    <div className="mt-4 pt-4 border-t border-black/10 flex items-center justify-between">
-                      <span className="font-display font-bold text-base text-black">{item.price}</span>
+                  <div className="px-4 py-4 flex flex-col flex-1 bg-[#f7f7f5]">
+                    <h3 className="font-display font-black text-base uppercase text-black m-0 tracking-tight">{item.name}</h3>
+                    <div className="mt-3 pt-3 border-t border-black/10 flex items-center justify-between">
+                      <span className="font-display font-bold text-sm text-black">{item.price}</span>
                       <span className="inline-flex items-center gap-1.5 text-black font-display font-bold text-xs uppercase tracking-wider group-hover:text-gold transition-colors">
                         Comprar
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
