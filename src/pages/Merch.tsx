@@ -63,7 +63,7 @@ const Merch = () => {
                       item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
                         ? 'p-0'
                         : item.id === 'tshirt-blanca'
-                          ? 'p-14 lg:p-8'
+                          ? 'p-6 lg:p-8'
                           : 'p-1 lg:p-2'
                     }`}
                     style={{ backgroundColor: item.bgColor }}
@@ -95,12 +95,12 @@ const Merch = () => {
                     </p>
                     <p className="text-gold font-bold text-sm mt-1 m-0">{item.price}</p>
 
-                    <div className="flex flex-wrap gap-1.5 mt-3">
+                    <div className="flex gap-1 mt-3">
                       {SIZES.map((sz) => (
                         <button
                           key={sz}
                           onClick={() => handleSize(item.id, sz)}
-                          className={`px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide border transition-all duration-150 ${
+                          className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wide border transition-all duration-150 ${
                             sizeChosen === sz
                               ? 'bg-gold text-black border-gold'
                               : 'bg-transparent text-white/60 border-white/15 hover:border-white/40 hover:text-white'
