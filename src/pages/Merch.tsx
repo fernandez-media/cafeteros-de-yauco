@@ -22,7 +22,7 @@ const Merch = () => {
 
   return (
     <div className="min-h-screen -mt-14">
-      <PageHero title="Merch Oficial" goldWord="Merch" centered tallDesktop />
+      <PageHero title="Merch Oficial" goldWord="Merch" centered tallDesktop imageName="merch-hero" />
 
       <div className="px-5 pt-4 pb-4">
         <Link

@@ -1,4 +1,4 @@
-import ResponsiveImage from './ResponsiveImage';
+import ResponsiveImage, { type ImageName } from './ResponsiveImage';
 
 interface PageHeroProps {
   title: string;
@@ -6,9 +6,10 @@ interface PageHeroProps {
   goldWord?: string;
   centered?: boolean;
   tallDesktop?: boolean;
+  imageName?: ImageName;
 }
 
-const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop }: PageHeroProps) => {
+const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop, imageName = 'hero' }: PageHeroProps) => {
   const renderTitle = () => {
     if (!goldWord) {
       return title;
@@ -29,7 +30,7 @@ const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop }: PageHero
   return (
     <div className={`relative w-full h-[200px] ${tallDesktop ? 'lg:h-[320px]' : ''} overflow-hidden`}>
       <ResponsiveImage
-        name="hero"
+        name={imageName}
         alt=""
         width={1920}
         height={600}
