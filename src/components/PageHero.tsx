@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ResponsiveImage, { type ImageName } from './ResponsiveImage';
 
 interface PageHeroProps {
@@ -7,9 +8,10 @@ interface PageHeroProps {
   centered?: boolean;
   tallDesktop?: boolean;
   imageName?: ImageName;
+  showBack?: boolean;
 }
 
-const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop, imageName = 'hero' }: PageHeroProps) => {
+const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop, imageName = 'hero', showBack = true }: PageHeroProps) => {
   const renderTitle = () => {
     if (!goldWord) {
       return title;
@@ -43,11 +45,30 @@ const PageHero = ({ title, subtitle, goldWord, centered, tallDesktop, imageName 
       <div
         className="absolute inset-0"
         style={{
-          background: tallDesktop
-            ? 'linear-gradient(to bottom, transparent 50%, #111111 100%)'
-            : 'linear-gradient(to bottom, transparent 30%, #111111 100%)',
+          background: 'linear-gradient(to bottom, rgba(17,17,17,0.3) 0%, transparent 40%, transparent 55%, #111111 100%)',
         }}
       />
+
+      {showBack && (
+        <Link
+          to="/"
+          className="absolute top-5 left-5 z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/15 text-white text-sm font-display font-bold no-underline transition-all duration-200 hover:bg-gold/20 hover:border-gold/40 hover:text-gold active:scale-[0.96]"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Inicio
+        </Link>
+      )}
 
       <div className={`absolute bottom-0 left-0 w-full px-5 pb-6 ${centered ? 'text-center' : ''}`}>
         <h1 className={`font-display font-black text-4xl ${tallDesktop ? 'lg:text-5xl' : ''} uppercase text-white leading-tight m-0`}>

@@ -108,19 +108,7 @@ const Partidos = () => {
     <div className="min-h-screen -mt-14 bg-[#0a0a0a]">
       <PageHero title="Partidos" goldWord="Partidos" subtitle="Revive la serie final" />
 
-      <div className="px-5 lg:px-10 pt-4 pb-4 max-w-[1200px] lg:mx-auto">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-white/50 text-sm no-underline hover:text-gold transition-colors duration-200"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          Inicio
-        </Link>
-      </div>
-
-      <div className="px-5 lg:px-10 max-w-[1200px] lg:mx-auto mb-6">
+      <div className="px-5 lg:px-10 max-w-[1200px] lg:mx-auto mt-4 mb-6">
         <h2 className="font-display font-black text-xl uppercase text-white m-0 tracking-tight text-center">Serie Final</h2>
       </div>
 

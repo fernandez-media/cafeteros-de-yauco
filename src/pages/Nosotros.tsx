@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+
 import ScrollReveal from '../components/ScrollReveal';
 import PageHero from '../components/PageHero';
 import ResponsiveImage from '../components/ResponsiveImage';
@@ -8,28 +8,7 @@ const Nosotros = () => {
     <div className="min-h-screen -mt-14">
       <PageHero title="Sobre Nosotros" goldWord="Sobre" subtitle="Cafeteros de Yauco" />
 
-      <div className="px-5 pt-4 pb-4">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-white/50 text-sm no-underline hover:text-gold transition-colors duration-200"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          Inicio
-        </Link>
-      </div>
-
-      <div className="px-5 pb-10">
+      <div className="px-5 pt-4 pb-10">
         {/* About Text Card */}
         <ScrollReveal>
           <div

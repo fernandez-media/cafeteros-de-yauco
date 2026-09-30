@@ -61,15 +61,15 @@ const Calendario = () => {
           style={{ objectPosition: 'center 35%' }}
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 80%, #000 100%)' }} />
+        <Link
+          to="/"
+          className="absolute top-5 left-5 z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/15 text-white text-sm font-display font-bold no-underline transition-all duration-200 hover:bg-gold/20 hover:border-gold/40 hover:text-gold active:scale-[0.96]"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+          Inicio
+        </Link>
         <div className="absolute bottom-0 left-0 w-full px-5 lg:px-12 pb-8 lg:pb-14">
           <div className="max-w-[1200px] mx-auto lg:text-center">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-white/50 text-xs no-underline hover:text-gold transition-colors duration-200 mb-4 lg:hidden"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-              Inicio
-            </Link>
             <h1 className="font-display font-black text-4xl lg:text-7xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               <span className="text-gold">Calendario</span>
             </h1>
