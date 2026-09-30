@@ -59,7 +59,9 @@ const Merch = () => {
                   }}
                 >
                   <div
-                    className="relative w-full h-[180px] lg:h-[240px] flex items-center justify-center p-6 overflow-hidden"
+                    className={`relative w-full h-[180px] lg:h-[240px] flex items-center justify-center overflow-hidden ${
+                      item.id === 'tshirt-blanca' ? 'p-4 lg:p-6' : 'p-1 lg:p-2'
+                    }`}
                     style={{ backgroundColor: item.bgColor }}
                   >
                     <ResponsiveImage
