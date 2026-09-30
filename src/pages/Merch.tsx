@@ -60,7 +60,11 @@ const Merch = () => {
                 >
                   <div
                     className={`relative w-full h-[180px] lg:h-[240px] flex items-center justify-center overflow-hidden ${
-                      item.id === 'tshirt-blanca' ? 'p-4 lg:p-6' : 'p-1 lg:p-2'
+                      item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
+                        ? 'p-0'
+                        : item.id === 'tshirt-blanca'
+                          ? 'p-8 lg:p-6'
+                          : 'p-1 lg:p-2'
                     }`}
                     style={{ backgroundColor: item.bgColor }}
                   >
@@ -72,7 +76,16 @@ const Merch = () => {
                       sizes="(max-width: 640px) 45vw, 320px"
                       loading={i === 0 ? 'eager' : 'lazy'}
                       fetchPriority={i === 0 ? 'high' : undefined}
-                      className="max-w-full max-h-full object-contain"
+                      pictureClassName={
+                        item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
+                          ? 'w-full h-full'
+                          : undefined
+                      }
+                      className={
+                        item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
+                          ? 'w-full h-full object-cover'
+                          : 'max-w-full max-h-full object-contain'
+                      }
                     />
                   </div>
 
