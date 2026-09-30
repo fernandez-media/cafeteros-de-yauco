@@ -661,8 +661,8 @@ const Index = () => {
             <div className="flex gap-5 lg:gap-6 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1" style={{ paddingLeft: '20px', paddingRight: '20px', scrollPadding: '0 20px' }}>
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[75vw] max-w-[340px] lg:w-[38vw] lg:max-w-[560px] snap-start rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
-                    <div className="relative w-full aspect-[4/5] lg:aspect-[4/5] overflow-hidden bg-black">
+                  <div className="flex-shrink-0 w-[75vw] max-w-[340px] lg:w-[22vw] lg:max-w-[320px] snap-start rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
+                    <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-black">
                       <img
                         src={item.image}
                         alt={item.title}
@@ -670,14 +670,14 @@ const Index = () => {
                         loading="lazy"
                       />
                     </div>
-                    <div className="p-4 lg:p-6">
-                      <p className="text-gold/50 text-[10px] lg:text-[11px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1.5">
+                    <div className="p-4 lg:p-4">
+                      <p className="text-gold/50 text-[10px] lg:text-[10px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1.5">
                         {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </p>
-                      <h3 className="font-display font-bold text-base lg:text-[22px] uppercase text-white m-0 mb-1.5 leading-[1.1]">
+                      <h3 className="font-display font-bold text-base lg:text-sm uppercase text-white m-0 mb-1.5 leading-[1.1]">
                         {item.title}
                       </h3>
-                      <p className="text-white/50 text-xs lg:text-[15px] m-0 leading-relaxed line-clamp-2">
+                      <p className="text-white/50 text-xs lg:text-xs m-0 leading-relaxed line-clamp-2">
                         {item.description}
                       </p>
                     </div>
