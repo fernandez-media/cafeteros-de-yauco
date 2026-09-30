@@ -63,7 +63,7 @@ const Merch = () => {
                       item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
                         ? 'p-0'
                         : item.id === 'tshirt-blanca'
-                          ? 'p-10 lg:p-6'
+                          ? 'p-14 lg:p-8'
                           : 'p-1 lg:p-2'
                     }`}
                     style={{ backgroundColor: item.bgColor }}
@@ -83,7 +83,7 @@ const Merch = () => {
                       }
                       className={
                         item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
-                          ? 'w-full h-full object-cover'
+                          ? 'w-full h-full object-cover scale-[1.35]'
                           : 'max-w-full max-h-full object-contain'
                       }
                     />

@@ -825,10 +825,10 @@ const Index = () => {
             <ScrollReveal key={i} delay={i * 0.05}>
               <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
                 <div className={`relative w-full h-[160px] flex items-center justify-center overflow-hidden ${
-                  item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'p-0' : item.id === 'tshirt-blanca' ? 'p-10' : 'p-1'
+                  item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'p-0' : item.id === 'tshirt-blanca' ? 'p-14' : 'p-1'
                 }`} style={{ backgroundColor: item.bgColor }}>
                   <ResponsiveImage name={item.imageName} alt={item.name} width={400} height={400} sizes="45vw" className={
-                    item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'w-full h-full object-cover' : 'max-w-full max-h-full object-contain'
+                    item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'w-full h-full object-cover scale-[1.35]' : 'max-w-full max-h-full object-contain'
                   } pictureClassName={
                     item.id === 'crop-top-blanca' || item.id === 'crop-top-negra' ? 'w-full h-full' : 'max-w-full max-h-full flex items-center justify-center'
                   } />
