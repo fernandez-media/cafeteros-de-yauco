@@ -38,10 +38,9 @@ const Merch = () => {
         <div className="h-[200px] lg:h-[320px] flex flex-col justify-end relative">
           <Link
             to="/"
-            className="absolute top-5 left-5 z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/15 text-white text-sm font-display font-bold no-underline transition-all duration-200 hover:bg-gold/20 hover:border-gold/40 hover:text-gold active:scale-[0.96]"
+            className="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-gold/30 flex items-center justify-center no-underline transition-all duration-200 hover:bg-gold/20 hover:border-gold/50 active:scale-[0.92]"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            Inicio
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           </Link>
           <div className="text-center px-5 pb-6">
             <h1 className="font-display font-black text-4xl lg:text-5xl uppercase text-white leading-tight m-0">
