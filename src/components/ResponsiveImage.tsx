@@ -13,10 +13,10 @@ export const IMAGE_VARIANTS = {
   dsc04710: { widths: [640, 1280, 1920], ratio: 1 },
   dsc04989: { widths: [640, 1280, 1920], ratio: 1 },
   'cafeteros-logo': { widths: [96, 192, 384], ratio: 1 },
-  merch1: { widths: [320, 640, 960], ratio: 1 },
-  merch2: { widths: [320, 640, 960], ratio: 1 },
-  merch3: { widths: [320, 640, 960], ratio: 1 },
-  merch4: { widths: [320, 640, 960], ratio: 1 },
+  merch1: { widths: [320, 640, 960], ratio: 4 / 3 },
+  merch2: { widths: [320, 640, 960], ratio: 4 / 3 },
+  merch3: { widths: [320, 640, 960], ratio: 4 / 3 },
+  merch4: { widths: [320, 640, 960], ratio: 3 / 4 },
 } as const;
 
 export type ImageName = keyof typeof IMAGE_VARIANTS;
