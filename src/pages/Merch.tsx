@@ -63,7 +63,7 @@ const Merch = () => {
                       item.id === 'crop-top-blanca' || item.id === 'crop-top-negra'
                         ? 'p-0'
                         : item.id === 'tshirt-blanca'
-                          ? 'p-8 lg:p-6'
+                          ? 'p-10 lg:p-6'
                           : 'p-1 lg:p-2'
                     }`}
                     style={{ backgroundColor: item.bgColor }}
