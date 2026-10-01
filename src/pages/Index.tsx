@@ -7,7 +7,6 @@ import ResponsiveImage from '../components/ResponsiveImage';
 import ComingSoonCard from '../components/ComingSoonCard';
 import ReelsSection from '../components/ReelsSection';
 import HistoriaSlider from '../components/HistoriaSlider';
-import AbonosPopup from '../components/AbonosPopup';
 import { calendar } from '../data/calendar';
 import { news } from '../data/news';
 import { roster } from '../data/roster';
@@ -267,7 +266,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen lg:[&>section:not(:first-of-type)]:max-w-[1200px] lg:[&>section:not(:first-of-type)]:mx-auto lg:[&>section:not(:first-of-type)]:!px-12" style={{ backgroundColor: '#000000' }}>
-      <AbonosPopup />
       {/* ===== HERO ===== */}
       {/* MOBILE HERO */}
       <section
