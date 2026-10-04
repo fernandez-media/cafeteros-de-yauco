@@ -78,16 +78,23 @@ const Calendario = () => {
       </div>
 
       {/* Games by month */}
-      <div className="px-5 lg:px-12 pb-16 pt-8 lg:pt-12 max-w-[1200px] mx-auto">
-        {months.map((group, gi) => (
-          <div key={group.month} className={gi > 0 ? 'mt-12 lg:mt-16' : ''}>
+      {months.map((group, gi) => {
+        const isAlt = gi % 2 === 1;
+        return (
+          <div
+            key={group.month}
+            style={{
+              backgroundColor: isAlt ? 'rgba(255, 215, 0, 0.06)' : 'rgba(255, 255, 255, 0.04)',
+            }}
+          >
+          <div className="px-5 lg:px-12 py-10 lg:py-14 max-w-[1200px] mx-auto">
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-6">
                 <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 tracking-tight">
                   {group.month === 'TBD' ? 'Por confirmar' : group.month}
                 </h2>
-                <div className="flex-1 h-px bg-white/10" />
-                <span className="text-white/30 text-xs font-semibold uppercase tracking-wider">
+                <div className="flex-1 h-px" style={{ backgroundColor: isAlt ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.1)' }} />
+                <span className={`text-xs font-semibold uppercase tracking-wider ${isAlt ? 'text-gold/40' : 'text-white/30'}`}>
                   {group.games.length} {group.games.length === 1 ? 'juego' : 'juegos'}
                 </span>
               </div>
@@ -267,8 +274,9 @@ const Calendario = () => {
               })}
             </div>
           </div>
-        ))}
-      </div>
+          </div>
+        );
+        })}
     </div>
   );
 };
