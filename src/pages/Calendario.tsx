@@ -84,7 +84,7 @@ const Calendario = () => {
           <div
             key={group.month}
             style={{
-              backgroundColor: isAlt ? 'rgba(255, 215, 0, 0.06)' : 'rgba(255, 255, 255, 0.04)',
+              backgroundColor: isAlt ? 'rgba(255, 215, 0, 0.12)' : 'transparent',
             }}
           >
           <div className="px-5 lg:px-12 py-10 lg:py-14 max-w-[1200px] mx-auto">
