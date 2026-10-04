@@ -68,7 +68,7 @@ const Calendario = () => {
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
         </Link>
         <div className="absolute bottom-0 left-0 w-full px-5 lg:px-12 pb-8 lg:pb-14">
-          <div className="max-w-[1200px] mx-auto lg:text-center">
+          <div className="max-w-[1200px] mx-auto text-center">
             <h1 className="font-display font-black text-4xl lg:text-7xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               <span className="text-gold">Calendario</span>
             </h1>
