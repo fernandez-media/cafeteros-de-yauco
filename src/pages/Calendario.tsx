@@ -88,7 +88,7 @@ const Calendario = () => {
             }}
           >
           <div className="px-5 lg:px-12 py-10 lg:py-14 max-w-[1200px] mx-auto">
-            <ScrollReveal variant="blur" distance={30} duration={0.8}>
+            <ScrollReveal variant="blur" distance={30}>
               <div className="flex items-center gap-4 mb-6">
                 <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 tracking-tight">
                   {group.month === 'TBD' ? 'Por confirmar' : group.month}

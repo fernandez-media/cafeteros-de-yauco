@@ -36,7 +36,7 @@ const Roster = () => {
 
       <div className="px-5 lg:px-12 pb-16 pt-8 lg:pt-12 max-w-[1200px] mx-auto">
         {/* Jugadores */}
-        <ScrollReveal variant="blur" distance={40} duration={0.9}>
+        <ScrollReveal variant="blur" distance={40}>
           <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 mb-6 tracking-tight">
             Jugadores
           </h2>
@@ -95,7 +95,7 @@ const Roster = () => {
         {/* Desktop: interactive grid */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-4">
           {roster.map((player, i) => (
-            <ScrollReveal key={i} delay={i * 0.06} variant="slideUp" distance={60} duration={0.8}>
+            <ScrollReveal key={i} delay={i * 0.06} variant="slideUp" distance={60}>
               <div
                 className="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
                 tabIndex={0}
@@ -160,7 +160,7 @@ const Roster = () => {
             { title: 'Preparador Fisico', members: fitness },
           ].map((section, si) => (
             <div key={si} className={si > 0 ? 'mt-6' : ''}>
-              <ScrollReveal variant="blur" distance={30} duration={0.8}>
+              <ScrollReveal variant="blur" distance={30}>
                 <h2 className="font-display font-black text-lg lg:text-2xl uppercase text-white m-0 mb-3 tracking-tight">
                   {section.title}
                 </h2>

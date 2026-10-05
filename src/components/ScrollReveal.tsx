@@ -66,12 +66,12 @@ const ScrollReveal = ({
   className = '',
   variant = 'up',
   delay = 0,
-  duration = 0.7,
+  duration = 1.2,
   distance = 50,
   once = true,
 }: ScrollRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: '-50px 0px' });
+  const isInView = useInView(ref, { once, margin: '-120px 0px' });
   const variants = getVariants(variant, distance);
 
   return (

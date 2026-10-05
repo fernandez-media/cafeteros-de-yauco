@@ -9,7 +9,7 @@ const Noticias = () => {
 
       <div className="px-5 pt-4 pb-10 flex flex-col gap-4">
         {news.map((article, i) => (
-          <ScrollReveal key={i} delay={i * 0.08} variant={i === 0 ? 'scale' : i % 2 === 0 ? 'left' : 'right'} distance={60} duration={0.8}>
+          <ScrollReveal key={i} delay={i * 0.08} variant={i === 0 ? 'scale' : i % 2 === 0 ? 'left' : 'right'} distance={60}>
             <a
               href={article.url}
               target="_blank"

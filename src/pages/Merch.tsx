@@ -181,7 +181,7 @@ const Merch = () => {
           <div className="px-12 pb-2 w-full max-w-[1200px] mx-auto">
             <div className="grid grid-cols-4 gap-5">
               {merch.map((item, i) => (
-                <ScrollReveal key={item.id} delay={i * 0.1} variant="scale" distance={40} duration={0.8}>
+                <ScrollReveal key={item.id} delay={i * 0.1} variant="scale" distance={40}>
                   <ProductCard item={item} sizeChosen={selected[item.id]} onSize={handleSize} onWhatsApp={buildWhatsAppUrl} />
                 </ScrollReveal>
               ))}

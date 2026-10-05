@@ -403,7 +403,7 @@ const Index = () => {
         </ScrollReveal>
 
         {/* DESKTOP header */}
-        <ScrollReveal variant="left" distance={60} duration={0.9}>
+        <ScrollReveal variant="left" distance={60}>
           <div className="hidden lg:flex items-end justify-between mb-12 px-10 2xl:px-16 max-w-[1760px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
@@ -537,7 +537,7 @@ const Index = () => {
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
             return (
-              <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.8}>
+              <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60}>
                 <div
                   className="rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 group"
                   style={{
@@ -603,7 +603,7 @@ const Index = () => {
               </ScrollReveal>
             );
           })}
-          <ScrollReveal delay={0.3} variant="scale" duration={0.9}>
+          <ScrollReveal delay={0.3} variant="scale">
             <Link
               to="/calendario"
               className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
@@ -647,7 +647,7 @@ const Index = () => {
       {/* ===== ANUNCIOS ===== */}
       {announcements.length > 0 && (
         <section className="py-10">
-          <ScrollReveal variant="blur" distance={30} duration={0.8}>
+          <ScrollReveal variant="blur" distance={30}>
             <div className="flex flex-col items-center lg:items-start mb-5 px-5 lg:px-8">
               <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                 Anuncios
@@ -655,7 +655,7 @@ const Index = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.1} variant="right" distance={80} duration={0.9}>
+          <ScrollReveal delay={0.1} variant="right" distance={80}>
             <div className="flex gap-5 lg:gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1 px-5 lg:px-8">
               {announcements.map((item) => {
                 const inner = (
@@ -704,13 +704,13 @@ const Index = () => {
       )}
 
       {/* ===== REELS / REDES SOCIALES ===== */}
-      <ScrollReveal variant="blur" distance={40} duration={0.9}>
+      <ScrollReveal variant="blur" distance={40}>
         <ReelsSection />
       </ScrollReveal>
 
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
-        <ScrollReveal variant="slideUp" distance={70} duration={0.9}>
+        <ScrollReveal variant="slideUp" distance={70}>
           {/* Mobile: full CTA card */}
           <div className="lg:hidden relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
             <ResponsiveImage
@@ -803,7 +803,7 @@ const Index = () => {
 
       {/* ===== MERCH PREVIEW ===== */}
       <section className="px-5 py-10">
-        <ScrollReveal variant="blur" distance={30} duration={0.8}>
+        <ScrollReveal variant="blur" distance={30}>
           <div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-between mb-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               TIENDA OFICIAL
@@ -854,7 +854,7 @@ const Index = () => {
         {/* DESKTOP: 4-col product tiles */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-5">
           {merch.slice(0, 4).map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.8}>
+            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60}>
               <Link to="/merch" className="no-underline block h-full">
                 <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
                   <div className={`relative w-full h-[280px] flex items-center justify-center overflow-hidden ${
@@ -890,7 +890,7 @@ const Index = () => {
 
       {/* ===== PARTIDOS PREVIEW ===== */}
       <section className="w-full px-5 lg:px-8 py-10 lg:py-16 lg:!max-w-none lg:!mx-0">
-        <ScrollReveal variant="blur" distance={40} duration={0.9}>
+        <ScrollReveal variant="blur" distance={40}>
           <div className="flex flex-col items-center mb-6 lg:mb-12">
             <h2 className="font-display font-black text-3xl lg:text-6xl uppercase text-white m-0 tracking-tight text-center">Partidos</h2>
             <p className="text-white/40 text-xs lg:text-sm mt-2 uppercase tracking-widest text-center">Revive la serie final</p>
@@ -972,7 +972,7 @@ const Index = () => {
           {partidosDestacados.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
-              <ScrollReveal key={partido.id} delay={index * 0.1} variant="slideUp" distance={70} duration={0.85}>
+              <ScrollReveal key={partido.id} delay={index * 0.1} variant="slideUp" distance={70}>
                 <button
                   type="button"
                   onClick={() => openVideoModal(partido.youtubeId)}
@@ -1084,7 +1084,7 @@ const Index = () => {
 
       {/* ===== ROSTER PREVIEW ===== */}
       <section className="py-10 lg:py-16 !max-w-none !mx-0 lg:!px-0">
-        <ScrollReveal variant="blur" distance={40} duration={0.9}>
+        <ScrollReveal variant="blur" distance={40}>
           <div className="text-center mb-6 lg:mb-10 lg:max-w-[1200px] lg:mx-auto lg:px-12">
             <h2 className="font-display font-black uppercase text-white m-0 tracking-tight lg:hidden" style={{ fontSize: 'clamp(2.2rem, 8vw, 3rem)', letterSpacing: '-0.02em' }}>
               Roster
@@ -1191,7 +1191,7 @@ const Index = () => {
       {/* ===== NOTICIAS PREVIEW ===== */}
       <section className="px-5 lg:px-8 py-10 lg:py-20 lg:!max-w-none lg:!mx-0">
         {/* Section header */}
-        <ScrollReveal variant="blur" distance={40} duration={0.9}>
+        <ScrollReveal variant="blur" distance={40}>
           <div className="flex flex-col items-center mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Noticias
@@ -1209,7 +1209,7 @@ const Index = () => {
 
         {/* MOBILE: featured + compact list */}
         <div className="flex flex-col lg:hidden">
-          <ScrollReveal variant="scale" duration={0.8}>
+          <ScrollReveal variant="scale">
             <a
               href={featuredArticle.url}
               target="_blank"
@@ -1270,7 +1270,7 @@ const Index = () => {
         {/* DESKTOP: 4-col grid */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-6">
           {news.slice(0, 4).map((article, i) => (
-            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.85}>
+            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60}>
               <a
                 href={article.url}
                 target="_blank"
@@ -1315,7 +1315,7 @@ const Index = () => {
       <section className="py-10 lg:py-24 overflow-hidden">
         {/* MOBILE */}
         <div className="lg:hidden px-5">
-          <ScrollReveal variant="scale" duration={0.9}>
+          <ScrollReveal variant="scale">
             <div className="relative rounded-3xl overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.1)' }}>
               <div className="relative aspect-[4/3]">
                 <ResponsiveImage
@@ -1357,7 +1357,7 @@ const Index = () => {
         {/* DESKTOP */}
         <div className="hidden lg:block max-w-[1200px] mx-auto px-10">
           <div className="relative grid grid-cols-12 gap-0 items-stretch rounded-[2rem] overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.08)', minHeight: '520px' }}>
-            <ScrollReveal variant="left" distance={80} duration={1} className="col-span-6 relative">
+            <ScrollReveal variant="left" distance={80} className="col-span-6 relative">
               <div className="absolute inset-0">
                 <ResponsiveImage
                   name="dsc04710"
@@ -1373,7 +1373,7 @@ const Index = () => {
             </ScrollReveal>
 
             <div className="col-span-6 relative z-10 flex flex-col justify-center py-14 px-12" style={{ backgroundColor: '#111' }}>
-              <ScrollReveal variant="right" distance={50} duration={0.9}>
+              <ScrollReveal variant="right" distance={50}>
                 <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">Sobre Nosotros</p>
                 <h2 className="font-display font-black uppercase text-white text-4xl xl:text-5xl leading-[0.95] tracking-tight m-0 mb-6">
                   Cafeteros <br />

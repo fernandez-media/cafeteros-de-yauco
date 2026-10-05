@@ -136,7 +136,7 @@ const Boleteria = () => {
 
       {/* ─── Mobile: Credencial de Temporada ─── */}
       <div className="lg:hidden px-5 pb-4 pt-4">
-        <ScrollReveal variant="slideUp" distance={70} duration={0.9}>
+        <ScrollReveal variant="slideUp" distance={70}>
           <BoleteriaCredencial ctaHref={CTA_HREF} />
         </ScrollReveal>
       </div>
