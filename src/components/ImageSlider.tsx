@@ -41,10 +41,11 @@ const ImageSlider = () => {
       return;
     }
 
-    scrollAccum.current += 0.5;
+    scrollAccum.current += 0.75;
     if (scrollAccum.current >= 1) {
-      container.scrollLeft += 1;
-      scrollAccum.current -= 1;
+      const step = Math.floor(scrollAccum.current);
+      container.scrollLeft += step;
+      scrollAccum.current -= step;
     }
 
     if (container.scrollLeft >= SET_WIDTH * 2) {
