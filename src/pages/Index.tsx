@@ -394,7 +394,7 @@ const Index = () => {
       {/* ===== CALENDARIO PREVIEW ===== */}
       <section className="py-10 lg:py-12 overflow-visible lg:!max-w-none lg:!mx-0 lg:!px-0">
         {/* MOBILE header */}
-        <ScrollReveal>
+        <ScrollReveal variant="blur" distance={30}>
           <div className="flex flex-col items-center mb-2 px-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Calendario
@@ -403,7 +403,7 @@ const Index = () => {
         </ScrollReveal>
 
         {/* DESKTOP header */}
-        <ScrollReveal>
+        <ScrollReveal variant="left" distance={60} duration={0.9}>
           <div className="hidden lg:flex items-end justify-between mb-12 px-10 2xl:px-16 max-w-[1760px] mx-auto">
             <div className="flex items-end gap-10">
               <h2 className="font-display font-black text-5xl uppercase text-white m-0 tracking-tight leading-none">
@@ -424,7 +424,7 @@ const Index = () => {
           {previewGames.map((game, i) => {
             const isActive = i === activeIndex;
             return (
-            <ScrollReveal key={i} delay={i * 0.05} className="flex-shrink-0">
+            <ScrollReveal key={i} delay={i * 0.08} variant="scale" distance={40} className="flex-shrink-0">
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
                 className="flex flex-col w-[260px] rounded-2xl p-5 border box-border transition-[border-color,box-shadow] duration-300"
@@ -505,7 +505,7 @@ const Index = () => {
           })}
         </div>
 
-        <ScrollReveal>
+        <ScrollReveal variant="up" delay={0.1} distance={30}>
           <Link
             to="/calendario"
             className="lg:hidden roster-glass-btn block mt-2 mx-5 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
@@ -537,7 +537,7 @@ const Index = () => {
             );
             const blocks = game.isHome ? [oppBlock, cafBlock] : [cafBlock, oppBlock];
             return (
-              <ScrollReveal key={i} delay={i * 0.05}>
+              <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.8}>
                 <div
                   className="rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 group"
                   style={{
@@ -603,7 +603,7 @@ const Index = () => {
               </ScrollReveal>
             );
           })}
-          <ScrollReveal delay={0.15}>
+          <ScrollReveal delay={0.3} variant="scale" duration={0.9}>
             <Link
               to="/calendario"
               className="relative rounded-3xl overflow-hidden block h-full min-h-[420px] no-underline group"
@@ -647,7 +647,7 @@ const Index = () => {
       {/* ===== ANUNCIOS ===== */}
       {announcements.length > 0 && (
         <section className="py-10">
-          <ScrollReveal>
+          <ScrollReveal variant="blur" distance={30} duration={0.8}>
             <div className="flex flex-col items-center lg:items-start mb-5 px-5 lg:px-8">
               <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                 Anuncios
@@ -655,7 +655,7 @@ const Index = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.05}>
+          <ScrollReveal delay={0.1} variant="right" distance={80} duration={0.9}>
             <div className="flex gap-5 lg:gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1 px-5 lg:px-8">
               {announcements.map((item) => {
                 const inner = (
@@ -704,13 +704,13 @@ const Index = () => {
       )}
 
       {/* ===== REELS / REDES SOCIALES ===== */}
-      <ScrollReveal>
+      <ScrollReveal variant="blur" distance={40} duration={0.9}>
         <ReelsSection />
       </ScrollReveal>
 
       {/* ===== BOLETERIA PREVIEW ===== */}
       <section className="px-5 pt-2 pb-10">
-        <ScrollReveal>
+        <ScrollReveal variant="slideUp" distance={70} duration={0.9}>
           {/* Mobile: full CTA card */}
           <div className="lg:hidden relative rounded-2xl overflow-hidden border-2 border-gold transition-all duration-300 hover:border-gold/80 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
             <ResponsiveImage
@@ -803,7 +803,7 @@ const Index = () => {
 
       {/* ===== MERCH PREVIEW ===== */}
       <section className="px-5 py-10">
-        <ScrollReveal>
+        <ScrollReveal variant="blur" distance={30} duration={0.8}>
           <div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-between mb-5">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               TIENDA OFICIAL
@@ -820,7 +820,7 @@ const Index = () => {
         {/* MOBILE: 2-col small cards (unchanged) */}
         <div className="grid grid-cols-2 gap-3 lg:hidden">
           {merch.slice(0, 4).map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+            <ScrollReveal key={i} delay={i * 0.08} variant="slideUp" distance={50}>
               <Link to="/merch" className="no-underline block">
                 <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-[#1a1a1a] border border-gold/10 transition-all duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:border-gold hover:shadow-[0_0_20px_rgba(255,215,0,0.25)] [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] isolate">
                   <div className={`relative w-full h-[160px] flex items-center justify-center overflow-hidden ${
@@ -842,7 +842,7 @@ const Index = () => {
           ))}
         </div>
 
-        <ScrollReveal>
+        <ScrollReveal variant="up" delay={0.15} distance={25}>
           <Link
             to="/merch"
             className="lg:hidden roster-glass-btn block mt-4 mx-0 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
@@ -854,7 +854,7 @@ const Index = () => {
         {/* DESKTOP: 4-col product tiles */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-5">
           {merch.slice(0, 4).map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
+            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.8}>
               <Link to="/merch" className="no-underline block h-full">
                 <ComingSoonCard comingSoon={item.comingSoon} className="rounded-2xl bg-white border border-white/5 flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
                   <div className={`relative w-full h-[280px] flex items-center justify-center overflow-hidden ${
@@ -890,7 +890,7 @@ const Index = () => {
 
       {/* ===== PARTIDOS PREVIEW ===== */}
       <section className="w-full px-5 lg:px-8 py-10 lg:py-16 lg:!max-w-none lg:!mx-0">
-        <ScrollReveal>
+        <ScrollReveal variant="blur" distance={40} duration={0.9}>
           <div className="flex flex-col items-center mb-6 lg:mb-12">
             <h2 className="font-display font-black text-3xl lg:text-6xl uppercase text-white m-0 tracking-tight text-center">Partidos</h2>
             <p className="text-white/40 text-xs lg:text-sm mt-2 uppercase tracking-widest text-center">Revive la serie final</p>
@@ -902,7 +902,7 @@ const Index = () => {
           {partidosDestacados.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
-              <ScrollReveal key={partido.id} delay={index * 0.06}>
+              <ScrollReveal key={partido.id} delay={index * 0.08} variant="left" distance={60}>
                 <button
                   type="button"
                   onClick={() => openVideoModal(partido.youtubeId)}
@@ -972,7 +972,7 @@ const Index = () => {
           {partidosDestacados.map((partido, index) => {
             const isPlaceholder = partido.youtubeId.startsWith('PLACEHOLDER');
             return (
-              <ScrollReveal key={partido.id} delay={index * 0.08}>
+              <ScrollReveal key={partido.id} delay={index * 0.1} variant="slideUp" distance={70} duration={0.85}>
                 <button
                   type="button"
                   onClick={() => openVideoModal(partido.youtubeId)}
@@ -1084,7 +1084,7 @@ const Index = () => {
 
       {/* ===== ROSTER PREVIEW ===== */}
       <section className="py-10 lg:py-16 !max-w-none !mx-0 lg:!px-0">
-        <ScrollReveal>
+        <ScrollReveal variant="blur" distance={40} duration={0.9}>
           <div className="text-center mb-6 lg:mb-10 lg:max-w-[1200px] lg:mx-auto lg:px-12">
             <h2 className="font-display font-black uppercase text-white m-0 tracking-tight lg:hidden" style={{ fontSize: 'clamp(2.2rem, 8vw, 3rem)', letterSpacing: '-0.02em' }}>
               Roster
@@ -1098,7 +1098,7 @@ const Index = () => {
         {/* MOBILE: Auto-scrolling roster with center glow */}
         <MobileRosterCarousel players={roster} />
 
-        <ScrollReveal>
+        <ScrollReveal variant="up" delay={0.1} distance={25}>
           <Link
             to="/roster"
             className="lg:hidden roster-glass-btn block mt-6 mx-5 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
@@ -1191,7 +1191,7 @@ const Index = () => {
       {/* ===== NOTICIAS PREVIEW ===== */}
       <section className="px-5 lg:px-8 py-10 lg:py-20 lg:!max-w-none lg:!mx-0">
         {/* Section header */}
-        <ScrollReveal>
+        <ScrollReveal variant="blur" distance={40} duration={0.9}>
           <div className="flex flex-col items-center mb-5 lg:hidden">
             <h2 className="font-display font-bold text-2xl uppercase text-white m-0">
               Noticias
@@ -1209,7 +1209,7 @@ const Index = () => {
 
         {/* MOBILE: featured + compact list */}
         <div className="flex flex-col lg:hidden">
-          <ScrollReveal>
+          <ScrollReveal variant="scale" duration={0.8}>
             <a
               href={featuredArticle.url}
               target="_blank"
@@ -1233,7 +1233,7 @@ const Index = () => {
           </ScrollReveal>
           <div className="flex flex-col gap-3">
             {sideArticles.map((article, i) => (
-              <ScrollReveal key={i} delay={i * 0.05}>
+              <ScrollReveal key={i} delay={i * 0.08} variant="right" distance={40}>
                 <a
                   href={article.url}
                   target="_blank"
@@ -1258,7 +1258,7 @@ const Index = () => {
           </div>
         </div>
 
-        <ScrollReveal>
+        <ScrollReveal variant="up" delay={0.1} distance={25}>
           <Link
             to="/noticias"
             className="lg:hidden roster-glass-btn block mt-4 mx-0 py-2.5 rounded-full text-center font-display font-bold text-xs uppercase tracking-wider text-gold no-underline"
@@ -1270,7 +1270,7 @@ const Index = () => {
         {/* DESKTOP: 4-col grid */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-6">
           {news.slice(0, 4).map((article, i) => (
-            <ScrollReveal key={i} delay={i * 0.08}>
+            <ScrollReveal key={i} delay={i * 0.1} variant="slideUp" distance={60} duration={0.85}>
               <a
                 href={article.url}
                 target="_blank"
@@ -1315,7 +1315,7 @@ const Index = () => {
       <section className="py-10 lg:py-24 overflow-hidden">
         {/* MOBILE */}
         <div className="lg:hidden px-5">
-          <ScrollReveal>
+          <ScrollReveal variant="scale" duration={0.9}>
             <div className="relative rounded-3xl overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.1)' }}>
               <div className="relative aspect-[4/3]">
                 <ResponsiveImage
@@ -1334,17 +1334,17 @@ const Index = () => {
                 <h2 className="font-display font-black uppercase text-white text-2xl leading-[0.95] m-0 mb-4">
                   Cafeteros <span className="text-gold">de Yauco</span>
                 </h2>
-                <ScrollReveal delay={0.05}>
+                <ScrollReveal delay={0.1} variant="up" distance={30}>
                   <p className="text-white/75 text-base leading-relaxed m-0 mb-4">
                     Desde la década de 1920, Yauco se destacó como uno de los primeros núcleos de aficionados y equipos locales en abrazar el voleibol en Puerto Rico.
                   </p>
                 </ScrollReveal>
-                <ScrollReveal delay={0.1}>
+                <ScrollReveal delay={0.2} variant="up" distance={30}>
                   <p className="text-white/75 text-base leading-relaxed m-0 mb-4">
                     El pueblo adoptó el juego con tanta pasión que se convirtió en una de las sedes fundacionales de la gran tradición de la malla alta en la isla, viendo nacer a destacados atletas, entrenadores, árbitros y directivos federativos del voleibol.
                   </p>
                 </ScrollReveal>
-                <ScrollReveal delay={0.15}>
+                <ScrollReveal delay={0.3} variant="up" distance={30}>
                   <p className="text-white/75 text-base leading-relaxed m-0">
                     En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años, un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
                   </p>
@@ -1357,7 +1357,7 @@ const Index = () => {
         {/* DESKTOP */}
         <div className="hidden lg:block max-w-[1200px] mx-auto px-10">
           <div className="relative grid grid-cols-12 gap-0 items-stretch rounded-[2rem] overflow-hidden" style={{ border: '1px solid rgba(255, 215, 0, 0.08)', minHeight: '520px' }}>
-            <ScrollReveal className="col-span-6 relative">
+            <ScrollReveal variant="left" distance={80} duration={1} className="col-span-6 relative">
               <div className="absolute inset-0">
                 <ResponsiveImage
                   name="dsc04710"
@@ -1373,24 +1373,24 @@ const Index = () => {
             </ScrollReveal>
 
             <div className="col-span-6 relative z-10 flex flex-col justify-center py-14 px-12" style={{ backgroundColor: '#111' }}>
-              <ScrollReveal>
+              <ScrollReveal variant="right" distance={50} duration={0.9}>
                 <p className="text-gold text-[11px] font-display font-bold uppercase tracking-[0.35em] m-0 mb-4">Sobre Nosotros</p>
                 <h2 className="font-display font-black uppercase text-white text-4xl xl:text-5xl leading-[0.95] tracking-tight m-0 mb-6">
                   Cafeteros <br />
                   <span className="text-gold">de Yauco</span>
                 </h2>
               </ScrollReveal>
-              <ScrollReveal delay={0.05}>
+              <ScrollReveal delay={0.1} variant="up" distance={35}>
                 <p className="text-white/80 text-lg leading-relaxed m-0 mb-5">
                   Desde la década de 1920, Yauco se destacó como uno de los primeros núcleos de aficionados y equipos locales en abrazar el voleibol en Puerto Rico.
                 </p>
               </ScrollReveal>
-              <ScrollReveal delay={0.1}>
+              <ScrollReveal delay={0.2} variant="up" distance={35}>
                 <p className="text-white/70 text-base leading-relaxed m-0 mb-5">
                   El pueblo adoptó el juego con tanta pasión que se convirtió en una de las sedes fundacionales de la gran tradición de la malla alta en la isla, viendo nacer a destacados atletas, entrenadores, árbitros y directivos federativos del voleibol.
                 </p>
               </ScrollReveal>
-              <ScrollReveal delay={0.15}>
+              <ScrollReveal delay={0.3} variant="up" distance={35}>
                 <p className="text-white/65 text-base leading-relaxed m-0">
                   En enero de 2026, los Cafeteros de Yauco hicieron historia al conquistar su primer campeonato de la LVSM en 55 años, un logro que selló el legado de la Ciudad del Café como cuna del voleibol puertorriqueño.
                 </p>
