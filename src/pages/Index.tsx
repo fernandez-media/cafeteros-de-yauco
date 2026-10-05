@@ -656,11 +656,11 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1} variant="up" distance={40}>
-            <div className="flex gap-3 lg:gap-4 overflow-x-auto scrollbar-hidden pb-2 pt-1 pl-5 lg:pl-8">
+            <div className="flex items-stretch gap-3 lg:gap-4 overflow-x-auto scrollbar-hidden pb-2 pt-1 pl-5 lg:pl-8">
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[55vw] max-w-[240px] lg:w-[22vw] lg:max-w-[320px] rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
-                    <div className="relative w-full aspect-square lg:aspect-[3/4] overflow-hidden bg-black">
+                  <div className="flex-shrink-0 w-[65vw] max-w-[280px] lg:w-[22vw] lg:max-w-[320px] h-full flex flex-col rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
+                    <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-black">
                       <img
                         src={item.image}
                         alt={item.title}
@@ -668,7 +668,7 @@ const Index = () => {
                         loading="lazy"
                       />
                     </div>
-                    <div className="p-4 lg:p-4">
+                    <div className="p-4 lg:p-4 flex-1">
                       <p className="text-gold/50 text-[10px] lg:text-[10px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1.5">
                         {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </p>
@@ -684,16 +684,16 @@ const Index = () => {
                 const isInternal = item.link?.startsWith('/');
                 return item.link ? (
                   isInternal ? (
-                    <Link key={item.id} to={item.link} className="block no-underline flex-shrink-0">
+                    <Link key={item.id} to={item.link} className="block no-underline flex-shrink-0 self-stretch">
                       {inner}
                     </Link>
                   ) : (
-                    <a key={item.id} href={item.link} target="_blank" rel="noopener noreferrer" className="block no-underline flex-shrink-0">
+                    <a key={item.id} href={item.link} target="_blank" rel="noopener noreferrer" className="block no-underline flex-shrink-0 self-stretch">
                       {inner}
                     </a>
                   )
                 ) : (
-                  <div key={item.id} className="flex-shrink-0">
+                  <div key={item.id} className="flex-shrink-0 self-stretch">
                     {inner}
                   </div>
                 );
