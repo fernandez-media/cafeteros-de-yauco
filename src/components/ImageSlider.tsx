@@ -32,6 +32,7 @@ const ImageSlider = () => {
   const startX = useRef(0);
   const scrollStart = useRef(0);
   const isVisible = useRef(true);
+  const scrollAccum = useRef(0);
 
   const autoScroll = useCallback(() => {
     const container = containerRef.current;
@@ -40,7 +41,11 @@ const ImageSlider = () => {
       return;
     }
 
-    container.scrollLeft += 0.5;
+    scrollAccum.current += 0.5;
+    if (scrollAccum.current >= 1) {
+      container.scrollLeft += 1;
+      scrollAccum.current -= 1;
+    }
 
     if (container.scrollLeft >= SET_WIDTH * 2) {
       container.scrollLeft -= SET_WIDTH;
