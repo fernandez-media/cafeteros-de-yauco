@@ -1,10 +1,10 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 
 const sliderImages = [
+  { src: `${import.meta.env.BASE_URL}assets/slider/ivan.webp`, alt: 'Cafeteros celebración victoria' },
   { src: `${import.meta.env.BASE_URL}assets/slider/abel.webp`, alt: 'Cafeteros en acción' },
   { src: `${import.meta.env.BASE_URL}assets/slider/arnel.webp`, alt: 'Cafeteros celebración' },
   { src: `${import.meta.env.BASE_URL}assets/slider/diego.webp`, alt: 'Cafeteros equipo' },
-  { src: `${import.meta.env.BASE_URL}assets/slider/ivan.webp`, alt: 'Cafeteros dirigencia' },
   { src: `${import.meta.env.BASE_URL}assets/slider/jessie.webp`, alt: 'Cafeteros victoria' },
   { src: `${import.meta.env.BASE_URL}assets/slider/kevin.webp`, alt: 'Cafeteros jugada' },
 ];
