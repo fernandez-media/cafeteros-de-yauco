@@ -88,7 +88,7 @@ const Calendario = () => {
             }}
           >
           <div className="px-5 lg:px-12 py-10 lg:py-14 max-w-[1200px] mx-auto">
-            <ScrollReveal>
+            <ScrollReveal variant="blur" distance={30} duration={0.8}>
               <div className="flex items-center gap-4 mb-6">
                 <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 tracking-tight">
                   {group.month === 'TBD' ? 'Por confirmar' : group.month}
@@ -107,7 +107,7 @@ const Calendario = () => {
                 const day = isTBD ? '' : game.date.split(' ')[1];
                 const weekday = isTBD ? '' : getDayOfWeek(group.month, parseInt(day));
                 return (
-                  <ScrollReveal key={`${gi}-${i}`} delay={i * 0.04}>
+                  <ScrollReveal key={`${gi}-${i}`} delay={i * 0.06} variant="left" distance={50}>
                     <div
                       className="group rounded-2xl overflow-hidden transition-all duration-300 lg:hover:-translate-y-0.5"
                       style={{

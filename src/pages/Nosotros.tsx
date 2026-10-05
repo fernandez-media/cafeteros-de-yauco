@@ -10,7 +10,7 @@ const Nosotros = () => {
 
       <div className="px-5 pt-4 pb-10">
         {/* About Text Card */}
-        <ScrollReveal>
+        <ScrollReveal variant="scale" duration={0.9}>
           <div
             className="rounded-2xl p-5 mb-6"
             style={{
@@ -47,7 +47,7 @@ const Nosotros = () => {
         {/* Photo Gallery 2x2 */}
         <div className="grid grid-cols-2 gap-3">
           {(['dsc04710', 'dsc04989'] as const).map((name, i) => (
-            <ScrollReveal key={name} delay={i * 0.05}>
+            <ScrollReveal key={name} delay={i * 0.1} variant="slideUp" distance={60} duration={0.8}>
               <div className="rounded-2xl overflow-hidden aspect-square">
                 <ResponsiveImage
                   name={name}
