@@ -1,12 +1,12 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 
 const sliderImages = [
+  { src: `${import.meta.env.BASE_URL}assets/slider/kevin.webp`, alt: 'Cafeteros jugada de voleo' },
   { src: `${import.meta.env.BASE_URL}assets/slider/ivan.webp`, alt: 'Cafeteros celebración victoria' },
   { src: `${import.meta.env.BASE_URL}assets/slider/abel.webp`, alt: 'Cafeteros en acción' },
   { src: `${import.meta.env.BASE_URL}assets/slider/arnel.webp`, alt: 'Cafeteros celebración' },
   { src: `${import.meta.env.BASE_URL}assets/slider/diego.webp`, alt: 'Cafeteros equipo' },
   { src: `${import.meta.env.BASE_URL}assets/slider/jessie.webp`, alt: 'Cafeteros victoria' },
-  { src: `${import.meta.env.BASE_URL}assets/slider/kevin.webp`, alt: 'Cafeteros jugada' },
 ];
 
 const allImages = [...sliderImages, ...sliderImages, ...sliderImages];
@@ -40,7 +40,7 @@ const ImageSlider = () => {
       return;
     }
 
-    container.scrollLeft += 1;
+    container.scrollLeft += 0.5;
 
     if (container.scrollLeft >= SET_WIDTH * 2) {
       container.scrollLeft -= SET_WIDTH;

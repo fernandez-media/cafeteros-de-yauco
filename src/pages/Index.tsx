@@ -655,12 +655,12 @@ const Index = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.1} variant="right" distance={80}>
-            <div className="flex gap-5 lg:gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory pb-2 pt-1 px-5 lg:px-8">
+          <ScrollReveal delay={0.1} variant="up" distance={40}>
+            <div className="flex gap-3 lg:gap-4 overflow-x-auto scrollbar-hidden pb-2 pt-1 pl-5 lg:pl-8">
               {announcements.map((item) => {
                 const inner = (
-                  <div className="flex-shrink-0 w-[75vw] max-w-[340px] lg:w-[22vw] lg:max-w-[320px] snap-start rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
-                    <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-black">
+                  <div className="flex-shrink-0 w-[55vw] max-w-[240px] lg:w-[22vw] lg:max-w-[320px] rounded-2xl overflow-hidden bg-[#141414] border border-white/[0.08] transition-all duration-300 hover:border-gold/40 hover:shadow-[0_8px_40px_-12px_rgba(255,215,0,0.2)] group">
+                    <div className="relative w-full aspect-square lg:aspect-[3/4] overflow-hidden bg-black">
                       <img
                         src={item.image}
                         alt={item.title}
