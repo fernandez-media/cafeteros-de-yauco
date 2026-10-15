@@ -1,5 +1,4 @@
 import { Ticket } from "lucide-react";
-import abonosArt from "@/assets/abonos-ya-disponibles.png";
 
 type Tier = {
   name: string;
@@ -9,8 +8,8 @@ type Tier = {
 };
 
 const TIERS: Tier[] = [
-  { name: "Temporada regular", detail: "Todos los juegos en Yauco", price: "$75" },
-  { name: "VIP en cancha", detail: "Asiento adentro de la cancha", price: "$150", vip: true },
+  { name: "Entrada general", detail: "Acceso al coliseo", price: "$9" },
+  { name: "VIP", detail: "Asiento adentro de la cancha", price: "$20", vip: true },
 ];
 
 interface BoleteriaCredencialProps {
@@ -24,51 +23,58 @@ function CredencialCard({ ctaButton }: { ctaButton: React.ReactNode }) {
       className="credencial-swing"
       style={{ transformOrigin: "top center" }}
     >
-      <div className="relative z-[1] mx-auto w-[88%] max-w-[420px] rounded-[16px] bg-[#F4F1E8] px-[12px] pb-[14px] pt-[14px] text-[#111111] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.9)]">
-        <div className="mx-[4px] mb-[8px]">
-          <span className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[24px] leading-none">
-            Abonos de temporada regular 2026
-          </span>
+      <div className="relative z-[1] mx-auto w-[88%] max-w-[420px] rounded-[16px] overflow-hidden bg-[#111111] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.9)]">
+        <div className="relative w-full h-[180px] overflow-hidden">
+          <img
+            src="/media/boleteria/fan-celebrando.webp"
+            alt="Fan de Cafeteros celebrando en La Cuna del Voleibol"
+            width={1200}
+            height={800}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(to top, #111111 0%, rgba(17,17,17,0.4) 50%, transparent 100%)' }}
+          />
+          <div className="absolute bottom-0 left-0 w-full px-[14px] pb-[10px]">
+            <span className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[22px] leading-none text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              Boletos Temporada 2026
+            </span>
+          </div>
         </div>
 
-        <ul className="mb-[12px] list-none p-0 border-y-2 border-[#111111] text-left">
-          {TIERS.map((tier) => (
-            <li
-              key={tier.name}
-              className="flex items-center justify-between gap-[12px] border-b border-[#D8D2C2] px-[4px] py-[9px] last:border-b-0"
-            >
-              <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[17px] font-semibold leading-tight">
-                {tier.name}
-                <span className="block font-['Barlow',_system-ui,_sans-serif] text-[12.5px] font-normal text-[#666666]">
-                  {tier.detail}
-                </span>
-              </span>
-              <span
-                className={
-                  "shrink-0 font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[34px] leading-none " +
-                  (tier.vip
-                    ? "rounded-[6px] bg-[#111111] px-[8px] pt-[2px] text-[#F5CE3E]"
-                    : "")
-                }
+        <div className="px-[14px] pb-[14px] pt-[8px]">
+          <ul className="mb-[12px] list-none p-0 border-y border-white/10 text-left">
+            {TIERS.map((tier) => (
+              <li
+                key={tier.name}
+                className="flex items-center justify-between gap-[12px] border-b border-white/10 px-[4px] py-[10px] last:border-b-0"
               >
-                {tier.price}
-              </span>
-            </li>
-          ))}
-        </ul>
+                <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[17px] font-semibold leading-tight text-white">
+                  {tier.name}
+                  <span className="block font-['Barlow',_system-ui,_sans-serif] text-[12.5px] font-normal text-white/40">
+                    {tier.detail}
+                  </span>
+                </span>
+                <span
+                  className={
+                    "shrink-0 font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[34px] leading-none " +
+                    (tier.vip
+                      ? "rounded-[6px] bg-[#F5CE3E] px-[8px] pt-[2px] text-[#111111]"
+                      : "text-white")
+                  }
+                >
+                  {tier.price}
+                </span>
+              </li>
+            ))}
+          </ul>
 
-        <div className="mb-[12px]">
-          {ctaButton}
+          <div>
+            {ctaButton}
+          </div>
         </div>
-
-        <img
-          src={abonosArt}
-          alt="Abonos ya disponibles: los Cafeteros celebran en la cancha de La Cuna"
-          width={1080}
-          height={1246}
-          loading="lazy"
-          className="block h-auto w-full rounded-[10px]"
-        />
       </div>
 
       <style>{`
@@ -114,7 +120,6 @@ export default function BoleteriaCredencial({
     <section aria-labelledby="boleteria-title">
       {/* Mobile: single column */}
       <div className="lg:hidden mx-auto w-full max-w-[560px] rounded-[24px] border border-[#2A2A2A] bg-[#121212] px-[14px] pb-[22px] pt-[26px] text-center">
-        {/* ── Encabezado editorial ── */}
         <div className="mb-[22px] text-left md:mb-[28px]">
           <div className="border-l-4 border-[#F5CE3E] pl-[14px]">
             <h2
@@ -125,7 +130,6 @@ export default function BoleteriaCredencial({
               <span className="text-[#F5CE3E]">Cafeteros</span>!
             </h2>
           </div>
-
         </div>
 
         <CredencialCard ctaButton={ctaButton} />
@@ -134,7 +138,6 @@ export default function BoleteriaCredencial({
       {/* Desktop: two columns */}
       <div className="hidden lg:flex items-center gap-[48px] mx-auto max-w-[1100px] rounded-[28px] border border-[#2A2A2A] bg-[#121212] px-[48px] py-[48px]">
         <div className="flex-1 text-left min-w-0">
-          {/* ── Encabezado editorial (desktop) ── */}
           <div className="mb-[28px]">
             <div className="border-l-4 border-[#F5CE3E] pl-[14px]">
               <h2
@@ -145,7 +148,6 @@ export default function BoleteriaCredencial({
                 <span className="text-[#F5CE3E]">Cafeteros</span>!
               </h2>
             </div>
-
           </div>
         </div>
 
