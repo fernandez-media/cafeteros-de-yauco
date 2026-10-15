@@ -741,12 +741,14 @@ const Index = () => {
               <p className="text-white/50 text-xs sm:text-sm mb-4 sm:mb-6 m-0">
                 Asegura tu asiento para los juegos<br />de los Cafeteros de Yauco.
               </p>
-              <Link
-                to="/boleteria"
+              <a
+                href="https://cafeterosdeyaucovollyball.printcotickets.com/boletos"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-6 sm:px-7 py-2.5 sm:py-3 bg-gold text-black font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-full transition-transform duration-200 hover:scale-105 no-underline"
               >
                 Comprar Boletos
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -772,15 +774,17 @@ const Index = () => {
                 de Yauco. Boletos oficiales, acceso prioritario y la mejor
                 experiencia del voleibol superior.
               </p>
-              <Link
-                to="/boleteria"
+              <a
+                href="https://cafeterosdeyaucovollyball.printcotickets.com/boletos"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-9 py-4 bg-gold text-black font-display font-bold text-base uppercase tracking-[0.14em] rounded-full transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,215,0,0.35)] no-underline"
               >
                 Comprar Boletos
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
-              </Link>
+              </a>
             </div>
 
             {/* Right: image */}

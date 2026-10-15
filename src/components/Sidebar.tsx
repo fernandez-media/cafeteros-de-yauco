@@ -43,7 +43,7 @@ const navLinks = [
   },
   {
     label: 'Boletería',
-    path: '/boleteria',
+    path: 'https://cafeterosdeyaucovollyball.printcotickets.com/boletos',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -128,17 +128,30 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       >
         {/* Navigation Links */}
         <nav className="flex-1 overflow-y-auto" aria-label="Navegación principal">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={onClose}
-              className="flex items-center gap-3.5 py-4 font-display text-lg font-semibold uppercase tracking-wider text-white/70 transition-all duration-200 hover:text-gold hover:translate-x-[4px] no-underline"
-            >
-              <span className="flex-shrink-0 text-gold/60" aria-hidden="true">{link.icon}</span>
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isExternal = link.path.startsWith('http');
+            const cls = "flex items-center gap-3.5 py-4 font-display text-lg font-semibold uppercase tracking-wider text-white/70 transition-all duration-200 hover:text-gold hover:translate-x-[4px] no-underline";
+            const children = (
+              <>
+                <span className="flex-shrink-0 text-gold/60" aria-hidden="true">{link.icon}</span>
+                {link.label}
+              </>
+            );
+
+            if (isExternal) {
+              return (
+                <a key={link.label} href={link.path} target="_blank" rel="noopener noreferrer" onClick={onClose} className={cls}>
+                  {children}
+                </a>
+              );
+            }
+
+            return (
+              <Link key={link.path} to={link.path} onClick={onClose} className={cls}>
+                {children}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Social Links */}

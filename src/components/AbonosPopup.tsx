@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { Link } from "react-router-dom";
 import abonosArt from "@/assets/abonos-ya-disponibles.png";
 
 const STORAGE_KEY = "cafeteros-abonos-popup-seen";
@@ -76,14 +75,16 @@ export default function AbonosPopup() {
 
         {/* CTA */}
         <div className="px-[12px] pb-[16px]">
-          <Link
-            to="/boleteria"
+          <a
+            href="https://cafeterosdeyaucovollyball.printcotickets.com/boletos"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={dismiss}
             className="relative flex w-full items-center justify-center gap-[8px] overflow-hidden rounded-[10px] px-[14px] py-[12px] font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[16px] font-bold uppercase tracking-[1px] text-[#111111] no-underline shadow-[0_8px_24px_-8px_rgba(212,175,55,0.5)] transition-transform duration-150 ease-out active:scale-[0.97]"
             style={{ background: "linear-gradient(170deg, #E8C84A 0%, #D4AF37 40%, #C5982A 70%, #D4AF37 100%)" }}
           >
             Ver boletos
-          </Link>
+          </a>
         </div>
       </div>
 

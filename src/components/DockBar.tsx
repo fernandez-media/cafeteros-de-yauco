@@ -43,7 +43,7 @@ const dockItems: DockItem[] = [
   },
   {
     label: 'Boletos',
-    path: '/boleteria',
+    path: 'https://cafeterosdeyaucovollyball.printcotickets.com/boletos',
     icon: (active) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#FFD700' : 'currentColor'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -82,10 +82,35 @@ const DockBar = () => {
         }}
       >
         {dockItems.map((item) => {
-          const isActive =
+          const isExternal = item.path.startsWith('http');
+          const isActive = !isExternal && (
             item.path === '/'
               ? location.pathname === '/'
-              : location.pathname.startsWith(item.path);
+              : location.pathname.startsWith(item.path));
+
+          const cls = "flex flex-col items-center gap-[3px] px-2.5 py-1.5 rounded-[14px] no-underline transition-colors duration-200 min-w-11 min-h-11 justify-center";
+          const bg = { backgroundColor: isActive ? 'rgba(255, 215, 0, 0.10)' : 'transparent' };
+          const children = (
+            <>
+              <span className="text-white/50" aria-hidden="true">
+                {item.icon(isActive)}
+              </span>
+              <span
+                className="font-display text-[9px] font-semibold uppercase tracking-wider"
+                style={{ color: isActive ? '#FFD700' : 'rgba(255, 255, 255, 0.35)' }}
+              >
+                {item.label}
+              </span>
+            </>
+          );
+
+          if (isExternal) {
+            return (
+              <a key={item.label} href={item.path} target="_blank" rel="noopener noreferrer" aria-label={item.label} className={cls} style={bg}>
+                {children}
+              </a>
+            );
+          }
 
           return (
             <Link
@@ -93,22 +118,10 @@ const DockBar = () => {
               to={item.path}
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
-              className="flex flex-col items-center gap-[3px] px-2.5 py-1.5 rounded-[14px] no-underline transition-colors duration-200 min-w-11 min-h-11 justify-center"
-              style={{
-                backgroundColor: isActive ? 'rgba(255, 215, 0, 0.10)' : 'transparent',
-              }}
+              className={cls}
+              style={bg}
             >
-              <span className="text-white/50" aria-hidden="true">
-                {item.icon(isActive)}
-              </span>
-              <span
-                className="font-display text-[9px] font-semibold uppercase tracking-wider"
-                style={{
-                  color: isActive ? '#FFD700' : 'rgba(255, 255, 255, 0.35)',
-                }}
-              >
-                {item.label}
-              </span>
+              {children}
             </Link>
           );
         })}

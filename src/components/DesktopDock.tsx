@@ -6,7 +6,7 @@ const navItems = [
   { label: 'Inicio', path: '/', end: true },
   { label: 'Calendario', path: '/calendario' },
   { label: 'Roster', path: '/roster' },
-  { label: 'Boletos', path: '/boleteria' },
+  { label: 'Boletos', path: 'https://cafeterosdeyaucovollyball.printcotickets.com/boletos' },
   { label: 'Merch', path: '/merch' },
 ];
 
@@ -51,23 +51,39 @@ const DesktopDock = () => {
       <span className="w-px h-10 bg-gold/25 mr-2" aria-hidden="true" />
 
       <ul className="flex items-center gap-1 pr-1">
-        {navItems.map((item) => (
-          <li key={item.path}>
-            <NavLink
-              to={item.path}
-              end={item.end}
-              className={({ isActive }) =>
-                `relative inline-flex items-center px-5 py-2.5 rounded-full text-[14px] font-display font-semibold uppercase tracking-[0.16em] no-underline transition-all duration-200 ${
-                  isActive
-                    ? 'bg-gold/15 text-gold shadow-[inset_0_0_0_1px_rgba(255,215,0,0.35)]'
-                    : 'text-white/70 hover:text-white hover:bg-white/[0.06] hover:-translate-y-[1px]'
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
-          </li>
-        ))}
+        {navItems.map((item) => {
+          const isExternal = item.path.startsWith('http');
+          const baseCls = "relative inline-flex items-center px-5 py-2.5 rounded-full text-[14px] font-display font-semibold uppercase tracking-[0.16em] no-underline transition-all duration-200";
+          const inactiveCls = "text-white/70 hover:text-white hover:bg-white/[0.06] hover:-translate-y-[1px]";
+
+          if (isExternal) {
+            return (
+              <li key={item.label}>
+                <a href={item.path} target="_blank" rel="noopener noreferrer" className={`${baseCls} ${inactiveCls}`}>
+                  {item.label}
+                </a>
+              </li>
+            );
+          }
+
+          return (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                end={item.end}
+                className={({ isActive }) =>
+                  `${baseCls} ${
+                    isActive
+                      ? 'bg-gold/15 text-gold shadow-[inset_0_0_0_1px_rgba(255,215,0,0.35)]'
+                      : inactiveCls
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
