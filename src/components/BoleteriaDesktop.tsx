@@ -1,19 +1,15 @@
-import { ReactNode, useMemo } from "react";
+import { useMemo } from "react";
+import { Ticket } from "lucide-react";
 import laCunaCancha from "@/assets/la-cuna-cancha.jpg";
 
-/* ── BOLETERÍA · DESKTOP (≥1024px) · CALENDARIO + CREDENCIAL ── */
+/* ── BOLETERÍA · DESKTOP (≥1024px) · CALENDARIO + CTA ── */
 
 export type HomeGame = {
-  /** Fecha en formato YYYY-MM-DD */
   date: string;
-  /** Nombre del rival, ej. "Adjuntas" */
   opponent: string;
-  /** true solo para el juego inaugural de la temporada */
   isOpener?: boolean;
 };
 
-/** Respaldo: juegos en casa del calendario preliminar LVSM 2026.
- *  Úsalo solo si el proyecto no tiene ya una fuente de datos del calendario. */
 export const FALLBACK_HOME_GAMES: HomeGame[] = [
   { date: "2026-10-23", opponent: "Adjuntas", isOpener: true },
   { date: "2026-10-25", opponent: "Lares" },
@@ -41,14 +37,12 @@ function todayInPR() {
 }
 
 interface BoleteriaDesktopProps {
-  /** La credencial existente (el pase crema con precios, botón y arte) */
-  credential: ReactNode;
-  /** Juegos en casa de la temporada regular */
+  ctaHref: string;
   homeGames?: HomeGame[];
 }
 
 export default function BoleteriaDesktop({
-  credential,
+  ctaHref,
   homeGames = FALLBACK_HOME_GAMES,
 }: BoleteriaDesktopProps) {
   const upcoming = useMemo(() => {
@@ -64,7 +58,6 @@ export default function BoleteriaDesktop({
       aria-labelledby="boleteria-title-desktop"
       className="relative ml-[calc(50%-50vw)] w-screen overflow-hidden bg-[#0B0B0B] px-[6vw] py-[88px]"
     >
-      {/* Fondo: cancha de La Cuna, muy sutil */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center opacity-10 grayscale contrast-[1.1]"
@@ -75,9 +68,8 @@ export default function BoleteriaDesktop({
         className="absolute inset-0 bg-[linear-gradient(90deg,#0B0B0B_20%,rgba(11,11,11,0.6)_60%,#0B0B0B_100%)]"
       />
 
-      <div className="relative z-[1] mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)_400px] items-start gap-[6vw]">
-        {/* ── Izquierda: título + próximos juegos ── */}
-        <div className="flex flex-col self-stretch">
+      <div className="relative z-[1] mx-auto max-w-[1440px]">
+        <div className="flex flex-col">
           <div className="border-l-[5px] border-[#F5CE3E] pl-[22px]">
             <h2
               id="boleteria-title-desktop"
@@ -89,7 +81,7 @@ export default function BoleteriaDesktop({
           </div>
 
           {upcoming.length > 0 && (
-            <div className="mt-[44px] flex-1 flex flex-col min-h-0">
+            <div className="mt-[44px]">
               <div className="flex items-baseline justify-between border-b-2 border-white pb-[10px]">
                 <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[15px] font-bold uppercase tracking-[2.5px] text-white">
                   Próximos juegos en La Cuna
@@ -99,7 +91,7 @@ export default function BoleteriaDesktop({
                 </span>
               </div>
 
-              <ul className="flex-1 overflow-y-auto">
+              <ul className="max-w-[900px]">
                 {upcoming.map((game) => {
                   const { weekday, day } = formatGameDate(game.date);
                   return (
@@ -132,11 +124,44 @@ export default function BoleteriaDesktop({
               </ul>
             </div>
           )}
-        </div>
 
-        {/* ── Derecha: la credencial existente ── */}
-        <div className="flex justify-center">{credential}</div>
+          {/* ── CTA Button ── */}
+          <div className="mt-[48px]">
+            <a
+              href={ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="boleteria-cta-desktop group relative inline-flex items-center gap-[14px] overflow-hidden rounded-[16px] px-[40px] py-[22px] font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[26px] font-bold uppercase tracking-[2px] text-[#111111] no-underline shadow-[0_12px_40px_-8px_rgba(212,175,55,0.5)] transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-[2px] hover:shadow-[0_18px_50px_-8px_rgba(212,175,55,0.7)] active:translate-y-[1px] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-white motion-reduce:transition-none"
+              style={{ background: "linear-gradient(170deg, #E8C84A 0%, #D4AF37 40%, #C5982A 70%, #D4AF37 100%)" }}
+            >
+              <span className="boleteria-cta-shimmer absolute inset-0 -translate-x-[120%] bg-[linear-gradient(110deg,transparent_35%,rgba(255,255,255,0.55)_50%,transparent_65%)]" />
+              <Ticket aria-hidden="true" className="relative h-[28px] w-[28px] transition-transform duration-200 group-hover:scale-110" strokeWidth={2.2} />
+              <span className="relative">Comprar Boletos</span>
+            </a>
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes boleteria-shimmer {
+          0% { transform: translateX(-120%); }
+          100% { transform: translateX(120%); }
+        }
+        .boleteria-cta-desktop:hover .boleteria-cta-shimmer {
+          animation: boleteria-shimmer 0.7s ease-out;
+        }
+        .boleteria-cta-desktop {
+          animation: boleteria-pulse 3s ease-in-out infinite;
+        }
+        @keyframes boleteria-pulse {
+          0%, 100% { box-shadow: 0 12px 40px -8px rgba(212,175,55,0.5); }
+          50% { box-shadow: 0 12px 50px -4px rgba(212,175,55,0.7); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .boleteria-cta-desktop { animation: none; }
+          .boleteria-cta-desktop:hover .boleteria-cta-shimmer { animation: none; }
+        }
+      `}</style>
     </section>
   );
 }

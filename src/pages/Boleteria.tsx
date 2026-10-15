@@ -2,11 +2,10 @@ import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImage from '../components/ResponsiveImage';
 import BoleteriaCredencial from '../components/BoleteriaCredencial';
 import BoleteriaDesktop from '../components/BoleteriaDesktop';
-import CredencialPase from '../components/CredencialPase';
 import CafeterosChant from '../components/CafeterosChant';
 import type { HomeGame } from '../components/BoleteriaDesktop';
 
-const CTA_HREF = "https://cafeterosdeyaucovollyball.printcotickets.com/events/178163";
+const CTA_HREF = "https://cafeterosdeyaucovollyball.printcotickets.com/boletos";
 
 const HOME_GAMES: HomeGame[] = [
   { date: "2026-10-23", opponent: "Lares", isOpener: true },
@@ -141,11 +140,11 @@ const Boleteria = () => {
         </ScrollReveal>
       </div>
 
-      {/* ─── Desktop: Calendario + Credencial ─── */}
+      {/* ─── Desktop: Calendario + CTA ─── */}
       <div className="hidden lg:block">
         <BoleteriaDesktop
           homeGames={HOME_GAMES}
-          credential={<CredencialPase ctaHref={CTA_HREF} />}
+          ctaHref={CTA_HREF}
         />
       </div>
     </div>
