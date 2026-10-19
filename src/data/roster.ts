@@ -26,8 +26,16 @@ export const fitness = [
   { name: 'Carlos Nieves' },
 ];
 
+export const generalManager = [
+  { name: 'Carlos Pietri' },
+];
+
 export const management = [
   { name: 'Jorge Báez' },
+];
+
+export const coOwner = [
+  { name: 'Tito Catalá' },
 ];
 
 export const dataVolley = [

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImage from '../components/ResponsiveImage';
-import { roster, staff, medical, fitness, management, dataVolley, equipment } from '../data/roster';
+import { roster, staff, medical, fitness, generalManager, management, coOwner, dataVolley, equipment } from '../data/roster';
 
 const Roster = () => {
   return (
@@ -155,7 +155,9 @@ const Roster = () => {
         {/* Staff sections */}
         <div className="mt-10 lg:mt-16">
           {[
+            { title: 'Gerente General', members: generalManager },
             { title: 'Apoderado', members: management },
+            { title: 'Co-Apoderado', members: coOwner },
             { title: 'Cuerpo Tecnico', members: staff },
             { title: 'Data Volley', members: dataVolley },
             { title: 'Cuerpo Medico', members: medical },
