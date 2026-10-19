@@ -52,7 +52,7 @@ export const roster: Player[] = [
   { number: '3', name: 'Danni Rivera', position: 'Esquina', photo: photo('daniel-rivera.webp') },
   { number: '?', name: 'Juanqui Rivas', position: 'Liberó' },
   { number: '?', name: 'Heider Banguera', position: 'Esquina' },
-  { number: '?', name: 'Michael De La Cruz', position: 'Central', photo: photo('michael-de-la-cruz.webp') },
+  { number: '17', name: 'Michael De La Cruz', position: 'Central', photo: photo('michael-de-la-cruz.webp') },
   { number: '?', name: 'James Cintrón', position: 'Central' },
   { number: '?', name: 'Gregory Torres', position: 'Opuesto' },
 ];
