@@ -26,16 +26,33 @@ export const fitness = [
   { name: 'Carlos Nieves' },
 ];
 
+export const management = [
+  { name: 'Jorge Báez' },
+];
+
+export const dataVolley = [
+  { name: 'Manuel Rivera' },
+];
+
+export const equipment = [
+  { name: 'César Rosario' },
+  { name: 'Alberto Quiñones' },
+];
+
 export const roster: Player[] = [
-  { number: '11', name: 'Jessie Colón', position: 'Bloqueador Central', photo: photo('jessie-colon.webp'), captain: true },
-  { number: '55', name: 'Kevin Rodriguez', position: 'Colocador', photo: photo('kevin-rodriguez.webp') },
-  { number: '24', name: 'Arnel Cabrera', position: 'Libero', photo: photo('arnel-cabrera.webp') },
+  { number: '11', name: 'Jesse Colón', position: 'Central', photo: photo('jessie-colon.webp'), captain: true },
+  { number: '55', name: 'Kevin Rodríguez', position: 'Colocador', photo: photo('kevin-rodriguez.webp') },
+  { number: '24', name: 'Arnel Cabrera', position: 'Liberó', photo: photo('arnel-cabrera.webp') },
   { number: '14', name: 'Jalen Penrose', position: 'Opuesto', photo: photo('jalen-penrose.webp') },
-  { number: '10', name: 'Iván Fernández', position: 'Bloqueador Central', photo: photo('ivan-fernandez.webp') },
+  { number: '10', name: 'Iván Fernández', position: 'Central', photo: photo('ivan-fernandez.webp') },
   { number: '6', name: 'Diego Negrón', position: 'Esquina', photo: photo('diego-negron.webp') },
-  { number: '7', name: 'Axel Melendez Watts', position: 'Esquina', photo: photo('axel-melendez-watts.webp') },
+  { number: '7', name: 'Axel Meléndez', position: 'Esquina', photo: photo('axel-melendez-watts.webp') },
   { number: '9', name: 'Diego Rosich', position: 'Esquina', photo: photo('diego-rosich.webp') },
   { number: '26', name: 'Yadiel Nadal', position: 'Colocador', photo: photo('yadiel-nadal.webp') },
-  { number: '3', name: 'Daniel Rivera', position: 'Esquina', photo: photo('daniel-rivera.webp') },
-  { number: '5', name: 'Willy Varela Diaz', position: 'Bloqueador Central', photo: photo('willy-varela.webp') },
+  { number: '3', name: 'Danni Rivera', position: 'Esquina', photo: photo('daniel-rivera.webp') },
+  { number: '?', name: 'Juanqui Rivas', position: 'Liberó' },
+  { number: '?', name: 'Heider Banguera', position: 'Esquina' },
+  { number: '?', name: 'Michael De La Cruz', position: 'Central' },
+  { number: '?', name: 'James Cintrón', position: 'Central' },
+  { number: '?', name: 'Gregory Torres', position: 'Opuesto' },
 ];

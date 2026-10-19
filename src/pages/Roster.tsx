@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import ResponsiveImage from '../components/ResponsiveImage';
-import { roster, staff, medical, fitness } from '../data/roster';
+import { roster, staff, medical, fitness, management, dataVolley, equipment } from '../data/roster';
 
 const Roster = () => {
   return (
@@ -155,9 +155,12 @@ const Roster = () => {
         {/* Staff sections */}
         <div className="mt-10 lg:mt-16">
           {[
+            { title: 'Apoderado', members: management },
             { title: 'Cuerpo Tecnico', members: staff },
+            { title: 'Data Volley', members: dataVolley },
             { title: 'Cuerpo Medico', members: medical },
             { title: 'Preparador Fisico', members: fitness },
+            { title: 'Encargado de la Propiedad', members: equipment },
           ].map((section, si) => (
             <div key={si} className={si > 0 ? 'mt-6' : ''}>
               <ScrollReveal variant="blur" distance={30}>

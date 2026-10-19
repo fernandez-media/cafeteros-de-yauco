@@ -669,9 +669,6 @@ const Index = () => {
                       />
                     </div>
                     <div className="p-4 lg:p-4 flex-1">
-                      <p className="text-gold/50 text-[10px] lg:text-[10px] font-display font-bold uppercase tracking-[0.25em] m-0 mb-1.5">
-                        {new Date(item.date).toLocaleDateString('es-PR', { year: 'numeric', month: 'long', day: 'numeric' })}
-                      </p>
                       <h3 className="font-display font-bold text-base lg:text-sm uppercase text-white m-0 mb-1.5 leading-[1.1]">
                         {item.title}
                       </h3>
