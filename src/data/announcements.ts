@@ -35,4 +35,11 @@ export const announcements: Announcement[] = [
     image: '/media/announcements/sorteo-2026.webp',
     link: 'https://www.instagram.com/cafeterosdeyauco/',
   },
+  {
+    id: 'jingle-oficial-2026',
+    title: 'Jingle Oficial — La Cuna del Voleibol',
+    description: 'El jingle oficial de los Cafeteros de Yauco ya está disponible en todas las plataformas digitales. ¡Escúchalo en Spotify, Apple Music y más!',
+    image: '/media/announcements/jingle-oficial-2026.png',
+    link: 'https://www.instagram.com/cafeterosdeyauco/',
+  },
 ];
