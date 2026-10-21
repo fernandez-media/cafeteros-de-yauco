@@ -8,6 +8,13 @@ export interface Announcement {
 
 export const announcements: Announcement[] = [
   {
+    id: 'jingle-oficial-2026',
+    title: 'Jingle Oficial — La Cuna del Voleibol',
+    description: 'El jingle oficial de los Cafeteros de Yauco ya está disponible en todas las plataformas digitales. ¡Escúchalo en Spotify, Apple Music y más!',
+    image: '/media/announcements/jingle-oficial-2026.png',
+    link: 'https://www.instagram.com/cafeterosdeyauco/',
+  },
+  {
     id: 'partido-inaugural-2026',
     title: 'Partido Inaugural — Este Viernes en Yauco',
     description: 'Los Cafeteros abren la temporada 2026-27 este viernes 23 de octubre contra los Patriotas de Lares en el Coliseo Raúl Pipote Oliveras. ¡Consigue tus boletos!',
@@ -33,13 +40,6 @@ export const announcements: Announcement[] = [
     title: 'Sorteo de Jugadores 2026',
     description: 'Los Cafeteros de Yauco seleccionan a los jugadores Gregory Torres, Danny Martínez, Fabián Rohena y Aramis Jiménez en el Sorteo de Jugadores del 2026.',
     image: '/media/announcements/sorteo-2026.webp',
-    link: 'https://www.instagram.com/cafeterosdeyauco/',
-  },
-  {
-    id: 'jingle-oficial-2026',
-    title: 'Jingle Oficial — La Cuna del Voleibol',
-    description: 'El jingle oficial de los Cafeteros de Yauco ya está disponible en todas las plataformas digitales. ¡Escúchalo en Spotify, Apple Music y más!',
-    image: '/media/announcements/jingle-oficial-2026.png',
     link: 'https://www.instagram.com/cafeterosdeyauco/',
   },
 ];
