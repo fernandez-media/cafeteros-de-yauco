@@ -15,13 +15,6 @@ export const announcements: Announcement[] = [
     link: 'https://www.instagram.com/cafeterosdeyauco/',
   },
   {
-    id: 'partido-inaugural-2026',
-    title: 'Partido Inaugural — Este Viernes en Yauco',
-    description: 'Los Cafeteros abren la temporada 2026-27 este viernes 23 de octubre contra los Patriotas de Lares en el Coliseo Raúl Pipote Oliveras. ¡Consigue tus boletos!',
-    image: '/media/announcements/partido-inaugural-2026.png',
-    link: 'https://cafeterosdeyaucovollyball.printcotickets.com/boletos',
-  },
-  {
     id: 'axel-melendez-2026',
     title: 'Axel Meléndez Firma con Cafeteros',
     description: '¡El yaucano vuelve a casa! Axel Meléndez firma nuevamente con los Cafeteros luego de coronarse Novato del Año en la pasada temporada y de tener un gran verano con la Selección Nacional.',
