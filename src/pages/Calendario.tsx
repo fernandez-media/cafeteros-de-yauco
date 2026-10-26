@@ -134,15 +134,23 @@ const Calendario = () => {
                               </span>
                             )}
                           </div>
-                          <span
-                            className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                            style={{
-                              backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.12)' : 'rgba(255, 255, 255, 0.06)',
-                              color: game.isHome ? '#FFD700' : 'rgba(255, 255, 255, 0.4)',
-                            }}
-                          >
-                            {game.isHome ? 'Local' : 'Visitante'}
-                          </span>
+                          <div className="flex flex-col items-end gap-1.5">
+                            <span
+                              className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                              style={{
+                                backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.12)' : 'rgba(255, 255, 255, 0.06)',
+                                color: game.isHome ? '#FFD700' : 'rgba(255, 255, 255, 0.4)',
+                              }}
+                            >
+                              {game.isHome ? 'Local' : 'Visitante'}
+                            </span>
+                            {game.result && (
+                              <span className="flex items-center gap-1.5">
+                                <span className={`font-display font-black text-sm ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>{game.result}</span>
+                                <span className="text-white/50 font-semibold text-xs">{game.score}</span>
+                              </span>
+                            )}
+                          </div>
                         </div>
                         <div className="flex items-center gap-4">
                           {oppKey ? (
@@ -182,9 +190,16 @@ const Calendario = () => {
 
                         <div className="w-px h-14 bg-white/10 flex-shrink-0" />
 
-                        {/* Time */}
+                        {/* Score / Time */}
                         <div className="w-24 flex-shrink-0 text-center">
-                          <p className="text-gold text-base font-semibold m-0">{game.time || '—'}</p>
+                          {game.result ? (
+                            <p className="m-0 flex items-center justify-center gap-2">
+                              <span className={`font-display font-black text-lg ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>{game.result}</span>
+                              <span className="text-white/60 font-semibold text-base">{game.score}</span>
+                            </p>
+                          ) : (
+                            <p className="text-gold text-base font-semibold m-0">{game.time || '—'}</p>
+                          )}
                         </div>
 
                         <div className="w-px h-12 bg-white/10 flex-shrink-0" />
@@ -213,13 +228,11 @@ const Calendario = () => {
                                   pictureClassName="w-[60px] h-[60px] inline-flex flex-shrink-0"
                                   className="w-[60px] h-[60px] object-contain"
                                 />
-                                <span className="text-white font-display font-bold text-base uppercase">Cafeteros</span>
                               </div>
                             </>
                           ) : (
                             <>
                               <div className="flex items-center gap-3 flex-1 min-w-0 justify-end">
-                                <span className="text-white font-display font-bold text-base uppercase">Cafeteros</span>
                                 <ResponsiveImage
                                   name="cafeteros-logo"
                                   alt="Cafeteros de Yauco"

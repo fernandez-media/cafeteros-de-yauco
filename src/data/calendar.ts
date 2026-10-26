@@ -4,11 +4,13 @@ export interface Game {
   opponent: string;
   location: string;
   isHome: boolean;
+  score?: string;
+  result?: 'W' | 'L';
 }
 
 export const calendar: Game[] = [
-  { date: 'Octubre 23', time: '', opponent: 'Patriotas de Lares', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
-  { date: 'Octubre 25', time: '', opponent: 'Plataneros de Corozal', location: 'Carmen Zoraida Figueroa, Corozal', isHome: false },
+  { date: 'Octubre 23', time: '', opponent: 'Patriotas de Lares', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true, score: '0-3', result: 'L' },
+  { date: 'Octubre 25', time: '', opponent: 'Plataneros de Corozal', location: 'Carmen Zoraida Figueroa, Corozal', isHome: false, score: '3-2', result: 'W' },
   { date: 'Octubre 30', time: '', opponent: 'Changos de Naranjito', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
   { date: 'Noviembre 1', time: '', opponent: 'Gigantes de Adjuntas', location: 'Coliseo Rafael Llull Pérez, Adjuntas', isHome: false },
   { date: 'Noviembre 6', time: '', opponent: 'Gigantes de Carolina', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
