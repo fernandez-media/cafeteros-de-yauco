@@ -61,6 +61,6 @@ export const roster: Player[] = [
   { number: '17', name: 'Michael De La Cruz', position: 'Central', photo: photo('michael-de-la-cruz.webp') },
   { number: '?', name: 'Juanqui Rivas', position: 'Libero' },
   { number: '23', name: 'Heider Banguera', position: 'Esquina' },
-  { number: '10', name: 'James Cintrón', position: 'Central' },
-  { number: '20', name: 'Gregory Torres', position: 'Opuesto' },
+  { number: '10', name: 'James Cintrón', position: 'Central', photo: photo('james-cintron.webp') },
+  { number: '20', name: 'Gregory Torres', position: 'Opuesto', photo: photo('gregory-torres.webp') },
 ];
