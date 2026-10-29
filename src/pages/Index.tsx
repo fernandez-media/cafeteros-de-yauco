@@ -122,7 +122,14 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
 };
 
 const Index = () => {
-  const previewGames = calendar.slice(0, 5);
+  const previewGames = calendar.filter((g) => {
+    if (g.date === 'TBD') return true;
+    const [month, day] = g.date.split(' ');
+    const gameDate = new Date(2026, MONTH_NUM[month] ?? 0, parseInt(day));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return gameDate >= today;
+  });
   const featuredArticle = news[0];
   const sideArticles = news.slice(1, 3);
 
@@ -516,7 +523,7 @@ const Index = () => {
 
         {/* DESKTOP: Glassmorphism game cards + "Próximos Partidos" image card */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-5 px-10 2xl:px-16 w-full max-w-[1760px] mx-auto">
-          {calendar.slice(0, 3).map((game, i) => {
+          {previewGames.slice(0, 3).map((game, i) => {
             const oppLower = game.opponent.toLowerCase();
             const oppKey = oppLower.includes('caribes') ? 'caribes' : oppLower.includes('carolina') ? 'gigantes' : oppLower.includes('mets') ? 'mets' : oppLower.includes('patriotas') ? 'patriotas' : oppLower.includes('plataneros') ? 'plataneros' : oppLower.includes('naranjito') ? 'naranjito' : oppLower.includes('adjuntas') ? 'adjuntas' : null;
             const cafBlock = (
