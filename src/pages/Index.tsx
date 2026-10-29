@@ -75,13 +75,9 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
           <Link
             key={i}
             to="/roster"
-            className="flex-shrink-0 w-[180px] rounded-xl overflow-hidden no-underline"
-            style={{
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-              border: '1px solid rgba(255,215,0,0.08)',
-            }}
+            className="flex-shrink-0 w-[120px] flex flex-col items-center text-center no-underline"
           >
-            <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
+            <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden bg-black/50 border border-gold/10">
               {player.photo ? (
                 <img
                   src={player.photo}
@@ -92,28 +88,22 @@ const MobileRosterCarousel = ({ players }: { players: Player[] }) => {
                   loading="eager"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/20 text-5xl font-display font-black">
+                <div className="w-full h-full flex items-center justify-center text-white/20 text-2xl font-display font-black">
                   {player.number}
                 </div>
               )}
-              <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
-              <span className="absolute top-2 right-2 font-display font-black text-gold/20 text-xl leading-none select-none">
-                #{player.number}
-              </span>
             </div>
-            <div className="px-3 py-2.5">
-              <p className="font-display font-black text-white uppercase text-xs leading-tight m-0 flex items-center gap-1">
-                {player.name}
-                {player.captain && (
-                  <span className="inline-flex items-center justify-center px-1 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase tracking-wider">
-                    C
-                  </span>
-                )}
-              </p>
-              <p className="text-gold/60 text-[10px] font-display font-semibold uppercase tracking-[0.12em] m-0 mt-0.5">
-                {player.position}
-              </p>
-            </div>
+            <p className="font-display font-bold text-white uppercase text-[11px] leading-tight m-0 mt-2 flex items-center justify-center gap-1">
+              {player.name}
+              {player.captain && (
+                <span className="inline-flex items-center justify-center px-1 py-0.5 rounded-full bg-gold/20 text-gold font-display font-bold text-[7px] leading-none uppercase">
+                  C
+                </span>
+              )}
+            </p>
+            <p className="text-gold/50 text-[9px] font-display font-semibold uppercase tracking-[0.12em] m-0 mt-0.5">
+              {player.position}
+            </p>
           </Link>
         ))}
       </div>
@@ -1137,13 +1127,9 @@ const Index = () => {
                 <Link
                   key={i}
                   to="/roster"
-                  className="group relative flex-shrink-0 w-[220px] rounded-2xl overflow-hidden no-underline transition-transform duration-300 hover:-translate-y-1"
-                  style={{
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                    border: '1px solid rgba(255,215,0,0.08)',
-                  }}
+                  className="group flex-shrink-0 w-[160px] flex flex-col items-center text-center no-underline transition-transform duration-300 hover:-translate-y-1"
                 >
-                  <div className="relative w-full aspect-[3/4] overflow-hidden bg-white/5">
+                  <div className="relative w-[140px] h-[140px] rounded-full overflow-hidden bg-black/50 border border-gold/10 transition-all duration-300 group-hover:border-gold/30">
                     {player.photo ? (
                       <img
                         src={player.photo}
@@ -1154,29 +1140,22 @@ const Index = () => {
                         loading="lazy"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-white/20 text-6xl font-display font-black">
+                      <div className="w-full h-full flex items-center justify-center text-white/20 text-4xl font-display font-black">
                         {player.number}
                       </div>
                     )}
-                    <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center 40%, transparent 30%, rgba(0,0,0,0.85) 75%)' }} />
-                    <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }} />
-                    <span className="absolute top-3 right-3 font-display font-black text-gold/20 text-3xl leading-none select-none">
-                      #{player.number}
-                    </span>
                   </div>
-                  <div className="px-4 py-3">
-                    <p className="font-display font-black text-white uppercase text-sm leading-tight m-0 flex items-center gap-1.5">
-                      {player.name}
-                      {player.captain && (
-                        <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[9px] leading-none uppercase tracking-wider">
-                          C
-                        </span>
-                      )}
-                    </p>
-                    <p className="text-gold/60 text-[11px] font-display font-semibold uppercase tracking-[0.15em] m-0 mt-1">
-                      {player.position}
-                    </p>
-                  </div>
+                  <p className="font-display font-bold text-white uppercase text-sm leading-tight m-0 mt-3 flex items-center justify-center gap-1.5">
+                    {player.name}
+                    {player.captain && (
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded-full bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase">
+                        C
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-gold/50 text-[11px] font-display font-semibold uppercase tracking-[0.15em] m-0 mt-1">
+                    {player.position}
+                  </p>
                 </Link>
               ))}
             </div>
