@@ -93,20 +93,16 @@ const Roster = () => {
         </div>
 
         {/* Desktop: interactive grid */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-4">
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6">
           {roster.map((player, i) => (
             <ScrollReveal key={i} delay={i * 0.06} variant="slideUp" distance={60}>
               <div
-                className="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-0.5"
+                className="group relative flex flex-col items-center text-center cursor-pointer transition-all duration-300 hover:-translate-y-1"
                 tabIndex={0}
                 role="article"
                 aria-label={`${player.name}, ${player.position}`}
-                style={{
-                  backgroundColor: '#111',
-                  border: '1px solid rgba(255, 215, 0, 0.06)',
-                }}
               >
-                <div className="relative w-full aspect-square overflow-hidden bg-black/50">
+                <div className="relative w-full aspect-square rounded-full overflow-hidden bg-black/50 border border-gold/10 transition-all duration-300 group-hover:border-gold/30">
                   {player.photo ? (
                     <img
                       src={player.photo}
@@ -126,24 +122,23 @@ const Roster = () => {
                       </svg>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <span
-                    className="absolute top-3 right-4 font-display font-black text-5xl text-gold/15 leading-none"
+                    className="absolute top-2 right-4 font-display font-black text-4xl text-gold/15 leading-none"
                     aria-hidden="true"
                   >
-                    {player.number}
+                    #{player.number}
                   </span>
                   {player.captain && (
-                    <span className="absolute top-3 left-3 inline-flex items-center justify-center px-2 py-1 rounded bg-gold/20 text-gold font-display font-bold text-[10px] leading-none uppercase tracking-wider backdrop-blur-sm">
-                      Capitan
+                    <span className="absolute top-2 left-4 inline-flex items-center justify-center px-2 py-1 rounded-full bg-gold/20 text-gold font-display font-bold text-[10px] leading-none uppercase tracking-wider backdrop-blur-sm">
+                      C
                     </span>
                   )}
                 </div>
-                <div className="p-4">
+                <div className="mt-3">
                   <p className="font-display font-bold text-base text-white uppercase m-0 leading-tight">
                     {player.name}
                   </p>
-                  <p className="text-gold/60 text-xs mt-1.5 m-0 uppercase tracking-wider font-semibold">
+                  <p className="text-gold/60 text-xs mt-1 m-0 uppercase tracking-wider font-semibold">
                     {player.position}
                   </p>
                 </div>
