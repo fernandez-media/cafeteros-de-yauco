@@ -90,7 +90,7 @@ export default function BoleteriaDesktop({
 
       <div className="relative z-[1] mx-auto max-w-[1400px]">
         <div className="flex flex-col">
-          <div className="border-l-[5px] border-[#F5CE3E] pl-[22px]">
+          <div>
             <h2
               id="boleteria-title-desktop"
               className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[clamp(56px,5.2vw,84px)] font-normal leading-[0.92] text-white"
@@ -121,37 +121,50 @@ export default function BoleteriaDesktop({
                   return (
                     <li
                       key={game.date}
-                      className={`grid grid-cols-[160px_1fr_160px] items-center gap-8 py-5 px-5 -mx-5 rounded-lg transition-colors duration-200 hover:bg-white/[0.03] ${isFirst ? 'bg-white/[0.015]' : ''}`}
+                      className="grid grid-cols-[180px_1fr_160px] items-center gap-8 py-6 px-6 -mx-6 rounded-xl transition-colors duration-200 hover:bg-white/[0.04]"
                       style={{
-                        borderBottom: i < upcoming.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                        borderBottom: i < upcoming.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                        ...(isFirst ? {
+                          border: '1px solid rgba(245,206,62,0.2)',
+                          backgroundColor: 'rgba(245,206,62,0.04)',
+                        } : {}),
+                        ...(i % 2 === 1 && !isFirst ? { backgroundColor: 'rgba(255,255,255,0.015)' } : {}),
                       }}
                     >
                       {/* Date */}
                       <div>
-                        <p className="font-display font-bold text-sm uppercase text-white/80 tracking-wide m-0 leading-tight">
+                        <p className="font-display font-bold text-lg uppercase text-white tracking-wide m-0 leading-tight">
                           {weekday} {day} {month}
                         </p>
-                        <p className="text-[#F5CE3E]/40 text-xs mt-1 m-0">
+                        <p className="text-[#F5CE3E]/70 text-sm mt-1 m-0">
                           7:00 PM
                         </p>
+                        {isFirst && (
+                          <span
+                            className="inline-block mt-2 px-3 py-1 rounded text-[11px] font-bold uppercase tracking-wider"
+                            style={{ backgroundColor: 'rgba(245,206,62,0.15)', color: '#F5CE3E' }}
+                          >
+                            Próximo
+                          </span>
+                        )}
                       </div>
 
                       {/* Matchup */}
                       <div>
-                        <div className="flex items-center justify-center gap-4">
+                        <div className="flex items-center justify-center gap-5">
                           <div className="flex items-center gap-3 flex-1 justify-end">
-                            <span className="font-display font-bold text-[15px] text-white uppercase tracking-tight text-right">
+                            <span className="font-display font-bold text-[17px] text-white uppercase tracking-tight text-right">
                               Cafeteros de Yauco
                             </span>
                             <img
                               src={cafeterosLogo}
                               alt="Cafeteros de Yauco"
-                              width={48}
-                              height={48}
-                              className="w-12 h-12 object-contain flex-shrink-0"
+                              width={56}
+                              height={56}
+                              className="w-14 h-14 object-contain flex-shrink-0"
                             />
                           </div>
-                          <span className="font-display font-bold text-[#F5CE3E] text-lg flex-shrink-0 px-1">
+                          <span className="font-display font-bold text-[#F5CE3E] text-xl flex-shrink-0 px-1">
                             vs.
                           </span>
                           <div className="flex items-center gap-3 flex-1">
@@ -159,21 +172,21 @@ export default function BoleteriaDesktop({
                               <img
                                 src={teamLogo(logoKey)}
                                 alt={fullName}
-                                width={48}
-                                height={48}
+                                width={56}
+                                height={56}
                                 loading="lazy"
-                                className="w-12 h-12 object-contain flex-shrink-0"
+                                className="w-14 h-14 object-contain flex-shrink-0"
                               />
                             ) : (
-                              <div className="w-12 h-12 rounded-full bg-white/10 flex-shrink-0" />
+                              <div className="w-14 h-14 rounded-full bg-white/10 flex-shrink-0" />
                             )}
-                            <span className="font-display font-bold text-[15px] text-white uppercase tracking-tight">
+                            <span className="font-display font-bold text-[17px] text-white uppercase tracking-tight">
                               {fullName}
                             </span>
                           </div>
                         </div>
-                        <p className="text-white/15 text-[11px] mt-2 m-0 text-center flex items-center justify-center gap-1.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+                        <p className="text-white/40 text-[13px] mt-2 m-0 text-center flex items-center justify-center gap-1.5">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                             <circle cx="12" cy="10" r="3" />
                           </svg>
@@ -184,15 +197,15 @@ export default function BoleteriaDesktop({
                       {/* Badge */}
                       <div className="text-right">
                         {game.isOpener ? (
-                          <span className="rounded-full bg-[#F5CE3E] px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-[#111111]">
+                          <span className="rounded-full bg-[#F5CE3E] px-5 py-2 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[12px] font-bold uppercase tracking-[1.5px] text-[#111111]">
                             Apertura
                           </span>
                         ) : isFirst ? (
-                          <span className="rounded-full bg-[#F5CE3E]/15 px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-[#F5CE3E]">
+                          <span className="rounded-full bg-[#F5CE3E]/15 px-5 py-2 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[12px] font-bold uppercase tracking-[1.5px] text-[#F5CE3E]">
                             Próximo
                           </span>
                         ) : (
-                          <span className="rounded-full border border-white/10 px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-white/40">
+                          <span className="rounded-full border border-white/15 px-5 py-2 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[12px] font-bold uppercase tracking-[1.5px] text-white/50">
                             En casa
                           </span>
                         )}

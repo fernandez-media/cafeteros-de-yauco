@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import { calendar } from '../data/calendar';
+import laCunaCancha from '../assets/la-cuna-cancha.jpg';
 
 const BASE = import.meta.env.BASE_URL;
 const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
@@ -81,6 +82,18 @@ const Calendario = () => {
     <div className="min-h-screen -mt-14">
       {/* Hero */}
       <div className="relative w-full overflow-hidden bg-black">
+        {/* Desktop hero background image */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 hidden lg:block bg-cover bg-center opacity-15 grayscale contrast-[1.1]"
+          style={{ backgroundImage: `url(${laCunaCancha})` }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 hidden lg:block"
+          style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85) 100%)' }}
+        />
+
         <div className="pt-24 pb-14 lg:pt-32 lg:pb-20 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
           <span
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-black text-[72px] lg:text-[160px] uppercase leading-none whitespace-nowrap tracking-tight pointer-events-none select-none"
