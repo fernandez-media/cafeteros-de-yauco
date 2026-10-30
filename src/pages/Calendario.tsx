@@ -85,13 +85,13 @@ const Calendario = () => {
         {/* Hero background image (both mobile + desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-center opacity-20 lg:opacity-25 grayscale-[0.6] contrast-[1.1]"
+          className="absolute inset-0 bg-cover bg-center opacity-30 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
           style={{ backgroundImage: `url(${laCunaCancha})` }}
         />
         <div
           aria-hidden="true"
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 60%, #000 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 50%, #000 100%)' }}
         />
         <div
           aria-hidden="true"
@@ -115,31 +115,13 @@ const Calendario = () => {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           </Link>
 
-          {/* Progress bar */}
-          <div className="flex gap-1 mb-5 relative z-10 justify-center lg:justify-center max-w-[400px] mx-auto">
-            {Array.from({ length: totalGames }).map((_, i) => (
-              <div
-                key={i}
-                className="h-[3px] rounded-full flex-1 max-w-5"
-                style={{ backgroundColor: i < gamesPlayed ? '#FFD700' : 'rgba(255, 215, 0, 0.08)' }}
-              />
-            ))}
-          </div>
-
           <div className="text-center relative z-10">
             <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               Calendario
             </h1>
-            <p className="text-white/40 text-sm lg:text-base mt-3 m-0 uppercase tracking-[0.15em]">
+            <p className="text-white/40 text-xs lg:text-sm mt-2 m-0 uppercase tracking-[0.12em]">
               Octubre a Diciembre 2026
             </p>
-            {gamesPlayed > 0 && (
-              <p className="text-sm mt-2 m-0 uppercase tracking-[0.15em] hidden lg:block">
-                <span className="text-gold font-bold">{wins}W</span>
-                <span className="text-white/20 mx-1">–</span>
-                <span className="text-red-500 font-bold">{losses}L</span>
-              </p>
-            )}
           </div>
         </div>
       </div>
@@ -149,14 +131,14 @@ const Calendario = () => {
         {nextGame && (
           <div className="px-5 lg:px-12 pt-8 lg:pt-10">
             <ScrollReveal variant="blur" distance={30}>
-              <p className="text-[10px] font-bold uppercase tracking-[0.15em] mb-2 m-0" style={{ color: 'rgba(255, 215, 0, 0.5)' }}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] mb-2.5 m-0" style={{ color: 'rgba(255, 215, 0, 0.6)' }}>
                 Próximo partido
               </p>
               <div
                 className="rounded-2xl p-4 lg:p-6 relative overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255,215,0,0.07), rgba(255,215,0,0.02))',
-                  border: '1px solid rgba(255, 215, 0, 0.12)',
+                  border: '1px solid rgba(255, 215, 0, 0.15)',
                 }}
               >
                 <div className="absolute top-0 right-0 bottom-0 w-1/3 pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.03))' }} />
@@ -165,31 +147,31 @@ const Calendario = () => {
                     <img
                       src={teamLogo(nextOppKey)}
                       alt={nextGame.opponent}
-                      width="64"
-                      height="64"
+                      width="68"
+                      height="68"
                       loading="eager"
-                      className="w-16 h-16 lg:w-20 lg:h-20 object-contain flex-shrink-0"
+                      className="w-[68px] h-[68px] lg:w-20 lg:h-20 object-contain flex-shrink-0"
                     />
                   ) : (
-                    <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
+                    <div className="w-[68px] h-[68px] lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="font-display font-bold text-base lg:text-xl text-white uppercase m-0 truncate">
+                    <p className="font-display font-bold text-[17px] lg:text-xl text-white uppercase m-0 truncate">
                       vs {nextGame.opponent}
                     </p>
-                    <p className="text-white/35 text-xs lg:text-sm mt-1 m-0 truncate">
-                      {nextWeekday}, {nextDay} de {nextMonth} · {nextGame.isHome ? 'Local' : 'Visitante'}
+                    <p className="text-white/45 text-[13px] lg:text-sm mt-1 m-0 truncate">
+                      {nextWeekday}, {nextDay} de {nextMonth}
                     </p>
-                    <p className="text-white/20 text-[11px] lg:text-xs mt-0.5 m-0 truncate flex items-center gap-1.5">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                    <p className="text-white/30 text-[12px] lg:text-xs mt-0.5 m-0 truncate flex items-center gap-1.5">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                       {nextGame.location}
                     </p>
                   </div>
                   <div className="flex-shrink-0 text-center pl-2">
-                    <p className="font-display font-black text-2xl lg:text-4xl text-gold m-0 leading-none">
+                    <p className="font-display font-black text-3xl lg:text-4xl text-gold m-0 leading-none">
                       {nextDaysUntil}
                     </p>
-                    <p className="text-white/25 text-[8px] lg:text-[10px] uppercase tracking-[0.12em] mt-1 m-0">
+                    <p className="text-white/30 text-[9px] lg:text-[10px] uppercase tracking-[0.12em] mt-1 m-0">
                       {nextDaysUntil === 1 ? 'Día' : 'Días'}
                     </p>
                   </div>
@@ -206,10 +188,10 @@ const Calendario = () => {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className="px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-200 border-0 cursor-pointer"
+                className="px-5 py-2 rounded-full text-[12px] font-bold uppercase tracking-wider transition-all duration-200 border-0 cursor-pointer"
                 style={{
-                  backgroundColor: filter === f ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                  color: filter === f ? '#FFD700' : 'rgba(255, 255, 255, 0.3)',
+                  backgroundColor: filter === f ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                  color: filter === f ? '#FFD700' : 'rgba(255, 255, 255, 0.4)',
                 }}
               >
                 {f}
@@ -239,7 +221,7 @@ const Calendario = () => {
 
             <ScrollReveal variant="blur" distance={30}>
               <div className="flex items-center gap-4 mb-4 lg:mb-6">
-                <h2 className="font-display font-black text-xl lg:text-4xl uppercase text-white m-0 tracking-tight">
+                <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                   {group.month === 'TBD' ? 'Por confirmar' : (
                     <>
                       <span className="lg:hidden">{group.month}</span>
@@ -247,71 +229,73 @@ const Calendario = () => {
                     </>
                   )}
                 </h2>
-                <div className="flex-1 h-px lg:hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)' }} />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/20 lg:hidden">
+                <div className="flex-1 h-px lg:hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }} />
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/30 lg:hidden">
                   {group.games.length} {group.games.length === 1 ? 'juego' : 'juegos'}
                 </span>
               </div>
             </ScrollReveal>
 
             {/* ─── Mobile: compact cards ─── */}
-            <div className="flex flex-col gap-2.5 lg:hidden">
+            <div className="flex flex-col gap-3 lg:hidden">
               {group.games.map((game, i) => {
                 const oppKey = getOppKey(game.opponent);
                 const isTBD = game.date === 'TBD';
                 const day = isTBD ? '' : game.date.split(' ')[1];
                 const weekday = isTBD ? '' : getDayOfWeek(group.month, parseInt(day));
+                const isPast = !!game.result;
 
                 return (
                   <ScrollReveal key={`m-${gi}-${i}`} delay={i * 0.06} variant="left" distance={50}>
                     <div
-                      className="flex items-center gap-3 rounded-xl p-3 transition-all duration-300"
+                      className="flex items-center gap-3.5 rounded-2xl p-3.5 transition-all duration-300"
                       style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                        border: '0.5px solid rgba(255, 215, 0, 0.06)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.025)',
+                        border: '1px solid rgba(255, 215, 0, 0.08)',
+                        opacity: isPast ? 0.55 : 1,
                       }}
                     >
                       {oppKey ? (
                         <img
                           src={teamLogo(oppKey)}
                           alt={game.opponent}
-                          width="60"
-                          height="60"
+                          width="64"
+                          height="64"
                           loading="lazy"
                           decoding="async"
-                          className="w-[60px] h-[60px] object-contain flex-shrink-0"
+                          className="w-16 h-16 object-contain flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-[60px] h-[60px] rounded-full bg-white/10 flex-shrink-0" />
+                        <div className="w-16 h-16 rounded-full bg-white/10 flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="font-display font-bold text-[15px] text-white uppercase m-0 truncate">
+                        <p className="font-display font-bold text-[16px] text-white uppercase m-0 truncate">
                           vs {game.opponent}
                         </p>
-                        <p className="text-white/40 text-xs mt-0.5 m-0 truncate">
+                        <p className="text-white/50 text-[13px] mt-0.5 m-0 truncate">
                           {isTBD ? 'Fecha por anunciar' : `${weekday}, ${day} de ${group.month}`}
                         </p>
-                        <p className="text-white/25 text-[11px] mt-0.5 m-0 truncate flex items-center gap-1">
-                          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 opacity-60"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                        <p className="text-white/30 text-[12px] mt-0.5 m-0 truncate flex items-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 opacity-70"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                           {game.location}
                         </p>
                       </div>
                       <div className="flex-shrink-0 text-right">
                         {game.result ? (
-                          <span className="flex items-center gap-1.5">
-                            <span className={`font-display font-black text-base ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>
+                          <span className="flex items-center gap-2">
+                            <span className={`font-display font-black text-lg ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>
                               {game.result}
                             </span>
-                            <span className="text-white/50 font-semibold text-sm">
+                            <span className="text-white/60 font-semibold text-[15px]">
                               {game.score}
                             </span>
                           </span>
                         ) : (
                           <span
-                            className="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full inline-block"
+                            className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full inline-block"
                             style={{
-                              backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.1)' : 'rgba(255, 255, 255, 0.04)',
-                              color: game.isHome ? 'rgba(255, 215, 0, 0.5)' : 'rgba(255, 255, 255, 0.25)',
+                              backgroundColor: game.isHome ? 'rgba(255, 215, 0, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+                              color: game.isHome ? 'rgba(255, 215, 0, 0.6)' : 'rgba(255, 255, 255, 0.35)',
                             }}
                           >
                             {game.isHome ? 'Local' : 'Visitante'}
