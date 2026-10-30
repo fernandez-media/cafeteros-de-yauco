@@ -85,7 +85,7 @@ const Calendario = () => {
         {/* Hero background image (both mobile + desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-center opacity-30 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
+          className="absolute inset-0 bg-cover bg-[center_30%] opacity-35 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
           style={{ backgroundImage: `url(${laCunaCancha})` }}
         />
         <div
@@ -99,7 +99,7 @@ const Calendario = () => {
           style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 80%)' }}
         />
 
-        <div className="pt-28 pb-16 lg:pt-44 lg:pb-24 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
+        <div className="pt-28 pb-10 lg:pt-44 lg:pb-24 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
           <span
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-black text-[72px] lg:text-[160px] uppercase leading-none whitespace-nowrap tracking-tight pointer-events-none select-none"
             style={{ color: 'rgba(255, 215, 0, 0.03)' }}
@@ -129,7 +129,7 @@ const Calendario = () => {
       <div className="max-w-[1400px] mx-auto">
         {/* Next Game */}
         {nextGame && (
-          <div className="px-5 lg:px-12 pt-8 lg:pt-10">
+          <div className="px-5 lg:px-12 pt-5 lg:pt-10">
             <ScrollReveal variant="blur" distance={30}>
               <p className="text-[11px] font-bold uppercase tracking-[0.15em] mb-2.5 m-0" style={{ color: 'rgba(255, 215, 0, 0.6)' }}>
                 Próximo partido
@@ -142,18 +142,18 @@ const Calendario = () => {
                 }}
               >
                 <div className="absolute top-0 right-0 bottom-0 w-1/3 pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.03))' }} />
-                <div className="flex items-center gap-4 lg:gap-6 relative z-10">
+                <div className="flex items-center gap-3 lg:gap-6 relative z-10">
                   {nextOppKey ? (
                     <img
                       src={teamLogo(nextOppKey)}
                       alt={nextGame.opponent}
-                      width="68"
-                      height="68"
+                      width="60"
+                      height="60"
                       loading="eager"
-                      className="w-[68px] h-[68px] lg:w-20 lg:h-20 object-contain flex-shrink-0"
+                      className="w-[60px] h-[60px] lg:w-20 lg:h-20 object-contain flex-shrink-0"
                     />
                   ) : (
-                    <div className="w-[68px] h-[68px] lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
+                    <div className="w-[60px] h-[60px] lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="font-display font-bold text-[17px] lg:text-xl text-white uppercase m-0 truncate">
@@ -168,12 +168,20 @@ const Calendario = () => {
                     </p>
                   </div>
                   <div className="flex-shrink-0 text-center pl-2">
-                    <p className="font-display font-black text-3xl lg:text-4xl text-gold m-0 leading-none">
-                      {nextDaysUntil}
-                    </p>
-                    <p className="text-white/30 text-[9px] lg:text-[10px] uppercase tracking-[0.12em] mt-1 m-0">
-                      {nextDaysUntil === 1 ? 'Día' : 'Días'}
-                    </p>
+                    {nextDaysUntil === 0 ? (
+                      <p className="font-display font-black text-2xl lg:text-3xl text-gold m-0 leading-none uppercase">
+                        Hoy
+                      </p>
+                    ) : (
+                      <>
+                        <p className="font-display font-black text-3xl lg:text-4xl text-gold m-0 leading-none">
+                          {nextDaysUntil}
+                        </p>
+                        <p className="text-white/30 text-[9px] lg:text-[10px] uppercase tracking-[0.12em] mt-1 m-0">
+                          {nextDaysUntil === 1 ? 'Día' : 'Días'}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -248,7 +256,7 @@ const Calendario = () => {
                 return (
                   <ScrollReveal key={`m-${gi}-${i}`} delay={i * 0.06} variant="left" distance={50}>
                     <div
-                      className="flex items-center gap-3.5 rounded-2xl p-3.5 transition-all duration-300"
+                      className="flex items-center gap-3 rounded-2xl p-3 transition-all duration-300"
                       style={{
                         backgroundColor: 'rgba(255, 255, 255, 0.025)',
                         border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -259,14 +267,14 @@ const Calendario = () => {
                         <img
                           src={teamLogo(oppKey)}
                           alt={game.opponent}
-                          width="64"
-                          height="64"
+                          width="56"
+                          height="56"
                           loading="lazy"
                           decoding="async"
-                          className="w-16 h-16 object-contain flex-shrink-0"
+                          className="w-14 h-14 object-contain flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-16 h-16 rounded-full bg-white/10 flex-shrink-0" />
+                        <div className="w-14 h-14 rounded-full bg-white/10 flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="font-display font-bold text-[16px] text-white uppercase m-0 truncate">

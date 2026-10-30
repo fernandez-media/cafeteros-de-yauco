@@ -50,16 +50,18 @@ const Footer = () => {
             </svg>
           </a>
 
-          <span
-            className="w-14 h-14 rounded-full flex items-center justify-center border border-white/10 text-white/20"
-            aria-hidden="true"
-            title="YouTube (próximamente)"
+          <a
+            href="https://www.youtube.com/@artstreaminlive"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-14 h-14 rounded-full flex items-center justify-center border border-white/10 text-red-500 no-underline transition-colors duration-200 hover:border-red-500/40 hover:bg-red-500/10"
+            aria-label="YouTube"
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z" />
               <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
             </svg>
-          </span>
+          </a>
         </div>
       </div>
     </footer>

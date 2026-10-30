@@ -196,7 +196,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
           {/* YouTube */}
           <a
-            href="https://www.youtube.com/@cafeterosdeyauco"
+            href="https://www.youtube.com/@artstreaminlive"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-transform duration-200 hover:scale-110"
