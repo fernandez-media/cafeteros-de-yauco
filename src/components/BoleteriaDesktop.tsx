@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import { Ticket } from "lucide-react";
 import laCunaCancha from "@/assets/la-cuna-cancha.jpg";
 
-/* ── BOLETERÍA · DESKTOP (≥1024px) · CALENDARIO + CTA ── */
-
 export type HomeGame = {
   date: string;
   opponent: string;
@@ -21,15 +19,38 @@ export const FALLBACK_HOME_GAMES: HomeGame[] = [
   { date: "2026-12-03", opponent: "Naranjito" },
 ];
 
-const MAX_GAMES = 5;
+const BASE = import.meta.env.BASE_URL;
+const teamLogo = (name: string) => `${BASE}media/logos/${name}.webp`;
+const cafeterosLogo = `${BASE}assets/opt/cafeteros-logo-192.webp`;
+
+const OPP_LOGO: Record<string, string> = {
+  Lares: "patriotas",
+  Naranjito: "naranjito",
+  Carolina: "gigantes",
+  Corozal: "plataneros",
+  Adjuntas: "adjuntas",
+  Caribes: "caribes",
+  Mets: "mets",
+};
+
+const OPP_FULL: Record<string, string> = {
+  Lares: "Patriotas de Lares",
+  Naranjito: "Changos de Naranjito",
+  Carolina: "Gigantes de Carolina",
+  Corozal: "Plataneros de Corozal",
+  Adjuntas: "Gigantes de Adjuntas",
+};
 
 function formatGameDate(date: string) {
   const [y, m, d] = date.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d, 12));
-  const clean = (s: string) => s.replace(".", "").toUpperCase();
-  const weekday = clean(new Intl.DateTimeFormat("es", { weekday: "short", timeZone: "UTC" }).format(dt));
-  const month = clean(new Intl.DateTimeFormat("es", { month: "short", timeZone: "UTC" }).format(dt));
-  return { weekday, day: `${d} ${month}` };
+  const DAYS = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"];
+  const MONTHS = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+  return {
+    weekday: DAYS[dt.getUTCDay()],
+    day: d,
+    month: MONTHS[m - 1],
+  };
 }
 
 function todayInPR() {
@@ -49,8 +70,7 @@ export default function BoleteriaDesktop({
     const today = todayInPR();
     return [...homeGames]
       .filter((g) => g.date >= today)
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(0, MAX_GAMES);
+      .sort((a, b) => a.date.localeCompare(b.date));
   }, [homeGames]);
 
   return (
@@ -68,7 +88,7 @@ export default function BoleteriaDesktop({
         className="absolute inset-0 bg-[linear-gradient(90deg,#0B0B0B_20%,rgba(11,11,11,0.6)_60%,#0B0B0B_100%)]"
       />
 
-      <div className="relative z-[1] mx-auto max-w-[1440px]">
+      <div className="relative z-[1] mx-auto max-w-[1400px]">
         <div className="flex flex-col">
           <div className="border-l-[5px] border-[#F5CE3E] pl-[22px]">
             <h2
@@ -81,9 +101,9 @@ export default function BoleteriaDesktop({
           </div>
 
           {upcoming.length > 0 && (
-            <div className="mt-[44px]">
-              <div className="flex items-baseline justify-between border-b-2 border-white pb-[10px]">
-                <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[15px] font-bold uppercase tracking-[2.5px] text-white">
+            <div className="mt-[48px]">
+              <div className="flex items-baseline justify-between border-b-2 border-white/20 pb-[12px] mb-2">
+                <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[16px] font-bold uppercase tracking-[2.5px] text-white">
                   Próximos juegos en La Cuna
                 </span>
                 <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[15px] font-semibold text-[#F5CE3E]">
@@ -91,33 +111,92 @@ export default function BoleteriaDesktop({
                 </span>
               </div>
 
-              <ul className="max-w-[900px]">
-                {upcoming.map((game) => {
-                  const { weekday, day } = formatGameDate(game.date);
+              <ul className="list-none p-0 m-0">
+                {upcoming.map((game, i) => {
+                  const { weekday, day, month } = formatGameDate(game.date);
+                  const logoKey = OPP_LOGO[game.opponent];
+                  const fullName = OPP_FULL[game.opponent] || game.opponent;
+                  const isFirst = i === 0;
+
                   return (
                     <li
                       key={game.date}
-                      className="grid grid-cols-[118px_1fr_auto] items-center gap-[22px] border-b border-[#262626] py-[16px] transition-[background-color,padding] duration-200 ease-out hover:bg-white/[0.03] hover:pl-[10px] motion-reduce:transition-none"
+                      className={`grid grid-cols-[160px_1fr_160px] items-center gap-8 py-5 px-5 -mx-5 rounded-lg transition-colors duration-200 hover:bg-white/[0.03] ${isFirst ? 'bg-white/[0.015]' : ''}`}
+                      style={{
+                        borderBottom: i < upcoming.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                      }}
                     >
-                      <div className="whitespace-nowrap font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[38px] leading-[0.85] text-white">
-                        <span className="block font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[13px] font-bold tracking-[1.5px] text-[#A9A9A9]">
-                          {weekday}
-                        </span>
-                        {day}
+                      {/* Date */}
+                      <div>
+                        <p className="font-display font-bold text-sm uppercase text-white/80 tracking-wide m-0 leading-tight">
+                          {weekday} {day} {month}
+                        </p>
+                        <p className="text-[#F5CE3E]/40 text-xs mt-1 m-0">
+                          7:00 PM
+                        </p>
                       </div>
-                      <div className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[24px] font-semibold text-white">
-                        vs {game.opponent}
-                        <span className="ml-[10px] text-[16px] font-medium text-[#8C8C8C]">Yauco</span>
+
+                      {/* Matchup */}
+                      <div>
+                        <div className="flex items-center justify-center gap-4">
+                          <div className="flex items-center gap-3 flex-1 justify-end">
+                            <span className="font-display font-bold text-[15px] text-white uppercase tracking-tight text-right">
+                              Cafeteros de Yauco
+                            </span>
+                            <img
+                              src={cafeterosLogo}
+                              alt="Cafeteros de Yauco"
+                              width={48}
+                              height={48}
+                              className="w-12 h-12 object-contain flex-shrink-0"
+                            />
+                          </div>
+                          <span className="font-display font-bold text-[#F5CE3E] text-lg flex-shrink-0 px-1">
+                            vs.
+                          </span>
+                          <div className="flex items-center gap-3 flex-1">
+                            {logoKey ? (
+                              <img
+                                src={teamLogo(logoKey)}
+                                alt={fullName}
+                                width={48}
+                                height={48}
+                                loading="lazy"
+                                className="w-12 h-12 object-contain flex-shrink-0"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-full bg-white/10 flex-shrink-0" />
+                            )}
+                            <span className="font-display font-bold text-[15px] text-white uppercase tracking-tight">
+                              {fullName}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-white/15 text-[11px] mt-2 m-0 text-center flex items-center justify-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          Coliseo Raúl Pipote Oliveras, Yauco
+                        </p>
                       </div>
-                      {game.isOpener ? (
-                        <span className="rounded-full border border-[#F5CE3E] bg-[#F5CE3E] px-[12px] py-[5px] font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[12.5px] font-bold uppercase tracking-[1.5px] text-[#111111]">
-                          Apertura
-                        </span>
-                      ) : (
-                        <span className="rounded-full border border-[#3A3A3A] px-[12px] py-[5px] font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[12.5px] font-bold uppercase tracking-[1.5px] text-[#BDBDBD]">
-                          En casa
-                        </span>
-                      )}
+
+                      {/* Badge */}
+                      <div className="text-right">
+                        {game.isOpener ? (
+                          <span className="rounded-full bg-[#F5CE3E] px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-[#111111]">
+                            Apertura
+                          </span>
+                        ) : isFirst ? (
+                          <span className="rounded-full bg-[#F5CE3E]/15 px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-[#F5CE3E]">
+                            Próximo
+                          </span>
+                        ) : (
+                          <span className="rounded-full border border-white/10 px-4 py-1.5 font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[11px] font-bold uppercase tracking-[1.5px] text-white/40">
+                            En casa
+                          </span>
+                        )}
+                      </div>
                     </li>
                   );
                 })}
@@ -125,8 +204,8 @@ export default function BoleteriaDesktop({
             </div>
           )}
 
-          {/* ── CTA Button ── */}
-          <div className="mt-[48px]">
+          {/* CTA */}
+          <div className="mt-[56px]">
             <a
               href={ctaHref}
               target="_blank"

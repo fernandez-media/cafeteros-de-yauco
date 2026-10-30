@@ -9,6 +9,7 @@ const Roster = lazy(() => import("./pages/Roster"));
 const Merch = lazy(() => import("./pages/Merch"));
 const Partidos = lazy(() => import("./pages/Partidos"));
 const Noticias = lazy(() => import("./pages/Noticias"));
+const Boleteria = lazy(() => import("./pages/Boleteria"));
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/merch" element={<Merch />} />
           <Route path="/partidos" element={<Partidos />} />
           <Route path="/noticias" element={<Noticias />} />
+          <Route path="/boleteria" element={<Boleteria />} />
         </Route>
       </Routes>
     </Suspense>

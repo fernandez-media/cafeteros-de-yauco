@@ -6,7 +6,7 @@ const navItems = [
   { label: 'Inicio', path: '/', end: true },
   { label: 'Calendario', path: '/calendario' },
   { label: 'Roster', path: '/roster' },
-  { label: 'Boletos', path: 'https://cafeterosdeyaucovollyball.printcotickets.com/boletos' },
+  { label: 'Boletos', path: '/boleteria' },
   { label: 'Merch', path: '/merch' },
 ];
 
