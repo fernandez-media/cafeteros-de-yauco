@@ -66,11 +66,6 @@ const Calendario = () => {
 
   const months = groupByMonth(filteredGames);
   const nextGame = calendar.find(g => !g.result);
-  const gamesPlayed = calendar.filter(g => g.result).length;
-  const totalGames = calendar.length;
-
-  const wins = calendar.filter(g => g.result === 'W').length;
-  const losses = calendar.filter(g => g.result === 'L').length;
 
   const nextOppKey = nextGame ? getOppKey(nextGame.opponent) : null;
   const nextDaysUntil = nextGame ? getDaysUntil(nextGame.date) : 0;
