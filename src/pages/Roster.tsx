@@ -7,7 +7,7 @@ const Roster = () => {
   return (
     <div className="min-h-screen -mt-14">
       {/* Hero */}
-      <div className="relative w-full h-[280px] lg:h-[420px] overflow-hidden">
+      <div className="relative w-full h-[220px] lg:h-[420px] overflow-hidden">
         <ResponsiveImage
           name="dsc04710"
           alt="Cafeteros de Yauco"
@@ -17,49 +17,49 @@ const Roster = () => {
           pictureClassName="absolute inset-0 w-full h-full"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 50%, #000 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 40%, #000 100%)' }} />
         <Link
           to="/"
           className="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-gold/30 flex items-center justify-center no-underline transition-all duration-200 hover:bg-gold/20 hover:border-gold/50 active:scale-[0.92]"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
         </Link>
-        <div className="absolute bottom-0 left-0 w-full px-5 lg:px-12 pb-8 lg:pb-12">
-          <div className="max-w-[1200px] mx-auto">
-            <h1 className="font-display font-black text-4xl lg:text-6xl uppercase text-white leading-[0.95] m-0 tracking-tight">
-              <span className="text-gold">Roster</span>
+        <div className="absolute bottom-0 left-0 w-full px-5 lg:px-12 pb-6 lg:pb-12">
+          <div className="max-w-[1200px] mx-auto text-center lg:text-left">
+            <h1 className="font-display font-black text-5xl lg:text-6xl uppercase text-white leading-[0.95] m-0 tracking-tight">
+              Roster
             </h1>
-            <p className="text-white/50 text-sm lg:text-base mt-2 m-0 uppercase tracking-widest">Temporada 2026 LVSM</p>
+            <p className="text-white/50 text-xs lg:text-base mt-1.5 m-0 uppercase tracking-[0.12em]">Temporada 2026 LVSM</p>
           </div>
         </div>
       </div>
 
-      <div className="px-5 lg:px-12 pb-16 pt-8 lg:pt-12 max-w-[1200px] mx-auto">
+      <div className="px-4 lg:px-12 pb-16 pt-5 lg:pt-12 max-w-[1200px] mx-auto">
         {/* Jugadores */}
         <ScrollReveal variant="blur" distance={40}>
-          <h2 className="font-display font-black text-2xl lg:text-3xl uppercase text-white m-0 mb-6 tracking-tight">
+          <h2 className="font-display font-black text-xl lg:text-3xl uppercase text-white m-0 mb-4 tracking-tight">
             Jugadores
           </h2>
         </ScrollReveal>
 
         {/* Mobile: vertical list */}
-        <div className="flex flex-col gap-2.5 lg:hidden">
+        <div className="flex flex-col gap-2 lg:hidden">
           {roster.map((player, i) => (
-            <ScrollReveal key={i} delay={i * 0.06} variant="left" distance={60}>
+            <ScrollReveal key={i} delay={i * 0.04} variant="left" distance={50}>
               <div
-                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-all duration-300"
+                className="flex items-center gap-3 rounded-xl px-3 py-2 transition-all duration-300"
                 style={{
-                  backgroundColor: '#111',
+                  backgroundColor: 'rgba(255, 255, 255, 0.025)',
                   border: '1px solid rgba(255, 215, 0, 0.06)',
                 }}
               >
-                <div className="relative flex-shrink-0 w-[88px] h-[88px] rounded-full overflow-hidden bg-black">
+                <div className="relative flex-shrink-0 w-[72px] h-[72px] rounded-full overflow-hidden bg-black">
                   {player.photo ? (
                     <img
                       src={player.photo}
                       alt={player.name}
-                      width={88}
-                      height={88}
+                      width={72}
+                      height={72}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover"
@@ -67,24 +67,24 @@ const Roster = () => {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-white/5">
-                      <span className="font-display font-black text-gold/30 text-2xl">{player.number}</span>
+                      <span className="font-display font-black text-gold/30 text-xl">{player.number}</span>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-display font-bold text-base text-white uppercase m-0 leading-tight flex items-center gap-1.5">
+                  <p className="font-display font-bold text-[15px] text-white uppercase m-0 leading-tight flex items-center gap-1.5">
                     {player.name}
                     {player.captain && (
-                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[8px] leading-none uppercase tracking-wider">
+                      <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-gold/20 text-gold font-display font-bold text-[9px] leading-none uppercase tracking-wider">
                         C
                       </span>
                     )}
                   </p>
-                  <p className="text-gold/50 text-xs mt-0.5 m-0 uppercase tracking-wider font-semibold">
+                  <p className="text-gold/60 text-[11px] mt-0.5 m-0 uppercase tracking-wider font-semibold">
                     {player.position}
                   </p>
                 </div>
-                <span className="font-display font-black text-gold/15 text-3xl leading-none flex-shrink-0 pr-1">
+                <span className="font-display font-black text-gold/25 text-2xl leading-none flex-shrink-0 pr-1">
                   #{player.number}
                 </span>
               </div>
@@ -148,34 +148,41 @@ const Roster = () => {
         </div>
 
         {/* Staff sections */}
-        <div className="mt-10 lg:mt-16">
-          {[
-            { title: 'Gerente General', members: generalManager },
-            { title: 'Apoderado', members: management },
-            { title: 'Co-Apoderado', members: coOwner },
-            { title: 'Cuerpo Tecnico', members: staff },
-            { title: 'Data Volley', members: dataVolley },
-            { title: 'Cuerpo Medico', members: medical },
-            { title: 'Preparador Fisico', members: fitness },
-            { title: 'Encargado de la Propiedad', members: equipment },
-          ].map((section, si) => (
-            <div key={si} className={si > 0 ? 'mt-6' : ''}>
-              <ScrollReveal variant="blur" distance={30}>
-                <h2 className="font-display font-black text-lg lg:text-2xl uppercase text-white m-0 mb-3 tracking-tight">
+        <div className="mt-8 lg:mt-16">
+          <ScrollReveal variant="blur" distance={30}>
+            <h2 className="font-display font-black text-xl lg:text-2xl uppercase text-white m-0 mb-4 tracking-tight">
+              Staff
+            </h2>
+          </ScrollReveal>
+
+          <div
+            className="rounded-xl lg:rounded-2xl overflow-hidden"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.025)', border: '1px solid rgba(255, 215, 0, 0.06)' }}
+          >
+            {[
+              { title: 'Gerente General', members: generalManager },
+              { title: 'Apoderado', members: management },
+              { title: 'Co-Apoderado', members: coOwner },
+              { title: 'Cuerpo Técnico', members: staff },
+              { title: 'Data Volley', members: dataVolley },
+              { title: 'Cuerpo Médico', members: medical },
+              { title: 'Preparador Físico', members: fitness },
+              { title: 'Enc. de Propiedad', members: equipment },
+            ].map((section, si, arr) => (
+              <div
+                key={si}
+                className="flex items-baseline justify-between px-4 py-3 lg:px-6 lg:py-3.5"
+                style={si < arr.length - 1 ? { borderBottom: '1px solid rgba(255, 255, 255, 0.05)' } : undefined}
+              >
+                <span className="font-display font-bold text-[13px] lg:text-sm uppercase text-white/40 tracking-wide flex-shrink-0">
                   {section.title}
-                </h2>
-              </ScrollReveal>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 lg:grid-cols-4">
-                {section.members.map((member, i) => (
-                  <ScrollReveal key={i} delay={i * 0.06} variant="right" distance={40}>
-                    <p className="font-display font-bold text-sm text-white/70 uppercase m-0 py-1">
-                      {member.name}
-                    </p>
-                  </ScrollReveal>
-                ))}
+                </span>
+                <span className="font-display font-bold text-[14px] lg:text-base text-white uppercase text-right">
+                  {section.members.map(m => m.name).join(', ')}
+                </span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

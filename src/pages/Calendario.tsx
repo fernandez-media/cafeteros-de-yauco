@@ -85,7 +85,7 @@ const Calendario = () => {
         {/* Hero background image (both mobile + desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-[center_30%] opacity-35 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
+          className="absolute inset-0 bg-cover bg-[center_15%] lg:bg-[center_30%] opacity-35 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
           style={{ backgroundImage: `url(${laCunaCancha})` }}
         />
         <div
@@ -277,13 +277,13 @@ const Calendario = () => {
                         <div className="w-14 h-14 rounded-full bg-white/10 flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="font-display font-bold text-[16px] text-white uppercase m-0 truncate">
+                        <p className="font-display font-bold text-[14px] text-white uppercase m-0 truncate">
                           vs {game.opponent}
                         </p>
-                        <p className="text-white/50 text-[13px] mt-0.5 m-0 truncate">
+                        <p className="text-white/50 text-[12px] mt-0.5 m-0 truncate">
                           {isTBD ? 'Fecha por anunciar' : `${weekday}, ${day} de ${group.month}`}
                         </p>
-                        <p className="text-white/30 text-[12px] mt-0.5 m-0 truncate flex items-center gap-1.5">
+                        <p className="text-white/30 text-[10px] mt-0.5 m-0 truncate flex items-center gap-1.5">
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 opacity-70"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                           {game.location}
                         </p>
