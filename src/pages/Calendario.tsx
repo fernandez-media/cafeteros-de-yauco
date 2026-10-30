@@ -82,19 +82,24 @@ const Calendario = () => {
     <div className="min-h-screen -mt-14">
       {/* Hero */}
       <div className="relative w-full overflow-hidden bg-black">
-        {/* Desktop hero background image */}
+        {/* Hero background image (both mobile + desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden lg:block bg-cover bg-center opacity-15 grayscale contrast-[1.1]"
+          className="absolute inset-0 bg-cover bg-center opacity-20 lg:opacity-25 grayscale-[0.6] contrast-[1.1]"
           style={{ backgroundImage: `url(${laCunaCancha})` }}
         />
         <div
           aria-hidden="true"
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 60%, #000 100%)' }}
+        />
+        <div
+          aria-hidden="true"
           className="absolute inset-0 hidden lg:block"
-          style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85) 100%)' }}
+          style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 80%)' }}
         />
 
-        <div className="pt-24 pb-14 lg:pt-32 lg:pb-20 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
+        <div className="pt-28 pb-16 lg:pt-44 lg:pb-24 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
           <span
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-black text-[72px] lg:text-[160px] uppercase leading-none whitespace-nowrap tracking-tight pointer-events-none select-none"
             style={{ color: 'rgba(255, 215, 0, 0.03)' }}
@@ -110,7 +115,8 @@ const Calendario = () => {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           </Link>
 
-          <div className="flex gap-1 mb-5 relative z-10">
+          {/* Progress bar */}
+          <div className="flex gap-1 mb-5 relative z-10 justify-center lg:justify-center max-w-[400px] mx-auto">
             {Array.from({ length: totalGames }).map((_, i) => (
               <div
                 key={i}
@@ -120,15 +126,15 @@ const Calendario = () => {
             ))}
           </div>
 
-          <h1 className="font-display font-black text-5xl lg:text-7xl uppercase text-white leading-[0.95] m-0 tracking-tight relative z-10">
-            Calendario
-          </h1>
-          <div className="flex items-center gap-4 mt-2 relative z-10">
-            <p className="text-white/30 text-sm m-0 uppercase tracking-[0.15em]">
-              {totalGames} Juegos · Oct–Dic 2026
+          <div className="text-center relative z-10">
+            <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight">
+              Calendario
+            </h1>
+            <p className="text-white/40 text-sm lg:text-base mt-3 m-0 uppercase tracking-[0.15em]">
+              Octubre a Diciembre 2026
             </p>
             {gamesPlayed > 0 && (
-              <p className="text-sm m-0 uppercase tracking-[0.15em] hidden lg:block">
+              <p className="text-sm mt-2 m-0 uppercase tracking-[0.15em] hidden lg:block">
                 <span className="text-gold font-bold">{wins}W</span>
                 <span className="text-white/20 mx-1">–</span>
                 <span className="text-red-500 font-bold">{losses}L</span>
@@ -214,7 +220,15 @@ const Calendario = () => {
 
         {/* Games by month */}
         {months.map((group, gi) => (
-          <div key={group.month} className="px-5 lg:px-12 pt-8 lg:pt-10">
+          <div
+            key={group.month}
+            className={`pt-8 lg:pt-10 pb-3 lg:pb-0 ${gi % 2 === 1 ? 'mx-[-20px] px-[40px] lg:mx-0 lg:px-12' : 'px-5 lg:px-12'}`}
+            style={gi % 2 === 1 ? {
+              backgroundColor: 'rgba(255, 215, 0, 0.025)',
+              borderTop: '1px solid rgba(255, 215, 0, 0.06)',
+              borderBottom: '1px solid rgba(255, 215, 0, 0.06)',
+            } : undefined}
+          >
             {/* Gold divider between months on desktop */}
             {gi > 0 && (
               <div
@@ -261,25 +275,23 @@ const Calendario = () => {
                         <img
                           src={teamLogo(oppKey)}
                           alt={game.opponent}
-                          width="52"
-                          height="52"
+                          width="60"
+                          height="60"
                           loading="lazy"
                           decoding="async"
-                          className="w-[52px] h-[52px] object-contain flex-shrink-0"
+                          className="w-[60px] h-[60px] object-contain flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-[52px] h-[52px] rounded-full bg-white/10 flex-shrink-0" />
+                        <div className="w-[60px] h-[60px] rounded-full bg-white/10 flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="font-display font-bold text-sm text-white uppercase m-0 truncate">
+                        <p className="font-display font-bold text-[15px] text-white uppercase m-0 truncate">
                           vs {game.opponent}
                         </p>
-                        <p className="text-white/30 text-xs mt-0.5 m-0 truncate">
+                        <p className="text-white/40 text-xs mt-0.5 m-0 truncate">
                           {isTBD ? 'Fecha por anunciar' : `${weekday}, ${day} de ${group.month}`}
-                          {!isTBD && <span className="text-white/15"> · </span>}
-                          {!isTBD && (game.isHome ? 'Local' : 'Visitante')}
                         </p>
-                        <p className="text-white/20 text-[11px] mt-0.5 m-0 truncate flex items-center gap-1">
+                        <p className="text-white/25 text-[11px] mt-0.5 m-0 truncate flex items-center gap-1">
                           <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 opacity-60"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                           {game.location}
                         </p>

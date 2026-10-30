@@ -20,8 +20,8 @@ const HOME_GAMES: HomeGame[] = [
 const Boleteria = () => {
   return (
     <div className="-mt-14" style={{ minHeight: 'calc(100vh - var(--dock-height) - 20px)' }}>
-      {/* ─── Mobile Hero (unchanged) ─── */}
-      <div className="lg:hidden relative w-full h-[280px] overflow-hidden">
+      {/* ─── Mobile Hero ─── */}
+      <div className="lg:hidden relative w-full h-[240px] overflow-hidden">
         <ResponsiveImage
           name="lacuna-fans"
           alt="Fanáticos en La Cuna del Voleibol"
@@ -37,15 +37,15 @@ const Boleteria = () => {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 80%, #000 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.7) 80%, #000 100%)',
           }}
         />
-        <div className="absolute bottom-0 left-0 w-full px-5 pb-8">
+        <div className="absolute bottom-0 left-0 w-full px-5 pb-6">
           <div className="max-w-[1200px] mx-auto text-center">
             <h1 className="font-display font-black text-5xl uppercase text-white leading-[0.95] m-0 tracking-tight">
               <span className="text-gold">Boletería</span>
             </h1>
-            <p className="text-white/50 text-xs mt-2 m-0 uppercase tracking-widest">
+            <p className="text-white/60 text-[13px] mt-2 m-0 uppercase tracking-widest">
               Asegura tu asiento en La Cuna del Voleibol
             </p>
           </div>
@@ -134,7 +134,7 @@ const Boleteria = () => {
       </div>
 
       {/* ─── Mobile: Credencial de Temporada ─── */}
-      <div className="lg:hidden px-5 pb-4 pt-4">
+      <div className="lg:hidden px-4 pb-4 pt-3">
         <ScrollReveal variant="slideUp" distance={70}>
           <BoleteriaCredencial ctaHref={CTA_HREF} />
         </ScrollReveal>

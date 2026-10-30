@@ -23,7 +23,7 @@ function CredencialCard({ ctaButton }: { ctaButton: React.ReactNode }) {
       className="credencial-swing"
       style={{ transformOrigin: "top center" }}
     >
-      <div className="relative z-[1] mx-auto w-[88%] max-w-[420px] rounded-[16px] overflow-hidden bg-[#111111] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.9)]">
+      <div className="relative z-[1] mx-auto w-[94%] max-w-[420px] rounded-[16px] overflow-hidden bg-[#111111] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.9)]">
         <div className="relative w-full h-[180px] overflow-hidden">
           <img
             src="/media/boleteria/fan-celebrando.webp"
@@ -45,15 +45,15 @@ function CredencialCard({ ctaButton }: { ctaButton: React.ReactNode }) {
         </div>
 
         <div className="px-[14px] pb-[14px] pt-[8px]">
-          <ul className="mb-[12px] list-none p-0 border-y border-white/10 text-left">
+          <ul className="mb-[14px] list-none p-0 border-y border-white/10 text-left">
             {TIERS.map((tier) => (
               <li
                 key={tier.name}
-                className="flex items-center justify-between gap-[12px] border-b border-white/10 px-[4px] py-[10px] last:border-b-0"
+                className="flex items-center justify-between gap-[12px] border-b border-white/10 px-[6px] py-[12px] last:border-b-0"
               >
-                <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[17px] font-semibold leading-tight text-white">
+                <span className="font-['Barlow_Condensed',_'Arial_Narrow',_sans-serif] text-[18px] font-semibold leading-tight text-white">
                   {tier.name}
-                  <span className="block font-['Barlow',_system-ui,_sans-serif] text-[12.5px] font-normal text-white/40">
+                  <span className="block font-['Barlow',_system-ui,_sans-serif] text-[13px] font-normal text-white/50">
                     {tier.detail}
                   </span>
                 </span>
@@ -119,17 +119,15 @@ export default function BoleteriaCredencial({
   return (
     <section aria-labelledby="boleteria-title">
       {/* Mobile: single column */}
-      <div className="lg:hidden mx-auto w-full max-w-[560px] rounded-[24px] border border-[#2A2A2A] bg-[#121212] px-[14px] pb-[22px] pt-[26px] text-center">
-        <div className="mb-[22px] text-left md:mb-[28px]">
-          <div className="border-l-4 border-[#F5CE3E] pl-[14px]">
-            <h2
-              id="boleteria-title"
-              className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[40px] font-normal leading-[0.95] tracking-[0.3px] text-white md:text-[48px]"
-            >
-              ¡No te pierdas ni un solo juego de los{" "}
-              <span className="text-[#F5CE3E]">Cafeteros</span>!
-            </h2>
-          </div>
+      <div className="lg:hidden mx-auto w-full max-w-[560px] rounded-[24px] border border-[#2A2A2A] bg-[#121212] px-[16px] pb-[22px] pt-[24px] text-center">
+        <div className="mb-[18px] text-left md:mb-[24px]">
+          <h2
+            id="boleteria-title"
+            className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[38px] font-normal leading-[0.95] tracking-[0.3px] text-white md:text-[48px]"
+          >
+            ¡No te pierdas ni un solo juego de los{" "}
+            <span className="text-[#F5CE3E]">Cafeteros</span>!
+          </h2>
         </div>
 
         <CredencialCard ctaButton={ctaButton} />
@@ -139,15 +137,13 @@ export default function BoleteriaCredencial({
       <div className="hidden lg:flex items-center gap-[48px] mx-auto max-w-[1100px] rounded-[28px] border border-[#2A2A2A] bg-[#121212] px-[48px] py-[48px]">
         <div className="flex-1 text-left min-w-0">
           <div className="mb-[28px]">
-            <div className="border-l-4 border-[#F5CE3E] pl-[14px]">
-              <h2
-                className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[52px] font-normal leading-[0.95] tracking-[0.3px] text-white"
-                aria-hidden="true"
-              >
-                ¡No te pierdas ni un solo juego de los{" "}
-                <span className="text-[#F5CE3E]">Cafeteros</span>!
-              </h2>
-            </div>
+            <h2
+              className="font-['Bebas_Neue',_'Oswald',_Impact,_sans-serif] text-[52px] font-normal leading-[0.95] tracking-[0.3px] text-white"
+              aria-hidden="true"
+            >
+              ¡No te pierdas ni un solo juego de los{" "}
+              <span className="text-[#F5CE3E]">Cafeteros</span>!
+            </h2>
           </div>
         </div>
 
