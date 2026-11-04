@@ -10,7 +10,7 @@ const CTA_HREF = "https://cafeterosdeyaucovollyball.printcotickets.com/boletos";
 const HOME_GAMES: HomeGame[] = [
   { date: "2026-10-23", opponent: "Lares", isOpener: true },
   { date: "2026-10-30", opponent: "Naranjito" },
-  { date: "2026-11-06", opponent: "Carolina" },
+  { date: "2026-11-06", opponent: "Carolina", time: "8:00 PM" },
   { date: "2026-11-08", opponent: "Corozal" },
   { date: "2026-11-19", opponent: "Adjuntas" },
   { date: "2026-11-25", opponent: "Lares" },

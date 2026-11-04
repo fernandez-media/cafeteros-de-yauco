@@ -341,7 +341,7 @@ const Calendario = () => {
                             {isTBD ? 'TBD' : `${weekday?.substring(0, 3)} ${day} ${group.month.substring(0, 3)}`}
                           </p>
                           <p className="text-gold/70 text-sm mt-1 m-0">
-                            {game.time || '7:00 PM'}
+                            {game.kickoff || game.time || '7:00 PM'}
                           </p>
                           {isNext && (
                             <span

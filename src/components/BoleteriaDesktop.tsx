@@ -6,6 +6,7 @@ export type HomeGame = {
   date: string;
   opponent: string;
   isOpener?: boolean;
+  time?: string;
 };
 
 export const FALLBACK_HOME_GAMES: HomeGame[] = [
@@ -137,7 +138,7 @@ export default function BoleteriaDesktop({
                           {weekday} {day} {month}
                         </p>
                         <p className="text-[#F5CE3E]/70 text-sm mt-1 m-0">
-                          7:00 PM
+                          {game.time || "7:00 PM"}
                         </p>
                         {isFirst && (
                           <span

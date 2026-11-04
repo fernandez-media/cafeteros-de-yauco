@@ -1,6 +1,7 @@
 export interface Game {
   date: string;
   time: string;
+  kickoff?: string;
   opponent: string;
   location: string;
   isHome: boolean;
@@ -13,7 +14,7 @@ export const calendar: Game[] = [
   { date: 'Octubre 25', time: '', opponent: 'Plataneros de Corozal', location: 'Carmen Zoraida Figueroa, Corozal', isHome: false, score: '3-2', result: 'W' },
   { date: 'Octubre 30', time: '', opponent: 'Changos de Naranjito', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true, score: '3-0', result: 'W' },
   { date: 'Noviembre 1', time: '', opponent: 'Gigantes de Adjuntas', location: 'Coliseo Rafael Llull Pérez, Adjuntas', isHome: false, score: '3-2', result: 'W' },
-  { date: 'Noviembre 6', time: '', opponent: 'Gigantes de Carolina', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
+  { date: 'Noviembre 6', time: '', kickoff: '8:00 PM', opponent: 'Gigantes de Carolina', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
   { date: 'Noviembre 8', time: '', opponent: 'Plataneros de Corozal', location: 'Coliseo Raúl Pipote Oliveras, Yauco', isHome: true },
   { date: 'Noviembre 12', time: '', opponent: 'Patriotas de Lares', location: 'Coliseo Félix "Amiguito" Méndez, Lares', isHome: false },
   { date: 'Noviembre 14', time: '', opponent: 'Changos de Naranjito', location: 'Coliseo Gelito Ortega, Naranjito', isHome: false },
