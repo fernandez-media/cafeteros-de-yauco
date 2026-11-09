@@ -171,13 +171,13 @@ const Roster = () => {
             ].map((section, si, arr) => (
               <div
                 key={si}
-                className="flex items-baseline justify-between px-4 py-3 lg:px-6 lg:py-3.5"
+                className="flex items-baseline justify-between gap-3 px-4 py-2.5 lg:px-6 lg:py-3.5"
                 style={si < arr.length - 1 ? { borderBottom: '1px solid rgba(255, 255, 255, 0.05)' } : undefined}
               >
-                <span className="font-display font-bold text-[13px] lg:text-sm uppercase text-white/40 tracking-wide flex-shrink-0">
+                <span className="font-display font-bold text-[11px] lg:text-sm uppercase text-white/40 tracking-wide flex-shrink-0">
                   {section.title}
                 </span>
-                <span className="font-display font-bold text-[14px] lg:text-base text-white uppercase text-right">
+                <span className="font-display font-bold text-[12px] lg:text-base text-white uppercase text-right">
                   {section.members.map(m => m.name).join(', ')}
                 </span>
               </div>
