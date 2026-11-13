@@ -76,25 +76,31 @@ const Calendario = () => {
   return (
     <div className="min-h-screen -mt-14">
       {/* Hero */}
-      <div className="relative w-full overflow-hidden bg-black">
+      <div className="relative w-full overflow-hidden bg-black lg:min-h-[640px] lg:flex lg:flex-col lg:justify-end">
         {/* Hero background image (both mobile + desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-[center_15%] lg:bg-[center_30%] opacity-35 lg:opacity-25 grayscale-[0.5] contrast-[1.1]"
+          className="absolute inset-0 bg-cover bg-[center_15%] lg:bg-[center_45%] opacity-35 lg:opacity-70 grayscale-[0.5] lg:grayscale-0 contrast-[1.1] lg:contrast-[1.05]"
           style={{ backgroundImage: `url(${laCunaCancha})` }}
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0"
+          className="absolute inset-0 lg:hidden"
           style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 50%, #000 100%)' }}
+        />
+        {/* Desktop: dark top so the dock reads, clear middle so the court shows, solid black at the seam */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 hidden lg:block"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.85) 82%, #000 100%)' }}
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 hidden lg:block"
-          style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 80%)' }}
+          style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 55%, transparent 40%, rgba(0,0,0,0.55) 100%)' }}
         />
 
-        <div className="pt-28 pb-10 lg:pt-44 lg:pb-24 px-5 lg:px-12 max-w-[1400px] mx-auto relative">
+        <div className="pt-28 pb-10 lg:pt-64 lg:pb-14 px-5 lg:px-12 max-w-[1400px] w-full mx-auto relative">
           <span
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-black text-[72px] lg:text-[160px] uppercase leading-none whitespace-nowrap tracking-tight pointer-events-none select-none"
             style={{ color: 'rgba(255, 215, 0, 0.03)' }}
@@ -111,10 +117,10 @@ const Calendario = () => {
           </Link>
 
           <div className="text-center relative z-10">
-            <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight">
+            <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight lg:[text-shadow:0_4px_30px_rgba(0,0,0,0.6)]">
               Calendario
             </h1>
-            <p className="text-white/40 text-xs lg:text-sm mt-2 m-0 uppercase tracking-[0.12em]">
+            <p className="text-white/40 lg:text-white/70 text-xs lg:text-sm mt-2 lg:mt-4 m-0 uppercase tracking-[0.12em]">
               Octubre a Diciembre 2026
             </p>
           </div>
