@@ -73,6 +73,9 @@ const Calendario = () => {
   const nextDay = nextGame ? nextGame.date.split(' ')[1] : '';
   const nextWeekday = nextMonth && nextDay ? getDayOfWeek(nextMonth, parseInt(nextDay)) : '';
 
+  const wins = calendar.filter(g => g.result === 'W').length;
+  const losses = calendar.filter(g => g.result === 'L').length;
+
   return (
     <div className="min-h-screen -mt-14">
       {/* Hero */}
@@ -100,7 +103,7 @@ const Calendario = () => {
           style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 55%, transparent 40%, rgba(0,0,0,0.55) 100%)' }}
         />
 
-        <div className="pt-28 pb-10 lg:pt-64 lg:pb-14 px-5 lg:px-12 max-w-[1400px] w-full mx-auto relative">
+        <div className="pt-20 pb-6 lg:pt-64 lg:pb-14 px-5 lg:px-12 max-w-[1400px] w-full mx-auto relative">
           <span
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-black text-[72px] lg:text-[160px] uppercase leading-none whitespace-nowrap tracking-tight pointer-events-none select-none"
             style={{ color: 'rgba(255, 215, 0, 0.03)' }}
@@ -120,9 +123,16 @@ const Calendario = () => {
             <h1 className="font-display font-black text-5xl lg:text-8xl uppercase text-white leading-[0.95] m-0 tracking-tight lg:[text-shadow:0_4px_30px_rgba(0,0,0,0.6)]">
               Calendario
             </h1>
-            <p className="text-white/40 lg:text-white/70 text-xs lg:text-sm mt-2 lg:mt-4 m-0 uppercase tracking-[0.12em]">
+            <p className="text-white/40 lg:text-white/70 text-xs lg:text-sm mt-1.5 lg:mt-4 m-0 uppercase tracking-[0.12em]">
               Octubre a Diciembre 2026
             </p>
+            {(wins > 0 || losses > 0) && (
+              <div className="flex items-center justify-center gap-3 mt-2 lg:mt-3">
+                <span className="font-display font-black text-sm lg:text-base text-gold">{wins}W</span>
+                <span className="text-white/20 text-xs">—</span>
+                <span className="font-display font-black text-sm lg:text-base text-red-500/80">{losses}L</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -130,13 +140,13 @@ const Calendario = () => {
       <div className="max-w-[1400px] mx-auto">
         {/* Next Game */}
         {nextGame && (
-          <div className="px-5 lg:px-12 pt-5 lg:pt-10">
+          <div className="px-5 lg:px-12 pt-4 lg:pt-10">
             <ScrollReveal variant="blur" distance={30}>
               <p className="text-[11px] font-bold uppercase tracking-[0.15em] mb-2.5 m-0" style={{ color: 'rgba(255, 215, 0, 0.6)' }}>
                 Próximo partido
               </p>
               <div
-                className="rounded-2xl p-4 lg:p-6 relative overflow-hidden"
+                className="rounded-2xl p-3.5 lg:p-6 relative overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255,215,0,0.07), rgba(255,215,0,0.02))',
                   border: '1px solid rgba(255, 215, 0, 0.15)',
@@ -148,22 +158,22 @@ const Calendario = () => {
                     <img
                       src={teamLogo(nextOppKey)}
                       alt={nextGame.opponent}
-                      width="60"
-                      height="60"
+                      width="52"
+                      height="52"
                       loading="eager"
-                      className="w-[60px] h-[60px] lg:w-20 lg:h-20 object-contain flex-shrink-0"
+                      className="w-[52px] h-[52px] lg:w-20 lg:h-20 object-contain flex-shrink-0"
                     />
                   ) : (
-                    <div className="w-[60px] h-[60px] lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
+                    <div className="w-[52px] h-[52px] lg:w-20 lg:h-20 rounded-full bg-white/10 flex-shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="font-display font-bold text-[17px] lg:text-xl text-white uppercase m-0 truncate">
+                    <p className="font-display font-bold text-[15px] lg:text-xl text-white uppercase m-0 truncate">
                       vs {nextGame.opponent}
                     </p>
-                    <p className="text-white/45 text-[13px] lg:text-sm mt-1 m-0 truncate">
+                    <p className="text-white/45 text-[12px] lg:text-sm mt-0.5 m-0 truncate">
                       {nextWeekday}, {nextDay} de {nextMonth}
                     </p>
-                    <p className="text-white/30 text-[12px] lg:text-xs mt-0.5 m-0 truncate flex items-center gap-1.5">
+                    <p className="text-white/30 text-[10px] lg:text-xs mt-0.5 m-0 truncate flex items-center gap-1.5">
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                       {nextGame.location}
                     </p>
@@ -191,13 +201,13 @@ const Calendario = () => {
         )}
 
         {/* Filter Tabs */}
-        <div className="px-5 lg:px-12 pt-8">
+        <div className="px-5 lg:px-12 pt-5 lg:pt-8">
           <div className="flex gap-2">
             {(['todos', 'local', 'visitante'] as Filter[]).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className="px-5 py-2 rounded-full text-[12px] font-bold uppercase tracking-wider transition-all duration-200 border-0 cursor-pointer"
+                className="px-4 py-1.5 lg:px-5 lg:py-2 rounded-full text-[11px] lg:text-[12px] font-bold uppercase tracking-wider transition-all duration-200 border-0 cursor-pointer"
                 style={{
                   backgroundColor: filter === f ? 'rgba(255, 215, 0, 0.15)' : 'rgba(255, 255, 255, 0.05)',
                   color: filter === f ? '#FFD700' : 'rgba(255, 255, 255, 0.4)',
@@ -213,7 +223,7 @@ const Calendario = () => {
         {months.map((group, gi) => (
           <div
             key={group.month}
-            className={`pt-8 lg:pt-10 pb-3 lg:pb-0 ${gi % 2 === 1 ? 'mx-[-20px] px-[40px] lg:mx-0 lg:px-12' : 'px-5 lg:px-12'}`}
+            className={`pt-6 lg:pt-10 pb-3 lg:pb-0 px-5 lg:px-12 ${gi % 2 === 1 ? 'lg:mx-0' : ''}`}
             style={gi % 2 === 1 ? {
               backgroundColor: 'rgba(255, 215, 0, 0.025)',
               borderTop: '1px solid rgba(255, 215, 0, 0.06)',
@@ -229,7 +239,7 @@ const Calendario = () => {
             )}
 
             <ScrollReveal variant="blur" distance={30}>
-              <div className="flex items-center gap-4 mb-4 lg:mb-6">
+              <div className="flex items-center gap-3 mb-3 lg:mb-6">
                 <h2 className="font-display font-black text-2xl lg:text-4xl uppercase text-white m-0 tracking-tight">
                   {group.month === 'TBD' ? 'Por confirmar' : (
                     <>
@@ -246,7 +256,7 @@ const Calendario = () => {
             </ScrollReveal>
 
             {/* ─── Mobile: compact cards ─── */}
-            <div className="flex flex-col gap-3 lg:hidden">
+            <div className="flex flex-col gap-2 lg:hidden">
               {group.games.map((game, i) => {
                 const oppKey = getOppKey(game.opponent);
                 const isTBD = game.date === 'TBD';
@@ -257,7 +267,7 @@ const Calendario = () => {
                 return (
                   <ScrollReveal key={`m-${gi}-${i}`} delay={i * 0.06} variant="left" distance={50}>
                     <div
-                      className="flex items-center gap-3 rounded-2xl p-3 transition-all duration-300"
+                      className="flex items-center gap-2.5 rounded-xl p-2.5 transition-all duration-300"
                       style={{
                         backgroundColor: 'rgba(255, 255, 255, 0.025)',
                         border: '1px solid rgba(255, 215, 0, 0.08)',
@@ -268,14 +278,14 @@ const Calendario = () => {
                         <img
                           src={teamLogo(oppKey)}
                           alt={game.opponent}
-                          width="56"
-                          height="56"
+                          width="48"
+                          height="48"
                           loading="lazy"
                           decoding="async"
-                          className="w-14 h-14 object-contain flex-shrink-0"
+                          className="w-12 h-12 object-contain flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-14 h-14 rounded-full bg-white/10 flex-shrink-0" />
+                        <div className="w-12 h-12 rounded-full bg-white/10 flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="font-display font-bold text-[14px] text-white uppercase m-0 truncate">
@@ -291,11 +301,11 @@ const Calendario = () => {
                       </div>
                       <div className="flex-shrink-0 text-right">
                         {game.result ? (
-                          <span className="flex items-center gap-2">
-                            <span className={`font-display font-black text-lg ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>
+                          <span className="flex items-center gap-1.5">
+                            <span className={`font-display font-black text-base ${game.result === 'W' ? 'text-gold' : 'text-red-500'}`}>
                               {game.result}
                             </span>
-                            <span className="text-white/60 font-semibold text-[15px]">
+                            <span className="text-white/60 font-semibold text-[14px]">
                               {game.score}
                             </span>
                           </span>
@@ -437,7 +447,7 @@ const Calendario = () => {
           </div>
         ))}
 
-        <div className="h-20" />
+        <div className="h-6 lg:h-20" />
       </div>
     </div>
   );
