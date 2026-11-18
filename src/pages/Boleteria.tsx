@@ -12,7 +12,7 @@ const HOME_GAMES: HomeGame[] = [
   { date: "2026-10-30", opponent: "Naranjito" },
   { date: "2026-11-06", opponent: "Carolina", time: "8:00 PM" },
   { date: "2026-11-08", opponent: "Corozal" },
-  { date: "2026-11-19", opponent: "Adjuntas" },
+  { date: "2026-11-19", opponent: "Adjuntas", time: "8:00 PM" },
   { date: "2026-11-25", opponent: "Lares" },
   { date: "2026-12-04", opponent: "Naranjito" },
 ];
